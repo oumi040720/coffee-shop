@@ -1,11 +1,17 @@
 package com.fpoly.coffeeshop.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "roles")
@@ -24,6 +30,10 @@ public class RoleEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
+
+	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<UserEntity> users;
 
 	public Integer getId() {
 		return id;
@@ -55,6 +65,14 @@ public class RoleEntity {
 
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
+	}
+
+	public List<UserEntity> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<UserEntity> users) {
+		this.users = users;
 	}
 
 }
