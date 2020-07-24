@@ -45,4 +45,58 @@ public class RoleService implements IRoleService {
 		return result;
 	}
 	
+	@Override
+	public RoleDTO findOne(Integer id) {
+		return roleConveter.convertToDTO(roleRepository.getOne(id));
+	}
+	
+	@Override
+	public RoleDTO findOne(String roleCode) {
+		return roleConveter.convertToDTO(roleRepository.findOneByRoleCode(roleCode));
+	}
+	
+	@Override
+	public Boolean insert(RoleDTO roleDTO) {
+		try {
+			RoleEntity result = roleRepository.save(roleConveter.convertToEntity(roleDTO));
+			
+			if (result != null) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public Boolean update(RoleDTO roleDTO) {
+		try {
+			RoleEntity oldRole = roleRepository.getOne(roleDTO.getId());
+			RoleEntity newRole = roleConveter.convertToEntity(roleDTO, oldRole);
+			
+			RoleEntity result = roleRepository.save(newRole);
+			
+			if (result != null) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean delete(Integer id) {
+		try {
+			roleRepository.deleteById(id);
+			
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
 }

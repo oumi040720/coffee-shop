@@ -10,6 +10,8 @@ import com.fpoly.coffeeshop.entity.RoleEntity;
 @Repository
 public interface IRoleRepository extends JpaRepository<RoleEntity, Integer> {
 
+	public RoleEntity findOneByRoleCode(String roleCode);
+	
 	public List<RoleEntity> findAllByFlagDeleteIs(Boolean flagDelete);
 	
 }
