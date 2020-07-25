@@ -18,8 +18,8 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
 	
 	public Page<UserEntity> findAllByFlagDeleteIs(Boolean flagDelete, Pageable pageable);
 	
-	public List<UserEntity> findAllByUsernameLike(String username);
+	public List<UserEntity> findAllByUsernameContaining(String username);
 	
-	public Page<UserEntity> findAllByUsernameLike(String username, Pageable pageable);
+	public Page<UserEntity> findAllByUsernameContaining(String username, Pageable pageable);
 	
 }

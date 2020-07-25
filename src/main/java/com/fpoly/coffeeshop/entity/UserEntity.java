@@ -26,7 +26,7 @@ public class UserEntity {
 	@Column(name = "username")
 	private String username;
 
-	@Column(name = "username")
+	@Column(name = "password")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
