@@ -15,45 +15,45 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fpoly.coffeeshop.dto.RoleDTO;
 import com.fpoly.coffeeshop.service.IRoleService;
 
-@RestController
+@RestController(value = "/api/role")
 public class RoleAPI {
 
 	@Autowired
 	private IRoleService roleService;
 	
-	@GetMapping(value = "/api/role/list")
+	@GetMapping(value = "/list")
 	public List<RoleDTO> findAll() {
 		return roleService.findAll();
 	}
 	
-	@GetMapping(value = "/api/role/list/flag_delete/{flag_delete}")
+	@GetMapping(value = "/list/flag_delete/{flag_delete}")
 	public List<RoleDTO> findAll(@PathVariable("flag_delete") boolean flagDelete) {
 		return roleService.findAllByFlagDelete(flagDelete);
 	}
 	
-	@GetMapping(value = "/api/role/id/{id}")
+	@GetMapping(value = "/id/{id}")
 	public RoleDTO findOne(@PathVariable("id") Integer id) {
 		return roleService.findOne(id);
 	}
 	
-	@GetMapping(value = "/api/role/role_code/{roleCode}")
+	@GetMapping(value = "/role_code/{roleCode}")
 	public RoleDTO findOne(@PathVariable("roleCode") String roleCode) {
 		return roleService.findOne(roleCode);
 	}
 	
-	@PostMapping(value = "/api/role/insert")
+	@PostMapping(value = "/insert")
 	public Boolean insert(@RequestBody RoleDTO roleDTO) {
 		return roleService.insert(roleDTO);
 	}
 	
-	@PutMapping(value = "/api/role/update")
+	@PutMapping(value = "/update")
 	public Boolean update(@RequestBody RoleDTO roleDTO, @RequestParam("id") Integer id) {
 		roleDTO.setId(id);
 		
 		return roleService.update(roleDTO);
 	}
 	
-	@DeleteMapping(value = "/api/role/delete")
+	@DeleteMapping(value = "/delete")
 	public Boolean delete(@RequestParam("id") Integer id) {
 		return roleService.delete(id);
 	}

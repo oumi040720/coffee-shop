@@ -14,6 +14,12 @@ public interface IUserService {
 	
 	public List<UserDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit); 
 	
+	public List<UserDTO> findAllByUsername(String key); 
+	
+	public Integer getTotalPagesByUsername(String key, Integer page, Integer limit); 
+	
+	public List<UserDTO> findAllByUsername(String key, Integer page, Integer limit); 
+	
 	public UserDTO findOne(Long id);
 	
 	public UserDTO findOne(String username);

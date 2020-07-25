@@ -71,6 +71,37 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
+	public List<UserDTO> findAllByUsername(String key) {
+		List<UserEntity> list = userRepository.findAllByUsernameLike(key);
+		List<UserDTO> result = new ArrayList<>();
+		
+		for (UserEntity user : list) {
+			result.add(userConveter.convertToDTO(user));
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public Integer getTotalPagesByUsername(String key, Integer page, Integer limit) {
+		return userRepository.findAllByUsernameLike(key, PageRequest.of(page, limit))
+							 .getTotalPages();
+	}
+	
+	@Override
+	public List<UserDTO> findAllByUsername(String key, Integer page, Integer limit) {
+		List<UserEntity> list = userRepository.findAllByUsernameLike(key, PageRequest.of(page, limit))
+											  .getContent();
+		List<UserDTO> result = new ArrayList<>();
+		
+		for (UserEntity user : list) {
+			result.add(userConveter.convertToDTO(user));
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public UserDTO findOne(Long id) {
 		return userConveter.convertToDTO(userRepository.getOne(id));
 	}
