@@ -1,5 +1,6 @@
 package com.fpoly.coffeeshop.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,8 @@ public class MenuEntity {
 	@Column(name = "flag_delete")
 	private Boolean flagdelete;
 	
-	
-	
 }
+	
+	
+	
+
