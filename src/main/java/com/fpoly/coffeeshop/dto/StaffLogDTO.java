@@ -1,69 +1,37 @@
-package com.fpoly.coffeeshop.entity;
+package com.fpoly.coffeeshop.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+public class StaffLogDTO {
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-@Entity
-@Table(name = "staff_logs")
-public class StaffLogEntity {
-
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "created_date")
 	private Date createdDate;
 
-	@Column(name = "create_bBy")
 	private String createdBy;
 
-	@Column(name = "modified_date")
 	private Date modifiedDate;
 
-	@Column(name = "modified_by")
 	private String modifiedBy;
 
-	@Column(name = "old_fullname")
 	private String oldFullname;
 
-	@Column(name = "old_birthday")
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date oldBirthday;
 
-	@Column(name = "old_email")
 	private String oldEmail;
 
-	@Column(name = "old_phone")
 	private String oldPhone;
 
-	@Column(name = "old_address")
 	private String oldAddress;
 
-	@Column(name = "old_photo")
 	private String oldPhoto;
 
-	@Column(name = "old_staff_id")
 	private String oldStaffID;
 
-	@Column(name = "old_user_id")
 	private String oldUserID;
 
-	@Column(name = "old_username")
 	private String oldUsername;
 
-	@Column(name = "old_flag_delete")
 	private Boolean oldFlagDelete;
 
 	public Long getId() {
