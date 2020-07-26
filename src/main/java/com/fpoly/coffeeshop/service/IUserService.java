@@ -8,11 +8,13 @@ public interface IUserService {
 
 	public List<UserDTO> findAll();
 	
+	
 	public List<UserDTO> findAllByFlagDelete(Boolean flagDelete); 
 	
 	public Integer getTotalPages(Boolean flagDelete, Integer page, Integer limit); 
 	
 	public List<UserDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit); 
+	
 	
 	public List<UserDTO> findAllByUsername(String key); 
 	
@@ -20,9 +22,18 @@ public interface IUserService {
 	
 	public List<UserDTO> findAllByUsername(String key, Integer page, Integer limit); 
 	
+	
+	public List<UserDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String key); 
+	
+	public Integer getTotalPagesByFlagDeleteAndUsername(Boolean flagDelete, String key, Integer page, Integer limit); 
+	
+	public List<UserDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String key, Integer page, Integer limit); 
+
+	
 	public UserDTO findOne(Long id);
 	
 	public UserDTO findOne(String username);
+	
 	
 	public Boolean insert(UserDTO userDTO);
 	

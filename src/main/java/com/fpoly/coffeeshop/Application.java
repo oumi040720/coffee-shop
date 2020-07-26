@@ -10,6 +10,4 @@ public class Application {
 		SpringApplication.run(Application.class);
 	}
 	
-	// user search(key, flagDelete, page, limit)
-	
 }

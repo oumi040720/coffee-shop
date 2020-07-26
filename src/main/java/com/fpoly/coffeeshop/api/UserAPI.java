@@ -27,18 +27,18 @@ public class UserAPI {
 	}
 	
 	@GetMapping(value = "/api/user/list/flag_delete/{flag_delete}")
-	public List<UserDTO> findAll(@PathVariable("flag_delete") boolean flagDelete) {
+	public List<UserDTO> findAll(@PathVariable("flag_delete") Boolean flagDelete) {
 		return userService.findAllByFlagDelete(flagDelete);
 	}
 
 	@GetMapping(value = "/api/user/flag_delete/total_pages")
-	public Integer getTotalPages(@RequestParam("flag_delete") boolean flagDelete, @RequestParam("page") Integer page, 
+	public Integer getTotalPages(@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page, 
 								 @RequestParam("limit") Integer limit) {
 		return userService.getTotalPages(flagDelete, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/user/flag_delete/list")
-	public List<UserDTO> findAllByFlagDelete(@RequestParam("flag_delete") boolean flagDelete, @RequestParam("page") Integer page, 
+	public List<UserDTO> findAllByFlagDelete(@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page, 
 											@RequestParam("limit") Integer limit) {
 		return userService.findAllByFlagDelete(flagDelete, page - 1, limit);
 	}
@@ -58,6 +58,23 @@ public class UserAPI {
 	public List<UserDTO> findAllByUsername(@RequestParam("key") String key, @RequestParam("page") Integer page, 
 											@RequestParam("limit") Integer limit) {
 		return userService.findAllByUsername(key, page - 1, limit);
+	}
+	
+	@GetMapping(value = "/api/user/flag_delete/{flagDelete}/search/{key}")
+	public List<UserDTO> findAllByFlagDeleteAndUsername(@PathVariable("flagDelete") Boolean flagDelete, @PathVariable("key") String key) {
+		return userService.findAllByFlagDeleteAndUsername(flagDelete, key);
+	}
+	
+	@GetMapping(value = "/api/user/flag_delete/search/total_pages")
+	public Integer getTotalPagesByFlagDeleteAndUsername(@RequestParam("key") String key, @RequestParam("flag_delete") Boolean flagDelete, 
+														@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+		return userService.getTotalPagesByFlagDeleteAndUsername(flagDelete, key, page - 1, limit);
+	}
+	
+	@GetMapping(value = "/api/user/flag_delete/search/list")
+	public List<UserDTO> findAllByFlagDeleteAndUsername(@RequestParam("key") String key, @RequestParam("flag_delete") Boolean flagDelete,
+														@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
+		return userService.findAllByFlagDeleteAndUsername(flagDelete, key, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/user/id/{id}")
