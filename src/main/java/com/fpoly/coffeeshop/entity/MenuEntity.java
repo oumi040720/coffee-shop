@@ -1,17 +1,23 @@
 package com.fpoly.coffeeshop.entity;
 
+<<<<<<< HEAD
 
 import java.util.Collection;
 
+=======
+>>>>>>> 154b2cf53f765a5b66f12ec2107f1172f5dffb80
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+=======
+>>>>>>> 154b2cf53f765a5b66f12ec2107f1172f5dffb80
 import javax.persistence.Table;
 
 @Entity
