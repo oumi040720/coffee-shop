@@ -1,29 +1,39 @@
 package com.fpoly.coffeeshop.dto;
 
-public class RoleDTO {
+public class UserDTO {
 
-	private Integer id;
+	private Long id;
 
-	private String roleName;
+	private String username;
+
+	private String password;
 
 	private String roleCode;
 
 	private Boolean flagDelete;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getRoleName() {
-		return roleName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getRoleCode() {

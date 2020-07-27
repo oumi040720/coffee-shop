@@ -1,23 +1,24 @@
 package com.fpoly.coffeeshop.entity;
 
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "customers")
-public class CustomersEntity {
+@Table(name = "staffs")
+public class StaffEntity {
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,11 @@ public class CustomersEntity {
 
 	@Column(name = "fullname")
 	private String fullname;
+
+	@Column(name = "birthday")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date birthday;
 
 	@Column(name = "email")
 	private String email;
@@ -34,6 +40,10 @@ public class CustomersEntity {
 
 	@Column(name = "address")
 	private String address;
+
+	@Column(name = "photo")
+	private String photo;
+
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
@@ -55,6 +65,14 @@ public class CustomersEntity {
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+	}
+
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 
 	public String getEmail() {
@@ -81,6 +99,14 @@ public class CustomersEntity {
 		this.address = address;
 	}
 
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
 	public UserEntity getUser() {
 		return user;
 	}
@@ -97,17 +123,4 @@ public class CustomersEntity {
 		this.flagDelete = flagDelete;
 	}
 
-	public List<OrderEntity> getOrder() {
-		return order;
-	}
-
-	public void setOrder(List<OrderEntity> order) {
-		this.order = order;
-	}
-
-	@OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<OrderEntity> order;
-
-	
 }
