@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,7 +27,7 @@ public class UserEntity {
 	@Column(name = "username")
 	private String username;
 
-	@Column(name = "username")
+	@Column(name = "password")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
@@ -37,6 +38,9 @@ public class UserEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
+
+	@OneToOne(mappedBy = "user")
+	private StaffEntity staff;
 
 	public Long getId() {
 		return id;
@@ -76,6 +80,14 @@ public class UserEntity {
 
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
+	}
+
+	public StaffEntity getStaff() {
+		return staff;
+	}
+
+	public void setStaff(StaffEntity staff) {
+		this.staff = staff;
 	}
 
 }

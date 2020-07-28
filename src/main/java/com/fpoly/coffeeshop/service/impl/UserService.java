@@ -71,6 +71,68 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
+	public List<UserDTO> findAllByUsername(String key) {
+		List<UserEntity> list = userRepository.findAllByUsernameContaining(key);
+		List<UserDTO> result = new ArrayList<>();
+		
+		for (UserEntity user : list) {
+			result.add(userConveter.convertToDTO(user));
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public Integer getTotalPagesByUsername(String key, Integer page, Integer limit) {
+		return userRepository.findAllByUsernameContaining(key, PageRequest.of(page, limit))
+							 .getTotalPages();
+	}
+	
+	@Override
+	public List<UserDTO> findAllByUsername(String key, Integer page, Integer limit) {
+		List<UserEntity> list = userRepository.findAllByUsernameContaining(key, PageRequest.of(page, limit))
+											  .getContent();
+		List<UserDTO> result = new ArrayList<>();
+		
+		for (UserEntity user : list) {
+			result.add(userConveter.convertToDTO(user));
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<UserDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String key) {
+		List<UserEntity> list = userRepository.findAllByFlagDeleteIsAndUsernameContaining(flagDelete, key);
+		List<UserDTO> result = new ArrayList<>();
+		
+		for (UserEntity user : list) {
+			result.add(userConveter.convertToDTO(user));
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public Integer getTotalPagesByFlagDeleteAndUsername(Boolean flagDelete, String key, Integer page, Integer limit) {
+		return userRepository.findAllByFlagDeleteIsAndUsernameContaining(flagDelete, key, PageRequest.of(page, limit))
+							 .getTotalPages();
+	}
+	
+	@Override
+	public List<UserDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String key, Integer page, Integer limit) {
+		List<UserEntity> list = userRepository.findAllByFlagDeleteIsAndUsernameContaining(flagDelete, key, PageRequest.of(page, limit))
+											  .getContent();
+		List<UserDTO> result = new ArrayList<>();
+		
+		for (UserEntity user : list) {
+			result.add(userConveter.convertToDTO(user));
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public UserDTO findOne(Long id) {
 		return userConveter.convertToDTO(userRepository.getOne(id));
 	}
