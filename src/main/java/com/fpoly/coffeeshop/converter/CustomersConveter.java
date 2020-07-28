@@ -37,6 +37,7 @@ public class CustomersConveter {
 		entity.setEmail(dto.getEmail());
 		entity.setPhone(dto.getPhone());
 		entity.setAddress(dto.getAddress());
+		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}
 }
