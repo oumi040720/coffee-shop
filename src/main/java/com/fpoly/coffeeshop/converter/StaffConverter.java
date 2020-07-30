@@ -1,8 +1,11 @@
 package com.fpoly.coffeeshop.converter;
 
+import org.springframework.stereotype.Component;
+
 import com.fpoly.coffeeshop.dto.StaffDTO;
 import com.fpoly.coffeeshop.entity.StaffEntity;
 
+@Component
 public class StaffConverter {
 
 	public StaffDTO convertToDTO(StaffEntity entity) {

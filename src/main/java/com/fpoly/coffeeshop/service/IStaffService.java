@@ -28,4 +28,15 @@ public interface IStaffService {
 	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit);
 
 	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit);
+	
+	
+	public StaffDTO findOne(Long id);
+	
+	
+	public Boolean insert(StaffDTO userDTO);
+	
+	public Boolean update(StaffDTO userDTO);
+
+	public Boolean delete(Long id);
+	
 }
