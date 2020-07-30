@@ -1,7 +1,10 @@
 package com.fpoly.coffeeshop.entity;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 import java.util.Collection;
 import java.util.List;
 
@@ -21,22 +24,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "menu")
 public class MenuEntity {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "product_name")
+<<<<<<< HEAD
 	private String productName;
 	
+=======
+	private String productname;
+
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 	@Column(name = "photo")
 	private String photo;
-	
+
 	@Column(name = "price")
 	private Double price;
-	
+
 	@Column(name = "flag_delete")
+<<<<<<< HEAD
 	private Boolean flagDelete;
 	
 	@ManyToOne
@@ -45,6 +54,16 @@ public class MenuEntity {
 	
 	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER )
 	private List<MenuEntity> menuEntity;
+=======
+	private Boolean flagdelete;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Collection<CategoryEntity> CategoryEntity;
+
+	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER)
+	private Collection<MenuEntity> MenuEntity;
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 
 	public Integer getId() {
 		return id;
@@ -101,6 +120,7 @@ public class MenuEntity {
 	public void setMenuEntity(List<MenuEntity> menuEntity) {
 		this.menuEntity = menuEntity;
 	}
+<<<<<<< HEAD
 
 	
 
@@ -111,4 +131,7 @@ public class MenuEntity {
 	
 	
 	
+=======
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 
+}
