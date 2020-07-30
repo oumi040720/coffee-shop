@@ -1,6 +1,12 @@
 package com.fpoly.coffeeshop.entity;
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,8 +31,13 @@ public class MenuEntity {
 	private Integer id;
 
 	@Column(name = "product_name")
+<<<<<<< HEAD
+	private String productName;
+	
+=======
 	private String productname;
 
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 	@Column(name = "photo")
 	private String photo;
 
@@ -34,6 +45,16 @@ public class MenuEntity {
 	private Double price;
 
 	@Column(name = "flag_delete")
+<<<<<<< HEAD
+	private Boolean flagDelete;
+	
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private List<CategoryEntity> categoryEntity;
+	
+	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER )
+	private List<MenuEntity> menuEntity;
+=======
 	private Boolean flagdelete;
 
 	@ManyToOne
@@ -42,6 +63,7 @@ public class MenuEntity {
 
 	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER)
 	private Collection<MenuEntity> MenuEntity;
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 
 	public Integer getId() {
 		return id;
@@ -51,12 +73,12 @@ public class MenuEntity {
 		this.id = id;
 	}
 
-	public String getProductname() {
-		return productname;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setProductname(String productname) {
-		this.productname = productname;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public String getPhoto() {
@@ -75,28 +97,41 @@ public class MenuEntity {
 		this.price = price;
 	}
 
-	public Boolean getFlagdelete() {
-		return flagdelete;
+	public Boolean getFlagDelete() {
+		return flagDelete;
 	}
 
-	public void setFlagdelete(Boolean flagdelete) {
-		this.flagdelete = flagdelete;
+	public void setFlagDelete(Boolean flagDelete) {
+		this.flagDelete = flagDelete;
 	}
 
-	public Collection<CategoryEntity> getCategoryEntity() {
-		return CategoryEntity;
+	public List<CategoryEntity> getCategoryEntity() {
+		return categoryEntity;
 	}
 
-	public void setCategoryEntity(Collection<CategoryEntity> categoryEntity) {
-		CategoryEntity = categoryEntity;
+	public void setCategoryEntity(List<CategoryEntity> categoryEntity) {
+		this.categoryEntity = categoryEntity;
 	}
 
-	public Collection<MenuEntity> getMenuEntity() {
-		return MenuEntity;
+	public List<MenuEntity> getMenuEntity() {
+		return menuEntity;
 	}
 
-	public void setMenuEntity(Collection<MenuEntity> menuEntity) {
-		MenuEntity = menuEntity;
+	public void setMenuEntity(List<MenuEntity> menuEntity) {
+		this.menuEntity = menuEntity;
 	}
+<<<<<<< HEAD
+
+	
+
+	
+	
+	
+}
+	
+	
+	
+=======
+>>>>>>> eef9e434b909193765315ce6338fd222aba6063a
 
 }
