@@ -73,9 +73,9 @@ public interface ICustomersService {
 	
 	public CustomersDTO findOne( Long id);
 	
-	public Boolean insert(CustomersDTO customersDTO);
+	public Boolean insert(CustomersDTO userDTO);
 	
-	public Boolean  update(CustomersDTO customersDTO);
+	public Boolean  update(CustomersDTO userDTO);
 	
 	public Boolean delete(Long id);
 }

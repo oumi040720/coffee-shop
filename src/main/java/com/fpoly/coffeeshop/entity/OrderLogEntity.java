@@ -35,8 +35,13 @@ public class OrderLogEntity {
 	@Column(name = "old_menu_id")
 	private Integer oldMenuId;
 	
-	@Column(name = "old_order_id")
-	private Long oldOrderId;
+	@Column(name = "order_id")
+	private Long orderId;
+	
+	
+	@Column(name = "order_detail_id")
+	private Long orderDetailId;
+	
 	
 	@Column(name = "old_order_date")
 	private Date oldOrderDate;
@@ -109,12 +114,20 @@ public class OrderLogEntity {
 		this.oldMenuId = oldMenuId;
 	}
 
-	public Long getOldOrderId() {
-		return oldOrderId;
+	public Long getOrderId() {
+		return orderId;
 	}
 
-	public void setOldOrderId(Long oldOrderId) {
-		this.oldOrderId = oldOrderId;
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Long getOrderDetailId() {
+		return orderDetailId;
+	}
+
+	public void setOrderDetailId(Long orderDetailId) {
+		this.orderDetailId = orderDetailId;
 	}
 
 	public Date getOldOrderDate() {
@@ -157,5 +170,4 @@ public class OrderLogEntity {
 		this.oldFlagDelete = oldFlagDelete;
 	}
 
-	
 }

@@ -34,8 +34,22 @@ public interface ICusctomersRepository extends JpaRepository<CustomersEntity, Lo
 	
 	public Page<CustomersEntity> findAllByPhoneContaining(String phone, Pageable pageable);
 	
-	public List<CustomersEntity> findAllByFlagDeleteIsAndFullnameContainingOrAddressContainingOrEmailContainingOrPhoneContaining(Boolean flagDelete, String fullname, String address, String email, String phone);
+	public List<CustomersEntity> findAllByFlagDeleteIsAndFullnameContaining(Boolean flagDelete, String fullname);
 	
-	public Page<CustomersEntity> findAllByFlagDeleteIsAndFullnameContainingOrAddressContainingOrEmailContainingOrPhoneContaining(Boolean flagDelete, String fullname, String address, String email, String phone, Pageable pageable);
+	public Page<CustomersEntity> findAllByFlagDeleteIsAndFullnameContaining(Boolean flagDelete, String fullname, Pageable pageable);
+	
+	public List<CustomersEntity> findAllByFlagDeleteIsAndAddressContaining(Boolean flagDelete, String address);
+	
+	public Page<CustomersEntity> findAllByFlagDeleteIsAndAddressContaining(Boolean flagDelete, String address, Pageable pageable);
+	
+	
+	public List<CustomersEntity> findAllByFlagDeleteIsAndEmailContaining(Boolean flagDelete, String email);
+	
+	public Page<CustomersEntity> findAllByFlagDeleteIsAndEmailContaining(Boolean flagDelete, String email, Pageable pageable);
+	
+	
+	public List<CustomersEntity> findAllByFlagDeleteIsAndPhoneContaining(Boolean flagDelete, String phone);
+	
+	public Page<CustomersEntity> findAllByFlagDeleteIsAndPhoneContaining(Boolean flagDelete, String phone, Pageable pageable);
 	
 }

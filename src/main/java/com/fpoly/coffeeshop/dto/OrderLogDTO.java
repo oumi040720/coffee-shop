@@ -18,7 +18,9 @@ public class OrderLogDTO {
 	
 	private Integer oldMenuId;
 	
-	private Long oldOrderId;
+	private Long orderId;
+	
+	private Long orderDetailID;
 	
 	private Date oldOrderDate;
 	
@@ -86,12 +88,20 @@ public class OrderLogDTO {
 		this.oldMenuId = oldMenuId;
 	}
 
-	public Long getOldOrderId() {
-		return oldOrderId;
+	public Long getOrderId() {
+		return orderId;
 	}
 
-	public void setOldOrderId(Long oldOrderId) {
-		this.oldOrderId = oldOrderId;
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
+
+	public Long getOrderDetailID() {
+		return orderDetailID;
+	}
+
+	public void setOrderDetailID(Long orderDetailID) {
+		this.orderDetailID = orderDetailID;
 	}
 
 	public Date getOldOrderDate() {
@@ -133,4 +143,6 @@ public class OrderLogDTO {
 	public void setOldFlagDelete(Boolean oldFlagDelete) {
 		this.oldFlagDelete = oldFlagDelete;
 	}
+
+	
 }
