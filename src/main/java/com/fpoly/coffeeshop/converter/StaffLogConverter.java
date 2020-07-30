@@ -1,8 +1,11 @@
 package com.fpoly.coffeeshop.converter;
 
+import org.springframework.stereotype.Component;
+
 import com.fpoly.coffeeshop.dto.StaffLogDTO;
 import com.fpoly.coffeeshop.entity.StaffLogEntity;
 
+@Component
 public class StaffLogConverter {
 
 	public StaffLogDTO convertToDTO(StaffLogEntity entity) {
@@ -18,7 +21,7 @@ public class StaffLogConverter {
 		dto.setOldPhone(entity.getOldPhone());
 		dto.setOldAddress(entity.getOldAddress());
 		dto.setOldPhoto(entity.getOldPhoto());
-		dto.setOldStaffID(entity.getOldStaffID());
+		dto.setStaffID(entity.getStaffID());
 		dto.setOldUserID(entity.getOldUserID());
 		dto.setOldUsername(entity.getOldUsername());
 		dto.setOldFlagDelete(entity.getOldFlagDelete());
@@ -39,7 +42,7 @@ public class StaffLogConverter {
 		entity.setOldPhone(dto.getOldPhone());
 		entity.setOldAddress(dto.getOldAddress());
 		entity.setOldPhoto(dto.getOldPhoto());
-		entity.setOldStaffID(dto.getOldStaffID());
+		entity.setStaffID(dto.getStaffID());
 		entity.setOldUserID(dto.getOldUserID());
 		entity.setOldUsername(dto.getOldUsername());
 		entity.setOldFlagDelete(dto.getOldFlagDelete());
