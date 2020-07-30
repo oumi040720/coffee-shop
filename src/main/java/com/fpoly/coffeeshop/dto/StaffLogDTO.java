@@ -14,6 +14,8 @@ public class StaffLogDTO {
 
 	private String modifiedBy;
 
+	private String staffID;
+	
 	private String oldFullname;
 
 	private Date oldBirthday;
@@ -25,8 +27,6 @@ public class StaffLogDTO {
 	private String oldAddress;
 
 	private String oldPhoto;
-
-	private String staffID;
 
 	private String oldUserID;
 
