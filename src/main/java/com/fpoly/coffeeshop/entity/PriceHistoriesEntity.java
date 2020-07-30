@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "price_histories")
-public class PriceEntity {
+public class PriceHistoriesEntity {
 	
 	@Id
 	@Column(name = "id")
@@ -26,21 +26,21 @@ public class PriceEntity {
 	
 	@Column(name = "start_date", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date startdate;
+	private Date startDate;
 	
 	@Column(name = "end_date", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date enddate;
+	private Date endDate;
 	
 	@Column(name = "price")
 	private Double price;
 	
 	@Column(name = "flag_delete")
-	private Boolean flagdelete;
+	private Boolean flagDelete;
 	
 	@ManyToOne
 	@JoinColumn(name = "menu_id")
-	private MenuEntity MenuEntity;
+	private MenuEntity menuEntity;
 
 	public Integer getId() {
 		return id;
@@ -50,20 +50,20 @@ public class PriceEntity {
 		this.id = id;
 	}
 
-	public Date getStartdate() {
-		return startdate;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStartdate(Date startdate) {
-		this.startdate = startdate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEnddate() {
-		return enddate;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEnddate(Date enddate) {
-		this.enddate = enddate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public Double getPrice() {
@@ -74,21 +74,21 @@ public class PriceEntity {
 		this.price = price;
 	}
 
-	public Boolean getFlagdelete() {
-		return flagdelete;
+	public Boolean getFlagDelete() {
+		return flagDelete;
 	}
 
-	public void setFlagdelete(Boolean flagdelete) {
-		this.flagdelete = flagdelete;
+	public void setFlagDelete(Boolean flagDelete) {
+		this.flagDelete = flagDelete;
 	}
 
 	public MenuEntity getMenuEntity() {
-		return MenuEntity;
+		return menuEntity;
 	}
 
 	public void setMenuEntity(MenuEntity menuEntity) {
-		MenuEntity = menuEntity;
+		this.menuEntity = menuEntity;
 	}
-	
+
 	
 }

@@ -1,31 +1,33 @@
 package com.fpoly.coffeeshop.entity;
 
-
-
-import java.util.Collection;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "menu")
-public class MenuEntity {
+@Table(name = "menu_logs")
+public class MenuLogEntity {
 	
 	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Integer id;
+	
+	@Column(name = "created_date")
+	private Date createdDate;
+	
+	@Column(name = "created_by")
+	private String createdBy;
+	
+	@Column(name = "modified_date")
+	private Date modifiedDate;
+	
+	@Column(name = "modified_by")
+	private String modifiedBy;
 	
 	@Column(name = "product_name")
 	private String productName;
@@ -39,12 +41,8 @@ public class MenuEntity {
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
 	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private List<CategoryEntity> categoryEntity;
-	
-	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER )
-	private List<MenuEntity> menuEntity;
+	@Column(name = "menu_Id")
+	private Integer menuId;
 
 	public Integer getId() {
 		return id;
@@ -52,6 +50,38 @@ public class MenuEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 	public String getProductName() {
@@ -86,29 +116,13 @@ public class MenuEntity {
 		this.flagDelete = flagDelete;
 	}
 
-	public List<CategoryEntity> getCategoryEntity() {
-		return categoryEntity;
+	public Integer getMenuId() {
+		return menuId;
 	}
 
-	public void setCategoryEntity(List<CategoryEntity> categoryEntity) {
-		this.categoryEntity = categoryEntity;
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
 	}
-
-	public List<MenuEntity> getMenuEntity() {
-		return menuEntity;
-	}
-
-	public void setMenuEntity(List<MenuEntity> menuEntity) {
-		this.menuEntity = menuEntity;
-	}
-
-	
-
-	
 	
 	
 }
-	
-	
-	
-
