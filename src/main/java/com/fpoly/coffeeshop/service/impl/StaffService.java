@@ -1,8 +1,10 @@
 package com.fpoly.coffeeshop.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 
 import com.fpoly.coffeeshop.converter.StaffConverter;
 import com.fpoly.coffeeshop.dto.StaffDTO;
@@ -25,52 +27,108 @@ public class StaffService implements IStaffService {
 	
 	@Override
 	public List<StaffDTO> findAll() {
-		return null;
+		List<StaffEntity> list = staffRepository.findAll();
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public List<StaffDTO> findAllByFlagDelete(Boolean flagDelete) {
-		return null;
+		List<StaffEntity> list = staffRepository.findAllByFlagDeleteIs(flagDelete);
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public Integer getTotalPages(Boolean flagDelete, Integer page, Integer limit) {
-		return null;
+		return staffRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit))
+							  .getTotalPages();
 	}
 
 	@Override
 	public List<StaffDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit) {
-		return null;
+		List<StaffEntity> list = staffRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit))
+												.getContent();
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public List<StaffDTO> findAllByKey(String key) {
-		return null;
+		List<StaffEntity> list = staffRepository.findAllByFullnameLikeOrEmailLikeOrPhoneLikeOrAddressLike(key, key, key, key);
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public Integer getTotalPagesByKey(String key, Integer page, Integer limit) {
-		return null;
+		return staffRepository.findAllByFullnameLikeOrEmailLikeOrPhoneLikeOrAddressLike(key, key, key, key, PageRequest.of(page, limit))
+							  .getTotalPages();
 	}
 
 	@Override
 	public List<StaffDTO> findAllByKey(String key, Integer page, Integer limit) {
-		return null;
+		List<StaffEntity> list = staffRepository.findAllByFullnameLikeOrEmailLikeOrPhoneLikeOrAddressLike(key, key, key, key, 
+												 PageRequest.of(page, limit)).getContent();
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key) {
-		return null;
+		List<StaffEntity> list = staffRepository.findAllByFlagDeleteAndFullnameLikeOrEmailLikeOrPhoneLikeOrAddressLike(flagDelete, 
+																														key, key, key, key);
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+		
+		return result;
 	}
 
 	@Override
 	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return null;
+		return staffRepository.findAllByFlagDeleteAndFullnameLikeOrEmailLikeOrPhoneLikeOrAddressLike(flagDelete, key, key, key, key,
+																									PageRequest.of(page, limit)).getTotalPages();
 	}
 
 	@Override
 	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return null;
+		List<StaffEntity> list = staffRepository.findAllByFlagDeleteAndFullnameLikeOrEmailLikeOrPhoneLikeOrAddressLike(flagDelete, 
+																					key, key, key, key, PageRequest.of(page, limit)).getContent();
+		List<StaffDTO> result = new ArrayList<>();
+		
+		for (StaffEntity staff : list) {
+			result.add(staffConverter.convertToDTO(staff));
+		}
+
+		return result;
 	}
 
 	@Override

@@ -104,5 +104,4 @@ public class UserAPI {
 		return userService.delete(id);
 	}
 	
-	
 }
