@@ -46,15 +46,6 @@ public class MenuEntity {
 	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER )
 	private List<MenuEntity> menuEntity;
 
-	private Boolean flagdelete;
-
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Collection<CategoryEntity> CategoryEntity;
-
-	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER)
-	private Collection<MenuEntity> MenuEntity;
-
 	public Integer getId() {
 		return id;
 	}
