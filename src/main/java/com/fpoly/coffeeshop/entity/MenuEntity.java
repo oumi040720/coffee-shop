@@ -28,8 +28,6 @@ public class MenuEntity {
 	@Column(name = "product_name")
 	private String productName;
 	
-	private String productname;
-
 	@Column(name = "photo")
 	private String photo;
 
@@ -45,15 +43,6 @@ public class MenuEntity {
 	
 	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER )
 	private List<MenuEntity> menuEntity;
-
-	private Boolean flagdelete;
-
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Collection<CategoryEntity> CategoryEntity;
-
-	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER)
-	private Collection<MenuEntity> MenuEntity;
 
 	public Integer getId() {
 		return id;
