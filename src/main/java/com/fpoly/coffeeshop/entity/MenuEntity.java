@@ -28,8 +28,6 @@ public class MenuEntity {
 	@Column(name = "product_name")
 	private String productName;
 	
-	private String productname;
-
 	@Column(name = "photo")
 	private String photo;
 
