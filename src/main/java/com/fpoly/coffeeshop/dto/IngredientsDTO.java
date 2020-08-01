@@ -13,7 +13,7 @@ public class IngredientsDTO {
 	
 	private Boolean flagDelete;
 	
-	}
+	
 	public Long getId() {
 		return id;
 	}
