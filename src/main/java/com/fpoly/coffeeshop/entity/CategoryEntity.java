@@ -33,7 +33,10 @@ public class CategoryEntity {
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
 	
-	
+
+	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<MenuEntity> menu;
 
 	public Integer getId() {
 		return id;
@@ -95,7 +98,4 @@ public class CategoryEntity {
 
 
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<MenuEntity> menu;
 }
