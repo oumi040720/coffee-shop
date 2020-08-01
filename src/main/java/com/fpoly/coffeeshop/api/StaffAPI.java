@@ -28,7 +28,7 @@ public class StaffAPI {
 	
 	@GetMapping(value = "/api/staff/list/flag_delete/{flag_delete}")
 	public List<StaffDTO> findAll(@PathVariable("flag_delete") Boolean flagDelete) {
-		return staffService.findAll();
+		return staffService.findAllByFlagDelete(flagDelete);
 	}
 	
 	@GetMapping(value = "/api/staff/flag_delete/total_pages")

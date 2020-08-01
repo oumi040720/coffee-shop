@@ -34,6 +34,9 @@ public class StaffLogEntity {
 	@Column(name = "modified_by")
 	private String modifiedBy;
 
+	@Column(name = "staff_id")
+	private String staffID;
+
 	@Column(name = "old_fullname")
 	private String oldFullname;
 
@@ -53,9 +56,6 @@ public class StaffLogEntity {
 
 	@Column(name = "old_photo")
 	private String oldPhoto;
-
-	@Column(name = "old_staff_id")
-	private String oldStaffID;
 
 	@Column(name = "old_user_id")
 	private String oldUserID;
@@ -106,6 +106,14 @@ public class StaffLogEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
+	public String getStaffID() {
+		return staffID;
+	}
+
+	public void setStaffID(String staffID) {
+		this.staffID = staffID;
+	}
+
 	public String getOldFullname() {
 		return oldFullname;
 	}
@@ -152,14 +160,6 @@ public class StaffLogEntity {
 
 	public void setOldPhoto(String oldPhoto) {
 		this.oldPhoto = oldPhoto;
-	}
-
-	public String getOldStaffID() {
-		return oldStaffID;
-	}
-
-	public void setOldStaffID(String oldStaffID) {
-		this.oldStaffID = oldStaffID;
 	}
 
 	public String getOldUserID() {

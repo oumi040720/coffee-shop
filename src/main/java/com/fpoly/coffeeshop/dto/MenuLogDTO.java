@@ -1,60 +1,38 @@
-package com.fpoly.coffeeshop.entity;
+package com.fpoly.coffeeshop.dto;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "menu_logs")
-public class MenuLogEntity {
+public class MenuLogDTO {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private Integer id;
+	private Long id;
 	
-	@Column(name = "created_date")
 	private Date createdDate;
 	
-	@Column(name = "created_by")
 	private String createdBy;
 	
-	@Column(name = "modified_date")
 	private Date modifiedDate;
 	
-	@Column(name = "modified_by")
 	private String modifiedBy;
 	
-	@Column(name = "menu_Id")
-	private Integer menuId;
+	private Long menuId;
 	
-	@Column(name = "old_product_name")
 	private String oldProductName;
 	
-	@Column(name = "old_photo")
 	private String oldPhoto;
 	
-	@Column(name = "old_price")
 	private Double oldPrice;
 	
-	@Column(name = "old_flag_delete")
 	private Boolean oldFlagDelete;
 	
-	@Column(name = "old_category_id")
-	private Integer oldCategoryId;
+	private Long oldCategoryId;
 	
-	@Column(name = "old_category_name")
-	private String oldCategoryName;
+	private Long oldCategoryName;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -90,11 +68,11 @@ public class MenuLogEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Integer getMenuId() {
+	public Long getMenuId() {
 		return menuId;
 	}
 
-	public void setMenuId(Integer menuId) {
+	public void setMenuId(Long menuId) {
 		this.menuId = menuId;
 	}
 
@@ -130,24 +108,21 @@ public class MenuLogEntity {
 		this.oldFlagDelete = oldFlagDelete;
 	}
 
-	public Integer getOldCategoryId() {
+	public Long getOldCategoryId() {
 		return oldCategoryId;
 	}
 
-	public void setOldCategoryId(Integer oldCategoryId) {
+	public void setOldCategoryId(Long oldCategoryId) {
 		this.oldCategoryId = oldCategoryId;
 	}
 
-	public String getOldCategoryName() {
+	public Long getOldCategoryName() {
 		return oldCategoryName;
 	}
 
-	public void setOldCategoryName(String oldCategoryName) {
+	public void setOldCategoryName(Long oldCategoryName) {
 		this.oldCategoryName = oldCategoryName;
 	}
-	
-	
-	
 	
 	
 }
