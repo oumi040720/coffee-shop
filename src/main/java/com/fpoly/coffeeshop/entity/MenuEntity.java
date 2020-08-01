@@ -41,8 +41,8 @@ public class MenuEntity {
 	@JoinColumn(name = "category_id")
 	private List<CategoryEntity> categoryEntity;
 	
-	@OneToMany(mappedBy = "PriceEntity", fetch = FetchType.EAGER )
-	private List<MenuEntity> menuEntity;
+	@OneToMany(mappedBy = "menu_id",fetch = FetchType.LAZY)
+	private List<PriceHistoriesEntity> priceHistoriesEntity;
 
 	public Integer getId() {
 		return id;
@@ -92,12 +92,14 @@ public class MenuEntity {
 		this.categoryEntity = categoryEntity;
 	}
 
-	public List<MenuEntity> getMenuEntity() {
-		return menuEntity;
+	public List<PriceHistoriesEntity> getPriceHistoriesEntity() {
+		return priceHistoriesEntity;
 	}
 
-	public void setMenuEntity(List<MenuEntity> menuEntity) {
-		this.menuEntity = menuEntity;
+	public void setPriceHistoriesEntity(List<PriceHistoriesEntity> priceHistoriesEntity) {
+		this.priceHistoriesEntity = priceHistoriesEntity;
 	}
+
+	
 
 }
