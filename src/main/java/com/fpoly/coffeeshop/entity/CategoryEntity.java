@@ -32,6 +32,68 @@ public class CategoryEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
+	
+	
+
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
+
+
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
+
+
+	public Boolean getFlagDelete() {
+		return flagDelete;
+	}
+
+
+
+	public void setFlagDelete(Boolean flagDelete) {
+		this.flagDelete = flagDelete;
+	}
+
+
+
+	public List<MenuEntity> getMenu() {
+		return menu;
+	}
+
+
+
+	public void setMenu(List<MenuEntity> menu) {
+		this.menu = menu;
+	}
+
+
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	@JsonBackReference
