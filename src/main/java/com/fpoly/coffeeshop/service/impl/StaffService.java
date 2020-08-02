@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.StaffConverter;
 import com.fpoly.coffeeshop.dto.StaffDTO;
@@ -14,6 +15,7 @@ import com.fpoly.coffeeshop.repository.IStaffRepository;
 import com.fpoly.coffeeshop.repository.IUserRepository;
 import com.fpoly.coffeeshop.service.IStaffService;
 
+@Service
 public class StaffService implements IStaffService {
 
 	@Autowired

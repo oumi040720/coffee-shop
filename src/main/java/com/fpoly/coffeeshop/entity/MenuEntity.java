@@ -26,7 +26,7 @@ public class MenuEntity {
 
 	@Column(name = "product_name")
 	private String productName;
-	
+
 	@Column(name = "photo")
 	private String photo;
 
@@ -35,12 +35,12 @@ public class MenuEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private CategoryEntity category;
-	
-	@OneToMany(mappedBy = "menu_id",fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<PriceHistoriesEntity> priceHistories;
 
@@ -84,22 +84,20 @@ public class MenuEntity {
 		this.flagDelete = flagDelete;
 	}
 
-	public List<CategoryEntity> getCategoryEntity() {
-		return categoryEntity;
+	public CategoryEntity getCategory() {
+		return category;
 	}
 
-	public void setCategoryEntity(List<CategoryEntity> categoryEntity) {
-		this.categoryEntity = categoryEntity;
+	public void setCategory(CategoryEntity category) {
+		this.category = category;
 	}
 
-	public List<PriceHistoriesEntity> getPriceHistoriesEntity() {
-		return priceHistoriesEntity;
+	public List<PriceHistoriesEntity> getPriceHistories() {
+		return priceHistories;
 	}
 
-	public void setPriceHistoriesEntity(List<PriceHistoriesEntity> priceHistoriesEntity) {
-		this.priceHistoriesEntity = priceHistoriesEntity;
+	public void setPriceHistories(List<PriceHistoriesEntity> priceHistories) {
+		this.priceHistories = priceHistories;
 	}
-
-	
 
 }

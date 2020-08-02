@@ -9,11 +9,11 @@ public interface IStaffLogService {
 	public List<StaffLogDTO> findAll();
 	
 	
-	public List<StaffLogDTO> findAllByFlagDelete(Boolean flagDelete);
+	public List<StaffLogDTO> findAllByOldFlagDelete(Boolean oldFlagDelete);
 	
-	public Integer getTotalPages(Boolean flagDelete, Integer page, Integer limit);
+	public Integer getTotalPages(Boolean oldFlagDelete, Integer page, Integer limit);
 
-	public List<StaffLogDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit);
+	public List<StaffLogDTO> findAllByOldFlagDelete(Boolean oldFlagDelete, Integer page, Integer limit);
 	
 	
 	public List<StaffLogDTO> findAllByStaffID(Long staffID);
@@ -23,11 +23,11 @@ public interface IStaffLogService {
 	public List<StaffLogDTO> findAllByStaffID(Long staffID, Integer page, Integer limit);
 	
 	
-	public List<StaffLogDTO> findAllByFlagDeleteAndStaffID(Boolean flagDelete, Long staffID);
+	public List<StaffLogDTO> findAllByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID);
 	
-	public Integer getTotalPagesByFlagDeleteAndStaffID(Boolean flagDelete, Long staffID, Integer page, Integer limit);
+	public Integer getTotalPagesByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID, Integer page, Integer limit);
 
-	public List<StaffLogDTO> findAllByFlagDeleteAndStaffID(Boolean flagDelete, Long staffID, Integer page, Integer limit);
+	public List<StaffLogDTO> findAllByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID, Integer page, Integer limit);
 	
 	
 	public Boolean insert(StaffLogDTO staffLogDTO);

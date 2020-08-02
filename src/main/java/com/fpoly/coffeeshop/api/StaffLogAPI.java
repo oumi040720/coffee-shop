@@ -27,7 +27,7 @@ public class StaffLogAPI {
 	
 	@GetMapping(value = "/api/staff_log/list/flag_delete/{flag_delete}")
 	public List<StaffLogDTO> findAllByFlagDelete(@PathVariable("flag_delete") Boolean flagDelete) {
-		return staffLogService.findAllByFlagDelete(flagDelete);
+		return staffLogService.findAllByOldFlagDelete(flagDelete);
 	}
 	
 	@GetMapping(value = "/api/staff_log/flag_delete/total_pages")
@@ -39,7 +39,7 @@ public class StaffLogAPI {
 	@GetMapping(value = "/api/staff_log/flag_delete/list")
 	public List<StaffLogDTO> findAllByFlagDelete(@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page, 
 													@RequestParam("limit") Integer limit) {
-		return staffLogService.findAllByFlagDelete(flagDelete, page - 1, limit);
+		return staffLogService.findAllByOldFlagDelete(flagDelete, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/staff_log/list/staff_id/{staff_id}")
@@ -53,7 +53,7 @@ public class StaffLogAPI {
 		return staffLogService.getTotalPagesByStaffID(staffID, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/staff_log/flag_delete/list")
+	@GetMapping(value = "/api/staff_log/staff_id/list")
 	public List<StaffLogDTO> findAllByStaffID(@RequestParam("staff_id") Long staffID, @RequestParam("page") Integer page, 
 												@RequestParam("limit") Integer limit) {
 		return staffLogService.findAllByStaffID(staffID, page - 1, limit);
@@ -62,19 +62,19 @@ public class StaffLogAPI {
 	@GetMapping(value = "/api/staff_log/list/flag_delete/{flag_delete}/staff_id/{staff_id}")
 	public List<StaffLogDTO> findAllByFlagDeleteAndStaffID(@PathVariable("flag_delete") Boolean flagDelete, 
 															@PathVariable("staff_id") Long staffID) {
-		return staffLogService.findAllByFlagDeleteAndStaffID(flagDelete, staffID);
+		return staffLogService.findAllByOldFlagDeleteAndStaffID(flagDelete, staffID);
 	}
 	
 	@GetMapping(value = "/api/staff_log/flag_delete/staff_id/total_pages")
 	public Integer getTotalPagesByFlagDeleteAndStaffID(@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("staff_id") Long staffID, 
 														@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-		return staffLogService.getTotalPagesByFlagDeleteAndStaffID(flagDelete, staffID, page - 1, limit);
+		return staffLogService.getTotalPagesByOldFlagDeleteAndStaffID(flagDelete, staffID, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/staff_log/flag_delete/staff_id/list")
 	public List<StaffLogDTO> findAllByFlagDeleteAndStaffID(@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("staff_id") Long staffID, 
 															@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-		return staffLogService.findAllByFlagDeleteAndStaffID(flagDelete, staffID, page - 1, limit);
+		return staffLogService.findAllByOldFlagDeleteAndStaffID(flagDelete, staffID, page - 1, limit);
 	}
 	
 	@PostMapping(value = "/api/staff_log/insert")

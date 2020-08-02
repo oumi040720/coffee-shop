@@ -12,16 +12,16 @@ import com.fpoly.coffeeshop.entity.StaffLogEntity;
 @Repository
 public interface IStaffLogRepository extends JpaRepository<StaffLogEntity, Long> {
 
-	public List<StaffLogEntity> findAllByFlagDelete(Boolean flagDelete);
+	public List<StaffLogEntity> findAllByOldFlagDelete(Boolean oldFlagDelete);
 	
-	public Page<StaffLogEntity> findAllByFlagDelete(Boolean flagDelete, Pageable pageable);
+	public Page<StaffLogEntity> findAllByOldFlagDelete(Boolean oldFlagDelete, Pageable pageable);
 	
 	public List<StaffLogEntity> findAllByStaffID(Long staffID);
 	
 	public Page<StaffLogEntity> findAllByStaffID(Long staffID, Pageable pageable);
 	
-	public List<StaffLogEntity> findAllByFlagDeleteAndStaffID(Boolean flagDelete, Long staffID);
+	public List<StaffLogEntity> findAllByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID);
 	
-	public Page<StaffLogEntity> findAllByFlagDeleteAndStaffID(Boolean flagDelete, Long staffID, Pageable pageable);
+	public Page<StaffLogEntity> findAllByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID, Pageable pageable);
 	
 }
