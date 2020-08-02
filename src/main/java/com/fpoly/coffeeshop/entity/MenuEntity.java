@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "menu")
 public class MenuEntity {
@@ -36,10 +38,11 @@ public class MenuEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
-	private List<CategoryEntity> categoryEntity;
+	private CategoryEntity category;
 	
 	@OneToMany(mappedBy = "menu_id",fetch = FetchType.LAZY)
-	private List<PriceHistoriesEntity> priceHistoriesEntity;
+	@JsonBackReference
+	private List<PriceHistoriesEntity> priceHistories;
 
 	public Integer getId() {
 		return id;
