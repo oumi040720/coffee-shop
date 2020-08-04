@@ -18,7 +18,7 @@ public class CategoryConveter {
 	 }
 	 public CategoryEntity convertToEntity(CategoryDTO dto) {
 		 CategoryEntity entity = new CategoryEntity();
-		 entity.setId(dto.getId());
+		 entity.setId(entity.getId());
 		 entity.setCategoryName(entity.getCategoryName());
 		 entity.setCategoryCode(entity.getCategoryCode());
 		 entity.setFlagDelete(entity.getFlagDelete());
