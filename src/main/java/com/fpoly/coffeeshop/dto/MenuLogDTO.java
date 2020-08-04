@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class MenuLogDTO {
 	
-	private Long id;
+	private Integer id;
 	
 	private Date createdDate;
 	
@@ -24,15 +24,15 @@ public class MenuLogDTO {
 	
 	private Boolean oldFlagDelete;
 	
-	private Long oldCategoryId;
+	private Integer oldCategoryId;
 	
-	private Long oldCategoryName;
+	private String oldCategoryName;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -108,21 +108,22 @@ public class MenuLogDTO {
 		this.oldFlagDelete = oldFlagDelete;
 	}
 
-	public Long getOldCategoryId() {
+	public Integer getOldCategoryId() {
 		return oldCategoryId;
 	}
 
-	public void setOldCategoryId(Long oldCategoryId) {
+	public void setOldCategoryId(Integer oldCategoryId) {
 		this.oldCategoryId = oldCategoryId;
 	}
 
-	public Long getOldCategoryName() {
+	public String getOldCategoryName() {
 		return oldCategoryName;
 	}
 
-	public void setOldCategoryName(Long oldCategoryName) {
+	public void setOldCategoryName(String oldCategoryName) {
 		this.oldCategoryName = oldCategoryName;
 	}
+
 	
 	
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class PriceHistoriesDTO {
 
-	private Long id;
+	private Integer id;
 	
 	private Date starDate;
 	
@@ -13,12 +13,13 @@ public class PriceHistoriesDTO {
 	private Double price;
 	
 	private Boolean flagDelete;
-
-	public Long getId() {
+	
+	
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
