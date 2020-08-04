@@ -25,7 +25,7 @@ public class StaffLogEntity {
 	@Column(name = "created_date")
 	private Date createdDate;
 
-	@Column(name = "create_bBy")
+	@Column(name = "create_by")
 	private String createdBy;
 
 	@Column(name = "modified_date")
