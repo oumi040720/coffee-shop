@@ -14,7 +14,7 @@ public class MenuLogDTO {
 	
 	private String modifiedBy;
 	
-	private Long menuId;
+	private Integer menuId;
 	
 	private String oldProductName;
 	
@@ -68,11 +68,13 @@ public class MenuLogDTO {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Long getMenuId() {
+	
+
+	public Integer getMenuId() {
 		return menuId;
 	}
 
-	public void setMenuId(Long menuId) {
+	public void setMenuId(Integer menuId) {
 		this.menuId = menuId;
 	}
 
