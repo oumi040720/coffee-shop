@@ -35,7 +35,7 @@ public class StaffLogEntity {
 	private String modifiedBy;
 
 	@Column(name = "staff_id")
-	private String staffID;
+	private Long staffID;
 
 	@Column(name = "old_fullname")
 	private String oldFullname;
@@ -106,11 +106,11 @@ public class StaffLogEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public String getStaffID() {
+	public Long getStaffID() {
 		return staffID;
 	}
 
-	public void setStaffID(String staffID) {
+	public void setStaffID(Long staffID) {
 		this.staffID = staffID;
 	}
 
