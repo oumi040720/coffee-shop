@@ -11,8 +11,9 @@ import com.fpoly.coffeeshop.entity.CustomersEntity;
 
 
 @Repository
-public interface ICusctomersRepository extends JpaRepository<CustomersEntity, Long> {
+public interface ICustomersRepository extends JpaRepository<CustomersEntity, Long> {
 
+	public CustomersEntity findOneByFullname(String fullname);
 	
 	public List<CustomersEntity> findAllByFlagDeleteIs(Boolean flagDelete);
 	

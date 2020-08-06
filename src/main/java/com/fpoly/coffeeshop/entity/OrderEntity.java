@@ -25,9 +25,6 @@ public class OrderEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "fullname")
-	private String fullname;
-
 	@Column(name = "order_date")
 	private Date orderDate;
 
@@ -44,7 +41,7 @@ public class OrderEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
-	
+
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<OrderDetailEntity> orderdetail;
@@ -55,14 +52,6 @@ public class OrderEntity {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
 	}
 
 	public Date getOrderDate() {
@@ -113,5 +102,4 @@ public class OrderEntity {
 		this.orderdetail = orderdetail;
 	}
 
-	
 }

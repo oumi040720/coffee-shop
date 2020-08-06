@@ -71,7 +71,9 @@ public interface ICustomersService {
 	public List<CustomersDTO> findAllByFlagDeleteAndAddress(Boolean flagDelete, String key, Integer page, Integer limit);
 	
 	
-	public CustomersDTO findOne( Long id);
+	public CustomersDTO findOne(Long id);
+	
+	public CustomersDTO findOne(String fullname);
 	
 	public Boolean insert(CustomersDTO userDTO);
 	

@@ -6,32 +6,20 @@ public class OrderDTO {
 	
 	private Long id;
 	
-	private String fullname;
-	
 	private Date orderDate;
 	
 	private String orderCode;
 	
 	private Integer status;
 	
-	private Long customerCode;
+	private String fullname;
 	
-	private Boolean flagDelete;
-
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getFullname() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
 	}
 
 	public Date getOrderDate() {
@@ -58,12 +46,12 @@ public class OrderDTO {
 		this.status = status;
 	}
 
-	public Long getCustomerCode() {
-		return customerCode;
+	public String getFullname() {
+		return fullname;
 	}
 
-	public void setCustomerCode(Long customerCode) {
-		this.customerCode = customerCode;
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
 	}
 
 	public Boolean getFlagDelete() {
@@ -73,6 +61,8 @@ public class OrderDTO {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-	
+
+	private Boolean flagDelete;
+
 	
 }

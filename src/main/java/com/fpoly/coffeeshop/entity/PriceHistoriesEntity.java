@@ -13,34 +13,32 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
 @Entity
 @Table(name = "price_histories")
 public class PriceHistoriesEntity {
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "start_date", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
-	
+
 	@Column(name = "end_date", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
-	
+
 	@Column(name = "price")
 	private Double price;
-	
+
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "menu_id")
-	private MenuEntity menuEntity;
+	private MenuEntity menu;
 
 	public Integer getId() {
 		return id;
@@ -82,13 +80,12 @@ public class PriceHistoriesEntity {
 		this.flagDelete = flagDelete;
 	}
 
-	public MenuEntity getMenuEntity() {
-		return menuEntity;
+	public MenuEntity getMenu() {
+		return menu;
 	}
 
-	public void setMenuEntity(MenuEntity menuEntity) {
-		this.menuEntity = menuEntity;
+	public void setMenu(MenuEntity menu) {
+		this.menu = menu;
 	}
 
-	
 }

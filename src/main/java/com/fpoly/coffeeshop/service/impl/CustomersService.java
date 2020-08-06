@@ -11,7 +11,7 @@ import com.fpoly.coffeeshop.converter.CustomersConveter;
 import com.fpoly.coffeeshop.dto.CustomersDTO;
 import com.fpoly.coffeeshop.entity.CustomersEntity;
 import com.fpoly.coffeeshop.entity.UserEntity;
-import com.fpoly.coffeeshop.repository.ICusctomersRepository;
+import com.fpoly.coffeeshop.repository.ICustomersRepository;
 import com.fpoly.coffeeshop.repository.IUserRepository;
 import com.fpoly.coffeeshop.service.ICustomersService;
 
@@ -19,7 +19,7 @@ import com.fpoly.coffeeshop.service.ICustomersService;
 public class CustomersService implements ICustomersService {
 
 	@Autowired
-	private ICusctomersRepository cusctomersRepository;
+	private ICustomersRepository cusctomersRepository;
 
 	@Autowired
 	private CustomersConveter customersConveter;
@@ -358,6 +358,11 @@ public class CustomersService implements ICustomersService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public CustomersDTO findOne(String fullname) {
+		return customersConveter.convertToDTO(cusctomersRepository.findOneByFullname(fullname));
 	}
 
 }

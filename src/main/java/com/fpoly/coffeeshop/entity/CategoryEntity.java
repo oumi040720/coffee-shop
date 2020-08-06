@@ -32,7 +32,6 @@ public class CategoryEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
-	
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	@JsonBackReference
