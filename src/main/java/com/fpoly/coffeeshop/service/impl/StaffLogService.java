@@ -36,7 +36,7 @@ public class StaffLogService implements IStaffLogService {
 
 	@Override
 	public List<StaffLogDTO> findAllByOldFlagDelete(Boolean oldFlagDelete) {
-		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDelete(oldFlagDelete);
+		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDeleteIs(oldFlagDelete);
 		List<StaffLogDTO> result = new ArrayList<>();
 		
 		for (StaffLogEntity staffLog : list) {
@@ -48,12 +48,12 @@ public class StaffLogService implements IStaffLogService {
 
 	@Override
 	public Integer getTotalPages(Boolean oldFlagDelete, Integer page, Integer limit) {
-		return staffLogRepository.findAllByOldFlagDelete(oldFlagDelete, PageRequest.of(page, limit)).getTotalPages();
+		return staffLogRepository.findAllByOldFlagDeleteIs(oldFlagDelete, PageRequest.of(page, limit)).getTotalPages();
 	}
 
 	@Override
 	public List<StaffLogDTO> findAllByOldFlagDelete(Boolean flagDelete, Integer page, Integer limit) {
-		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDelete(flagDelete, PageRequest.of(page, limit)).getContent();
+		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDeleteIs(flagDelete, PageRequest.of(page, limit)).getContent();
 		List<StaffLogDTO> result = new ArrayList<>();
 		
 		for (StaffLogEntity staffLog : list) {
@@ -95,7 +95,7 @@ public class StaffLogService implements IStaffLogService {
 
 	@Override
 	public List<StaffLogDTO> findAllByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID) {
-		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDeleteAndStaffID(oldFlagDelete, staffID);
+		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDeleteIsAndStaffID(oldFlagDelete, staffID);
 		List<StaffLogDTO> result = new ArrayList<>();
 		
 		for (StaffLogEntity staffLog : list) {
@@ -107,13 +107,13 @@ public class StaffLogService implements IStaffLogService {
 
 	@Override
 	public Integer getTotalPagesByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID, Integer page, Integer limit) {
-		return staffLogRepository.findAllByOldFlagDeleteAndStaffID(oldFlagDelete, staffID, PageRequest.of(page, limit))
+		return staffLogRepository.findAllByOldFlagDeleteIsAndStaffID(oldFlagDelete, staffID, PageRequest.of(page, limit))
 									.getTotalPages();
 	}
 
 	@Override
 	public List<StaffLogDTO> findAllByOldFlagDeleteAndStaffID(Boolean oldFlagDelete, Long staffID, Integer page, Integer limit) {
-		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDeleteAndStaffID(oldFlagDelete, staffID, PageRequest.of(page, limit))
+		List<StaffLogEntity> list = staffLogRepository.findAllByOldFlagDeleteIsAndStaffID(oldFlagDelete, staffID, PageRequest.of(page, limit))
 														.getContent();
 		List<StaffLogDTO> result = new ArrayList<>();
 		
