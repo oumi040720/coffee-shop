@@ -2,7 +2,7 @@ package com.fpoly.coffeeshop.dto;
 
 public class MenuDTO {
 	
-	private Long id;
+	private Integer id;
 	
 	private String productName;
 	
@@ -12,11 +12,11 @@ public class MenuDTO {
 	
 	private Boolean flagDelete;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -51,6 +51,7 @@ public class MenuDTO {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
+	
 	
 	
 }

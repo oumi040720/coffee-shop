@@ -14,8 +14,8 @@ public class StaffLogDTO {
 
 	private String modifiedBy;
 
-	private String staffID;
-	
+	private Long staffID;
+
 	private String oldFullname;
 
 	private Date oldBirthday;
@@ -74,6 +74,14 @@ public class StaffLogDTO {
 		this.modifiedBy = modifiedBy;
 	}
 
+	public Long getStaffID() {
+		return staffID;
+	}
+
+	public void setStaffID(Long staffID) {
+		this.staffID = staffID;
+	}
+
 	public String getOldFullname() {
 		return oldFullname;
 	}
@@ -120,14 +128,6 @@ public class StaffLogDTO {
 
 	public void setOldPhoto(String oldPhoto) {
 		this.oldPhoto = oldPhoto;
-	}
-
-	public String getStaffID() {
-		return staffID;
-	}
-
-	public void setStaffID(String staffID) {
-		this.staffID = staffID;
 	}
 
 	public String getOldUserID() {
