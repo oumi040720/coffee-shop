@@ -149,4 +149,33 @@ public class OrderSevice implements IOrderService {
 		}
 	}
 
+	@Override
+	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String key) {
+		List<OrderEntity> list = orderRepository.findAllByFlagDeleteIsAndOrderCodeContaining(flagDelete, key);
+		List<OrderDTO> result = new ArrayList<>();
+
+		for (OrderEntity order : list) {
+			result.add(orderConveter.convertToDTO(order));
+		}
+		return result;
+	}
+
+	@Override
+	public Integer getTotalPagesByFlagDeleteAndOrderCode(Boolean flagDelete, String key, Integer page, Integer limit) {
+		return orderRepository.findAllByFlagDeleteIsAndOrderCodeContaining(flagDelete, key, PageRequest.of(page, limit))
+				 .getTotalPages();
+	}
+
+	@Override
+	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String key, Integer page, Integer limit) {
+		List<OrderEntity> list  = orderRepository.findAllByFlagDeleteIsAndOrderCodeContaining(flagDelete, key, PageRequest.of(page, limit))
+				.getContent();
+		List<OrderDTO> result = new ArrayList<>();
+		
+		for(OrderEntity order : list) {
+			result.add(orderConveter.convertToDTO(order));
+		}
+		return result;
+	}
+
 }

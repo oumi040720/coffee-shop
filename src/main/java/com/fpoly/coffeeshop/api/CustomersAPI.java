@@ -1,4 +1,4 @@
-package com.fpoly.coffeeshop.api;
+ package com.fpoly.coffeeshop.api;
 
 import java.util.List;
 
@@ -195,6 +195,11 @@ public class CustomersAPI {
 	@GetMapping(value = "/api/customers/id/{id}")
 	public CustomersDTO findOne(@PathVariable("id") Long id) {
 		return customersService.findOne(id);
+	}
+	
+	@GetMapping(value = "/api/customers/fullname/{fullname}")
+	public CustomersDTO findOne(@PathVariable("fullname") String fullname) {
+		return customersService.findOne(fullname);
 	}
 
 	@PostMapping(value = "/api/customers/insert")

@@ -24,6 +24,12 @@ public interface IOrderService {
 	public List<OrderDTO> findAllByOrderCode(String key, Integer page, Integer limit);
 	
 	
+	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String key);
+	
+	public Integer getTotalPagesByFlagDeleteAndOrderCode(Boolean flagDelete, String key, Integer page, Integer limit);
+	
+	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String key, Integer page, Integer limit);
+	
 	
 	public OrderDTO findOne(Long id);
 	
