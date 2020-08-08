@@ -25,7 +25,7 @@ public interface IMenuLogService {
 	
 	public List<MenuLogDTO> findAllByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId);
 	
-	public List<MenuLogDTO> getTotalPagesByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId, Integer page, Integer limit);
+	public Integer getTotalPagesByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId, Integer page, Integer limit);
 	
 	public List<MenuLogDTO> findAllByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId, Integer page, Integer limit);
 	
