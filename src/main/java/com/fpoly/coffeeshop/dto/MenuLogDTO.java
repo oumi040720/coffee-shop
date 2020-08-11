@@ -68,8 +68,6 @@ public class MenuLogDTO {
 		this.modifiedBy = modifiedBy;
 	}
 
-	
-
 	public Integer getMenuId() {
 		return menuId;
 	}
@@ -126,6 +124,5 @@ public class MenuLogDTO {
 		this.oldCategoryName = oldCategoryName;
 	}
 
-	
 	
 }

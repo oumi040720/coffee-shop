@@ -13,21 +13,21 @@ public interface IMenuLogService {
 	
 	public Integer getTotalPages(Boolean oldFlagDelete, Integer page, Integer limit);
 	
-	public List<MenuLogDTO> findAllByOldFlagDelete(Boolean oldFlagDelete, Integer page, Integer limit);
+	public List<MenuLogDTO> findAllByOldFlagDeleteIs(Boolean oldFlagDelete, Integer page, Integer limit);
 	
 	
-	public List<MenuLogDTO> findAllByMenuID(Integer menuID);
+	public List<MenuLogDTO> findAllByMenuId(Integer menuId);
 	
-	public Integer getTotalPagesByMenuID(Integer menuID, Integer page, Integer limit);
+	public Integer getTotalPagesByMenuId(Integer menuId, Integer page, Integer limit);
 	
-	public List<MenuLogDTO> findAllByMenuID(Integer menuID, Integer page, Integer limit);
+	public List<MenuLogDTO> findAllByMenuId(Integer menuId, Integer page, Integer limit);
 	
 	
-	public List<MenuLogDTO> findAllByOldFlagDeleteIsAndMenuID(Boolean oldFlagDelete, Integer menuID);
+	public List<MenuLogDTO> findAllByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId);
 	
-	public List<MenuLogDTO> getTotalPagesByOldFlagDeleteIsAndMenuID(Boolean oldFlagDelete, Integer menuID, Integer page, Integer limit);
+	public Integer getTotalPagesByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId, Integer page, Integer limit);
 	
-	public List<MenuLogDTO> findAllByOldFlagDeleteIsAndMenuID(Boolean oldFlagDelete, Integer menuID, Integer page, Integer limit);
+	public List<MenuLogDTO> findAllByOldFlagDeleteIsAndMenuId(Boolean oldFlagDelete, Integer menuId, Integer page, Integer limit);
 	
 	
 	public Boolean insert(MenuLogDTO menuLogDTO);

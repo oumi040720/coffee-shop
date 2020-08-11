@@ -30,7 +30,7 @@ public class MenuLogEntity {
 	private String modifiedBy;
 	
 	@Column(name = "menu_Id")
-	private Integer menuID;
+	private Integer menuId;
 	
 	@Column(name = "old_product_name")
 	private String oldProductName;
@@ -90,12 +90,12 @@ public class MenuLogEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Integer getMenuID() {
-		return menuID;
+	public Integer getMenuId() {
+		return menuId;
 	}
 
-	public void setMenuID(Integer menuID) {
-		this.menuID = menuID;
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
 	}
 
 	public String getOldProductName() {
@@ -146,4 +146,5 @@ public class MenuLogEntity {
 		this.oldCategoryName = oldCategoryName;
 	}
 
+	
 }
