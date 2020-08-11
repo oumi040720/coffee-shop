@@ -13,7 +13,7 @@ public class MenuLogConverter {
 		dto.setCreatedBy(entity.getCreatedBy());
 		dto.setModifiedDate(entity.getModifiedDate());
 		dto.setModifiedBy(entity.getModifiedBy());
-		dto.setMenuId(entity.getMenuId());
+		dto.setMenuId(entity.getMenuID());
 		dto.setOldProductName(entity.getOldProductName());
 		dto.setOldPhoto(entity.getOldPhoto());
 		dto.setOldPrice(entity.getOldPrice());
@@ -32,7 +32,7 @@ public class MenuLogConverter {
 		entity.setCreatedBy(dto.getCreatedBy());
 		entity.setModifiedDate(dto.getModifiedDate());
 		entity.setModifiedBy(dto.getModifiedBy());
-		entity.setMenuId(dto.getMenuId());
+		entity.setMenuID(dto.getMenuId());
 		entity.setOldProductName(dto.getOldProductName());
 		entity.setOldPhoto(dto.getOldPhoto());
 		entity.setOldPrice(dto.getOldPrice());
@@ -50,7 +50,7 @@ public class MenuLogConverter {
 		entity.setCreatedBy(dto.getCreatedBy());
 		entity.setModifiedDate(dto.getModifiedDate());
 		entity.setModifiedBy(dto.getModifiedBy());
-		entity.setMenuId(dto.getMenuId());
+		entity.setMenuID(dto.getMenuId());
 		entity.setOldProductName(dto.getOldProductName());
 		entity.setOldPhoto(dto.getOldPhoto());
 		entity.setOldPrice(dto.getOldPrice());

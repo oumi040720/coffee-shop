@@ -16,7 +16,7 @@ import com.fpoly.coffeeshop.repository.IOrderRepository;
 import com.fpoly.coffeeshop.service.IOrderService;
 
 @Service
-public class OrderSevice implements IOrderService {
+public class OrderService implements IOrderService {
 
 	@Autowired
 	private IOrderRepository orderRepository;

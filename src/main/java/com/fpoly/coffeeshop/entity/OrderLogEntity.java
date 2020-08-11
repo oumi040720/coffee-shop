@@ -36,7 +36,7 @@ public class OrderLogEntity {
 	private Integer oldMenuId;
 	
 	@Column(name = "order_id")
-	private Long orderId;
+	private Long orderID;
 	
 	
 	@Column(name = "order_detail_id")
@@ -114,12 +114,12 @@ public class OrderLogEntity {
 		this.oldMenuId = oldMenuId;
 	}
 
-	public Long getOrderId() {
-		return orderId;
+	public Long getOrderID() {
+		return orderID;
 	}
 
 	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+		this.orderID = orderId;
 	}
 
 	public Long getOrderDetailId() {

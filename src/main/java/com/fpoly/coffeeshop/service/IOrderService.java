@@ -10,6 +10,7 @@ public interface IOrderService {
 
 	public List<OrderDTO> findAll();
 	
+	
 	public List<OrderDTO> findAllByFlagDelete(Boolean flagDelete);
 	
 	public Integer getTotalPages(Boolean flagDelete, Integer page, Integer limit);
