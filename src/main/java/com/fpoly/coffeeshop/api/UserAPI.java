@@ -77,6 +77,11 @@ public class UserAPI {
 		return userService.findAllByFlagDeleteAndUsername(flagDelete, key, page - 1, limit);
 	}
 	
+	@GetMapping(value = "/api/user/ps")
+	public String getPassword(@RequestParam("id") Long id) {
+		return userService.getPassword(id);
+	}
+	
 	@GetMapping(value = "/api/user/id/{id}")
 	public UserDTO findOne(@PathVariable("id") Long id) {
 		return userService.findOne(id);
