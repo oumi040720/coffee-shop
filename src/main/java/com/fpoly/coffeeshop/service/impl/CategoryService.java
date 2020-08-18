@@ -32,7 +32,7 @@ public class CategoryService implements ICategoryService {
 
 	@Override
 	public List<CategoryDTO> findAllByFlagDelete(Boolean flagDelete) {
-		List<CategoryEntity> list = categoryRepository.findAllByFlagDeleteIs(flagDelete);
+		List<CategoryEntity> list = categoryRepository.findAllByFlagDelete(flagDelete);
 		List<CategoryDTO> result = new ArrayList<>();
 		for(CategoryEntity category : list) {
 			result.add(categoryConveter.convertToDTO(category));
