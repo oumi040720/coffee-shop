@@ -1,8 +1,11 @@
 package com.fpoly.coffeeshop.converter;
 
+import org.springframework.stereotype.Component;
+
 import com.fpoly.coffeeshop.dto.PriceHistoriesDTO;
 import com.fpoly.coffeeshop.entity.PriceHistoriesEntity;
 
+@Component
 public class PriceHistoriesConverter {
 	
 	public PriceHistoriesDTO converToDTO(PriceHistoriesEntity entity) {
