@@ -19,5 +19,9 @@ public interface IMenuRepository extends JpaRepository<MenuEntity, Integer> {
 	
 	public Page<MenuEntity> findAllByProductNameContaining(String productName, Pageable pageable);
 	
+	public List<MenuEntity> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String productName);
+	
+	public Page<MenuEntity> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String productName, Pageable pageable);
+	
 	
 }
