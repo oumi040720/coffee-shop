@@ -15,24 +15,24 @@ public interface IMenuService {
 	public List<MenuDTO> findAllByFlagDeleteIs(Boolean flagDelete, Integer page, Integer limit);
 	
 	
-	public List<MenuDTO> findAllByProductNameContaining(String productName);
+	public List<MenuDTO> findAllByProductNameContaining(String key);
 	
-	public Integer getTotalPagesByProductNameContaining(Boolean flagDelete, Integer page, Integer limit);
+	public Integer getTotalPagesByProductNameContaining(String key, Integer page, Integer limit);
 	
-	public List<MenuDTO> findAllByProductNameContaining(String productName, Integer page, Integer limit);
+	public List<MenuDTO> findAllByProductNameContaining(String key, Integer page, Integer limit);
 	
 	
-	public List<MenuDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String productName);
+	public List<MenuDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key);
 	
-	public Integer getTotalPagesByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String productName, Integer page, Integer limit);
+	public Integer getTotalPagesByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key, Integer page, Integer limit);
 	
-	public List<MenuDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String productName, Integer page, Integer limit);
+	public List<MenuDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key, Integer page, Integer limit);
 	
 	public MenuDTO findOne(Integer id);
 	
-	public Boolean insert(MenuDTO menuDTO);
+	public Boolean insert(MenuDTO categoryDTO);
 	
-	public Boolean update(MenuDTO menuDTO);
+	public Boolean update(MenuDTO categoryDTO);
 	
 	public Boolean delete(Integer id);
 	

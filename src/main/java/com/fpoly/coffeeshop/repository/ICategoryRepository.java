@@ -12,8 +12,12 @@ import com.fpoly.coffeeshop.entity.CategoryEntity;
 @Repository
 public interface ICategoryRepository extends JpaRepository<CategoryEntity, Integer> {
  
-public CategoryEntity findOneByCategoryCode(String categoryCode);
+    public CategoryEntity findOneByCategoryCode(String categoryCode);
 	
+    public CategoryEntity findOneByCategoryName(String categoryName);
 
 	public List<CategoryEntity> findAllByFlagDeleteIs(Boolean flagDelete);
+	
+	
+	
 }
