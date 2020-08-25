@@ -202,5 +202,21 @@ public class OrderDetailService implements IOrderDetailService {
 		return result;
 	}
 
+//	
+//	
+//	
+	@Override
+	public List<OrderDetailDTO> findAllByOrderCode(String orderCode) {
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		
+		List<OrderDetailDTO> result = new ArrayList<>();
+		List<OrderDetailEntity> list = orderDetailRepository.findAllByOrder(order);
+		
+		for (OrderDetailEntity orderDetail : list) {
+			result.add(orderDetailConveter.convertToDTO(orderDetail));
+		}
+		
+		return result;
+	}
 	
 }

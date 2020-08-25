@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.fpoly.coffeeshop.entity.OrderDetailEntity;
+import com.fpoly.coffeeshop.entity.OrderEntity;
 
 @Repository
 public interface IOrderDetailRepository extends JpaRepository<OrderDetailEntity, Long> {
@@ -20,6 +21,9 @@ public interface IOrderDetailRepository extends JpaRepository<OrderDetailEntity,
 	public List<OrderDetailEntity> findAllByIdContaining(Long id);
 
 	public Page<OrderDetailEntity> findAllByIdContaining(Long id, Pageable pageable);
+	
+//	
+	public List<OrderDetailEntity> findAllByOrder(OrderEntity order); 
 	
 	
 	public List<OrderDetailEntity> findAllByFlagDeleteIsAndIdContaining(Boolean flagDelete, Long id);
