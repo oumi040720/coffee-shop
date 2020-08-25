@@ -12,8 +12,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +26,6 @@ public class UserEntity {
 	private String username;
 
 	@Column(name = "password")
-	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	@ManyToOne(fetch = FetchType.LAZY)

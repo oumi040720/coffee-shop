@@ -178,4 +178,9 @@ public class OrderService implements IOrderService {
 		return result;
 	}
 
+	@Override
+	public OrderDTO findOne(String orderCode) {
+		return orderConveter.convertToDTO(orderRepository.findOneByOrderCode(orderCode));
+	}
+
 }

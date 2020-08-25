@@ -12,6 +12,8 @@ import com.fpoly.coffeeshop.entity.OrderEntity;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
+	
+	public OrderEntity findOneByOrderCode(String orderCode);
 
 	public List<OrderEntity> findAllByFlagDeleteIs(Boolean flagDelete);
 	

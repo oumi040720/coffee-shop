@@ -12,8 +12,8 @@ public class OrderDetailConveter {
 		OrderDetailDTO dto = new OrderDetailDTO();
 		dto.setId(entity.getId());
 		dto.setQuantity(entity.getQuantity());
-		dto.setMenuCode(entity.getMenu().getId());
-		dto.setOrderCode(entity.getOrder().getId());
+		dto.setProduct(entity.getMenu().getProductName());
+		dto.setOrder(entity.getOrder().getOrderCode());
 		dto.setFlagDelete(entity.getFlagDelete());
 		return dto;
 	}

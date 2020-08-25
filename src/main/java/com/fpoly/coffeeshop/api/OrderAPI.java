@@ -3,7 +3,6 @@ package com.fpoly.coffeeshop.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fpoly.coffeeshop.dto.CustomersDTO;
 import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.service.IOrderService;
 
@@ -97,8 +95,5 @@ public class OrderAPI {
 		return orderService.update(orderDTO);
 	}
 	
-	@DeleteMapping(value = "/api/order/delete")
-	public Boolean delete(@RequestParam("id") Long id) {
-		return orderService.delete(id);
-	}
+	
 }

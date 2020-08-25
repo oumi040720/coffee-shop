@@ -1,8 +1,11 @@
 package com.fpoly.coffeeshop.converter;
 
+import org.springframework.stereotype.Component;
+
 import com.fpoly.coffeeshop.dto.MenuDTO;
 import com.fpoly.coffeeshop.entity.MenuEntity;
 
+@Component
 public class MenuConverter {
 	
 	public MenuDTO convertToDTO (MenuEntity entity) {

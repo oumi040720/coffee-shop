@@ -34,6 +34,8 @@ public interface IOrderService {
 	
 	public OrderDTO findOne(Long id);
 	
+	public OrderDTO findOne(String orderCode);
+	
 	public Boolean insert(OrderDTO customerDTO);
 	
 	public Boolean update(OrderDTO orderDTO);

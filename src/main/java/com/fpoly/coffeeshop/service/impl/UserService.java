@@ -133,6 +133,11 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
+	public String getPassword(Long id) {
+		return userRepository.getOne(id).getPassword();
+	}
+	
+	@Override
 	public UserDTO findOne(Long id) {
 		return userConveter.convertToDTO(userRepository.getOne(id));
 	}

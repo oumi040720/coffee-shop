@@ -6,9 +6,9 @@ public class OrderDetailDTO {
 	
 	private Integer quantity;
 	
-	private Long orderCode;
+	private String order;
 	
-	private Integer menuCode;
+	private String product;
 
 	private Boolean flagDelete;
 
@@ -28,20 +28,20 @@ public class OrderDetailDTO {
 		this.quantity = quantity;
 	}
 
-	public Long getOrderCode() {
-		return orderCode;
+	public String getOrder() {
+		return order;
 	}
 
-	public void setOrderCode(Long orderCode) {
-		this.orderCode = orderCode;
+	public void setOrder(String order) {
+		this.order = order;
 	}
 
-	public Integer getMenuCode() {
-		return menuCode;
+	public String getProduct() {
+		return product;
 	}
 
-	public void setMenuCode(Integer menuCode) {
-		this.menuCode = menuCode;
+	public void setProduct(String product) {
+		this.product = product;
 	}
 
 	public Boolean getFlagDelete() {
@@ -51,6 +51,6 @@ public class OrderDetailDTO {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-	
+
 	
 }

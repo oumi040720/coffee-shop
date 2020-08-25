@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.MenuLogConverter;
 import com.fpoly.coffeeshop.dto.MenuLogDTO;
 import com.fpoly.coffeeshop.entity.MenuLogEntity;
 import com.fpoly.coffeeshop.repository.IMenuLogRepository;
 import com.fpoly.coffeeshop.service.IMenuLogService;
-
+@Service
 public class MenuLogService implements IMenuLogService {
 	
 	@Autowired
