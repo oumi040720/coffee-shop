@@ -43,41 +43,41 @@ public class OrderDetailAPI {
 		return detailService.findAllByFlagDelete(flagDelete, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/orderdetail/list/search_id/{key}")
-	public List<OrderDetailDTO> findAllById(@PathVariable("key") Long key){
-		return detailService.findAllById(key);
+	@GetMapping(value = "/api/orderdetail/list/search_or/{key}")
+	public List<OrderDetailDTO> findAllByOrderCode(@PathVariable("key") String orderCode){
+		return detailService.findAllByOrderCode(orderCode);
 	}
 	
-	@GetMapping(value = "/api/orderdetail/search_id/total_pages")
-	public Integer getTotalPagesById(@RequestParam("key") Long key, @RequestParam("page") Integer page,
+	@GetMapping(value = "/api/orderdetail/search_or/total_pages")
+	public Integer getTotalPagesByOrderCode(@RequestParam("key") String orderCode, @RequestParam("page") Integer page,
 			@RequestParam("limit") Integer limit) {
-		return detailService.getTotalPagesById(key, page - 1, limit);
+		return detailService.getTotalPagesByOrderCode(orderCode, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/orderdetail/search_id/list")
-	public List<OrderDetailDTO> findAllById(@RequestParam("key") Long key, @RequestParam("page") Integer page,
+	@GetMapping(value = "/api/orderdetail/search_or/list")
+	public List<OrderDetailDTO> findAllByOrderCode(@RequestParam("key") String orderCode, @RequestParam("page") Integer page,
 			@RequestParam("limit") Integer limit) {
-		return detailService.findAllById(key, page - 1, limit);
+		return detailService.findAllByOrderCode(orderCode, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/orderdetail/flag_delete/{flagDelete}/search_id/{key}")
-	public List<OrderDetailDTO> findAllByFlagDeleteAndId(@PathVariable("flagDelete") Boolean flagDelete,
-			@PathVariable("key") Long key) {
-		return detailService.findAllByFlagDeleteAndId(flagDelete, key);
+	@GetMapping(value = "/api/orderdetail/flag_delete/{flagDelete}/search_or/{key}")
+	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(@PathVariable("flagDelete") Boolean flagDelete,
+			@PathVariable("key") String orderCode) {
+		return detailService.findAllByFlagDeleteAndOrderCode(flagDelete, orderCode);
 	}
 	
 	@GetMapping(value = "/api/orderdetail/flag_delete/search_id/total_pages")
-	public Integer getTotalPagesByFlagDeleteAndId(@RequestParam("key") Long key,
+	public Integer getTotalPagesByFlagDeleteAndOrderCode(@RequestParam("key") String orderCode,
 			@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page,
 			@RequestParam("limit") Integer limit) {
-		return detailService.getTotalPagesByFlagDeleteAndId(flagDelete, key, page - 1, limit);
+		return detailService.getTotalPagesByFlagDeleteAndOrderCode(flagDelete, orderCode, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/orderdetail/flag_delete/search_id/list")
-	public List<OrderDetailDTO> findAllByFlagDeleteAndId(@RequestParam("key") Long key,
+	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(@RequestParam("key") String orderCode,
 			@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page,
 			@RequestParam("limit") Integer limit) {
-		return detailService.findAllByFlagDeleteAndId(flagDelete, key, page - 1, limit);
+		return detailService.findAllByFlagDeleteAndOrderCode(flagDelete, orderCode, page - 1, limit);
 	}
 	
 	
