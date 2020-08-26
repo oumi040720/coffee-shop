@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.fpoly.coffeeshop.converter.OrderConveter;
 import com.fpoly.coffeeshop.converter.OrderDetailConveter;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
 import com.fpoly.coffeeshop.entity.MenuEntity;
@@ -32,9 +31,6 @@ public class OrderDetailService implements IOrderDetailService {
 	
 	@Autowired
 	private IMenuRepository menuRepository;
-	
-	@Autowired
-	private OrderConveter orderConveter;
 
 	@Override
 	public List<OrderDetailDTO> findAll() {
