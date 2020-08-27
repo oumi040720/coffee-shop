@@ -68,244 +68,6 @@ public class CustomersService implements ICustomersService {
 	}
 
 	@Override
-	public List<CustomersDTO> findAllByFullname(String key) {
-		List<CustomersEntity> list = cusctomersRepository.findAllByFullnameContaining(key);
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByFullname(String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByFullnameContaining(key, PageRequest.of(page, limit)).getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFullname(String key, Integer page, Integer limit) {
-		List<CustomersEntity> list = (cusctomersRepository.findAllByFullnameContaining(key,
-				PageRequest.of(page, limit))).getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByEmail(String key) {
-		List<CustomersEntity> list = cusctomersRepository.findAllByEmailContaining(key);
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByEmail(String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByEmailContaining(key, PageRequest.of(page, limit)).getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByEmail(String key, Integer page, Integer limit) {
-		List<CustomersEntity> list = (cusctomersRepository.findAllByEmailContaining(key,
-				PageRequest.of(page, limit))).getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByAddress(String key) {
-		List<CustomersEntity> list = cusctomersRepository.findAllByAddressContaining(key);
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByAddress(String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByAddressContaining(key, PageRequest.of(page, limit)).getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByAddress(String key, Integer page, Integer limit) {
-		List<CustomersEntity> list = (cusctomersRepository.findAllByAddressContaining(key,
-				PageRequest.of(page, limit))).getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByPhone(String key) {
-		List<CustomersEntity> list = cusctomersRepository.findAllByPhoneContaining(key);
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByPhone(String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByPhoneContaining(key, PageRequest.of(page, limit)).getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByPhone(String key, Integer page, Integer limit) {
-		List<CustomersEntity> list = (cusctomersRepository.findAllByPhoneContaining(key,
-				PageRequest.of(page, limit))).getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndFullname(Boolean flagDelete, String key) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndFullnameContaining(flagDelete, key);
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndFullname(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByFlagDeleteIsAndFullnameContaining(flagDelete, key, PageRequest.of(page, limit))
-				 .getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndFullname(Boolean flagDelete, String key, Integer page,
-			Integer limit) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndFullnameContaining(flagDelete, key, PageRequest.of(page, limit))
-				.getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndEmail(Boolean flagDelete, String key) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndEmailContaining(flagDelete, key);
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndEmail(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByFlagDeleteIsAndEmailContaining(flagDelete, key, PageRequest.of(page, limit))
-				 .getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndEmail(Boolean flagDelete, String key, Integer page, Integer limit) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndEmailContaining(flagDelete, key, PageRequest.of(page, limit))
-				.getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndPhone(Boolean flagDelete, String key) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndPhoneContaining(flagDelete, key);
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndPhone(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByFlagDeleteIsAndPhoneContaining(flagDelete, key, PageRequest.of(page, limit))
-				 .getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndPhone(Boolean flagDelete, String key, Integer page, Integer limit) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndPhoneContaining(flagDelete, key, PageRequest.of(page, limit))
-				.getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndAddress(Boolean flagDelete, String key) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndAddressContaining(flagDelete, key);
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndAddress(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return cusctomersRepository.findAllByFlagDeleteIsAndAddressContaining(flagDelete, key, PageRequest.of(page, limit))
-				 .getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndAddress(Boolean flagDelete, String key, Integer page,
-			Integer limit) {
-		List<CustomersEntity> list  = cusctomersRepository.findAllByFlagDeleteIsAndAddressContaining(flagDelete, key, PageRequest.of(page, limit))
-				.getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-		
-		for(CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-		return result;
-	}
-
-	@Override
 	public CustomersDTO findOne(Long id) {
 		return customersConveter.convertToDTO(cusctomersRepository.getOne(id));
 	}
@@ -363,6 +125,75 @@ public class CustomersService implements ICustomersService {
 	@Override
 	public CustomersDTO findOne(String fullname) {
 		return customersConveter.convertToDTO(cusctomersRepository.findOneByFullname(fullname));
+	}
+
+	@Override
+	public List<CustomersDTO> findAllByKey(String key) {
+		List<CustomersEntity> list = cusctomersRepository
+				.findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(key, key, key, key);
+		List<CustomersDTO> result = new ArrayList<>();
+
+		for (CustomersEntity customer : list) {
+			result.add(customersConveter.convertToDTO(customer));
+		}
+
+		return result;
+	}
+
+	@Override
+	public Integer getTotalPagesByKey(String key, Integer page, Integer limit) {
+		return cusctomersRepository.findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(key,
+				key, key, key, PageRequest.of(page, limit)).getTotalPages();
+	}
+
+	@Override
+	public List<CustomersDTO> findAllByKey(String key, Integer page, Integer limit) {
+		List<CustomersEntity> list = cusctomersRepository
+				.findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(key, key, key, key,PageRequest.of(page, limit))
+				.getContent();
+		List<CustomersDTO> result = new ArrayList<>();
+
+		for (CustomersEntity customer : list) {
+			result.add(customersConveter.convertToDTO(customer));
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<CustomersDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key) {
+		List<CustomersEntity> list = cusctomersRepository
+				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+						flagDelete, key, key, key, key);
+		List<CustomersDTO> result = new ArrayList<>();
+
+		for (CustomersEntity customer : list) {
+			result.add(customersConveter.convertToDTO(customer));
+		}
+
+		return result;
+	}
+
+	@Override
+	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
+		return cusctomersRepository
+				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+						flagDelete, key, key, key, key, PageRequest.of(page, limit))
+				.getTotalPages();
+	}
+
+	@Override
+	public List<CustomersDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
+		List<CustomersEntity> list = cusctomersRepository
+				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+						flagDelete, key, key, key, key,PageRequest.of(page, limit)).getContent();
+		List<CustomersDTO> result = new ArrayList<>();
+
+		for (CustomersEntity customer : list) {
+			result.add(customersConveter.convertToDTO(customer));
+		}
+
+		return result;
 	}
 
 }
