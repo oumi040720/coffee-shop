@@ -1,6 +1,5 @@
 package com.fpoly.coffeeshop.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -24,9 +24,11 @@ public class OrderEntity {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	
 	@Column(name = "order_date")
-	private Date orderDate;
+	@JsonFormat(pattern="dd-MM-yyyy")
+	private String orderDate;
 
 	@Column(name = "order_code")
 	private String orderCode;
@@ -54,11 +56,11 @@ public class OrderEntity {
 		this.id = id;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 

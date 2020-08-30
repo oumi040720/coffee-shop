@@ -136,7 +136,7 @@ public class OrderDetailService implements IOrderDetailService {
 	@Override
 	public List<OrderDetailDTO> findAllByOrderCode(String orderCode) {
 		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
-		
+		System.out.println(order);
 		List<OrderDetailDTO> result = new ArrayList<>();
 		List<OrderDetailEntity> list = orderDetailRepository.findAllByOrder(order);
 		
@@ -156,7 +156,6 @@ public class OrderDetailService implements IOrderDetailService {
 	@Override
 	public List<OrderDetailDTO> findAllByOrderCode(String orderCode, Integer page, Integer limit) {
 		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
-		
 		List<OrderDetailDTO> result = new ArrayList<>();
 		List<OrderDetailEntity> list = orderDetailRepository.findAllByOrder(order,PageRequest.of(page, limit)).getContent();
 		
@@ -192,7 +191,7 @@ public class OrderDetailService implements IOrderDetailService {
 	@Override
 	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode, Integer page,
 			Integer limit) {
-OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
 		
 		List<OrderDetailDTO> result = new ArrayList<>();
 		List<OrderDetailEntity> list = orderDetailRepository.findAllByFlagDeleteIsAndOrder(flagDelete, order, PageRequest.of(page, limit)).getContent();

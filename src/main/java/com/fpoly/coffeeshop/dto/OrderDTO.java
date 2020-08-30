@@ -1,12 +1,10 @@
 package com.fpoly.coffeeshop.dto;
 
-import java.util.Date;
-
 public class OrderDTO {
 	
 	private Long id;
-	
-	private Date orderDate;
+
+	private String orderDate;
 	
 	private String orderCode;
 	
@@ -14,6 +12,8 @@ public class OrderDTO {
 	
 	private String fullname;
 	
+	private Boolean flagDelete;
+
 	public Long getId() {
 		return id;
 	}
@@ -22,11 +22,11 @@ public class OrderDTO {
 		this.id = id;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
 	}
 
@@ -61,8 +61,4 @@ public class OrderDTO {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-
-	private Boolean flagDelete;
-
-	
 }
