@@ -15,24 +15,20 @@ public interface IOrderDetailService {
 
 	public List<OrderDetailDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit);
 
-//	
-	public List<OrderDetailDTO> findAllById(Long key);
-
-	public Integer getTotalPagesById(Long key, Integer page, Integer limit);
-
-	public List<OrderDetailDTO> findAllById(Long key, Integer page, Integer limit);
-//	
 	
 	public List<OrderDetailDTO> findAllByOrderCode(String orderCode);
+	
+	public Integer getTotalPagesByOrderCode(String orderCode, Integer page, Integer limit);
 
+	public List<OrderDetailDTO> findAllByOrderCode(String orderCode, Integer page, Integer limit);
 	
-	public List<OrderDetailDTO> findAllByFlagDeleteAndId(Boolean flagDelete, Long key);
 	
-//
-	public Integer getTotalPagesByFlagDeleteAndId(Boolean flagDelete, Long key, Integer page, Integer limit);
+	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode);
 	
-	public List<OrderDetailDTO> findAllByFlagDeleteAndId(Boolean flagDelete, Long key, Integer page, Integer limit);
-//	
+	public Integer getTotalPagesByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode, Integer page, Integer limit);
+	
+	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode, Integer page, Integer limit);
+	
 	
 	public OrderDetailDTO findOne(Long id);
 	

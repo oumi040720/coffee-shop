@@ -18,15 +18,12 @@ public interface IOrderDetailRepository extends JpaRepository<OrderDetailEntity,
 	public Page<OrderDetailEntity> findAllByFlagDeleteIs(Boolean flagDelete, Pageable pageable);
 	
 	
-	public List<OrderDetailEntity> findAllByIdContaining(Long id);
-
-	public Page<OrderDetailEntity> findAllByIdContaining(Long id, Pageable pageable);
-	
-//	
 	public List<OrderDetailEntity> findAllByOrder(OrderEntity order); 
 	
+	public Page<OrderDetailEntity> findAllByOrder(OrderEntity order, Pageable pageable);
 	
-	public List<OrderDetailEntity> findAllByFlagDeleteIsAndIdContaining(Boolean flagDelete, Long id);
 	
-	public Page<OrderDetailEntity> findAllByFlagDeleteIsAndIdContaining(Boolean flagDelete, Long id, Pageable pageable);
+	public List<OrderDetailEntity> findAllByFlagDeleteIsAndOrder(Boolean flagDelete, OrderEntity order);
+	
+	public Page<OrderDetailEntity> findAllByFlagDeleteIsAndOrder(Boolean flagDelete, OrderEntity order, Pageable pageable);
 }

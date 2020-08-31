@@ -3,6 +3,7 @@ package com.fpoly.coffeeshop.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -59,20 +60,20 @@ public class OrderAPI {
 		return orderService.findAllByOrderCode(key, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/order/flag_delete/{flagDelete}/search_od/{key}")
+	@GetMapping(value = "/api/order/flag_delete/{flagDelete}/search_o/{key}")
 	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(@PathVariable("flagDelete") Boolean flagDelete,
 			@PathVariable("key") String key) {
 		return orderService.findAllByFlagDeleteAndOrderCode(flagDelete, key);
 	}
 	
-	@GetMapping(value = "/api/order/flag_delete/search_od/total_pages")
+	@GetMapping(value = "/api/order/flag_delete/search_o/total_pages")
 	public Integer getTotalPagesByFlagDeleteAndOrderCode(@RequestParam("key") String key,
 			@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page,
 			@RequestParam("limit") Integer limit) {
 		return orderService.getTotalPagesByFlagDeleteAndOrderCode(flagDelete, key, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/order/flag_delete/search_od/list")
+	@GetMapping(value = "/api/order/flag_delete/search_o/list")
 	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(@RequestParam("key") String key,
 			@RequestParam("flag_delete") Boolean flagDelete, @RequestParam("page") Integer page,
 			@RequestParam("limit") Integer limit) {
@@ -95,5 +96,9 @@ public class OrderAPI {
 		return orderService.update(orderDTO);
 	}
 	
+	@DeleteMapping(value = "/api/order/delete")
+	public Boolean delete(@RequestParam("id") Long id) {
+		return orderService.delete(id);
+	}
 	
 }

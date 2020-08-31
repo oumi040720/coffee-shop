@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.fpoly.coffeeshop.converter.OrderConveter;
 import com.fpoly.coffeeshop.converter.OrderDetailConveter;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
 import com.fpoly.coffeeshop.entity.MenuEntity;
@@ -32,9 +31,6 @@ public class OrderDetailService implements IOrderDetailService {
 	
 	@Autowired
 	private IMenuRepository menuRepository;
-	
-	@Autowired
-	private OrderConveter orderConveter;
 
 	@Override
 	public List<OrderDetailDTO> findAll() {
@@ -136,81 +132,69 @@ public class OrderDetailService implements IOrderDetailService {
 			return false;
 		}
 	}
-
-	@Override
-	public List<OrderDetailDTO> findAllById(Long key) {
-		List<OrderDetailEntity> list = orderDetailRepository
-				.findAllByIdContaining(key);
-		List<OrderDetailDTO> result = new ArrayList<>();
-
-		for (OrderDetailEntity orderdetail : list) {
-			result.add(orderDetailConveter.convertToDTO(orderdetail));
-		}
-
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesById(Long key, Integer page, Integer limit) {
-		return orderDetailRepository.findAllByIdContaining(
-				key, PageRequest.of(page, limit)).getTotalPages();
-	}
-
-	@Override
-	public List<OrderDetailDTO> findAllById(Long key, Integer page, Integer limit) {
-		List<OrderDetailEntity> list = orderDetailRepository
-				.findAllByIdContaining(key,PageRequest.of(page, limit)).getContent();
-		List<OrderDetailDTO> result = new ArrayList<>();
-
-		for (OrderDetailEntity orderdetail : list) {
-			result.add(orderDetailConveter.convertToDTO(orderdetail));
-		}
-
-		return result;
-	}
-
-	@Override
-	public List<OrderDetailDTO> findAllByFlagDeleteAndId(Boolean flagDelete, Long key) {
-		List<OrderDetailEntity> list = orderDetailRepository
-				.findAllByFlagDeleteIsAndIdContaining(flagDelete, key);
-		List<OrderDetailDTO> result = new ArrayList<>();
-
-		for (OrderDetailEntity orderdetail : list) {
-			result.add(orderDetailConveter.convertToDTO(orderdetail));
-		}
-
-		return result;
-	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndId(Boolean flagDelete, Long key, Integer page, Integer limit) {
-		return orderDetailRepository
-				.findAllByFlagDeleteIsAndIdContaining(flagDelete, key, PageRequest.of(page, limit)).getTotalPages();
-	}
-
-	@Override
-	public List<OrderDetailDTO> findAllByFlagDeleteAndId(Boolean flagDelete, Long key, Integer page,
-			Integer limit) {
-		List<OrderDetailEntity> list = orderDetailRepository
-				.findAllByFlagDeleteIsAndIdContaining(flagDelete, key,PageRequest.of(page, limit)).getContent();
-		List<OrderDetailDTO> result = new ArrayList<>();
-
-		for (OrderDetailEntity orderdetail : list) {
-			result.add(orderDetailConveter.convertToDTO(orderdetail));
-		}
-
-		return result;
-	}
-
-//	
-//	
-//	
+	
 	@Override
 	public List<OrderDetailDTO> findAllByOrderCode(String orderCode) {
 		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
-		
+		System.out.println(order);
 		List<OrderDetailDTO> result = new ArrayList<>();
 		List<OrderDetailEntity> list = orderDetailRepository.findAllByOrder(order);
+		
+		for (OrderDetailEntity orderDetail : list) {
+			result.add(orderDetailConveter.convertToDTO(orderDetail));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Integer getTotalPagesByOrderCode(String orderCode, Integer page, Integer limit) {
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		return orderDetailRepository.findAllByOrder(order,  PageRequest.of(page, limit)).getTotalPages();
+	}
+
+	@Override
+	public List<OrderDetailDTO> findAllByOrderCode(String orderCode, Integer page, Integer limit) {
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		List<OrderDetailDTO> result = new ArrayList<>();
+		List<OrderDetailEntity> list = orderDetailRepository.findAllByOrder(order,PageRequest.of(page, limit)).getContent();
+		
+		for (OrderDetailEntity orderDetail : list) {
+			result.add(orderDetailConveter.convertToDTO(orderDetail));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode) {
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		
+		List<OrderDetailDTO> result = new ArrayList<>();
+		List<OrderDetailEntity> list = orderDetailRepository.findAllByFlagDeleteIsAndOrder(flagDelete, order);
+		
+		for (OrderDetailEntity orderDetail : list) {
+			result.add(orderDetailConveter.convertToDTO(orderDetail));
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Integer getTotalPagesByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode, Integer page,
+			Integer limit) {
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		return orderDetailRepository
+				.findAllByFlagDeleteIsAndOrder(flagDelete, order, PageRequest.of(page, limit)).getTotalPages();
+	}
+
+	@Override
+	public List<OrderDetailDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String orderCode, Integer page,
+			Integer limit) {
+		OrderEntity order = orderRepository.findOneByOrderCode(orderCode);
+		
+		List<OrderDetailDTO> result = new ArrayList<>();
+		List<OrderDetailEntity> list = orderDetailRepository.findAllByFlagDeleteIsAndOrder(flagDelete, order, PageRequest.of(page, limit)).getContent();
 		
 		for (OrderDetailEntity orderDetail : list) {
 			result.add(orderDetailConveter.convertToDTO(orderDetail));

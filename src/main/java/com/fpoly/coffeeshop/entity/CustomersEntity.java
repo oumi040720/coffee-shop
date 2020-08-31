@@ -34,6 +34,7 @@ public class CustomersEntity {
 
 	@Column(name = "address")
 	private String address;
+	
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
