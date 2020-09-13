@@ -10,12 +10,15 @@ public class OrderConveter {
 
 	public OrderDTO convertToDTO(OrderEntity entity) {
 		OrderDTO dto = new OrderDTO();
+		if(entity.getCustomer() != null) {		
 		dto.setId(entity.getId());
 		dto.setOrderCode(entity.getOrderCode());
 		dto.setOrderDate(entity.getOrderDate());
 		dto.setStatus(entity.getStatus());
 		dto.setFullname(entity.getCustomer().getFullname());
 		dto.setFlagDelete(entity.getFlagDelete());
+		
+		}
 		return dto;
 	}
 
