@@ -1,10 +1,16 @@
 package com.fpoly.coffeeshop.dto;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class OrderDTO {
 	
 	private Long id;
 
-	private String orderDate;
+
+    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	private Date orderDate;
 	
 	private String orderCode;
 	
@@ -22,11 +28,11 @@ public class OrderDTO {
 		this.id = id;
 	}
 
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 

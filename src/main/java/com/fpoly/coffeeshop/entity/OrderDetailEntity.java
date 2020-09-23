@@ -23,6 +23,9 @@ public class OrderDetailEntity {
 	@Column(name= "quantity")
 	private Integer quantity;
 	
+	@Column(name= "total_money")
+	private Long totalMoney;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	@JsonManagedReference
@@ -52,6 +55,14 @@ public class OrderDetailEntity {
 		this.quantity = quantity;
 	}
 
+	public Long getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(Long totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+
 	public OrderEntity getOrder() {
 		return order;
 	}
@@ -75,5 +86,4 @@ public class OrderDetailEntity {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-
 }

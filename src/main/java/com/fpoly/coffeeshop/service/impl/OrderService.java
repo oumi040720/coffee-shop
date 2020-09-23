@@ -1,5 +1,6 @@
 package com.fpoly.coffeeshop.service.impl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +106,7 @@ public class OrderService implements IOrderService {
 			CustomersEntity customersEntity = cusctomersRepository.findOneByFullname(customerDTO.getFullname());
 			OrderEntity orderEntity = orderConveter.convertToEntity(customerDTO);
 			orderEntity.setCustomer(customersEntity);
+			orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
 
 			OrderEntity result = orderRepository.save(orderEntity);
 

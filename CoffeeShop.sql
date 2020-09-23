@@ -113,7 +113,7 @@ go
 
 create table orders (
 	id bigint primary key identity(1, 1),
-	order_date datetime not null,
+	order_date date not null,
 	order_code varchar(15) not null,
 	status int default 0 not null,
 	customer_id bigint,
@@ -126,6 +126,7 @@ create table order_details (
 	quantity int not null,
 	menu_id int not null,
 	order_id bigint not null,
+	total_money float not null,
 	flag_delete bit default 0
 )
 go 

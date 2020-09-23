@@ -9,8 +9,8 @@ public class OrderDetailDTO {
 	private String order;
 	
 	private String product;
-
-	private Boolean flagDelete;
+	
+	private Long totalMoney;
 
 	public Long getId() {
 		return id;
@@ -44,6 +44,14 @@ public class OrderDetailDTO {
 		this.product = product;
 	}
 
+	public Long getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(Long totalMoney) {
+		this.totalMoney = totalMoney;
+	}
+
 	public Boolean getFlagDelete() {
 		return flagDelete;
 	}
@@ -51,6 +59,8 @@ public class OrderDetailDTO {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
+
+	private Boolean flagDelete;
 
 	
 }

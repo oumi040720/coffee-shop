@@ -1,5 +1,6 @@
 package com.fpoly.coffeeshop.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -27,8 +28,7 @@ public class OrderEntity {
 	
 	
 	@Column(name = "order_date")
-	@JsonFormat(pattern="dd-MM-yyyy")
-	private String orderDate;
+	private Date orderDate;
 
 	@Column(name = "order_code")
 	private String orderCode;
@@ -56,11 +56,11 @@ public class OrderEntity {
 		this.id = id;
 	}
 
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
