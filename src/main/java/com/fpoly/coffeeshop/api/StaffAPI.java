@@ -83,7 +83,7 @@ public class StaffAPI {
 	}
 
 	@PostMapping(value = "/api/staff/insert")
-	public Boolean insert(@RequestBody StaffDTO staffDTO) {
+	public StaffDTO insert(@RequestBody StaffDTO staffDTO) {
 		return staffService.insert(staffDTO);
 	}
 	
