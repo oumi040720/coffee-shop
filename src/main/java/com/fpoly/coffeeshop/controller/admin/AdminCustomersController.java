@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -21,32 +22,20 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fpoly.coffeeshop.model.Customers;
-import com.fpoly.coffeeshop.model.User;
+import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/customers")
 public class AdminCustomersController {
 	
+	@Autowired
+	private IUserService userService;
+	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
 	}
 
-	public void getUser(Model model) {
-		String url = getDomain() +"/user/list";
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			List<User> users = mapper.readValue(result.getBody(), new TypeReference<List<User>>(){});
-			
-			model.addAttribute("users", users);
-		} catch (Exception e) {
-		} 
-	}
-	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
 		String message = request.getParameter("message");
@@ -89,8 +78,7 @@ public class AdminCustomersController {
 	
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
-		getUser(model);
-		
+		model.addAttribute("users", userService.findAll());
 		model.addAttribute("check", false);
 		model.addAttribute("customers", new Customers());
 		
@@ -99,8 +87,7 @@ public class AdminCustomersController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
-		getUser(model);
-		
+		model.addAttribute("users", userService.findAll());
 		String url = getDomain()+"/customers/id/" + id;
 		
 		RestTemplate restTemplate = new RestTemplate();

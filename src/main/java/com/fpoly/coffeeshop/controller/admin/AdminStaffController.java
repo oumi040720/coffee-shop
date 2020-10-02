@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,31 +24,18 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fpoly.coffeeshop.model.Staff;
 import com.fpoly.coffeeshop.model.StaffLog;
-import com.fpoly.coffeeshop.model.User;
+import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/staff")
 public class AdminStaffController {
 
+	@Autowired
+	private IUserService userService;
+	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
-	}
-	
-	// edit
-	private void getUser(Model model) {
-		String url = getDomain() + "/user/list/flag_delete/false";
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			List<User> users = mapper.readValue(result.getBody(), new TypeReference<List<User>>(){});
-			
-			model.addAttribute("users", users);
-		} catch (Exception e) {
-		} 
 	}
 	
 	@RequestMapping(value = "/list")
@@ -91,8 +79,7 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
-		getUser(model);
-		
+		model.addAttribute("users", userService.findAll());
 		model.addAttribute("check", false);
 		model.addAttribute("staff", new Staff());
 		
@@ -101,14 +88,13 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
-		getUser(model);
-		
 		String url =  getDomain() + "/staff/id/" + id;
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
 		ResponseEntity<Staff> staff = restTemplate.getForEntity(url, Staff.class);
 		
+		model.addAttribute("users", userService.findAll());
 		model.addAttribute("check", true);
 		model.addAttribute("staff", staff.getBody());
 		

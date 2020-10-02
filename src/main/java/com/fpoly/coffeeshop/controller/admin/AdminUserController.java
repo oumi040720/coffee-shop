@@ -1,50 +1,32 @@
 package com.fpoly.coffeeshop.controller.admin;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fpoly.coffeeshop.model.Role;
-import com.fpoly.coffeeshop.model.User;
+import com.fpoly.coffeeshop.dto.UserDTO;
+import com.fpoly.coffeeshop.service.IRoleService;
+import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/user")
 public class AdminUserController {
 
+	@Autowired
+	private IRoleService roleService;
+	
+	@Autowired
+	private IUserService userService;
+	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
-	}
-	
-	private void getRole(Model model) {
-		String url = getDomain() + "/role/list";
-		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-		
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			List<Role> roles = mapper.readValue(result.getBody(), new TypeReference<List<Role>>(){});
-			
-			model.addAttribute("roles", roles);
-		} catch (Exception e) {
-		} 
 	}
 	
 	@RequestMapping(value = "/list")
@@ -52,82 +34,52 @@ public class AdminUserController {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
-		String page = request.getParameter("page");
-		String limit = "10";
-		String flagDelete = "false";
+		boolean flagDelete = false;
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
 
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
-
-		String usersURL = getDomain() + "/user/flag_delete/list?flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		String totalPagesURL = getDomain() + "/user/flag_delete/total_pages?flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(usersURL, HttpMethod.GET, entity, String.class);
 		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-		
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<User> users = mapper.readValue(result.getBody(), new TypeReference<List<User>>(){});
-			request.setAttribute("users", users);
-		} catch (Exception e) {
-		}
+		request.setAttribute("totalPages", userService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("users", userService.findAllByFlagDelete(flagDelete, page, limit));
 		
 		return "admin/user/list";
 	}
 	
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
-		getRole(model);
-		
+		model.addAttribute("roles", roleService.findAll());
 		model.addAttribute("check", false);
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("user", new User());
+		model.addAttribute("user", new UserDTO());
 		
 		return "admin/user/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("username") String username) {
-		getRole(model);
-		
-		String url =  getDomain() + "/user/username/" + username;
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		ResponseEntity<User> user = restTemplate.getForEntity(url, User.class);
-		
+		model.addAttribute("roles", roleService.findAll());
 		model.addAttribute("check", true);
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("user", user.getBody());
+		model.addAttribute("user", userService.findOne(username));
 		
 		return "admin/user/edit";
 	}
 	
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute User user) {
-		String url = getDomain() + "/user";
+	public String save(Model model, @ModelAttribute UserDTO userDTO) {
 		String message = "";
 		String alert = "danger";
 		
-		RestTemplate restTemplate = new RestTemplate();
+		userDTO.setFlagDelete(false);
 		
-		user.setFlagDelete(false);
-		
-		if (user.getId() == null) {
-			url += "/insert";
-			
-			Boolean result = restTemplate.postForObject(url, user, Boolean.class);
+		if (userDTO.getId() == null) {
+			Boolean result = userService.insert(userDTO);
 			
 			if (result) {
 				message = "message_user_insert_success";
@@ -136,14 +88,12 @@ public class AdminUserController {
 				message = "message_user_insert_fail";
 			}
 		} else {
-			url += "/update?id=" + user.getId();
+			Boolean result = userService.update(userDTO);
 			
-			try {
-				restTemplate.put(url, user);
-				
+			if (result) {
 				message = "message_user_update_success";
 				alert = "success";
-			} catch (Exception e) {
+			} else {
 				message = "message_user_update_fail";
 			}
 		}
@@ -156,24 +106,19 @@ public class AdminUserController {
 
 	@RequestMapping(value = "/delete")
 	public String delete(Model model, @RequestParam("username") String username) {
-		String url = getDomain() + "/user/username/" + username;
 		String message = "";
 		String alert = "danger";
 		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<User> reusult = restTemplate.getForEntity(url, User.class);
-		User user = reusult.getBody();
+		UserDTO userDTO = userService.findOne(username);
+		userDTO.setFlagDelete(true);
+		userDTO.setPassword("123@123zxCV@");
 		
-		String deleteURL = getDomain() + "/user/update?id=" + user.getId();
+		Boolean result = userService.update(userDTO);
 		
-		try {
-			user.setFlagDelete(true);
-			user.setPassword("123@123zxCV@");
-			restTemplate.put(deleteURL, user);
-			
+		if (result) {
 			message = "message_user_delete_success";
 			alert = "success";
-		} catch (Exception e) {
+		} else {
 			message = "message_user_delete_fail";
 		}
 		
@@ -187,7 +132,7 @@ public class AdminUserController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpServletRequest request) {
 		String key = request.getParameter("key");
-		String page = "1";
+		int page = 1;
 		
 		model.addAttribute("key", key);
 		model.addAttribute("page", page);
@@ -198,32 +143,15 @@ public class AdminUserController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
-		String page = request.getParameter("page");
-		String flagDelete = "false";
-		String limit = "10";
-		
-		String usersURL = getDomain() + "/user/flag_delete/search/list?key=" + key + "&flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		String totalPagesURL = getDomain() + "/user/flag_delete/search/total_pages?key=" + key + "&flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(usersURL, HttpMethod.GET, entity, String.class);
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = false;
 		
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-		
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<User> users = mapper.readValue(result.getBody(), new TypeReference<List<User>>(){});
-			request.setAttribute("users", users);
-		} catch (Exception e) {
-		}
+		request.setAttribute("totalPages", userService.getTotalPagesByFlagDeleteAndUsername(flagDelete, key, page, limit));
+		request.setAttribute("users", userService.findAllByFlagDeleteAndUsername(flagDelete, key, page, limit));
 		
 		return "admin/user/search";
 	}
