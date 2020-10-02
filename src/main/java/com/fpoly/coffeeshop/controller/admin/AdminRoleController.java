@@ -1,34 +1,28 @@
 package com.fpoly.coffeeshop.controller.admin;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fpoly.coffeeshop.model.Role;
+import com.fpoly.coffeeshop.dto.RoleDTO;
+import com.fpoly.coffeeshop.service.IRoleService;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/role")
 public class AdminRoleController {
-
+	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
 	}
+	
+	@Autowired
+	private IRoleService roleService;
 	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
@@ -40,22 +34,7 @@ public class AdminRoleController {
 			request.setAttribute("alert", alert);
 		}
 		
-		String rolesURL = getDomain() + "/role/list/flag_delete/false";
-		
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(rolesURL, HttpMethod.GET, entity, String.class);
-		
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<Role> roles = mapper.readValue(result.getBody(), new TypeReference<List<Role>>(){});
-			request.setAttribute("roles", roles);
-		} catch (Exception e) {
-		}
+		request.setAttribute("roles", roleService.findAll());
 		
 		return "admin/role/list";
 	}
@@ -63,7 +42,7 @@ public class AdminRoleController {
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
 		model.addAttribute("check", false);
-		model.addAttribute("role", new Role());
+		model.addAttribute("role", new RoleDTO());
 		model.addAttribute("domain", getDomain());
 		
 		return "admin/role/edit";
@@ -71,33 +50,22 @@ public class AdminRoleController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("role_code") String roleCode) {
-		String url =  getDomain() + "/role/role_code/" + roleCode;
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		ResponseEntity<Role> user = restTemplate.getForEntity(url, Role.class);
-		
 		model.addAttribute("check", true);
-		model.addAttribute("role", user.getBody());
+		model.addAttribute("role", roleService.findOne(roleCode));
 		model.addAttribute("domain", getDomain());
 		
 		return "admin/role/edit";
 	}
 	
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute Role role) {
-		String url = getDomain() + "/role";
+	public String save(Model model, @ModelAttribute RoleDTO roleDTO) {
 		String message = "";
 		String alert = "danger";
 		
-		RestTemplate restTemplate = new RestTemplate();
+		roleDTO.setFlagDelete(false);
 		
-		role.setFlagDelete(false);
-		
-		if (role.getId() == null) {
-			url += "/insert";
-			
-			Boolean result = restTemplate.postForObject(url, role, Boolean.class);
+		if (roleDTO.getId() == null) {
+			Boolean result = roleService.insert(roleDTO);
 			
 			if (result) {
 				message = "message_role_insert_success";
@@ -106,14 +74,12 @@ public class AdminRoleController {
 				message = "message_role_insert_fail";
 			}
 		} else {
-			url += "/update?id=" + role.getId();
+			Boolean result = roleService.update(roleDTO);
 			
-			try {
-				restTemplate.put(url, role);
-				
+			if (result) {
 				message = "message_role_update_success";
 				alert = "success";
-			} catch (Exception e) {
+			} else {
 				message = "message_role_update_fail";
 			}
 		}
@@ -121,35 +87,30 @@ public class AdminRoleController {
 		model.addAttribute("message", message);
 		model.addAttribute("alert", alert);
 		
-		return "redirect:/admin/role/list?page=1";
+		return "redirect:/admin/role/list";
 	}
 	
 	@RequestMapping(value = "/delete")
 	public String delete(Model model, @RequestParam("role_code") String roleCode) {
-		String url = getDomain() + "/role/role_code/" + roleCode;
 		String message = "";
 		String alert = "danger";
 		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Role> reusult = restTemplate.getForEntity(url, Role.class);
-		Role role = reusult.getBody();
+		RoleDTO roleDTO = roleService.findOne(roleCode);
+		roleDTO.setFlagDelete(true);
 		
-		String deleteURL = getDomain() + "/role/update?id=" + role.getId();
+		Boolean result = roleService.update(roleDTO);
 		
-		try {
-			role.setFlagDelete(true);
-			restTemplate.put(deleteURL, role);
-			
+		if (result) {
 			message = "message_role_delete_success";
 			alert = "success";
-		} catch (Exception e) {
+		} else {
 			message = "message_role_update_fail";
 		}
 		
 		model.addAttribute("message", message);
 		model.addAttribute("alert", alert);
 		
-		return "redirect:/admin/role/list?page=1";
+		return "redirect:/admin/role/list";
 	}
 	
 }
