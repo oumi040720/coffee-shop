@@ -2,14 +2,14 @@ package com.fpoly.coffeeshop.dto;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 public class OrderDTO {
 	
 	private Long id;
-
-
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
+	
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
 	
 	private String orderCode;
