@@ -146,7 +146,7 @@ public class StaffService implements IStaffService {
 	}
 
 	@Override
-	public Boolean insert(StaffDTO userDTO) {
+	public StaffDTO insert(StaffDTO userDTO) {
 		try {
 			UserEntity userEntity = userRepository.findOneByUsername(userDTO.getUsername());
 			StaffEntity staffEntity = staffConverter.convertToEntity(userDTO);
@@ -154,13 +154,9 @@ public class StaffService implements IStaffService {
 
 			StaffEntity result = staffRepository.save(staffEntity);
 
-			if (result != null) {
-				return true;
-			} else {
-				return false;
-			}
+			return staffConverter.convertToDTO(result);
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 	}
 

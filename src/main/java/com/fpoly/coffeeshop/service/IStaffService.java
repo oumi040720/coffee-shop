@@ -35,7 +35,7 @@ public interface IStaffService {
 	public StaffDTO findOne(Long id);
 	
 	
-	public Boolean insert(StaffDTO userDTO);
+	public StaffDTO insert(StaffDTO userDTO);
 	
 	public Boolean update(StaffDTO userDTO);
 
