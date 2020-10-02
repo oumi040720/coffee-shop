@@ -1,31 +1,22 @@
 package com.fpoly.coffeeshop.controller.admin;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fpoly.coffeeshop.model.Staff;
-import com.fpoly.coffeeshop.model.StaffLog;
+import com.fpoly.coffeeshop.dto.StaffDTO;
+import com.fpoly.coffeeshop.dto.StaffLogDTO;
+import com.fpoly.coffeeshop.service.IStaffLogService;
+import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
-import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/staff")
@@ -34,45 +25,30 @@ public class AdminStaffController {
 	@Autowired
 	private IUserService userService;
 	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
+	@Autowired
+	private IStaffService staffService;
+	
+	@Autowired
+	private IStaffLogService staffLogService;
 	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
-		String page = request.getParameter("page");
-		String limit = "10";
-		String flagDelete = "false";
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = false;
 
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
 
-		String usersURL = getDomain() + "/staff/flag_delete/list?flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		String totalPagesURL = getDomain() + "/staff/flag_delete/total_pages?flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(usersURL, HttpMethod.GET, entity, String.class);
-		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-		
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<Staff> staffs = mapper.readValue(result.getBody(), new TypeReference<List<Staff>>(){});
-			request.setAttribute("staffs", staffs);
-		} catch (Exception e) {
-		}
+		request.setAttribute("totalPages", staffService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("staffs", staffService.findAllByFlagDelete(flagDelete, page, limit));
 		
 		return "admin/staff/list";
 	}
@@ -81,52 +57,40 @@ public class AdminStaffController {
 	public String showAddPage(Model model) {
 		model.addAttribute("users", userService.findAll());
 		model.addAttribute("check", false);
-		model.addAttribute("staff", new Staff());
+		model.addAttribute("staff", new StaffDTO());
 		
 		return "admin/staff/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
-		String url =  getDomain() + "/staff/id/" + id;
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		ResponseEntity<Staff> staff = restTemplate.getForEntity(url, Staff.class);
-		
 		model.addAttribute("users", userService.findAll());
 		model.addAttribute("check", true);
-		model.addAttribute("staff", staff.getBody());
+		model.addAttribute("staff", staffService.findOne(id));
 		
 		return "admin/staff/edit";
 	}
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute Staff staff) {
-		String url = getDomain() + "/staff";
-		String logUrl = getDomain() + "/staff_log/insert";
+	public String save(Model model, @ModelAttribute StaffDTO staff) {
 		String message = "";
 		String alert = "danger";
 		
 		Boolean logResult = false;
 		
-		StaffLog log = new StaffLog();
-		
-		RestTemplate restTemplate = new RestTemplate();
+		StaffLogDTO log = new StaffLogDTO();
 		
 		staff.setFlagDelete(false);
 		
 		if (staff.getId() == null) {
-			url += "/insert";
-			
-			Staff result = restTemplate.postForObject(url, staff, Staff.class);
+			StaffDTO result = staffService.insert(staff);
 			
 			log.setStaffID(result.getId());
 			log.setCreatedBy("admin");
 			log.setCreatedDate(new Date(System.currentTimeMillis()));
 			
-			logResult = restTemplate.postForObject(logUrl, log, Boolean.class);
+			logResult = staffLogService.insert(log);
 			
 			if (result != null) {
 				message = "message_staff_insert_success";
@@ -135,41 +99,33 @@ public class AdminStaffController {
 				message = "message_staff_insert_fail";
 				alert = "danger";
 			}
-			
-			if (!logResult) {
-				message = "message_staff_insert_fail";
-				alert = "danger";
-			}
 		} else {
-			String urlGetOne = getDomain() + "/staff/id/" + staff.getId();
+			StaffDTO tempt = staffService.findOne(staff.getId());
 			
-			url += "/update?id=" + staff.getId();
+			Boolean result = staffService.update(staff);
 			
-			Staff result = restTemplate.getForEntity(urlGetOne, Staff.class).getBody();
-			
-			log.setStaffID(result.getId());
-			log.setOldAddress(result.getAddress());
-			log.setOldBirthday(result.getBirthday());
-			log.setOldEmail(result.getEmail());
-			log.setOldFlagDelete(result.getFlagDelete());
-			log.setOldFullname(result.getFullname());
-			log.setOldPhone(result.getPhone());
-			log.setOldPhoto(result.getPhoto());
-			log.setOldUsername(result.getUsername());
+			log.setStaffID(tempt.getId());
+			log.setOldAddress(tempt.getAddress());
+			log.setOldBirthday(tempt.getBirthday());
+			log.setOldEmail(tempt.getEmail());
+			log.setOldFlagDelete(tempt.getFlagDelete());
+			log.setOldFullname(tempt.getFullname());
+			log.setOldPhone(tempt.getPhone());
+			log.setOldPhoto(tempt.getPhoto());
+			log.setOldUsername(tempt.getUsername());
 			log.setModifiedBy("admin");
 			log.setCreatedDate(new Date(System.currentTimeMillis()));
 			log.setCreatedBy("admin");
 			log.setCreatedDate(new Date(System.currentTimeMillis()));
 			
-			logResult = restTemplate.postForObject(logUrl, log, Boolean.class);
+			logResult = staffLogService.insert(log);
 			
-			try {
-				restTemplate.put(url, staff);
-				
+			if (result) {
 				message = "message_staff_update_success";
 				alert = "success";
-			} catch (Exception e) {
+			} else {
 				message = "message_staff_update_fail";
+				alert = "danger";
 			}
 		}
 		
@@ -181,19 +137,12 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/delete")
 	public String delete(Model model, @RequestParam("id") Long id) {
-		String logUrl = getDomain() + "/staff_log/insert";
-		String url = getDomain() + "/staff/id/" + id;
-		
 		String message = "";
 		String alert = "danger";
 		
-		StaffLog log = new StaffLog();
+		StaffLogDTO log = new StaffLogDTO();
 		
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Staff> reusult = restTemplate.getForEntity(url, Staff.class);
-		Staff staff = reusult.getBody();
-		
-		String deleteURL = getDomain() + "/staff/update?id=" + staff.getId();
+		StaffDTO staff = staffService.findOne(id);
 		
 		log.setStaffID(staff.getId());
 		log.setOldAddress(staff.getAddress());
@@ -209,21 +158,13 @@ public class AdminStaffController {
 		log.setCreatedBy("admin");
 		log.setCreatedDate(new Date(System.currentTimeMillis()));
 		
-		Boolean logResult = restTemplate.postForObject(logUrl, log, Boolean.class);
+		staffLogService.insert(log);
 
+		staff.setFlagDelete(true);
 		
-		try {
-			staff.setFlagDelete(true);
-			restTemplate.put(deleteURL, staff);
-			
-			message = "message_staff_delete_success";
-			alert = "success";
-		} catch (Exception e) {
-			message = "message_staff_delete_fail";
-			alert = "danger";
-		}
+		Boolean result = staffService.update(staff);
 		
-		if (logResult) {
+		if (result) {
 			message = "message_staff_delete_success";
 			alert = "success";
 		} else {
@@ -240,7 +181,7 @@ public class AdminStaffController {
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpServletRequest request) {
 		String key = request.getParameter("key");
-		String page = "1";
+		int page = 1;
 		
 		model.addAttribute("key", key);
 		model.addAttribute("page", page);
@@ -251,32 +192,15 @@ public class AdminStaffController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
-		String page = request.getParameter("page");
-		String flagDelete = "false";
-		String limit = "10";
-		
-		String usersURL = getDomain() + "/staff/flag_delete/search/list?key=" + key + "&flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		String totalPagesURL = getDomain() + "/staff/flag_delete/search/total_pages?key=" + key + "&flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = false;
 
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(usersURL, HttpMethod.GET, entity, String.class);
-		
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-		
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<Staff> staffs = mapper.readValue(result.getBody(), new TypeReference<List<Staff>>(){});
-			request.setAttribute("staffs", staffs);
-		} catch (Exception e) {
-		}
+		request.setAttribute("totalPages", staffService.getTotalPagesByFlagDeleteAndKey(flagDelete, key, page, limit));
+		request.setAttribute("staffs", staffService.findAllByFlagDeleteAndKey(flagDelete, key, page, limit));
 		
 		return "admin/staff/search";
 	}

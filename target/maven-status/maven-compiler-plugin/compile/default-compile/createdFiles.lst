@@ -25,7 +25,6 @@ com\fpoly\coffeeshop\repository\IOrderRepository.class
 com\fpoly\coffeeshop\service\IUnitService.class
 com\fpoly\coffeeshop\entity\IngredientsEntity.class
 com\fpoly\coffeeshop\api\CategoryAPI.class
-com\fpoly\coffeeshop\controller\admin\AdminCustomersController$3.class
 com\fpoly\coffeeshop\dto\CustomersDTO.class
 com\fpoly\coffeeshop\repository\IOrderLogRepository.class
 com\fpoly\coffeeshop\ServletInitializer.class
@@ -35,7 +34,6 @@ com\fpoly\coffeeshop\repository\IStaffRepository.class
 com\fpoly\coffeeshop\service\impl\RoleService.class
 com\fpoly\coffeeshop\api\LoginAPI.class
 com\fpoly\coffeeshop\api\RoleAPI.class
-com\fpoly\coffeeshop\controller\admin\AdminUserController$3.class
 com\fpoly\coffeeshop\service\ICategoryService.class
 com\fpoly\coffeeshop\dto\StaffDTO.class
 com\fpoly\coffeeshop\service\impl\OrderService.class
@@ -56,7 +54,6 @@ com\fpoly\coffeeshop\entity\MenuLogEntity.class
 com\fpoly\coffeeshop\controller\admin\AdminCustomersController.class
 com\fpoly\coffeeshop\api\StaffAPI.class
 com\fpoly\coffeeshop\service\impl\StaffLogService.class
-com\fpoly\coffeeshop\controller\admin\AdminUserController$2.class
 com\fpoly\coffeeshop\dto\PriceHistoriesDTO.class
 com\fpoly\coffeeshop\entity\UserEntity.class
 com\fpoly\coffeeshop\controller\admin\AdminOrderController$2.class
@@ -67,7 +64,6 @@ com\fpoly\coffeeshop\controller\admin\AdminOrderController$1.class
 com\fpoly\coffeeshop\repository\IStaffLogRepository.class
 com\fpoly\coffeeshop\entity\OrderDetailEntity.class
 com\fpoly\coffeeshop\converter\CustomersConveter.class
-com\fpoly\coffeeshop\controller\admin\AdminUserController$1.class
 com\fpoly\coffeeshop\service\impl\StaffService.class
 com\fpoly\coffeeshop\api\UnitsAPI.class
 com\fpoly\coffeeshop\service\IUserService.class
@@ -79,9 +75,7 @@ com\fpoly\coffeeshop\repository\IOrderDetailRepository.class
 com\fpoly\coffeeshop\service\IStaffLogService.class
 com\fpoly\coffeeshop\service\IPriceHistoriesService.class
 com\fpoly\coffeeshop\controller\admin\AdminRoleController.class
-com\fpoly\coffeeshop\controller\admin\AdminStaffController$3.class
 com\fpoly\coffeeshop\converter\StaffLogConverter.class
-com\fpoly\coffeeshop\controller\admin\AdminRoleController$1.class
 com\fpoly\coffeeshop\service\impl\UnitsService.class
 com\fpoly\coffeeshop\dto\CategoryDTO.class
 com\fpoly\coffeeshop\api\CustomersAPI.class
@@ -104,10 +98,8 @@ com\fpoly\coffeeshop\converter\UserConveter.class
 com\fpoly\coffeeshop\dto\StaffLogDTO.class
 com\fpoly\coffeeshop\repository\IMenuLogRepository.class
 com\fpoly\coffeeshop\controller\admin\AdminOrderDetailController.class
-com\fpoly\coffeeshop\model\Role.class
 com\fpoly\coffeeshop\controller\admin\AdminCustomersController$2.class
 com\fpoly\coffeeshop\model\Menu.class
-com\fpoly\coffeeshop\model\User.class
 com\fpoly\coffeeshop\api\MenuLogAPI.class
 com\fpoly\coffeeshop\converter\RoleConveter.class
 com\fpoly\coffeeshop\service\IOrderService.class
