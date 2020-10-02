@@ -108,6 +108,8 @@ public class OrderService implements IOrderService {
 			orderEntity.setCustomer(customersEntity);
 			orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
 
+			System.out.println(orderEntity.getOrderDate());
+			
 			OrderEntity result = orderRepository.save(orderEntity);
 
 			if (result != null) {
