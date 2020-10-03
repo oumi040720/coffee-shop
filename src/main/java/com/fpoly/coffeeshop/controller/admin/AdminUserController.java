@@ -46,7 +46,7 @@ public class AdminUserController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", userService.getTotalPages(flagDelete, page, limit));
-		request.setAttribute("users", userService.findAllByFlagDelete(flagDelete, page, limit));
+		request.setAttribute("users", userService.findAllByFlagDelete(flagDelete, page - 1, limit));
 		
 		return "admin/user/list";
 	}
@@ -130,14 +130,10 @@ public class AdminUserController {
 	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(Model model, HttpServletRequest request) {
+	public String search(HttpServletRequest request) {
 		String key = request.getParameter("key");
-		int page = 1;
 		
-		model.addAttribute("key", key);
-		model.addAttribute("page", page);
-		
-		return "redirect:/admin/user/search";
+		return "redirect:/admin/user/search?key=" + key + "&page=1";
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -151,7 +147,7 @@ public class AdminUserController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", userService.getTotalPagesByFlagDeleteAndUsername(flagDelete, key, page, limit));
-		request.setAttribute("users", userService.findAllByFlagDeleteAndUsername(flagDelete, key, page, limit));
+		request.setAttribute("users", userService.findAllByFlagDeleteAndUsername(flagDelete, key, page - 1, limit));
 		
 		return "admin/user/search";
 	}

@@ -34,7 +34,7 @@ public class AdminRoleController {
 			request.setAttribute("alert", alert);
 		}
 		
-		request.setAttribute("roles", roleService.findAll());
+		request.setAttribute("roles", roleService.findAllByFlagDelete(false));
 		
 		return "admin/role/list";
 	}
@@ -81,13 +81,15 @@ public class AdminRoleController {
 				alert = "success";
 			} else {
 				message = "message_role_update_fail";
+				alert = "danger";
 			}
 		}
 		
 		model.addAttribute("message", message);
 		model.addAttribute("alert", alert);
 		
-		return "redirect:/admin/role/list";
+//		return "redirect:/admin/role/list";
+		return "redirect:/admin/role/list?message=" + message + "&alert=" + alert;
 	}
 	
 	@RequestMapping(value = "/delete")
@@ -105,12 +107,11 @@ public class AdminRoleController {
 			alert = "success";
 		} else {
 			message = "message_role_update_fail";
+			alert = "danger";
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/role/list";
+//		return "redirect:/admin/role/list";
+		return "redirect:/admin/role/list?message=" + message + "&alert=" + alert;
 	}
 	
 }

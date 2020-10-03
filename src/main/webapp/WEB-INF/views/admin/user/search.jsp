@@ -47,7 +47,7 @@
         										<form action="<c:url value='/admin/user/search' />" class="app-search" method="post">
         											<div class="app-search-box">
         												<div class="input-group">
-        													<input type="text" class="form-control" placeholder="Search...">
+        													<input type="text" name="key" class="form-control" placeholder="Search...">
         													<div class="input-group-append">
         														<button class="btn btn-dark" type="submit">
         															<i class="fas fa-search"></i>
