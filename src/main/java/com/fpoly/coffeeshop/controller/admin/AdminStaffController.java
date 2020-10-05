@@ -48,7 +48,7 @@ public class AdminStaffController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", staffService.getTotalPages(flagDelete, page, limit));
-		request.setAttribute("staffs", staffService.findAllByFlagDelete(flagDelete, page, limit));
+		request.setAttribute("staffs", staffService.findAllByFlagDelete(flagDelete, page - 1, limit));
 		
 		return "admin/staff/list";
 	}
@@ -73,7 +73,7 @@ public class AdminStaffController {
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute StaffDTO staff) {
+	public String save(@ModelAttribute StaffDTO staff) {
 		String message = "";
 		String alert = "danger";
 		
@@ -129,14 +129,11 @@ public class AdminStaffController {
 			}
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/staff/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("id") Long id) {
+	public String delete(@RequestParam("id") Long id) {
 		String message = "";
 		String alert = "danger";
 		
@@ -172,21 +169,14 @@ public class AdminStaffController {
 			alert = "danger";
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/staff/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpServletRequest request) {
 		String key = request.getParameter("key");
-		int page = 1;
 		
-		model.addAttribute("key", key);
-		model.addAttribute("page", page);
-		
-		return "redirect:/admin/staff/search";
+		return "redirect:/admin/staff/search?key=" + key + "&page=1";
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -200,7 +190,7 @@ public class AdminStaffController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", staffService.getTotalPagesByFlagDeleteAndKey(flagDelete, key, page, limit));
-		request.setAttribute("staffs", staffService.findAllByFlagDeleteAndKey(flagDelete, key, page, limit));
+		request.setAttribute("staffs", staffService.findAllByFlagDeleteAndKey(flagDelete, key, page - 1, limit));
 		
 		return "admin/staff/search";
 	}

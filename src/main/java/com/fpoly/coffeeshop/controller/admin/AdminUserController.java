@@ -46,7 +46,7 @@ public class AdminUserController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", userService.getTotalPages(flagDelete, page, limit));
-		request.setAttribute("users", userService.findAllByFlagDelete(flagDelete, page, limit));
+		request.setAttribute("users", userService.findAllByFlagDelete(flagDelete, page - 1, limit));
 		
 		return "admin/user/list";
 	}
@@ -72,7 +72,7 @@ public class AdminUserController {
 	}
 	
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute UserDTO userDTO) {
+	public String save(@ModelAttribute UserDTO userDTO) {
 		String message = "";
 		String alert = "danger";
 		
@@ -98,14 +98,11 @@ public class AdminUserController {
 			}
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/user/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("username") String username) {
+	public String delete(@RequestParam("username") String username) {
 		String message = "";
 		String alert = "danger";
 		
@@ -122,22 +119,15 @@ public class AdminUserController {
 			message = "message_user_delete_fail";
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/user/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(Model model, HttpServletRequest request) {
+	public String search(HttpServletRequest request) {
 		String key = request.getParameter("key");
-		int page = 1;
 		
-		model.addAttribute("key", key);
-		model.addAttribute("page", page);
-		
-		return "redirect:/admin/user/search";
+		return "redirect:/admin/user/search?key=" + key + "&page=1";
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
@@ -151,7 +141,7 @@ public class AdminUserController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", userService.getTotalPagesByFlagDeleteAndUsername(flagDelete, key, page, limit));
-		request.setAttribute("users", userService.findAllByFlagDeleteAndUsername(flagDelete, key, page, limit));
+		request.setAttribute("users", userService.findAllByFlagDeleteAndUsername(flagDelete, key, page - 1, limit));
 		
 		return "admin/user/search";
 	}
