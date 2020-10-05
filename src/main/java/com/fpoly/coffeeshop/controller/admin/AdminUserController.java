@@ -72,7 +72,7 @@ public class AdminUserController {
 	}
 	
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute UserDTO userDTO) {
+	public String save(@ModelAttribute UserDTO userDTO) {
 		String message = "";
 		String alert = "danger";
 		
@@ -98,14 +98,11 @@ public class AdminUserController {
 			}
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/user/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("username") String username) {
+	public String delete(@RequestParam("username") String username) {
 		String message = "";
 		String alert = "danger";
 		
@@ -122,10 +119,7 @@ public class AdminUserController {
 			message = "message_user_delete_fail";
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/user/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	

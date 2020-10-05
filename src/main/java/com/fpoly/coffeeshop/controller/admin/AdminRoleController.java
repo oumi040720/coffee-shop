@@ -88,7 +88,6 @@ public class AdminRoleController {
 		model.addAttribute("message", message);
 		model.addAttribute("alert", alert);
 		
-//		return "redirect:/admin/role/list";
 		return "redirect:/admin/role/list?message=" + message + "&alert=" + alert;
 	}
 	
@@ -110,7 +109,6 @@ public class AdminRoleController {
 			alert = "danger";
 		}
 		
-//		return "redirect:/admin/role/list";
 		return "redirect:/admin/role/list?message=" + message + "&alert=" + alert;
 	}
 	

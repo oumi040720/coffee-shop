@@ -73,7 +73,7 @@ public class AdminStaffController {
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute StaffDTO staff) {
+	public String save(@ModelAttribute StaffDTO staff) {
 		String message = "";
 		String alert = "danger";
 		
@@ -129,14 +129,11 @@ public class AdminStaffController {
 			}
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/staff/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("id") Long id) {
+	public String delete(@RequestParam("id") Long id) {
 		String message = "";
 		String alert = "danger";
 		
@@ -172,10 +169,7 @@ public class AdminStaffController {
 			alert = "danger";
 		}
 		
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-		
-		return "redirect:/admin/staff/list?page=1";
+		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
