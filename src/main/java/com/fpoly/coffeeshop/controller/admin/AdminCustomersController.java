@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fpoly.coffeeshop.model.Customers;
+import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
@@ -32,6 +33,9 @@ public class AdminCustomersController {
 	@Autowired
 	private IUserService userService;
 	
+	@Autowired
+	private ICustomersService customersService;
+	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
 	}
@@ -41,37 +45,19 @@ public class AdminCustomersController {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
-		String page = request.getParameter("page");
-		String limit = "10";
-		String flagDelete = "false";
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = false;
 
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
 
-		String customerURL = getDomain()+"/customers/flag_delete/list?flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		String totalPagesURL = getDomain()+"/customers/flag_delete/total_pages?flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-		
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(customerURL, HttpMethod.GET, entity, String.class);
-		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-		
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<Customers> customers = mapper.readValue(result.getBody(), new TypeReference<List<Customers>>(){});
-			request.setAttribute("customers", customers);
-			//System.out.println(customers);
-		} catch (Exception e) {
-		}
+		request.setAttribute("totalPages", customersService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("customers", customersService.findAllByFlagDelete(flagDelete, page, limit));
 		
 		return "admin/customers/list";
 	}
@@ -88,14 +74,8 @@ public class AdminCustomersController {
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
 		model.addAttribute("users", userService.findAll());
-		String url = getDomain()+"/customers/id/" + id;
-		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		ResponseEntity<Customers> customers = restTemplate.getForEntity(url, Customers.class);
-		
-		model.addAttribute("check", true);
-		model.addAttribute("customers", customers.getBody());
+		model.addAttribute("check",true);
+		model.addAttribute("customers",customersService.findOne(id));
 		
 		return "admin/customers/edit";
 	}
