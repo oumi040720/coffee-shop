@@ -98,7 +98,7 @@ public class AdminUserController {
 			}
 		}
 		
-		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
+		return "redirect:/admin/user/list?page=1&message=" + message + "&alert=" + alert;
 	}
 
 	@RequestMapping(value = "/delete")
@@ -119,7 +119,7 @@ public class AdminUserController {
 			message = "message_user_delete_fail";
 		}
 		
-		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
+		return "redirect:/admin/user/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 	

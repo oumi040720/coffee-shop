@@ -99,9 +99,26 @@
         												<c:url var="deleteURL" value="/admin/user/delete">
         													<c:param name="username" value="${user.username}" />
         												</c:url>
-        												<a href="${deleteURL}" class="btn btn-outline-danger">
+        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${user.username}">
         													<i class=" mdi mdi-window-close"></i>
         												</a>
+        												<div class="modal fade" id="confirm-${user.username}">
+        													<div class="modal-dialog modal-dialog-centered">
+        														<div class="modal-content">
+	        														<div class="modal-header">
+	        															<h4 class="modal-title">Xác nhận xóa tài khoản</h4>
+	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        														</div>
+	        														<div class="modal-body">
+	        															Bạn có chắc muốn xóa tài khoản "${user.username}" không?
+	        														</div>
+	        														<div class="modal-footer">
+	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
+	        															<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+	        														</div>
+        														</div>
+        													</div>
+        												</div>
         											</td>
         										</tr>
         									</c:forEach>
