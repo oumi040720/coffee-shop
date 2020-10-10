@@ -26,7 +26,7 @@
         						<div class="page-title-right">
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-        								<li class="breadcrumb-item"><a href="javascript: void(0);">Nhân Viên</a></li>
+        								<li class="breadcrumb-item"><a href="javascript: void(0);">Khách Hàng</a></li>
         								<c:if test="${check}">
         									<li class="breadcrumb-item active">Cập nhật</li>
         								</c:if>
@@ -36,10 +36,10 @@
         							</ol>
         						</div>
         						<c:if test="${check}">
-        							<h4 class="page-title">Cập nhật nhân viên</h4>
+        							<h4 class="page-title">Cập nhật khách hàng</h4>
         						</c:if>
         						<c:if test="${!check}">
-        							<h4 class="page-title">Thêm mới nhân viên</h4>
+        							<h4 class="page-title">Thêm mới khách hàng</h4>
         						</c:if>
         					</div>
         				</div>

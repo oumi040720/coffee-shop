@@ -36,6 +36,19 @@ public class OrderEntity {
 
 	@Column(name = "status")
 	private Integer status;
+	
+	
+	@Column(name = "address")
+	private String address;	
+	
+	@Column(name = "phone")
+	private String phone;
+	
+	@Column(name = "total_price")
+	private String totalPrice;
+		
+	@Column(name = "note")
+	private String note;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
@@ -81,6 +94,38 @@ public class OrderEntity {
 		this.status = status;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	public CustomersEntity getCustomer() {
 		return customer;
 	}
@@ -104,5 +149,4 @@ public class OrderEntity {
 	public void setOrderdetail(List<OrderDetailEntity> orderdetail) {
 		this.orderdetail = orderdetail;
 	}
-
 }

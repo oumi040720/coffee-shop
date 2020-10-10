@@ -18,6 +18,14 @@ public class OrderDTO {
 	
 	private String fullname;
 	
+	private String address;	
+	
+	private String phone;
+	
+	private String totalPrice;
+	
+	private String note;
+	
 	private Boolean flagDelete;
 
 	public Long getId() {
@@ -58,6 +66,38 @@ public class OrderDTO {
 
 	public void setFullname(String fullname) {
 		this.fullname = fullname;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 	public Boolean getFlagDelete() {

@@ -202,5 +202,10 @@ public class OrderDetailService implements IOrderDetailService {
 		
 		return result;
 	}
+
+	@Override
+	public OrderDetailDTO findOne(String order) {
+		return orderDetailConveter.convertToDTO(orderDetailRepository.findOneByOrder(order));
+	}
 	
 }

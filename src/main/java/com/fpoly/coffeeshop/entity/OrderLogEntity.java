@@ -33,7 +33,7 @@ public class OrderLogEntity {
 	private Integer oldQuantity;
 	
 	@Column(name = "old_menu_id")
-	private Integer oldMenuId;
+	private String oldMenuId;
 	
 	@Column(name = "order_id")
 	private Long orderID;
@@ -53,7 +53,7 @@ public class OrderLogEntity {
 	private Integer oldStatus;
 	
 	@Column(name = "old_customer_id")
-	private Long oldCustomerId;
+	private String oldCustomerId;
 	
 	@Column(name = "old_flag_delete")
 	private Boolean oldFlagDelete;
@@ -106,11 +106,11 @@ public class OrderLogEntity {
 		this.oldQuantity = oldQuantity;
 	}
 
-	public Integer getOldMenuId() {
+	public String getOldMenuId() {
 		return oldMenuId;
 	}
 
-	public void setOldMenuId(Integer oldMenuId) {
+	public void setOldMenuId(String oldMenuId) {
 		this.oldMenuId = oldMenuId;
 	}
 
@@ -154,11 +154,11 @@ public class OrderLogEntity {
 		this.oldStatus = oldStatus;
 	}
 
-	public Long getOldCustomerId() {
+	public String getOldCustomerId() {
 		return oldCustomerId;
 	}
 
-	public void setOldCustomerId(Long oldCustomerId) {
+	public void setOldCustomerId(String oldCustomerId) {
 		this.oldCustomerId = oldCustomerId;
 	}
 

@@ -113,9 +113,13 @@ go
 
 create table orders (
 	id bigint primary key identity(1, 1),
-	order_date date not null,
+	order_date datetime not null,
 	order_code varchar(15) not null,
 	status int default 0 not null,
+	address nvarchar(255)  null,
+	phone varchar(15)  null,
+	total_price float null,
+	note nvarchar(max) null,
 	customer_id bigint,
 	flag_delete bit default 0
 )
@@ -126,7 +130,7 @@ create table order_details (
 	quantity int not null,
 	menu_id int not null,
 	order_id bigint not null,
-	total_money float not null,
+	price float not null,
 	flag_delete bit default 0
 )
 go 
@@ -140,12 +144,12 @@ create table order_logs (
 	modified_by varchar(50) null,
 	order_id bigint null,
 	order_detail_id  bigint null,
-	old_menu_id int null,
+	old_menu_id varchar(50) null,
 	old_quantity int null,
 	old_order_date datetime null,
 	old_order_code varchar(15) null,
 	old_status int null,
-	old_customer_id bigint,
+	old_customer_id varchar(50),
 	old_flag_delete bit null
 )
 go
