@@ -82,9 +82,26 @@
         												<c:url var="deleteURL" value="/admin/role/delete">
         													<c:param name="role_code" value="${role.roleCode}" />
         												</c:url>
-        												<a href="${deleteURL}" class="btn btn-outline-danger">
-        													<i class=" mdi mdi-window-close"></i>
+        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${role.roleCode}">
+        													<i class="mdi mdi-window-close"></i>
         												</a>
+        												<div class="modal fade" id="confirm-${role.roleCode}">
+        													<div class="modal-dialog modal-dialog-centered">
+        														<div class="modal-content">
+	        														<div class="modal-header">
+	        															<h4 class="modal-title">Xác nhận xóa</h4>
+	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
+	        														</div>
+	        														<div class="modal-body">
+	        															Bạn có chắc muốn xóa vai trò "${role.roleName}" không?
+	        														</div>
+	        														<div class="modal-footer">
+	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
+	        															<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+	        														</div>
+        														</div>
+        													</div>
+        												</div>
         											</td>
         										</tr>
         									</c:forEach>
