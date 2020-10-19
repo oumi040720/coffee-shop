@@ -7,6 +7,13 @@ go
 use coffee_shop
 go
 
+create table photos (
+	id bigint primary key identity(1, 1),
+	url varchar(max),
+	folder varchar(max),
+)
+go
+
 create table users (
 	id bigint primary key identity(1, 1),
 	username varchar(50) not null unique,
