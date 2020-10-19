@@ -107,7 +107,7 @@ public class StaffService implements IStaffService {
 	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key) {
 		List<StaffEntity> list = staffRepository
 				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key);
+						 flagDelete, key, key, key, key);
 		List<StaffDTO> result = new ArrayList<>();
 
 		for (StaffEntity staff : list) {
@@ -131,6 +131,7 @@ public class StaffService implements IStaffService {
 				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
 						flagDelete, key, key, key, key, PageRequest.of(page, limit))
 				.getContent();
+		
 		List<StaffDTO> result = new ArrayList<>();
 
 		for (StaffEntity staff : list) {

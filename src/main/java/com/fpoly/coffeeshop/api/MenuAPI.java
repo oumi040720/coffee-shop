@@ -23,6 +23,11 @@ public class MenuAPI {
 		return menuService.findAll();
 	}
 	
+	@GetMapping(value = "/api/menu/list/category_code/{category_code}")
+	public List<MenuDTO> findAllByCategory(@PathVariable("category_code") String categoryCode){
+		return menuService.findAllByCategoryCode(categoryCode);
+	}
+	
 	@GetMapping(value = "/api/menu/list/flag_delete/{flag_delete}")
 	public List<MenuDTO> findAll(@PathVariable("flag_delete") Boolean flagDelete){
 		return menuService.findAllByFlagDeleteIs(flagDelete);

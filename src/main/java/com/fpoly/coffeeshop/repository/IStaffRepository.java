@@ -16,17 +16,16 @@ public interface IStaffRepository extends JpaRepository<StaffEntity, Long> {
 
 	public Page<StaffEntity> findAllByFlagDeleteIs(Boolean flagDelete, Pageable pageable);
 
-	public List<StaffEntity> findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(String fullname, String email,
-																											String phone, String address);
-	
-	public Page<StaffEntity> findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(String fullname, String email, String phone, 
-																						String address, Pageable pageable);
-	
-	public List<StaffEntity> findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(Boolean flagDelete, String fullname,
-																						String email, String phone, String address);
+	public List<StaffEntity> findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+			String fullname, String email, String phone, String address);
 
-	public Page<StaffEntity> findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(Boolean flagDelete, String fullname, 
-																									String email, String phone, 
-																									String address, Pageable pageable);
+	public Page<StaffEntity> findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+			String fullname, String email, String phone, String address, Pageable pageable);
+
+	public List<StaffEntity> findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+			Boolean flagDelete, String fullname, String email, String phone, String address);
+
+	public Page<StaffEntity> findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
+			Boolean flagDelete, String fullname, String email, String phone, String address, Pageable pageable);
 
 }

@@ -8,6 +8,8 @@ public interface IMenuService {
 	
 	public List<MenuDTO> findAll();
 	
+	public List<MenuDTO> findAllByCategoryCode(String categoryCode);
+	
 	public List<MenuDTO> findAllByFlagDeleteIs(Boolean flagDelete);
 	
 	public Integer getTotalPages(Boolean flagDelete, Integer page, Integer limit);

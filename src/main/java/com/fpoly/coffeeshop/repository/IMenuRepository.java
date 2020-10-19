@@ -7,9 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.fpoly.coffeeshop.entity.CategoryEntity;
 import com.fpoly.coffeeshop.entity.MenuEntity;
+
 @Repository
 public interface IMenuRepository extends JpaRepository<MenuEntity, Integer> {
+	
+	public List<MenuEntity> findAllByCategory(CategoryEntity categoryEntity);
 	
 	public MenuEntity findOneByProductName(String productName);
 	

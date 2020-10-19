@@ -77,7 +77,7 @@
         							<table class="table table-bordered">
         								<thead>
         									<tr class="thead-dark">
-        										<th>Hình</th>
+        										<th style="width: 5%;">Hình</th>
         										<th>Họ và tên</th>
         										<th>E-mail</th>
         										<th>Điện thoại</th>
@@ -88,8 +88,8 @@
         								<tbody>
         									<c:forEach var="staff" items="${staffs}">
         										<tr>
-        											<td style="width: 5%;">
-        												<img src="<c:url value='${staff.photo}' />">
+        											<td>
+        												<img  style="width: 100%;" src="<c:url value='${staff.photo}' />">
         											</td>
         											<td>${staff.fullname}</td>
         											<td>${staff.email}</td>
