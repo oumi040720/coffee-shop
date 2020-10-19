@@ -86,6 +86,11 @@ public class OrderDetailAPI {
 		return detailService.findOne(id);
 	}
 	
+	@GetMapping(value = "/api/orderdetail/order/{order}")
+	public OrderDetailDTO findOne(@PathVariable("order") String  order) {
+		return detailService.findOne(order);
+	}
+	
 	@PostMapping(value = "/api/orderdetail/insert")
 	public Boolean insert(@RequestBody OrderDetailDTO orderdetailDTO) {
 		return detailService.insert(orderdetailDTO);

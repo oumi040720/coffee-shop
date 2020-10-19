@@ -14,6 +14,10 @@ public class OrderConveter {
 		dto.setOrderCode(entity.getOrderCode());
 		dto.setOrderDate(entity.getOrderDate());
 		dto.setStatus(entity.getStatus());
+		dto.setAddress(entity.getAddress());
+		dto.setPhone(entity.getPhone());
+		dto.setTotalPrice(entity.getTotalPrice());
+		dto.setNote(entity.getNote());
 		dto.setFlagDelete(entity.getFlagDelete());
 		if(entity.getCustomer() != null) {		
 			dto.setFullname(entity.getCustomer().getFullname());
@@ -27,6 +31,10 @@ public class OrderConveter {
 		entity.setOrderCode(dto.getOrderCode());
 		entity.setOrderDate(dto.getOrderDate());
 		entity.setStatus(dto.getStatus());
+		entity.setAddress(dto.getAddress());
+		entity.setPhone(dto.getPhone());
+		entity.setTotalPrice(dto.getTotalPrice());
+		entity.setNote(dto.getNote());
 		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}
@@ -36,6 +44,10 @@ public class OrderConveter {
 		entity.setOrderCode(dto.getOrderCode());
 		entity.setOrderDate(dto.getOrderDate());
 		entity.setStatus(dto.getStatus());
+		entity.setAddress(dto.getAddress());
+		entity.setPhone(dto.getPhone());
+		entity.setTotalPrice(dto.getTotalPrice());
+		entity.setNote(dto.getNote());
 		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}

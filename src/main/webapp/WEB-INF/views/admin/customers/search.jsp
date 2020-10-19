@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,11 +25,11 @@
         						<div class="page-title-right">
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-        								<li class="breadcrumb-item"><a href="javascript: void(0);">Nhân Viên</a></li>
+        								<li class="breadcrumb-item"><a href="javascript: void(0);">Khách Hàng</a></li>
         								<li class="breadcrumb-item active">Danh sách</li>
         							</ol>
         						</div>
-        						<h4 class="page-title">Danh sách nhân viên</h4>
+        						<h4 class="page-title">Danh sách khách hàng</h4>
         					</div>
         				</div>
         			</div>
@@ -67,7 +67,7 @@
         									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
         										<span aria-hidden="true">&times;</span>
         									</button>
-        									${message}
+        									<s:message code="${message}" />
 	        							</div>
 	        						</div>
 	        						<br>
@@ -94,14 +94,14 @@
         											<td>${customer.username}</td>
         											<td>
         												<c:url var="editURL" value="/admin/customers/edit">
-        													<c:param name="fullname" value="${customer.fullname}" />
+        													<c:param name="id" value="${customer.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
         												</a>
         												
         												<c:url var="deleteURL" value="/admin/customers/delete">
-        													<c:param name="fullname" value="${customer.fullname}" />
+        													<c:param name="id" value="${customer.id}" />
         												</c:url>
         												<a href="${deleteURL}" class="btn btn-outline-danger">
         													<i class=" mdi mdi-window-close"></i>

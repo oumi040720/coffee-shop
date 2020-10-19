@@ -23,8 +23,8 @@ public class OrderDetailEntity {
 	@Column(name= "quantity")
 	private Integer quantity;
 	
-	@Column(name= "total_money")
-	private Long totalMoney;
+	@Column(name= "price")
+	private Long price;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
@@ -55,12 +55,12 @@ public class OrderDetailEntity {
 		this.quantity = quantity;
 	}
 
-	public Long getTotalMoney() {
-		return totalMoney;
+	public Long getPrice() {
+		return price;
 	}
 
-	public void setTotalMoney(Long totalMoney) {
-		this.totalMoney = totalMoney;
+	public void setPrice(Long price) {
+		this.price = price;
 	}
 
 	public OrderEntity getOrder() {
@@ -86,4 +86,5 @@ public class OrderDetailEntity {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
+
 }

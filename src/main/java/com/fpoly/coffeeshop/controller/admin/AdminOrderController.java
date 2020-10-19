@@ -1,118 +1,78 @@
 package com.fpoly.coffeeshop.controller.admin;
 
-import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fpoly.coffeeshop.model.Customers;
-import com.fpoly.coffeeshop.model.Order;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.dto.CustomersDTO;
+import com.fpoly.coffeeshop.dto.OrderDTO;
+import com.fpoly.coffeeshop.dto.OrderDetailDTO;
+import com.fpoly.coffeeshop.dto.OrderLogDTO;
+import com.fpoly.coffeeshop.service.ICustomersService;
+import com.fpoly.coffeeshop.service.IOrderDetailService;
+import com.fpoly.coffeeshop.service.IOrderLogService;
+import com.fpoly.coffeeshop.service.IOrderService;
 
 @Controller
 @RequestMapping(value = "/admin/order")
-public class AdminOrderController {
+public class AdminOrderController extends Thread {
 
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
+	@Autowired
+	private IOrderService orderService;
 	
-	public void getCustomers(Model model) {
-		String flagDelete = "false";
-		String url = getDomain()+"/customers/list/flag_delete/"+flagDelete;
-
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> result = restTemplate.getForEntity(url, String.class);
-
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			List<Customers> customers = mapper.readValue(result.getBody(), new TypeReference<List<Customers>>() {
-			});
-			
-			model.addAttribute("customers", customers);
-		} catch (Exception e) {
-		}
-	}
-
+	@Autowired ICustomersService customersService;
+	
+	@Autowired IOrderLogService orderLogService;
+	
+	@Autowired IOrderDetailService orderDetailService;
+	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
-		String page = request.getParameter("page");
-		String limit = "10";
-		String flagDelete = "false";
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = false;
 
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
-
-		String orderURL =  getDomain()+"/order/flag_delete/list?flag_delete=" + flagDelete + "&page=" + page
-				+ "&limit=" + limit;
-		String totalPagesURL =  getDomain()+"/order/flag_delete/total_pages?flag_delete=" + flagDelete
-				+ "&page=" + page + "&limit=" + limit;
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(orderURL, HttpMethod.GET, entity, String.class);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<Order> orders = mapper.readValue(result.getBody(), new TypeReference<List<Order>>() {
-			});
-			int a = orders.size();
-			request.setAttribute("orders", orders);
-			request.setAttribute("length", a);
-		} catch (Exception e) {
-		}
-
+		request.setAttribute("totalPages", orderService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("orders", orderService.findAllByFlagDelete(flagDelete, page-1, limit));
+		
 		return "admin/order/list";
 	}
 
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
-		getCustomers(model);
 
+		model.addAttribute("customers",customersService.findAllByFlagDelete(false));
 		model.addAttribute("check", false);
-		model.addAttribute("orders", new Order());
+		model.addAttribute("orders", new CustomersDTO());
 
 		return "admin/order/edit";
 	}
 
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
-		getCustomers(model);
-
-		String url =  getDomain()+"/order/id/" + id;
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		ResponseEntity<Order> orders = restTemplate.getForEntity(url, Order.class);
-
+		model.addAttribute("customers",customersService.findAllByFlagDelete(false));
 		model.addAttribute("check", true);
-		model.addAttribute("orders", orders.getBody());
+		model.addAttribute("orders", orderService.findOne(id));
 
 		return "admin/order/edit";
 	}
@@ -132,117 +92,104 @@ public class AdminOrderController {
 	 */
 
 	@RequestMapping(value = "/save")
-	public String save(Model model, @ModelAttribute Order orders) {
-		String url =  getDomain()+"/order";
+	public String save(Model model, @ModelAttribute OrderDTO orderDTO) {
+		
 		String message = "";
 		String alert = "danger";
 
-		RestTemplate restTemplate = new RestTemplate();
+		Boolean logResult = false;
+		
+		OrderLogDTO orderLogDTO = new OrderLogDTO();
+		
+		String code = RandomStringUtils.randomAlphanumeric(6);
+		
+		orderDTO.setFlagDelete(false);
+		orderDTO.setOrderCode(code);
+		orderDTO.setStatus(0);
+		if (orderDTO.getId() == null) {
+			
+			Boolean result = orderService.insert(orderDTO);
+			orderLogDTO.setOrderID(orderDTO.getId());
+			orderLogDTO.setCreatedBy("admin");
+			orderLogDTO.setCreatedDate(new Date(System.currentTimeMillis()));
+			
+			logResult = orderLogService.insert(orderLogDTO);
 
-		orders.setFlagDelete(false);
-
-		if (orders.getId() == null) {
-			url += "/insert";
-
-			Boolean result = restTemplate.postForObject(url, orders, Boolean.class);
-
-			if (result) {
-				message = "insert success";
+			if (result != null) {
+				message = "message_order_insert_success";
 				alert = "success";
 			} else {
-				message = "insert fail";
-			}
-		} else {
-			url += "/update?id=" + orders.getId();
-
-			try {
-				restTemplate.put(url, orders);
-
-				message = "update success";
-				alert = "success";
-			} catch (Exception e) {
-				message = "update fail";
+				message = "message_order_insert_fail";
+				alert = "danger";
 			}
 		}
-
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-
-		return "redirect:/admin/order/list?page=1";
+		model.addAttribute("orderCode", code);
+		System.out.println(code);
+		return "redirect:/admin/orderdetail/editDetail?orderCode="+ code;
 	}
 
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("id") Long id) {
-		String url =  getDomain()+"/order/id/" + id;
+	public String delete(Model model, @RequestParam("orderCode") String orderCode){
 		String message = "";
 		String alert = "danger";
-
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Order> reusult = restTemplate.getForEntity(url, Order.class);
-		Order orders = reusult.getBody();
-
-		String deleteURL =  getDomain()+"/order/update?id=" + orders.getId();
-
-		try {
-			orders.setFlagDelete(true);
-			restTemplate.put(deleteURL, orders);
-
-			message = "delete success";
+		
+		OrderLogDTO log = new OrderLogDTO();
+		
+		OrderDTO order = orderService.findOne(orderCode);		
+		log.setOrderID(order.getId());
+		log.setCreatedBy("admin");
+		log.setCreatedDate(new Date(System.currentTimeMillis()));
+		log.setModifiedBy("admin");
+		log.setModifiedDate(new Date(System.currentTimeMillis()));
+		log.setOldCustomerID(order.getFullname());
+		log.setOldFlagDelete(order.getFlagDelete());		
+		log.setOldOrderCode(order.getOrderCode());
+		log.setOldOrderDate(order.getOrderDate());		
+		log.setOldStatus(order.getStatus());
+		order.setFlagDelete(true);
+		Boolean result = orderService.update(order);
+		List<OrderDetailDTO> orderDTO = orderDetailService.findAllByOrderCode(orderCode);
+		for (OrderDetailDTO orderDetailDTO : orderDTO) {
+			System.out.println(orderDTO);
+			log.setOrderDetailID(orderDetailDTO.getId());
+			log.setOldMenuID(orderDetailDTO.getProduct());
+			log.setOldQuantity(orderDetailDTO.getQuantity());					
+			orderLogService.insert(log);
+		}
+	
+		
+		
+		if (result) {
+			message = "message_orderdetail_delete_success";
 			alert = "success";
-		} catch (Exception e) {
-			message = "delete fail";
+		} else {
+			message = "message_orderdetail_delete_fail";
+			alert = "danger";
 		}
 
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
-
-		return "redirect:/admin/order/list?page=1";
+		return "redirect:/admin/order/list?page=1&message=" + message + "&alert=" + alert;
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpServletRequest request) {
 		String key = request.getParameter("key");
-		String page = "1";
 
-		model.addAttribute("key", key);
-		model.addAttribute("page", page);
-
-		return "redirect:/admin/order/search";
+		return "redirect:/admin/order/search?key=" + key + "&page=1";
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
-		String page = request.getParameter("page");
-		String flagDelete = "false";
-		String limit = "10";
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = false;
 
-		String orderURL =  getDomain()+"/order/flag_delete/search_o/list?key=" + key + "&flag_delete="
-				+ flagDelete + "&page=" + page + "&limit=" + limit;
-		String totalPagesURL =  getDomain()+"/order/flag_delete/search_o/total_pages?key=" + key
-				+ "&flag_delete=" + flagDelete + "&page=" + page + "&limit=" + limit;
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-		ResponseEntity<String> result = restTemplate.exchange(orderURL, HttpMethod.GET, entity, String.class);
-		System.out.println(result);
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", restTemplate.getForObject(totalPagesURL, String.class));
-
-		try {
-			ObjectMapper mapper = new ObjectMapper();
-			List<Order> orders = mapper.readValue(result.getBody(), new TypeReference<List<Order>>() {
-			});
-			request.setAttribute("orders", orders);
-		} catch (Exception e) {
-		}
-
+		request.setAttribute("totalPages", orderService.getTotalPagesByFlagDeleteAndOrderCode(flagDelete, key, page, limit));
+		request.setAttribute("orders", orderService.findAllByFlagDeleteAndOrderCode(flagDelete, key, page-1, limit));
+		
 		return "admin/order/search";
 	}
 }

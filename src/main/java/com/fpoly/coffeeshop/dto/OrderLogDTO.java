@@ -16,7 +16,7 @@ public class OrderLogDTO {
 	
 	private Integer oldQuantity;
 	
-	private Integer oldMenuID;
+	private String oldMenuID;
 	
 	private Long orderID;
 	
@@ -28,7 +28,7 @@ public class OrderLogDTO {
 	
 	private Integer oldStatus;
 	
-	private Long oldCustomerID;
+	private String oldCustomerID;
 	
 	private Boolean oldFlagDelete;
 
@@ -80,11 +80,11 @@ public class OrderLogDTO {
 		this.oldQuantity = oldQuantity;
 	}
 
-	public Integer getOldMenuID() {
+	public String getOldMenuID() {
 		return oldMenuID;
 	}
 
-	public void setOldMenuID(Integer oldMenuID) {
+	public void setOldMenuID(String oldMenuID) {
 		this.oldMenuID = oldMenuID;
 	}
 
@@ -128,11 +128,11 @@ public class OrderLogDTO {
 		this.oldStatus = oldStatus;
 	}
 
-	public Long getOldCustomerID() {
+	public String getOldCustomerID() {
 		return oldCustomerID;
 	}
 
-	public void setOldCustomerID(Long oldCustomerID) {
+	public void setOldCustomerID(String oldCustomerID) {
 		this.oldCustomerID = oldCustomerID;
 	}
 
