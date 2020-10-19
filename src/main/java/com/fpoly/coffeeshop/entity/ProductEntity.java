@@ -16,8 +16,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "menu")
-public class MenuEntity {
+@Table(name = "products")
+public class ProductEntity {
 
 	@Id
 	@Column(name = "id")
@@ -40,7 +40,7 @@ public class MenuEntity {
 	@JoinColumn(name = "category_id")
 	private CategoryEntity category;
 
-	@OneToMany(mappedBy = "menu", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<PriceHistoriesEntity> priceHistories;
 

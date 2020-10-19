@@ -1,6 +1,6 @@
 package com.fpoly.coffeeshop.dto;
 
-public class MenuDTO {
+public class ProductDTO {
 	
 	private Integer id;
 	

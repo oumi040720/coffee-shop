@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
-import com.fpoly.coffeeshop.service.IMenuService;
+import com.fpoly.coffeeshop.service.IProductService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 
 @Controller
@@ -23,7 +23,7 @@ import com.fpoly.coffeeshop.service.IOrderDetailService;
 public class AdminOrderDetailController {
 	
 	@Autowired
-	private IMenuService menuService;
+	private IProductService menuService;
 	
 	@Autowired
 	private IOrderDetailService orderDetailService;

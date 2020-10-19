@@ -8,17 +8,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.MenuConverter;
-import com.fpoly.coffeeshop.dto.MenuDTO;
+import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.entity.CategoryEntity;
-import com.fpoly.coffeeshop.entity.MenuEntity;
+import com.fpoly.coffeeshop.entity.ProductEntity;
 import com.fpoly.coffeeshop.repository.ICategoryRepository;
-import com.fpoly.coffeeshop.repository.IMenuRepository;
-import com.fpoly.coffeeshop.service.IMenuService;
+import com.fpoly.coffeeshop.repository.IProductRepository;
+import com.fpoly.coffeeshop.service.IProductService;
 
 @Service
-public class MenuService implements IMenuService {
+public class ProductService implements IProductService {
 	@Autowired
-	private IMenuRepository menuRepository;
+	private IProductRepository menuRepository;
 
 	@Autowired
 	private ICategoryRepository categoryRepository;
@@ -27,34 +27,34 @@ public class MenuService implements IMenuService {
 	private MenuConverter menuConverter;
 
 	@Override
-	public List<MenuDTO> findAll() {
-		List<MenuEntity> list = menuRepository.findAll();
-		List<MenuDTO> result = new ArrayList<>();
+	public List<ProductDTO> findAll() {
+		List<ProductEntity> list = menuRepository.findAll();
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
 	}
 
 	@Override
-	public List<MenuDTO> findAllByCategoryCode(String categoryCode) {
+	public List<ProductDTO> findAllByCategoryCode(String categoryCode) {
 		CategoryEntity categoryEntity = categoryRepository.findOneByCategoryCode(categoryCode);
-		List<MenuEntity> list = menuRepository.findAllByCategory(categoryEntity);
-		List<MenuDTO> result = new ArrayList<>();
+		List<ProductEntity> list = menuRepository.findAllByCategory(categoryEntity);
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
 	}
 
 	@Override
-	public List<MenuDTO> findAllByFlagDeleteIs(Boolean flagDelete) {
-		List<MenuEntity> list = menuRepository.findAllByFlagDeleteIs(flagDelete);
-		List<MenuDTO> result = new ArrayList<>();
+	public List<ProductDTO> findAllByFlagDeleteIs(Boolean flagDelete) {
+		List<ProductEntity> list = menuRepository.findAllByFlagDeleteIs(flagDelete);
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
@@ -67,23 +67,23 @@ public class MenuService implements IMenuService {
 	}
 
 	@Override
-	public List<MenuDTO> findAllByFlagDeleteIs(Boolean flagDelete, Integer page, Integer limit) {
-		List<MenuEntity> list = menuRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit))
+	public List<ProductDTO> findAllByFlagDeleteIs(Boolean flagDelete, Integer page, Integer limit) {
+		List<ProductEntity> list = menuRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit))
 				.getContent();
-		List<MenuDTO> result = new ArrayList<>();
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
 	}
 
 	@Override
-	public List<MenuDTO> findAllByProductNameContaining(String key) {
-		List<MenuEntity> list = menuRepository.findAllByProductNameContaining(key);
-		List<MenuDTO> result = new ArrayList<>();
+	public List<ProductDTO> findAllByProductNameContaining(String key) {
+		List<ProductEntity> list = menuRepository.findAllByProductNameContaining(key);
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
@@ -95,23 +95,23 @@ public class MenuService implements IMenuService {
 	}
 
 	@Override
-	public List<MenuDTO> findAllByProductNameContaining(String key, Integer page, Integer limit) {
-		List<MenuEntity> list = menuRepository.findAllByProductNameContaining(key, PageRequest.of(page, limit))
+	public List<ProductDTO> findAllByProductNameContaining(String key, Integer page, Integer limit) {
+		List<ProductEntity> list = menuRepository.findAllByProductNameContaining(key, PageRequest.of(page, limit))
 				.getContent();
-		List<MenuDTO> result = new ArrayList<>();
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
 	}
 
 	@Override
-	public List<MenuDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key) {
-		List<MenuEntity> list = menuRepository.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key);
-		List<MenuDTO> result = new ArrayList<>();
+	public List<ProductDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key) {
+		List<ProductEntity> list = menuRepository.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key);
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
@@ -126,32 +126,32 @@ public class MenuService implements IMenuService {
 	}
 
 	@Override
-	public List<MenuDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key, Integer page,
+	public List<ProductDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key, Integer page,
 			Integer limit) {
-		List<MenuEntity> list = menuRepository
+		List<ProductEntity> list = menuRepository
 				.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key, PageRequest.of(page, limit))
 				.getContent();
-		List<MenuDTO> result = new ArrayList<>();
+		List<ProductDTO> result = new ArrayList<>();
 
-		for (MenuEntity menu : list) {
+		for (ProductEntity menu : list) {
 			result.add(menuConverter.convertToDTO(menu));
 		}
 		return result;
 	}
 
 	@Override
-	public MenuDTO findOne(Integer id) {
+	public ProductDTO findOne(Integer id) {
 		return menuConverter.convertToDTO(menuRepository.getOne(id));
 	}
 
 	@Override
-	public Boolean insert(MenuDTO categoryDTO) {
+	public Boolean insert(ProductDTO categoryDTO) {
 		try {
 			CategoryEntity categoryEntity = categoryRepository.findOneByCategoryName(categoryDTO.getProductName());
-			MenuEntity menuEntity = menuConverter.convertToEntity(categoryDTO);
+			ProductEntity menuEntity = menuConverter.convertToEntity(categoryDTO);
 			menuEntity.setCategory(categoryEntity);
 
-			MenuEntity result = menuRepository.save(menuEntity);
+			ProductEntity result = menuRepository.save(menuEntity);
 
 			if (result != null) {
 				return true;
@@ -164,14 +164,14 @@ public class MenuService implements IMenuService {
 	}
 
 	@Override
-	public Boolean update(MenuDTO menuDTO) {
+	public Boolean update(ProductDTO menuDTO) {
 		try {
 			CategoryEntity categoryEntity = categoryRepository.findOneByCategoryName(menuDTO.getProductName());
-			MenuEntity oldMenu = menuRepository.getOne(menuDTO.getId());
-			MenuEntity newMenu = menuConverter.convertToEntity(menuDTO, oldMenu);
+			ProductEntity oldMenu = menuRepository.getOne(menuDTO.getId());
+			ProductEntity newMenu = menuConverter.convertToEntity(menuDTO, oldMenu);
 			newMenu.setCategory(categoryEntity);
 
-			MenuEntity result = menuRepository.save(newMenu);
+			ProductEntity result = menuRepository.save(newMenu);
 			if (result != null) {
 				return true;
 			} else {
@@ -194,7 +194,7 @@ public class MenuService implements IMenuService {
 	}
 
 	@Override
-	public MenuDTO findOne(String productName) {
+	public ProductDTO findOne(String productName) {
 		return menuConverter.convertToDTO(menuRepository.findOneByProductName(productName));
 	}
 }

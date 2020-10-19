@@ -13,12 +13,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-
 @Entity
 @Table(name = "categories")
 public class CategoryEntity {
-	
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,66 +33,46 @@ public class CategoryEntity {
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	@JsonBackReference
-	private List<MenuEntity> menu;
+	private List<ProductEntity> products;
 
 	public Integer getId() {
 		return id;
 	}
 
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 
 	public String getCategoryName() {
 		return categoryName;
 	}
 
-
-
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-
-
 
 	public String getCategoryCode() {
 		return categoryCode;
 	}
 
-
-
 	public void setCategoryCode(String categoryCode) {
 		this.categoryCode = categoryCode;
 	}
-
-
 
 	public Boolean getFlagDelete() {
 		return flagDelete;
 	}
 
-
-
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
 
-
-
-	public List<MenuEntity> getMenu() {
-		return menu;
+	public List<ProductEntity> getMenu() {
+		return products;
 	}
 
-
-
-	public void setMenu(List<MenuEntity> menu) {
-		this.menu = menu;
+	public void setMenu(List<ProductEntity> products) {
+		this.products = products;
 	}
-
-
 
 }

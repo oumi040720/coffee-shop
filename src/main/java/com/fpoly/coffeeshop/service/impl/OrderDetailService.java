@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.OrderDetailConveter;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
-import com.fpoly.coffeeshop.entity.MenuEntity;
+import com.fpoly.coffeeshop.entity.ProductEntity;
 import com.fpoly.coffeeshop.entity.OrderDetailEntity;
 import com.fpoly.coffeeshop.entity.OrderEntity;
-import com.fpoly.coffeeshop.repository.IMenuRepository;
+import com.fpoly.coffeeshop.repository.IProductRepository;
 import com.fpoly.coffeeshop.repository.IOrderDetailRepository;
 import com.fpoly.coffeeshop.repository.IOrderRepository;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
@@ -30,7 +30,7 @@ public class OrderDetailService implements IOrderDetailService {
 	private IOrderRepository orderRepository;
 	
 	@Autowired
-	private IMenuRepository menuRepository;
+	private IProductRepository menuRepository;
 
 	@Override
 	public List<OrderDetailDTO> findAll() {
@@ -82,10 +82,10 @@ public class OrderDetailService implements IOrderDetailService {
 	@Override
 	public Boolean insert(OrderDetailDTO orderDTO) {
 		try {
-			MenuEntity menuEntity = menuRepository.findOneByProductName(orderDTO.getProduct());
+			ProductEntity menuEntity = menuRepository.findOneByProductName(orderDTO.getProduct());
 			OrderEntity orderEntity = orderRepository.findOneByOrderCode(orderDTO.getOrder());
 			OrderDetailEntity orderDetailEntity = orderDetailConveter.convertToEntity(orderDTO);
-			orderDetailEntity.setMenu(menuEntity);
+			orderDetailEntity.setProduct(menuEntity);
 			orderDetailEntity.setOrder(orderEntity);
 			
 			OrderDetailEntity result = orderDetailRepository.save(orderDetailEntity);
@@ -103,11 +103,11 @@ public class OrderDetailService implements IOrderDetailService {
 	@Override
 	public Boolean update(OrderDetailDTO orderdetailDTO) {
 		try {
-			MenuEntity menuEntity = menuRepository.findOneByProductName(orderdetailDTO.getProduct());
+			ProductEntity menuEntity = menuRepository.findOneByProductName(orderdetailDTO.getProduct());
 			OrderEntity orderEntity = orderRepository.findOneByOrderCode(orderdetailDTO.getOrder());
 			OrderDetailEntity oldOrderDetailEntity = orderDetailRepository.getOne(orderdetailDTO.getId());
 			OrderDetailEntity newOrderDetailEntity = orderDetailConveter.convertToEntity(orderdetailDTO,oldOrderDetailEntity);
-			newOrderDetailEntity.setMenu(menuEntity);
+			newOrderDetailEntity.setProduct(menuEntity);
 			newOrderDetailEntity.setOrder(orderEntity);
 			
 			OrderDetailEntity result = orderDetailRepository.save(newOrderDetailEntity);

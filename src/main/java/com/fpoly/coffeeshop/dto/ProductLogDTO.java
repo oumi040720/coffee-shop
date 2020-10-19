@@ -2,30 +2,30 @@ package com.fpoly.coffeeshop.dto;
 
 import java.util.Date;
 
-public class MenuLogDTO {
-	
+public class ProductLogDTO {
+
 	private Integer id;
-	
+
 	private Date createdDate;
-	
+
 	private String createdBy;
-	
+
 	private Date modifiedDate;
-	
+
 	private String modifiedBy;
-	
-	private Integer menuId;
-	
+
+	private Integer productID;
+
 	private String oldProductName;
-	
+
 	private String oldPhoto;
-	
+
 	private Double oldPrice;
-	
+
 	private Boolean oldFlagDelete;
-	
+
 	private Integer oldCategoryId;
-	
+
 	private String oldCategoryName;
 
 	public Integer getId() {
@@ -68,12 +68,12 @@ public class MenuLogDTO {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Integer getMenuId() {
-		return menuId;
+	public Integer getProductID() {
+		return productID;
 	}
 
-	public void setMenuId(Integer menuId) {
-		this.menuId = menuId;
+	public void setProductID(Integer productID) {
+		this.productID = productID;
 	}
 
 	public String getOldProductName() {
@@ -124,5 +124,4 @@ public class MenuLogDTO {
 		this.oldCategoryName = oldCategoryName;
 	}
 
-	
 }

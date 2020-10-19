@@ -1,4 +1,4 @@
-use master
+﻿use master
 go
 
 create database coffee_shop
@@ -65,11 +65,11 @@ go
 
 create table customers (
 	id bigint primary key identity(1, 1),
-	fullname nvarchar(255) not null,
-	email varchar(255) not null,
-	phone varchar(15) not null,
-	address nvarchar(255) not null,
-	user_id bigint not null,
+	fullname nvarchar(255) null,
+	email varchar(255) null,
+	phone varchar(15) null,
+	address nvarchar(255) null,
+	user_id bigint null,
 	flag_delete bit default 0
 )
 go
@@ -82,7 +82,7 @@ create table categories (
 )
 go
 
-create table menu (
+create table products (
 	id int primary key identity(1, 1),
 	product_name nvarchar(50) not null,
 	photo varchar(255) not null,
@@ -92,13 +92,13 @@ create table menu (
 )
 go
 
-create table menu_logs (
+create table product_logs (
 	id bigint primary key identity(1, 1),
 	created_date datetime null,
 	created_by varchar(50) null,
 	modified_date datetime null,
 	modified_by varchar(50) null,
-	menu_id int null,
+	product_id int null,
 	old_product_name nvarchar(50) null,
 	old_photo varchar(255) null,
 	old_price money null,
@@ -113,7 +113,7 @@ create table price_histories (
 	start_date datetime not null,
 	end_date datetime null,
 	price money not null,
-	menu_id int,
+	product_id int,
 	flag_delete bit default 0
 )
 go
@@ -135,7 +135,7 @@ go
 create table order_details (
 	id bigint primary key identity(1, 1),
 	quantity int not null,
-	menu_id int not null,
+	product_id int not null,
 	order_id bigint not null,
 	price float not null,
 	flag_delete bit default 0
@@ -151,7 +151,7 @@ create table order_logs (
 	modified_by varchar(50) null,
 	order_id bigint null,
 	order_detail_id  bigint null,
-	old_menu_id varchar(50) null,
+	old_product_id varchar(50) null,
 	old_quantity int null,
 	old_order_date datetime null,
 	old_order_code varchar(15) null,
@@ -227,14 +227,14 @@ add constraint fk_customer_user
 foreign key (user_id) references users (id)
 go
 
-alter table menu
+alter table products
 add constraint fk_menu_category
 foreign key (category_id) references categories (id)
 go
 
 alter table price_histories
-add constraint fk_priceHistory_menu
-foreign key (menu_id) references menu (id)
+add constraint fk_priceHistory_product
+foreign key (product_id) references products (id)
 go
 
 alter table orders
@@ -248,8 +248,8 @@ foreign key (order_id) references orders (id)
 go
 
 alter table order_details
-add constraint fk_orderDetail_menu
-foreign key (menu_id) references menu (id)
+add constraint fk_orderDetail_product
+foreign key (product_id) references products (id)
 go
 
 alter table ingredients
@@ -271,3 +271,9 @@ alter table input_details
 add constraint fk_inputDetail_ingredient
 foreign key (ingredient_id) references ingredients (id)
 go
+
+---------------------------------------------------------------
+insert into roles (role_name, role_code, flag_delete)
+values	(N'Quản Lý', 'admin', 0),
+		(N'Thu Ngân', 'cashier', 0),
+		(N'Người Dùng', 'user', 0)

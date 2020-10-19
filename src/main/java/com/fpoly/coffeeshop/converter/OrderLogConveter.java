@@ -17,7 +17,7 @@ public class OrderLogConveter {
 		dto.setModifiedDate(entity.getModifiedDate());
 		dto.setOldCustomerID(entity.getOldCustomerId());
 		dto.setOldFlagDelete(entity.getOldFlagDelete());
-		dto.setOldMenuID(entity.getOldMenuId());
+		dto.setOldProductID(entity.getOldMenuId());
 		dto.setOldOrderCode(entity.getOldOrderCode());
 		dto.setOldOrderDate(entity.getOldOrderDate());
 		dto.setOrderID(entity.getOrderID());
@@ -36,7 +36,7 @@ public class OrderLogConveter {
 		entity.setModifiedDate(dto.getModifiedDate());
 		entity.setOldCustomerId(dto.getOldCustomerID());
 		entity.setOldFlagDelete(dto.getOldFlagDelete());
-		entity.setOldMenuId(dto.getOldMenuID());
+		entity.setOldMenuId(dto.getOldProductID());
 		entity.setOldOrderCode(dto.getOldOrderCode());
 		entity.setOldOrderDate(dto.getOldOrderDate());
 		entity.setOrderId(dto.getOrderID());
@@ -53,7 +53,7 @@ public class OrderLogConveter {
 		entity.setModifiedDate(dto.getModifiedDate());
 		entity.setOldCustomerId(dto.getOldCustomerID());
 		entity.setOldFlagDelete(dto.getOldFlagDelete());
-		entity.setOldMenuId(dto.getOldMenuID());
+		entity.setOldMenuId(dto.getOldProductID());
 		entity.setOldOrderCode(dto.getOldOrderCode());
 		entity.setOldOrderDate(dto.getOldOrderDate());
 		entity.setOrderDetailId(dto.getOrderDetailID());

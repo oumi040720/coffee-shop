@@ -152,7 +152,7 @@ public class AdminOrderController extends Thread {
 		for (OrderDetailDTO orderDetailDTO : orderDTO) {
 			System.out.println(orderDTO);
 			log.setOrderDetailID(orderDetailDTO.getId());
-			log.setOldMenuID(orderDetailDTO.getProduct());
+			log.setOldProductID(orderDetailDTO.getProduct());
 			log.setOldQuantity(orderDetailDTO.getQuantity());					
 			orderLogService.insert(log);
 		}

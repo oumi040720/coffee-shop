@@ -19,23 +19,23 @@ public class OrderDetailEntity {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name= "quantity")
+
+	@Column(name = "quantity")
 	private Integer quantity;
-	
-	@Column(name= "price")
+
+	@Column(name = "price")
 	private Long price;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	@JsonManagedReference
 	private OrderEntity order;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "menu_id")
+	@JoinColumn(name = "product_id")
 	@JsonManagedReference
-	private MenuEntity menu;
-	
+	private ProductEntity product;
+
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
 
@@ -71,12 +71,12 @@ public class OrderDetailEntity {
 		this.order = order;
 	}
 
-	public MenuEntity getMenu() {
-		return menu;
+	public ProductEntity getProduct() {
+		return product;
 	}
 
-	public void setMenu(MenuEntity menu) {
-		this.menu = menu;
+	public void setProduct(ProductEntity product) {
+		this.product = product;
 	}
 
 	public Boolean getFlagDelete() {
