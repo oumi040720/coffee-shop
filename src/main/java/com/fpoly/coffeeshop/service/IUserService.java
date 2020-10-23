@@ -30,6 +30,8 @@ public interface IUserService {
 	public List<UserDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String key, Integer page, Integer limit); 
 
 	
+	public String getP(String username);
+	
 	public UserDTO findOne(Long id);
 	
 	public UserDTO findOne(String username);

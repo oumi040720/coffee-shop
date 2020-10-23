@@ -114,7 +114,6 @@
         														<div class="modal-content">
 	        														<div class="modal-header">
 	        															<h4 class="modal-title">Xác nhận xóa nhân viên</h4>
-	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        														</div>
 	        														<div class="modal-body">
 	        															Bạn có chắc muốn xóa nhân viên có mã là "${staff.id}" không?

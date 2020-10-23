@@ -277,3 +277,12 @@ insert into roles (role_name, role_code, flag_delete)
 values	(N'Quản Lý', 'admin', 0),
 		(N'Thu Ngân', 'cashier', 0),
 		(N'Người Dùng', 'user', 0)
+
+------------------- PROC --------------------------
+select *
+from users
+where not exists (select distinct u.flag_delete, u.id, u.password, u.role_id, u.username
+					from users u, staffs s, roles r
+					where u.id = s.user_id and  u.role_id = r.id
+					and (r.role_code = 'admin' or r.role_code = 'cashier') 
+					and (u.flag_delete = 0 and r.flag_delete = 0)) 

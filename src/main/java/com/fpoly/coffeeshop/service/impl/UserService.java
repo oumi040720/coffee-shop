@@ -133,13 +133,22 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
+	public String getP(String username) {
+		return userRepository.findOneByUsername(username).getPassword();
+	}
+	
+	@Override
 	public UserDTO findOne(Long id) {
 		return userConveter.convertToDTO(userRepository.getOne(id));
 	}
 	
 	@Override
 	public UserDTO findOne(String username) {
-		return userConveter.convertToDTO(userRepository.findOneByUsername(username));
+		try {
+			return userConveter.convertToDTO(userRepository.findOneByUsername(username));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override

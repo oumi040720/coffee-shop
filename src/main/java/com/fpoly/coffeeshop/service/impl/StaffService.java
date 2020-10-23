@@ -104,33 +104,13 @@ public class StaffService implements IStaffService {
 	}
 
 	@Override
-	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key) {
-		List<StaffEntity> list = staffRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						 flagDelete, key, key, key, key);
-		List<StaffDTO> result = new ArrayList<>();
-
-		for (StaffEntity staff : list) {
-			result.add(staffConverter.convertToDTO(staff));
-		}
-
-		return result;
+	public Integer getTotalPagesByKey(Boolean flagDelete, String key, Integer page, Integer limit) {
+		return staffRepository.search(key, flagDelete, PageRequest.of(page, limit)).getTotalPages();
 	}
-
+	
 	@Override
-	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return staffRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key, PageRequest.of(page, limit))
-				.getTotalPages();
-	}
-
-	@Override
-	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		List<StaffEntity> list = staffRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key, PageRequest.of(page, limit))
-				.getContent();
+	public List<StaffDTO> search(Boolean flagDelete, String key, Integer page, Integer limit) {
+		List<StaffEntity> list = staffRepository.search(key, flagDelete, PageRequest.of(page, limit)).getContent();
 		
 		List<StaffDTO> result = new ArrayList<>();
 
@@ -140,7 +120,7 @@ public class StaffService implements IStaffService {
 
 		return result;
 	}
-
+	
 	@Override
 	public StaffDTO findOne(Long id) {
 		return staffConverter.convertToDTO(staffRepository.getOne(id));
