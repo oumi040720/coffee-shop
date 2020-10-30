@@ -28,6 +28,16 @@ public class UserService implements IUserService {
 	private UserConveter userConveter;
 	
 	@Override
+	public UserDTO checkLogin(String username, String password, Boolean flagDelete) {
+		try {
+			return userConveter.convertToDTO(userRepository.findOneByUsernameAndPasswordAndFlagDelete(username, password, flagDelete));
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	@Override
 	public List<UserDTO> findAll() {
 		List<UserEntity> list = userRepository.findAll();
 		List<UserDTO> result = new ArrayList<>();

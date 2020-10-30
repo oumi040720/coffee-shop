@@ -1,5 +1,7 @@
 package com.fpoly.coffeeshop.controller.admin;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminDashBoardController {
 
 	@RequestMapping(value = "/admin/dashboard")
-	public String showPage() {
+	public String showPage(HttpServletRequest request) {
 		return "admin/dashboard";
 	}
 

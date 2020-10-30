@@ -12,7 +12,7 @@ import com.fpoly.coffeeshop.entity.UserEntity;
 @Repository
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
 
-	public UserEntity findOneByUsernameAndPasswordAndFlagDelete(String userame, String password, Boolean flagDelete);
+	public UserEntity findOneByUsernameAndPasswordAndFlagDelete(String username, String password, Boolean flagDelete);
 	
 	public UserEntity findOneByUsername(String username);
 	

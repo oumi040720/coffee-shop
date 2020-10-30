@@ -6,6 +6,9 @@ import com.fpoly.coffeeshop.dto.UserDTO;
 
 public interface IUserService {
 
+	public UserDTO checkLogin(String username, String password, Boolean flagDelete);
+	
+	
 	public List<UserDTO> findAll();
 	
 	

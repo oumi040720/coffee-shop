@@ -23,7 +23,9 @@ public interface IStaffRepository extends JpaRepository<StaffEntity, Long> {
 	public Page<StaffEntity> findAllByFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
 			String fullname, String email, String phone, String address, Pageable pageable);
 
-	@Query(value = "select * from staffs s where concat(s.fullname, ' ', s.email, ' ', s.phone, ' ', s.address, ' ') like %?1% and s.flag_delete = ?2", nativeQuery = true)
+	@Query(value = "select * from staffs s "
+				 + "where (s.fullname like %?1% or s.email like %?1% or s.address like %?1% or s.phone like %?1%) "
+				 + "and s.flag_delete = ?2", nativeQuery = true)
 	public Page<StaffEntity> search(String key, Boolean flagDelete, Pageable pageable);
 	
 }

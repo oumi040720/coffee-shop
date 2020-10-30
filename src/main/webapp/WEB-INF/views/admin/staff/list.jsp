@@ -112,15 +112,18 @@
         												<div class="modal fade" id="confirm-${staff.id}">
         													<div class="modal-dialog modal-dialog-centered">
         														<div class="modal-content">
-	        														<div class="modal-header">
-	        															<h4 class="modal-title">Xác nhận xóa nhân viên</h4>
-	        														</div>
-	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa nhân viên có mã là "${staff.id}" không?
-	        														</div>
-	        														<div class="modal-footer">
-	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
-	        															<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+	        														<div class="modal-body" style="text-align: center;">
+	        															<div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;">
+	        															
+	        															</div>
+	        															<div>
+	        																Bạn có chắc muốn xóa nhân viên có mã là "${staff.id}" không?
+	        															</div>
+	        															<br><br>
+		        														<div>
+		        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
+		        															<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+		        														</div>
 	        														</div>
         														</div>
         													</div>
@@ -145,6 +148,8 @@
         
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
+        	<script src='<c:url value="/template/admin/libs/sweetalert2/sweetalert2.min.js" />'></script>
+        	<script src='<c:url value="/template/admin/js/pages/sweet-alerts.init.js" />'></script>
         	<script type="text/javascript">
 			var totalPages = ${totalPages};
 			var currentPage = ${page};

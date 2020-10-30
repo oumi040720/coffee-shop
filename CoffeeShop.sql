@@ -17,7 +17,7 @@ go
 create table users (
 	id bigint primary key identity(1, 1),
 	username varchar(50) not null unique,
-	password varchar(50) not null,
+	password varchar(max) not null,
 	role_id int not null,
 	flag_delete bit default 0
 )
@@ -277,12 +277,65 @@ insert into roles (role_name, role_code, flag_delete)
 values	(N'Quản Lý', 'admin', 0),
 		(N'Thu Ngân', 'cashier', 0),
 		(N'Người Dùng', 'user', 0)
+go		
 
-------------------- PROC --------------------------
-select *
-from users
-where not exists (select distinct u.flag_delete, u.id, u.password, u.role_id, u.username
-					from users u, staffs s, roles r
-					where u.id = s.user_id and  u.role_id = r.id
-					and (r.role_code = 'admin' or r.role_code = 'cashier') 
-					and (u.flag_delete = 0 and r.flag_delete = 0)) 
+-- 123
+insert into users (username, password, role_id, flag_delete)
+values	('admin', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 1, 0),
+		('cashier', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 2, 0),
+		('user', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 3, 0),
+		('teonv', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 1, 0),
+		('tinv', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 2, 0),
+		('nont', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 3, 0)
+go
+
+insert into staffs (fullname, address, phone, birthday, email, photo, user_id, flag_delete)
+values	(N'Admin', N'Bình Dương', '0988542326', '2000-01-01', 'admin@coffeeshop.com.vn', 'https://cdn.onlinewebfonts.com/svg/img_243887.png', 1, 0),
+		(N'Cashier', N'TP Hồ Chí Minh', '0987532326', '2000-01-01', 'cashier@coffeeshop.com.vn', 'https://cdn.onlinewebfonts.com/svg/img_243887.png', 2, 0),
+		(N'Nguyễn Văn Tèo', N'Bình Dương', '0988542326', '2000-01-01', 'teonv@coffeeshop.com.vn', 'https://cdn.onlinewebfonts.com/svg/img_243887.png', 4, 0),
+		(N'Nguyễn Văn Tí', N'Bà Rịa Vũng Tàu', '0988052375', '2000-01-01', 'tinv@coffeeshop.com.vn', 'https://cdn.onlinewebfonts.com/svg/img_243887.png', 5, 0)
+go
+
+-------------------------- PROC --------------------------
+--------------- Best seller by year ---------------
+select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
+from orders o
+join order_details od on o.id = od.order_id
+join products p on p.id = od.product_id
+where YEAR(o.order_date) = 2000
+group by p.product_name, p.price, p.photo
+order by COUNT(p.product_name) desc
+--------------- Best seller by month ---------------
+select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
+from orders o
+join order_details od on o.id = od.order_id
+join products p on p.id = od.product_id
+where MONTH(o.order_date) = 1
+group by p.product_name, p.price, p.photo
+order by COUNT(p.product_name) desc
+--------------- Best seller by day ---------------
+select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
+from orders o
+join order_details od on o.id = od.order_id
+join products p on p.id = od.product_id
+where o.order_date = '2000/01/05'
+group by p.product_name, p.price, p.photo
+order by COUNT(p.product_name) desc
+--------------- dashboard total price by year ---------------
+select SUM(o.total_price)
+from orders o
+join order_details od on o.id = od.order_id
+join products p on p.id = od.product_id
+where YEAR(o.order_date) = 2000
+--------------- dashboard total price by month ---------------
+select SUM(o.total_price)
+from orders o
+join order_details od on o.id = od.order_id
+join products p on p.id = od.product_id
+where Month(o.order_date) = 1
+--------------- dashboard total price by day ---------------
+select SUM(o.total_price)
+from orders o
+join order_details od on o.id = od.order_id
+join products p on p.id = od.product_id
+where o.order_date = '2000/01/01'

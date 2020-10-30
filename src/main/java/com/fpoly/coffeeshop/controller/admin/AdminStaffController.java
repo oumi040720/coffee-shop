@@ -1,6 +1,7 @@
 package com.fpoly.coffeeshop.controller.admin;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -66,8 +67,15 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
+		List<RoleDTO> roles = roleService.findAll();
+		for (int i = 0; i < roles.size(); i++) {
+			if (roles.get(i).getRoleCode().equals("user")) {
+				roles.remove(i);
+			}
+		}
+		
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("roles", roleService.findAll());
+		model.addAttribute("roles", roles);
 		model.addAttribute("check", false);
 		model.addAttribute("staff", new StaffDTO());
 		
@@ -76,11 +84,18 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
+		List<RoleDTO> roles = roleService.findAll();
+		for (int i = 0; i < roles.size(); i++) {
+			if (roles.get(i).getRoleCode().equals("user")) {
+				roles.remove(i);
+			}
+		}
+		
 		StaffDTO staffDTO = staffService.findOne(id);
 		UserDTO userDTO = userService.findOne(staffDTO.getUsername());
 		RoleDTO roleDTO = roleService.findOne(userDTO.getRoleCode());
 		
-		model.addAttribute("roles", roleService.findAll());
+		model.addAttribute("roles", roles);
 		model.addAttribute("roleCode", roleDTO.getRoleCode());
 		model.addAttribute("userID", userDTO.getId());
 		model.addAttribute("staff", staffDTO);
@@ -225,8 +240,6 @@ public class AdminStaffController {
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", staffService.getTotalPagesByKey(flagDelete, key, page - 1, limit));
 		request.setAttribute("staffs", staffService.search(flagDelete, key, page - 1, limit));
-//		request.setAttribute("totalPages", staffService.getTotalPagesByFlagDeleteAndKey(flagDelete, key, page, limit));
-//		request.setAttribute("staffs", staffService.findAllByFlagDeleteAndKey(flagDelete, key, page - 1, limit));
 		
 		return "admin/staff/search";
 	}

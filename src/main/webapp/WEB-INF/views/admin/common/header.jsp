@@ -31,7 +31,7 @@
 				
 				<div class="dropdown-divider"></div>
 				
-				<a href="javascript:void(0);" class="dropdown-item notify-item">
+				<a href="<c:url value='/logout' />" class="dropdown-item notify-item">
 					<i class="mdi mdi-logout-variant"></i>
 					<span>Logout</span>
 				</a>
