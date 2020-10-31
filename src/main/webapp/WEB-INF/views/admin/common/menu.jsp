@@ -59,6 +59,12 @@
 				
 				<li class="menu-title mt-2">Đặt hàng</li>
 				<li>
+					<a href="<c:url value='/admin/coupon/list?page=1' />">
+						<i class="mdi mdi-content-copy"></i>
+						<span> Phiếu mua hàng </span>
+					</a>
+				</li>
+				<li>
 					<a href="<c:url value='/admin/order/list?page=1' />">
 						<i class="mdi mdi-shopping"></i>
 						<span> Hóa đơn </span>

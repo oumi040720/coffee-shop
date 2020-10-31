@@ -112,9 +112,6 @@
         									</label>
         									<div class="col-lg-10">
         										<c:if test="${check}">
-        										<!-- 
-        											<form:input path="username" cssClass="form-control" disabled="true"/>
-        										-->
         											<span class="form-control">${staff.username}</span>
         											<form:hidden path="username"/>
         										</c:if>

@@ -222,7 +222,7 @@ public class AdminStaffController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(Model model, HttpServletRequest request) {
+	public String search(HttpServletRequest request) {
 		String key = request.getParameter("key");
 		
 		return "redirect:/admin/staff/search?key=" + key + "&page=1";

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "order_logs")
 public class OrderLogEntity {
+	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

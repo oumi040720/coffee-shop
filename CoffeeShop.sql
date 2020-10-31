@@ -211,6 +211,19 @@ create table input_logs (
 )
 go
 
+create table coupons (
+	id bigint primary key identity(1, 1),
+	coupon_code varchar(15) not null unique,
+	discount varchar(10) not null,
+	min_total_bill float null,
+	max_discount varchar(10) null,
+	start_time datetime not null,
+	end_time datetime not null,
+	type nvarchar(255) not null,
+	flag_delete bit default 0
+)
+go
+
 -- FOREIGN KEY
 alter table users
 add constraint fk_user_role 
@@ -281,7 +294,7 @@ go
 
 -- 123
 insert into users (username, password, role_id, flag_delete)
-values	('admin', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 1, 0),
+values	('admin', '123', 1, 0),
 		('cashier', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 2, 0),
 		('user', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 3, 0),
 		('teonv', '$2a$10$Tba0SQetb.Ui/4hHIttIS./zEm4OVKn.LgHE5b32RPJr/A8NskAAu', 1, 0),
@@ -295,6 +308,12 @@ values	(N'Admin', N'Bình Dương', '0988542326', '2000-01-01', 'admin@coffeesho
 		(N'Nguyễn Văn Tèo', N'Bình Dương', '0988542326', '2000-01-01', 'teonv@coffeeshop.com.vn', 'https://cdn.onlinewebfonts.com/svg/img_243887.png', 4, 0),
 		(N'Nguyễn Văn Tí', N'Bà Rịa Vũng Tàu', '0988052375', '2000-01-01', 'tinv@coffeeshop.com.vn', 'https://cdn.onlinewebfonts.com/svg/img_243887.png', 5, 0)
 go
+
+insert into coupons (coupon_code, discount, min_total_bill, max_discount, start_time, end_time, type, flag_delete)
+values	('FREESHIP', '100%', '300000', '100%', '2020-01-01', '2050-12-31', N'Miễn Phí Vận Chuyển', 0),
+		('FS001', '20000', '250000', '100%', '2020-01-01', '2050-12-31', N'Miễn Phí Vận Chuyển', 0),
+		('GIAM10', '10000', '100000', '10000', '2020-12-20', '2020-12-31', N'Giảm Giá Trực Tiếp', 0),
+		('CHI2020', '10%', '150000', '50000', '2020-12-20', '2020-12-31', N'Giảm Giá Theo Phần Trăm', 0)
 
 -------------------------- PROC --------------------------
 --------------- Best seller by year ---------------
