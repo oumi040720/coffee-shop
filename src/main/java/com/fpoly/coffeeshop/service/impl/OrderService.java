@@ -106,8 +106,7 @@ public class OrderService implements IOrderService {
 			CustomersEntity customersEntity = cusctomersRepository.findOneByFullname(customerDTO.getFullname());
 			OrderEntity orderEntity = orderConveter.convertToEntity(customerDTO);
 			orderEntity.setCustomer(customersEntity);
-			orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
-
+			//orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
 			System.out.println(orderEntity.getOrderDate());
 			
 			OrderEntity result = orderRepository.save(orderEntity);

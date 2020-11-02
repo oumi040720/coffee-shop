@@ -60,21 +60,16 @@ public class CustomersAPI {
 		return customersService.findAllByKey(key, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/customers/flag_delete/{flagDelete}/search/{key}")
-	public List<CustomersDTO> findAllByFlagDeleteAndKey(@PathVariable("flagDelete") Boolean flagDelete, @PathVariable("key") String key) {
-		return customersService.findAllByFlagDeleteAndKey(flagDelete, key);
-	}
-	
-	@GetMapping(value = "/api/customers/flag_delete/search/total_pages")
+	@GetMapping(value = "/api/staff/flag_delete/search_c/total_pages")
 	public Integer getTotalPagesByFlagDeleteAndKey(@RequestParam("key") String key, @RequestParam("flag_delete") Boolean flagDelete, 
 													@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-		return customersService.getTotalPagesByFlagDeleteAndKey(flagDelete, key, page - 1, limit);
+		return customersService.getTotalPagesByKey(flagDelete, key, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/customers/flag_delete/search/list")
+	@GetMapping(value = "/api/staff/flag_delete/search_c/list")
 	public List<CustomersDTO> findAllByFlagDeleteAndKey(@RequestParam("key") String key, @RequestParam("flag_delete") Boolean flagDelete,
 													@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-		return customersService.findAllByFlagDeleteAndKey(flagDelete, key, page - 1, limit);
+		return customersService.search(flagDelete, key, page - 1, limit);
 	}
 
 	@GetMapping(value = "/api/customers/id/{id}")

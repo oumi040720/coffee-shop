@@ -161,10 +161,14 @@ public class CustomersService implements ICustomersService {
 	}
 
 	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key) {
-		List<CustomersEntity> list = cusctomersRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key);
+	public Integer getTotalPagesByKey(Boolean flagDelete, String key, Integer page, Integer limit) {
+		return cusctomersRepository.search(key, flagDelete, PageRequest.of(page, limit)).getTotalPages();
+	}
+
+	@Override
+	public List<CustomersDTO> search(Boolean flagDelete, String key, Integer page, Integer limit) {
+		List<CustomersEntity> list = cusctomersRepository.search(key, flagDelete, PageRequest.of(page, limit)).getContent();
+		
 		List<CustomersDTO> result = new ArrayList<>();
 
 		for (CustomersEntity customer : list) {
@@ -173,27 +177,4 @@ public class CustomersService implements ICustomersService {
 
 		return result;
 	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return cusctomersRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key, PageRequest.of(page, limit))
-				.getTotalPages();
-	}
-
-	@Override
-	public List<CustomersDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		List<CustomersEntity> list = cusctomersRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key,PageRequest.of(page, limit)).getContent();
-		List<CustomersDTO> result = new ArrayList<>();
-
-		for (CustomersEntity customer : list) {
-			result.add(customersConveter.convertToDTO(customer));
-		}
-
-		return result;
-	}
-
 }

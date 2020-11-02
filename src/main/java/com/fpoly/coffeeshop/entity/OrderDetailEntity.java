@@ -26,13 +26,16 @@ public class OrderDetailEntity {
 	@Column(name= "price")
 	private Long price;
 	
+	@Column(name= "total_money")
+	private Long totalMoney;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	@JsonManagedReference
 	private OrderEntity order;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "menu_id")
+	@JoinColumn(name = "product_id")
 	@JsonManagedReference
 	private MenuEntity menu;
 	
@@ -85,6 +88,14 @@ public class OrderDetailEntity {
 
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
+	}
+
+	public Long getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(Long totalMoney) {
+		this.totalMoney = totalMoney;
 	}
 
 }

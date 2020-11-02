@@ -137,8 +137,8 @@ public class AdminCustomersController {
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", customersService.getTotalPagesByFlagDeleteAndKey(flagDelete, key, page, limit));
-		request.setAttribute("customers", customersService.findAllByFlagDeleteAndKey(flagDelete, key, page - 1, limit));
+		request.setAttribute("totalPages", customersService.getTotalPagesByKey(flagDelete, key, page - 1, limit));
+		request.setAttribute("customers", customersService.search(flagDelete, key, page - 1, limit));
 		return "admin/customers/search";
 	}
 }
