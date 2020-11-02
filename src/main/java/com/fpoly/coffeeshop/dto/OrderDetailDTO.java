@@ -2,7 +2,7 @@ package com.fpoly.coffeeshop.dto;
 
 public class OrderDetailDTO {
 	
-private Long id;
+	private Long id;
 	
 	private Integer quantity;
 	
@@ -11,6 +11,8 @@ private Long id;
 	private String product;
 	
 	private Long price;
+	
+	private Long totalMoney;
 
 	private Boolean flagDelete = false;
 
@@ -62,5 +64,12 @@ private Long id;
 		this.flagDelete = flagDelete;
 	}
 
+	public Long getTotalMoney() {
+		return totalMoney;
+	}
+
+	public void setTotalMoney(Long totalMoney) {
+		this.totalMoney = totalMoney;
+	}
 	
 }

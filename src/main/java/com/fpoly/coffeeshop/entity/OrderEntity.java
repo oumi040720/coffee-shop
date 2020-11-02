@@ -44,7 +44,7 @@ public class OrderEntity {
 	private String phone;
 
 	@Column(name = "total_price")
-	private String totalPrice;
+	private Long totalPrice;
 
 	@Column(name = "note")
 	private String note;
@@ -114,11 +114,11 @@ public class OrderEntity {
 		this.phone = phone;
 	}
 
-	public String getTotalPrice() {
+	public Long getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(String totalPrice) {
+	public void setTotalPrice(Long totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 

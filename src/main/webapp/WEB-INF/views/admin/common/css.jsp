@@ -6,4 +6,6 @@
 <link href="<c:url value='/template/admin/css/bootstrap.min.css' />" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
 <link href="<c:url value='/template/admin/css/icons.min.css' />" rel="stylesheet" type="text/css">
 <link href="<c:url value='/template/admin/css/app.min.css' />" rel="stylesheet" type="text/css" id="app-stylesheet">
+<link href="<c:url value='/template/admin/css/delete.css' />" rel="stylesheet" type="text/css">
+<link href="<c:url value='/template/admin/css/warning.css' />" rel="stylesheet" type="text/css">
  

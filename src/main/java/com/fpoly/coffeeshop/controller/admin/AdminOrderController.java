@@ -102,10 +102,11 @@ public class AdminOrderController extends Thread {
 		OrderLogDTO orderLogDTO = new OrderLogDTO();
 		
 		String code = RandomStringUtils.randomAlphanumeric(6);
-		
+		Date date =new Date(System.currentTimeMillis());
 		orderDTO.setFlagDelete(false);
 		orderDTO.setOrderCode(code);
 		orderDTO.setStatus(0);
+		orderDTO.setOrderDate(date);
 		if (orderDTO.getId() == null) {
 			
 			Boolean result = orderService.insert(orderDTO);
@@ -124,7 +125,7 @@ public class AdminOrderController extends Thread {
 			}
 		}
 		model.addAttribute("orderCode", code);
-		System.out.println(code);
+		model.addAttribute("datetime", date);
 		return "redirect:/admin/orderdetail/editDetail?orderCode="+ code;
 	}
 

@@ -140,6 +140,7 @@ create table order_details (
 	quantity int not null,
 	product_id int not null,
 	order_id bigint not null,
+	total_money float not null,
 	price float not null,
 	flag_delete bit default 0
 )

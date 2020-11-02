@@ -22,7 +22,7 @@ public class OrderDTO {
 	
 	private String phone;
 	
-	private String totalPrice;
+	private Long totalPrice;
 	
 	private String note;
 	
@@ -84,11 +84,11 @@ public class OrderDTO {
 		this.phone = phone;
 	}
 
-	public String getTotalPrice() {
+	public Long getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(String totalPrice) {
+	public void setTotalPrice(Long totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 

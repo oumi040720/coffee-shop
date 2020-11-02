@@ -2,11 +2,15 @@ package com.fpoly.coffeeshop.controller.admin;
 
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,9 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
 import com.fpoly.coffeeshop.service.IProductService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
+import com.fpoly.coffeeshop.service.IOrderService;
 
 @Controller
 @RequestMapping(value = "/admin/orderdetail")
@@ -26,6 +32,9 @@ public class AdminOrderDetailController {
 	private IProductService menuService;
 	
 	@Autowired
+	private IOrderService orderService;
+	
+	@Autowired
 	private IOrderDetailService orderDetailService;
 	
 	@RequestMapping(value = "/edit")
@@ -33,7 +42,9 @@ public class AdminOrderDetailController {
 		
 		model.addAttribute("menus",menuService.findAllByFlagDeleteIs(false));
 		model.addAttribute("check", true);
-		model.addAttribute("orderDetails", orderDetailService.findAllByOrderCode(orderCode));		
+		List<OrderDetailDTO> list = orderDetailService.findAllByOrderCode(orderCode);
+		model.addAttribute("orderDetails", list);	
+		model.addAttribute("order", orderService.findOne(orderCode));
 		return "admin/orderdetail/list";
 	}
 	
@@ -41,6 +52,7 @@ public class AdminOrderDetailController {
 	public String editDetailPage(Model model, @RequestParam("orderCode") String orderCode) {
 		model.addAttribute("menus",menuService.findAllByFlagDeleteIs(false));
 		model.addAttribute("orderCode", orderCode);
+		model.addAttribute("order", orderService.findOne(orderCode));
 		return "admin/orderdetail/edit";
 	}
 	
@@ -50,8 +62,11 @@ public class AdminOrderDetailController {
 
 		String message = "";
 		String alert = "danger";
-		
+		Long totalprice = 0L;
+		System.out.println(totalprice);
 		for (OrderDetailDTO orderDetailDTO : list) {
+			totalprice += orderDetailDTO.getTotalMoney();
+			System.out.println(orderDetailDTO);
 			Boolean result = orderDetailService.insert(orderDetailDTO);
 			if (result != null) {
 				message = "message_orderdetail_insert_success";
@@ -61,7 +76,9 @@ public class AdminOrderDetailController {
 				alert = "danger";
 			}
 		}
-		
+		OrderDTO orderDTO = orderService.findOne(list.get(0).getOrder());
+		orderDTO.setTotalPrice(totalprice);
+		orderService.update(orderDTO);
 		return "redirect:/admin/order/list?page=1" ;
 	}
 }

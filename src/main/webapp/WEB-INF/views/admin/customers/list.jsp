@@ -9,6 +9,11 @@
 		<title>Coffee Shop | Admin | Customers</title>
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
+	<link rel="stylesheet" href='<c:url value="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"/>'>
+	<link rel="stylesheet" href='<c:url value="https://fonts.googleapis.com/icon?family=Material+Icons"/>'>
+	<link rel="stylesheet" href='<c:url value="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>'>
+	<script src='<c:url value="https://code.jquery.com/jquery-3.5.1.min.js"/>'></script>
+	<script src='<c:url value="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"/>'></script>
 	</head>
 	
 	<body>
@@ -102,14 +107,38 @@
         													<i class="mdi mdi-pencil-outline"></i>
         												</a>
         												
-        												<c:url var="deleteURL" value="/admin/customers/delete">
-        													<c:param name="id" value="${customer.id}" />
-        												</c:url>
-        												<a href="${deleteURL}" class="btn btn-outline-danger">
+        												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
         													<i class=" mdi mdi-window-close"></i>
         												</a>
         											</td>
         										</tr>
+								        		<!-- Modal HTML -->
+													<div id="myModal-${customer.id}" class="modal fade" data-backdrop="static" data-keyboard="false">
+														<div class="modal-dialog modal-confirm">
+															<div class="modal-content">
+																<div class="modal-header flex-column">
+																	<div class="icon-box">
+																		<i class="material-icons text-warning">&#xe645;</i>
+																	</div>
+																	<h4 class="modal-title w-100">Lệnh Xóa</h4>
+																</div>
+																<div class="modal-body">
+																	<p>Bán Chắc Chắn Muốn Xóa</p>
+																</div>
+																<div class="modal-footer justify-content-center">
+																	<c:url var="deleteURL" value="/admin/customers/delete">
+	        															<c:param name="id" value="${customer.id}" />
+	        														</c:url>
+																		<a id="alerts" href="${deleteURL}">
+																			<button type="button" class="btnn">Đồng ý</button>
+																		</a>
+																	<button type="button" data-dismiss="modal"
+																		class="btnn btn-danger">Từ chối</button>
+								
+																</div>
+															</div>
+														</div>
+													</div>
         									</c:forEach>
         								</tbody>
         							</table>

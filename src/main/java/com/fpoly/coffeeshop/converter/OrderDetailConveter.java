@@ -15,6 +15,7 @@ public class OrderDetailConveter {
 		dto.setProduct(entity.getProduct().getProductName());
 		dto.setOrder(entity.getOrder().getOrderCode());
 		dto.setPrice(entity.getPrice());
+		dto.setTotalMoney(entity.getTotalMoney());
 		dto.setFlagDelete(entity.getFlagDelete());
 		return dto;
 	}
@@ -24,6 +25,7 @@ public class OrderDetailConveter {
 		entity.setId(dto.getId());
 		entity.setQuantity(dto.getQuantity());
 		entity.setPrice(dto.getPrice());
+		entity.setTotalMoney(dto.getTotalMoney());
 		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}
@@ -32,6 +34,7 @@ public class OrderDetailConveter {
 		entity.setId(dto.getId());
 		entity.setQuantity(dto.getQuantity());
 		entity.setPrice(dto.getPrice());
+		entity.setTotalMoney(dto.getTotalMoney());
 		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}

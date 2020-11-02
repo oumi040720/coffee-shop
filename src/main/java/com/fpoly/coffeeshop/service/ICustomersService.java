@@ -23,12 +23,9 @@ public interface ICustomersService {
 	public List<CustomersDTO> findAllByKey(String key, Integer page, Integer limit);
 	
 	
-	public List<CustomersDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key);
+	public Integer getTotalPagesByKey(Boolean flagDelete, String key, Integer page, Integer limit);
 
-	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit);
-
-	public List<CustomersDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit);
-	
+	public List<CustomersDTO> search(Boolean flagDelete, String key, Integer page, Integer limit);
 	
 	public CustomersDTO findOne(Long id);
 	
