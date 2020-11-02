@@ -23,16 +23,14 @@ public interface IStaffService {
 	public List<StaffDTO> findAllByKey(String key, Integer page, Integer limit);
 	
 	
-	//
-	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key);
+	public Integer getTotalPagesByKey(Boolean flagDelete, String key, Integer page, Integer limit);
 
-	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit);
-
-	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit);
-	//
+	public List<StaffDTO> search(Boolean flagDelete, String key, Integer page, Integer limit);
 	
 	
 	public StaffDTO findOne(Long id);
+
+	public StaffDTO findOne(String username);
 	
 	
 	public StaffDTO insert(StaffDTO userDTO);

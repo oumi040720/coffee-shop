@@ -20,7 +20,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
-import com.fpoly.coffeeshop.service.IMenuService;
+import com.fpoly.coffeeshop.service.IProductService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderService;
 
@@ -29,7 +29,7 @@ import com.fpoly.coffeeshop.service.IOrderService;
 public class AdminOrderDetailController {
 	
 	@Autowired
-	private IMenuService menuService;
+	private IProductService menuService;
 	
 	@Autowired
 	private IOrderService orderService;

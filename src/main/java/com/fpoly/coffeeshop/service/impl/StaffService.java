@@ -104,10 +104,14 @@ public class StaffService implements IStaffService {
 	}
 
 	@Override
-	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key) {
-		List<StaffEntity> list = staffRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key);
+	public Integer getTotalPagesByKey(Boolean flagDelete, String key, Integer page, Integer limit) {
+		return staffRepository.search(key, flagDelete, PageRequest.of(page, limit)).getTotalPages();
+	}
+	
+	@Override
+	public List<StaffDTO> search(Boolean flagDelete, String key, Integer page, Integer limit) {
+		List<StaffEntity> list = staffRepository.search(key, flagDelete, PageRequest.of(page, limit)).getContent();
+		
 		List<StaffDTO> result = new ArrayList<>();
 
 		for (StaffEntity staff : list) {
@@ -116,35 +120,27 @@ public class StaffService implements IStaffService {
 
 		return result;
 	}
-
-	@Override
-	public Integer getTotalPagesByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		return staffRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key, PageRequest.of(page, limit))
-				.getTotalPages();
-	}
-
-	@Override
-	public List<StaffDTO> findAllByFlagDeleteAndKey(Boolean flagDelete, String key, Integer page, Integer limit) {
-		List<StaffEntity> list = staffRepository
-				.findAllByFlagDeleteIsAndFullnameContainingOrEmailContainingOrPhoneContainingOrAddressContaining(
-						flagDelete, key, key, key, key, PageRequest.of(page, limit))
-				.getContent();
-		List<StaffDTO> result = new ArrayList<>();
-
-		for (StaffEntity staff : list) {
-			result.add(staffConverter.convertToDTO(staff));
-		}
-
-		return result;
-	}
-
+	
 	@Override
 	public StaffDTO findOne(Long id) {
-		return staffConverter.convertToDTO(staffRepository.getOne(id));
+		try {
+			return staffConverter.convertToDTO(staffRepository.getOne(id));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
+	@Override
+	public StaffDTO findOne(String username) {
+		try {
+			UserEntity user = userRepository.findOneByUsername(username);
+			
+			return staffConverter.convertToDTO(staffRepository.findOneByUser(user));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	@Override
 	public StaffDTO insert(StaffDTO userDTO) {
 		try {

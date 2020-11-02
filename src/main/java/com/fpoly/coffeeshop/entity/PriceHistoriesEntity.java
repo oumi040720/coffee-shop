@@ -37,8 +37,8 @@ public class PriceHistoriesEntity {
 	private Boolean flagDelete;
 
 	@ManyToOne
-	@JoinColumn(name = "menu_id")
-	private MenuEntity menu;
+	@JoinColumn(name = "product_id")
+	private ProductEntity product;
 
 	public Integer getId() {
 		return id;
@@ -80,12 +80,12 @@ public class PriceHistoriesEntity {
 		this.flagDelete = flagDelete;
 	}
 
-	public MenuEntity getMenu() {
-		return menu;
+	public ProductEntity getproduct() {
+		return product;
 	}
 
-	public void setMenu(MenuEntity menu) {
-		this.menu = menu;
+	public void setproduct(ProductEntity product) {
+		this.product = product;
 	}
 
 }

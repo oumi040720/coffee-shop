@@ -6,6 +6,9 @@ import com.fpoly.coffeeshop.dto.UserDTO;
 
 public interface IUserService {
 
+	public UserDTO checkLogin(String username, String password, Boolean flagDelete);
+	
+	
 	public List<UserDTO> findAll();
 	
 	
@@ -29,6 +32,8 @@ public interface IUserService {
 	
 	public List<UserDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String key, Integer page, Integer limit); 
 
+	
+	public String getP(String username);
 	
 	public UserDTO findOne(Long id);
 	

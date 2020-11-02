@@ -60,21 +60,16 @@ public class StaffAPI {
 		return staffService.findAllByKey(key, page - 1, limit);
 	}
 	
-	@GetMapping(value = "/api/staff/flag_delete/{flagDelete}/search/{key}")
-	public List<StaffDTO> findAllByFlagDeleteAndKey(@PathVariable("flagDelete") Boolean flagDelete, @PathVariable("key") String key) {
-		return staffService.findAllByFlagDeleteAndKey(flagDelete, key);
-	}
-	
 	@GetMapping(value = "/api/staff/flag_delete/search/total_pages")
 	public Integer getTotalPagesByFlagDeleteAndKey(@RequestParam("key") String key, @RequestParam("flag_delete") Boolean flagDelete, 
 													@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-		return staffService.getTotalPagesByFlagDeleteAndKey(flagDelete, key, page - 1, limit);
+		return staffService.getTotalPagesByKey(flagDelete, key, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/staff/flag_delete/search/list")
 	public List<StaffDTO> findAllByFlagDeleteAndKey(@RequestParam("key") String key, @RequestParam("flag_delete") Boolean flagDelete,
 													@RequestParam("page") Integer page, @RequestParam("limit") Integer limit) {
-		return staffService.findAllByFlagDeleteAndKey(flagDelete, key, page - 1, limit);
+		return staffService.search(flagDelete, key, page - 1, limit);
 	}
 	
 	@GetMapping(value = "/api/staff/id/{id}")

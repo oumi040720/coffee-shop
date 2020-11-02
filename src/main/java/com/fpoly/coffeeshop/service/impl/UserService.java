@@ -14,6 +14,8 @@ import com.fpoly.coffeeshop.entity.UserEntity;
 import com.fpoly.coffeeshop.repository.IRoleRepository;
 import com.fpoly.coffeeshop.repository.IUserRepository;
 import com.fpoly.coffeeshop.service.IUserService;
+import com.fpoly.coffeeshop.util.DecryptionUtil;
+import com.fpoly.coffeeshop.util.EncrpytionUtil;
 
 @Service
 public class UserService implements IUserService {
@@ -26,6 +28,21 @@ public class UserService implements IUserService {
 	
 	@Autowired
 	private UserConveter userConveter;
+	
+	@Override
+	public UserDTO checkLogin(String username, String password, Boolean flagDelete) {
+		try {
+			String decryption = DecryptionUtil.decryption(getP(username));
+			
+			if (decryption.equals(password)) {
+				return userConveter.convertToDTO(userRepository.findOneByUsernameAndFlagDelete(username, flagDelete));
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
+		}
+	}
 	
 	@Override
 	public List<UserDTO> findAll() {
@@ -133,13 +150,22 @@ public class UserService implements IUserService {
 	}
 	
 	@Override
+	public String getP(String username) {
+		return userRepository.findOneByUsername(username).getPassword();
+	}
+	
+	@Override
 	public UserDTO findOne(Long id) {
 		return userConveter.convertToDTO(userRepository.getOne(id));
 	}
 	
 	@Override
 	public UserDTO findOne(String username) {
-		return userConveter.convertToDTO(userRepository.findOneByUsername(username));
+		try {
+			return userConveter.convertToDTO(userRepository.findOneByUsername(username));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
@@ -147,6 +173,7 @@ public class UserService implements IUserService {
 		try {
 			RoleEntity roleEntity = roleRepository.findOneByRoleCode(userDTO.getRoleCode());
 			UserEntity userEntity = userConveter.convertToEntity(userDTO);
+			userEntity.setPassword(EncrpytionUtil.encrpytion(userDTO.getPassword()));
 			userEntity.setRole(roleEntity);
 			
 			UserEntity result = userRepository.save(userEntity);
@@ -164,6 +191,8 @@ public class UserService implements IUserService {
 	@Override
 	public Boolean update(UserDTO userDTO) {
 		try {
+			userDTO.setPassword(EncrpytionUtil.encrpytion(userDTO.getPassword()));
+			
 			RoleEntity roleEntity = roleRepository.findOneByRoleCode(userDTO.getRoleCode());
 			UserEntity oldUser = userRepository.getOne(userDTO.getId());
 			UserEntity newUser = userConveter.convertToEntity(userDTO, oldUser);

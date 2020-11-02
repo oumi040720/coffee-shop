@@ -9,6 +9,10 @@
 		<title>Coffee Shop | Admin | Staff</title>
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
+		<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto|Varela+Round'>
+		<link rel="stylesheet" href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+		<link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+		<link href="<c:url value='/template/admin/css/delete-warning.css' />" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
 	</head>
 	
 	<body>
@@ -77,7 +81,7 @@
         							<table class="table table-bordered">
         								<thead>
         									<tr class="thead-dark">
-        										<th>Hình</th>
+        										<th style="width: 5%;">Hình</th>
         										<th>Họ và tên</th>
         										<th>E-mail</th>
         										<th>Điện thoại</th>
@@ -88,8 +92,8 @@
         								<tbody>
         									<c:forEach var="staff" items="${staffs}">
         										<tr>
-        											<td style="width: 5%;">
-        												<img src="<c:url value='${staff.photo}' />">
+        											<td>
+        												<img  style="width: 100%;" src="<c:url value='${staff.photo}' />">
         											</td>
         											<td>${staff.fullname}</td>
         											<td>${staff.email}</td>
@@ -106,25 +110,29 @@
         												<c:url var="deleteURL" value="/admin/staff/delete">
         													<c:param name="id" value="${staff.id}" />
         												</c:url>
-        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${staff.id}">
+        												<a href="#confirm-${staff.id}" class="btn btn-outline-danger" data-toggle="modal">
         													<i class=" mdi mdi-window-close"></i>
         												</a>
-        												<div class="modal fade" id="confirm-${staff.id}">
-        													<div class="modal-dialog modal-dialog-centered">
-        														<div class="modal-content">
-	        														<div class="modal-header">
-	        															<h4 class="modal-title">Xác nhận xóa nhân viên</h4>
-	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
-	        														</div>
-	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa nhân viên có mã là "${staff.id}" không?
-	        														</div>
-	        														<div class="modal-footer">
-	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
-	        															<button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
-	        														</div>
-        														</div>
-        													</div>
+        												<div class="modal fade" id="confirm-${staff.id}" data-backdrop="static" data-keyboard="false">
+        													<div class="modal-dialog modal-confirm modal-dialog-centered">
+																<div class="modal-content">
+																	<div class="modal-header flex-column">
+																		<div class="icon-box">
+																			<i class="material-icons text-warning">&#xe645;</i>
+																		</div>
+																		<h4 class="modal-title w-100">Xác nhận Xóa</h4>
+																	</div>
+																	<div class="modal-body">
+																		<p>Bán Chắc Chắn Muốn Xóa "${staff.username} - ${staff.fullname}" không?</p>
+																	</div>
+																	<div class="modal-footer justify-content-center">
+																		<a id="alerts" href="${deleteURL}">
+																			<button type="button" class="btnn">Đồng ý</button>
+																		</a>
+																		<button type="button" data-dismiss="modal" class="btnn btn-danger">Từ chối</button>
+																	</div>
+																</div>
+															</div>
         												</div>
         											</td>
         										</tr>
@@ -146,6 +154,9 @@
         
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
+        	<script src='<c:url value="/template/admin/libs/sweetalert2/sweetalert2.min.js" />'></script>
+        	<script src='<c:url value="/template/admin/js/pages/sweet-alerts.init.js" />'></script>
+        	<script src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js'></script>
         	<script type="text/javascript">
 			var totalPages = ${totalPages};
 			var currentPage = ${page};

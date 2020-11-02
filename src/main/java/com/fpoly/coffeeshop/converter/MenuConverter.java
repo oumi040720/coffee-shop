@@ -2,15 +2,15 @@ package com.fpoly.coffeeshop.converter;
 
 import org.springframework.stereotype.Component;
 
-import com.fpoly.coffeeshop.dto.MenuDTO;
-import com.fpoly.coffeeshop.entity.MenuEntity;
+import com.fpoly.coffeeshop.dto.ProductDTO;
+import com.fpoly.coffeeshop.entity.ProductEntity;
 
 @Component
 public class MenuConverter {
 	
-	public MenuDTO convertToDTO (MenuEntity entity) {
+	public ProductDTO convertToDTO (ProductEntity entity) {
 		
-		MenuDTO dto = new MenuDTO();
+		ProductDTO dto = new ProductDTO();
 		dto.setId(entity.getId());
 		dto.setProductName(entity.getProductName());
 		dto.setPhoto(entity.getPhoto());
@@ -20,9 +20,9 @@ public class MenuConverter {
 		return dto;
 	}
 	
-	public MenuEntity convertToEntity (MenuDTO dto) {
+	public ProductEntity convertToEntity (ProductDTO dto) {
 		
-		MenuEntity entity = new MenuEntity();
+		ProductEntity entity = new ProductEntity();
 		entity.setId(dto.getId());
 		entity.setProductName(dto.getProductName());
 		entity.setPhoto(dto.getPhoto());
@@ -32,7 +32,7 @@ public class MenuConverter {
 		return entity;
 	}
 	
-	public MenuEntity convertToEntity (MenuDTO dto, MenuEntity entity) {
+	public ProductEntity convertToEntity (ProductDTO dto, ProductEntity entity) {
 		
 		entity.setId(dto.getId());
 		entity.setProductName(dto.getProductName());

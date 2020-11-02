@@ -16,7 +16,7 @@ public class OrderLogDTO {
 	
 	private Integer oldQuantity;
 	
-	private String oldMenuID;
+	private String oldProductID;
 	
 	private Long orderID;
 	
@@ -80,12 +80,12 @@ public class OrderLogDTO {
 		this.oldQuantity = oldQuantity;
 	}
 
-	public String getOldMenuID() {
-		return oldMenuID;
+	public String getOldProductID() {
+		return oldProductID;
 	}
 
-	public void setOldMenuID(String oldMenuID) {
-		this.oldMenuID = oldMenuID;
+	public void setOldProductID(String oldProductID) {
+		this.oldProductID = oldProductID;
 	}
 
 	public Long getOrderID() {
