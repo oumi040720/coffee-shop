@@ -26,7 +26,7 @@ public class OrderEntity {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "order_date")
 	private Date orderDate;
@@ -36,17 +36,16 @@ public class OrderEntity {
 
 	@Column(name = "status")
 	private Integer status;
-	
-	
+
 	@Column(name = "address")
-	private String address;	
-	
+	private String address;
+
 	@Column(name = "phone")
 	private String phone;
-	
+
 	@Column(name = "total_price")
 	private String totalPrice;
-		
+
 	@Column(name = "note")
 	private String note;
 
@@ -61,6 +60,11 @@ public class OrderEntity {
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
 	@JsonBackReference
 	private List<OrderDetailEntity> orderdetail;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "coupon_id")
+	@JsonManagedReference
+	private CouponEntity coupon;
 
 	public Long getId() {
 		return id;
@@ -149,4 +153,13 @@ public class OrderEntity {
 	public void setOrderdetail(List<OrderDetailEntity> orderdetail) {
 		this.orderdetail = orderdetail;
 	}
+
+	public CouponEntity getCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(CouponEntity coupon) {
+		this.coupon = coupon;
+	}
+
 }

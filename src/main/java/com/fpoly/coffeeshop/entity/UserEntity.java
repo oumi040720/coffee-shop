@@ -33,11 +33,11 @@ public class UserEntity {
 	@JsonManagedReference
 	private RoleEntity role;
 
-	@Column(name = "flag_delete")
-	private Boolean flagDelete;
-
 	@OneToOne(mappedBy = "user")
 	private StaffEntity staff;
+
+	@Column(name = "flag_delete")
+	private Boolean flagDelete;
 
 	public Long getId() {
 		return id;
@@ -71,20 +71,20 @@ public class UserEntity {
 		this.role = role;
 	}
 
-	public Boolean getFlagDelete() {
-		return flagDelete;
-	}
-
-	public void setFlagDelete(Boolean flagDelete) {
-		this.flagDelete = flagDelete;
-	}
-
 	public StaffEntity getStaff() {
 		return staff;
 	}
 
 	public void setStaff(StaffEntity staff) {
 		this.staff = staff;
+	}
+
+	public Boolean getFlagDelete() {
+		return flagDelete;
+	}
+
+	public void setFlagDelete(Boolean flagDelete) {
+		this.flagDelete = flagDelete;
 	}
 
 }
