@@ -412,7 +412,7 @@
 								checkConfirm = false;
 							}
 							
-							if (checkPassword && checkConfirm) {
+							if (checkConfirm) {
 								if (password === confirm) {
 									$('#warningConfirm').text('');
 									$('#confirm').removeClass('parsley-error');

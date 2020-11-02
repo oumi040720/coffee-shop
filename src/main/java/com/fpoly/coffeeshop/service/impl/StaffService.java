@@ -123,9 +123,24 @@ public class StaffService implements IStaffService {
 	
 	@Override
 	public StaffDTO findOne(Long id) {
-		return staffConverter.convertToDTO(staffRepository.getOne(id));
+		try {
+			return staffConverter.convertToDTO(staffRepository.getOne(id));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
+	@Override
+	public StaffDTO findOne(String username) {
+		try {
+			UserEntity user = userRepository.findOneByUsername(username);
+			
+			return staffConverter.convertToDTO(staffRepository.findOneByUser(user));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 	@Override
 	public StaffDTO insert(StaffDTO userDTO) {
 		try {

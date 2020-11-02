@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fpoly.coffeeshop.dto.UserDTO;
+import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
 
 @Controller
@@ -15,6 +16,9 @@ public class LoginController {
 
 	@Autowired
 	private IUserService userService;
+	
+	@Autowired
+	private IStaffService staffService;
 
 	@RequestMapping(value = "/login")
 	public String showLoginPage(HttpServletRequest request) {
@@ -40,6 +44,7 @@ public class LoginController {
 		if (userDTO != null) {
 			HttpSession httpSession = request.getSession();
 			httpSession.setAttribute("USER", userDTO);
+			httpSession.setAttribute("INFO", staffService.findOne(username));
 
 			if (userDTO.getRoleCode().equals("admin")) {
 				return "redirect:/admin/dashboard";

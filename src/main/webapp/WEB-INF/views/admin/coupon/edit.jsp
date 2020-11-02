@@ -68,7 +68,6 @@
         										Loại <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        									<!-- THIẾU GIẢM GIÁ NHƯ THẾ NÀO -->
         										<form:select path="type" cssClass="form-control" >
         											<form:option value="">-- Chọn loại phiếu mua hàng --</form:option>
         											<form:option value="Miễn Phí Vận Chuyển">Miễn phí vận chuyển</form:option>

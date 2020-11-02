@@ -28,8 +28,9 @@ public interface IStaffService {
 	public List<StaffDTO> search(Boolean flagDelete, String key, Integer page, Integer limit);
 	
 	
-	
 	public StaffDTO findOne(Long id);
+
+	public StaffDTO findOne(String username);
 	
 	
 	public StaffDTO insert(StaffDTO userDTO);

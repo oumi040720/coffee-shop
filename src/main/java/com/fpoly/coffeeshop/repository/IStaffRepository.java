@@ -9,10 +9,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fpoly.coffeeshop.entity.StaffEntity;
+import com.fpoly.coffeeshop.entity.UserEntity;
 
 @Repository
 public interface IStaffRepository extends JpaRepository<StaffEntity, Long> {
 
+	public StaffEntity findOneByUser(UserEntity user);
+	
 	public List<StaffEntity> findAllByFlagDeleteIs(Boolean flagDelete);
 
 	public Page<StaffEntity> findAllByFlagDeleteIs(Boolean flagDelete, Pageable pageable);
