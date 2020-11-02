@@ -15,6 +15,7 @@ public class MenuConverter {
 		dto.setProductName(entity.getProductName());
 		dto.setPhoto(entity.getPhoto());
 		dto.setPrice(entity.getPrice());
+		dto.setCategoryCode(entity.getCategory().getCategoryCode());
 		dto.setFlagDelete(entity.getFlagDelete());
 		
 		return dto;

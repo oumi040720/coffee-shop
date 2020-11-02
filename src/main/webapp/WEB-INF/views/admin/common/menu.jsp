@@ -14,14 +14,12 @@
 						</a>
 					</li>
 					<li class="menu-title mt-2">Tài khoản</li>
-					<!-- 
 					<li>
 						<a href="<c:url value='/admin/role/list' />">
 							<i class="mdi mdi-monitor-lock"></i>
 							<span>Vai trò</span>
 						</a>
 					</li>
-					 -->
 					<!-- 
 					<li>
 						<a href="<c:url value='/admin/user/list?page=1' />">
@@ -58,12 +56,14 @@
 				</c:if>
 				
 				<li class="menu-title mt-2">Đặt hàng</li>
-				<li>
-					<a href="<c:url value='/admin/coupon/list?page=1' />">
-						<i class="mdi mdi-content-copy"></i>
-						<span> Phiếu mua hàng </span>
-					</a>
-				</li>
+				<c:if test="${USER.roleCode eq 'admin'}">
+					<li>
+						<a href="<c:url value='/admin/coupon/list?page=1' />">
+							<i class="mdi mdi-content-copy"></i>
+							<span> Phiếu mua hàng </span>
+						</a>
+					</li>
+				</c:if>
 				<li>
 					<a href="<c:url value='/admin/order/list?page=1' />">
 						<i class="mdi mdi-shopping"></i>

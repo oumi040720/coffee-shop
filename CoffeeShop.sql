@@ -328,6 +328,15 @@ values	('FREESHIP', '100%', '300000', '100%', '2020-01-01', '2050-12-31', N'Mi�
 		('GIAM10', '10000', '100000', '10000', '2020-12-20', '2020-12-31', N'Giảm Giá Trực Tiếp', 0),
 		('CHI2020', '10%', '150000', '50000', '2020-12-20', '2020-12-31', N'Giảm Giá Theo Phần Trăm', 0)
 
+insert into categories (category_code, category_name, flag_delete)
+values	('ca-phe', N'Cà Phê', 0),
+		('tra', N'Trà', 0),
+		('tra-sua', N'Trà Sữa', 0),
+		('sinh-to', N'Sinh Tố', 0),
+		('nuoc-trai-cay', N'Nước Trái Cây', 0),
+		('banh', N'Bánh', 0)
+go
+
 -------------------------- PROC --------------------------
 --------------- Best seller by year ---------------
 select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
