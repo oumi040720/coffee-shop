@@ -145,10 +145,11 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Boolean insert(ProductDTO categoryDTO) {
+	public Boolean insert(ProductDTO productDTO) {
 		try {
-			CategoryEntity categoryEntity = categoryRepository.findOneByCategoryName(categoryDTO.getProductName());
-			ProductEntity productEntity = productConverter.convertToEntity(categoryDTO);
+			//fix findOneByCategoryName to findOneByCategoryCode
+			CategoryEntity categoryEntity = categoryRepository.findOneByCategoryCode(productDTO.getCategoryCode());
+			ProductEntity productEntity = productConverter.convertToEntity(productDTO);
 			productEntity.setCategory(categoryEntity);
 
 			ProductEntity result = productRepository.save(productEntity);
@@ -166,7 +167,8 @@ public class ProductService implements IProductService {
 	@Override
 	public Boolean update(ProductDTO productDTO) {
 		try {
-			CategoryEntity categoryEntity = categoryRepository.findOneByCategoryName(productDTO.getProductName());
+			//fix findOneByCategoryName to findOneByCategoryCode
+			CategoryEntity categoryEntity = categoryRepository.findOneByCategoryCode(productDTO.getCategoryCode());
 			ProductEntity oldProduct = productRepository.getOne(productDTO.getId());
 			ProductEntity newProduct = productConverter.convertToEntity(productDTO, oldProduct);
 			newProduct.setCategory(categoryEntity);
