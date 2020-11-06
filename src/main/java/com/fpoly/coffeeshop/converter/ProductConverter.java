@@ -6,7 +6,7 @@ import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.entity.ProductEntity;
 
 @Component
-public class MenuConverter {
+public class ProductConverter {
 	
 	public ProductDTO convertToDTO (ProductEntity entity) {
 		
