@@ -18,4 +18,41 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="<c:url value='/template/user/js/main.js' />"></script>
 
-
+<script>
+	$(document).ready(function() {
+		getTotalItems();
+	});
+</script>
+<script>
+	function getTotalItems() {
+		var items = JSON.parse(localStorage.getItem("items"));
+		
+		if (items === null) {
+			$('#quantityItems').html('0');
+		} else {
+			var quantity = 0;
+			items.map((item, index) => {
+				quantity += item.quantity;
+			});	
+			
+			$('#quantityItems').html(quantity);
+		}
+	}
+	
+	function calculateSubtotal() {
+		var items = JSON.parse(localStorage.getItem("items"));
+		var total = 0;
+		
+		if (items.length === 0) {
+			total = 0;	
+		} else {
+			items.map((item, index) => {
+				total += (item.price * item.quantity);
+			});
+		}
+		
+		$('#subtotal').html(total + ' VND');
+		
+		return total;
+	}
+</script>

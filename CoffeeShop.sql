@@ -312,10 +312,10 @@ values	('admin', 'lwsj/S+Olkk4Nc1PPRkKGpTtSmoBbvs9GlWkRk0tYofOSx5jrWUuT+Jas6KFj9
 go
 
 insert into staffs (fullname, address, phone, birthday, email, photo, user_id, flag_delete)
-values	(N'Admin', N'Bình Dương', '0988542326', '2000-01-01', 'admin@coffeeshop.com.vn', 'https://i.imgur.com/7UXxJI1.jpg', 1, 0),
-		(N'Cashier', N'TP Hồ Chí Minh', '0987532326', '2000-01-01', 'cashier@coffeeshop.com.vn', 'https://i.imgur.com/en1K2Yu.jpg', 2, 0),
-		(N'Nguyễn Văn Tèo', N'Bình Dương', '0988542326', '2000-01-01', 'teonv@coffeeshop.com.vn', 'https://i.imgur.com/xiJuh5z.jpg', 4, 0),
-		(N'Nguyễn Văn Tí', N'Bà Rịa Vũng Tàu', '0988052375', '2000-01-01', 'tinv@coffeeshop.com.vn', 'https://i.imgur.com/K0dpSHk.jpg', 5, 0)
+values	(N'Admin', N'Bình Dương', '0988542326', '2000-01-01', 'admin@coffeeshop.com.vn', 'https://i.imgur.com/hUcTeEa.jpg', 1, 0),
+		(N'Cashier', N'TP Hồ Chí Minh', '0987532326', '2000-01-01', 'cashier@coffeeshop.com.vn', 'https://i.imgur.com/iY2JfT3.jpg', 2, 0),
+		(N'Nguyễn Văn Tèo', N'Bình Dương', '0988542326', '2000-01-01', 'teonv@coffeeshop.com.vn', 'https://i.imgur.com/1OE3yoj.jpg', 4, 0),
+		(N'Nguyễn Văn Tí', N'Bà Rịa Vũng Tàu', '0988052375', '2000-01-01', 'tinv@coffeeshop.com.vn', 'https://i.imgur.com/hAcu44U.jpg', 5, 0)
 go
 
 insert into customers (fullname, email, address, phone, user_id, flag_delete)

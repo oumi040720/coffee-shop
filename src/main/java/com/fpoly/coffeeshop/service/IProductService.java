@@ -6,6 +6,7 @@ import com.fpoly.coffeeshop.dto.ProductDTO;
 
 public interface IProductService {
 	
+	
 	public List<ProductDTO> findAll();
 	
 	public List<ProductDTO> findAllByCategoryCode(String categoryCode);
