@@ -2,8 +2,9 @@ package com.fpoly.coffeeshop.service;
 
 import java.util.List;
 
+
 import com.fpoly.coffeeshop.dto.IngredientsDTO;
-import com.fpoly.coffeeshop.dto.OrderDetailDTO;
+
 
 public interface IIngredientService {
 
@@ -30,7 +31,7 @@ public interface IIngredientService {
 	
 	public IngredientsDTO findOne(Long id);
 	
-	public IngredientsDTO findOne(String ingredient);
+	public IngredientsDTO findOne(String name);
 	
 	public Boolean insert(IngredientsDTO ingredientDTO);
 	
