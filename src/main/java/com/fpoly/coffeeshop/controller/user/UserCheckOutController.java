@@ -18,6 +18,7 @@ import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderService;
+import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 public class UserCheckOutController {
@@ -28,8 +29,14 @@ public class UserCheckOutController {
 	@Autowired
 	private IOrderDetailService orderDetailService;
 	
+	private String getDomain() {
+		return DomainUtil.getDoamin();
+	}
+	
 	@RequestMapping(value = "/cart")
-	public String showCartPage() {
+	public String showCartPage(HttpServletRequest request) {
+		request.setAttribute("domain", getDomain());
+		
 		return "user/cart";
 	}
 	
@@ -51,7 +58,9 @@ public class UserCheckOutController {
 	}
 	
 	@RequestMapping(value = "/checkout")
-	public String showCheckoutPage() {
+	public String showCheckoutPage(HttpServletRequest request) {
+		request.setAttribute("domain", getDomain());
+		
 		return "user/checkout";
 	}
 	

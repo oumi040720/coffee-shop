@@ -103,29 +103,19 @@
 				<div class="row justify-content-end">
 					<div class="col col-lg-4 col-md-7 mt-5 cart-wrap ftco-animate">
 						<div class="cart-total mb-3">
-							<h3>Cart Totals</h3>
+							<h3></h3>
 							<p class="d-flex">
-								<span>Tổng tiền</span>
+								<span>Tạm tính</span>
 								<span id="subtotal"></span>
 							</p>
 							<p class="d-flex">
-								<span>Delivery</span>
-								<span>$0.00</span>
-							</p>
-							<p class="d-flex">
-								<span>Mã giảm giá</span>
-								<span>
-									<input class="form-control" name='discount' placeholder="Mã Giảm Giá" />
-								</span>
-							</p>
-							<p class="d-flex">
-								<span>Discount</span>
-								<span>$3.00</span>
+								<span>Giao hàng</span>
+								<span id="delivery" data-price="22000">22000 VNĐ</span>
 							</p>
 							<hr>
 							<p class="d-flex total-price">
-								<span>Total</span>
-								<span>$17.60</span>
+								<span>Tổng Cộng</span>
+								<span id="t"></span>
 							</p>
 						</div>
 						<p id="checkOutButton" class="text-center">
@@ -138,6 +128,8 @@
 			</div>
 		</section>		
         
+        <p id="priceDiscount" data-price="0" style="display: none;"></p>
+        
         <%@ include file="/WEB-INF/views/user/common/footer.jsp" %>
         
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
@@ -148,7 +140,6 @@
         </script>
         <script type="text/javascript">
         	function renderItems() {
-        		// var products = JSON.parse(localStorage.getItem("products"));
 	 	        var items = JSON.parse(localStorage.getItem("items"));
 	 	        if (items === null) {
 	 	        	var items = [];
@@ -157,7 +148,7 @@
 	 	       	var showItemsPlace = $('.cart-list tbody');
 	 	       	showItemsPlace.html('');
 	 	       
-	 	       items.map((item, index) => {
+	 	       	items.map((item, index) => {
 	 	        	showItemsPlace.append(
 	 	        		'<tr class="text-center">' +
 	 	        			'<td class="product-remove">' + 
@@ -186,6 +177,7 @@
 	 	      
 	 	      getTotalItems();
 	 	      calculateSubtotal();
+	 	      calculateTotal();
 	 	      isShowCheckOutButton();
         	}
         

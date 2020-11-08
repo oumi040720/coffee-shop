@@ -50,7 +50,7 @@
 
 		<section class="ftco-section">
 			<div class="container">
-				<form action="<c:url value='/order' />" >
+				<form action="<c:url value='/order' />" id="orderSumbitFomr" >
 					<div class="row">
 						<div class="col-xl-8 ftco-animate">
 							<div class="billing-form ftco-bg-dark p-3 p-md-5">
@@ -59,21 +59,27 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Họ và Tên</label>
-											<input type="text" name="fullname" class="form-control" placeholder="Họ và Tên">
+											<input type="text" id="fullname" name="fullname" class="form-control" placeholder="Họ và Tên" 
+													value="${CUSTOMER.fullname}">
+											<small id="warningFullname" class="text-danger"></small>
 										</div>
 									</div>
 									<div class="w-100"></div>
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Địa chỉ giao hàng</label>
-											<input type="text" name="address" class="form-control" placeholder="Địa chỉ">
+											<input type="text" id="address" name="address" class="form-control" placeholder="Địa chỉ" 
+													value="${CUSTOMER.address}">
+											<small id="warningAddress" class="text-danger"></small>
 										</div>
 									</div>
 									<div class="w-100"></div>
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Số điện thoại</label>
-											<input type="text" name="phone" class="form-control" placeholder="Số điện thoại">
+											<input type="text" id="phone" name="phone" class="form-control" placeholder="Số điện thoại"
+													value="${CUSTOMER.phone}">
+											<small id="warningPhone" class="text-danger"></small>
 										</div>
 									</div>
 									<div class="w-100"></div>
@@ -81,7 +87,9 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>E-mail</label>
-											<input type="text" name="phone" class="form-control" placeholder="Địa chỉ E-mail">
+											<input type="text" id="email" name="email" class="form-control" placeholder="Địa chỉ E-mail"
+													value="${CUSTOMER.email}">
+											<small id="warningEmail" class="text-danger"></small>
 										</div>
 									</div>
 									<div class="w-100"></div>
@@ -104,35 +112,39 @@
 								</div>
 								<input id="items" type="hidden" name="items" />
 								<input id="totalPrice" type="hidden" name="totalPrice" />
+								<input id="couponCode" type="hidden" name="coupon" />
 							</div>
 						</div> <!-- .col-md-8 -->
 		
 						<div class="col-xl-4 sidebar ftco-animate">
 							<div class="col-md-12 d-flex">
 								<div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
-									<h3 class="billing-heading mb-4">Cart Total</h3>
+									<h3>Cart Totals</h3>
 									<p class="d-flex">
-										<span>Tổng tiền</span>
+										<span>Tạm tính</span>
 										<span id="subtotal"></span>
 									</p>
 									<p class="d-flex">
 										<span>Delivery</span>
-										<span>$0.00</span>
+										<span  id="delivery" data-price="22000">22000 VNĐ</span>
 									</p>
 									<p class="d-flex">
 										<span>Mã giảm giá</span>
 										<span>
 											<input id="discount" class="form-control" name='discount' placeholder="Mã Giảm Giá" />
+											<span id="discountWarning" style="width: 100%;">
+												<small class="text-danger"></small>
+											</span>
 										</span>
 									</p>
 									<p class="d-flex">
 										<span>Discount</span>
-										<span>$3.00</span>
+										<span id="priceDiscount" data-price="0">0 VNĐ</span>
 									</p>
 									<hr>
 									<p class="d-flex total-price">
-										<span>Total</span>
-										<span>$17.60</span>
+										<span>Tổng Cộng</span>
+										<span id="t"></span>
 									</p>
 								</div>
 							</div>
@@ -184,6 +196,8 @@
 			</div>
 		</section>
 
+		<input type="hidden" id="c" />
+
         <%@ include file="/WEB-INF/views/user/common/footer.jsp" %>
         
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
@@ -191,14 +205,67 @@
 	        $(document).ready(function() {
 	        	calculateSubtotal();
 	        	renderBillItems();
+	    		calculateTotal();
 	    	});
         </script>
         <script type="text/javascript">
 			function renderBillItems() {
 				var items = JSON.parse(localStorage.getItem("items"));
+				
 				$('#items').val( JSON.stringify(items) );
 				$('#totalPrice').val( calculateSubtotal() );
 			}
         </script>
+       	<script type="text/javascript">
+       		$('#orderSumbitFomr').on('submit', () => {
+       			var fullname = $('#fullname').val();
+       			var address = $('#address').val();
+       			var phone = $('#phone').val();
+       			var email = $('#email').val();
+       			
+       			var checkFullname = false;
+       			var checkAddress = false;
+       			var checkPhone = false;
+       			var checkEmail = false;
+       			
+       			if (fullname.trim().length > 0) {
+       				$('#warningFullname').html('');
+       				checkFullname = true;
+       			} else {
+       				$('#warningFullname').html('Bạn chưa nhập HỌ VÀ TÊN');
+       				checkFullname = false;
+       			}
+       			
+       			if (address.trim().length > 0) {
+       				$('#warningAddress').html('');
+       				checkAddress = true;
+       			} else {
+       				$('#warningAddress').html('Bạn chưa nhập ĐỊA CHỈ GIAO HÀNG');
+       				checkAddress = false;
+       			}
+       			
+       			if (phone.trim().length > 0) {
+       				$('#warningPhone').html('');
+       				checkPhone = true;
+       			} else {
+       				$('#warningPhone').html('Bạn chưa nhập SỐ ĐIỆN THOẠI');
+       				checkPhone = false;
+       			}
+       			
+       			if (email.trim().length > 0) {
+       				$('#warningEmail').html('');
+       				checkEmail = true;
+       			} else {
+       				$('#warningEmail').html('Bạn chưa nhập ĐỊA CHỈ EMAIL');
+       				checkEmail = false;
+       			}
+       			
+       			if (checkFullname && checkAddress && checkPhone && checkEmail) {
+       				return true;
+       			} else {
+	       			return false;
+       			}
+       		});
+       	</script>
 	</body>
 </html>
