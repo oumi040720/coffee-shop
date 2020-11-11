@@ -52,6 +52,12 @@
 							<i class="mdi mdi-menu"></i>
 							<span> Danh mục </span>
 						</a>
+					</li>
+					<li>
+						<a href="<c:url value='/admin/category/list' />">
+							<i class="mdi mdi-menu"></i>
+							<span>Thể loại</span>
+						</a>
 					</li>				
 				</c:if>
 				
