@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.fpoly.coffeeshop.dto.OrderDTO;
 
-
-
 public interface IOrderService {
 
 	public List<OrderDTO> findAll();
@@ -41,4 +39,22 @@ public interface IOrderService {
 	public Boolean update(OrderDTO orderDTO);
 	
 	public Boolean delete(Long id);
+	
+	
+	
+	public List<Long[]> getOrderDetailStatistic(Integer year, Integer month);
+	
+	
+	public List<Object[]> getSalesEveryYear();
+	
+	public List<Object[]> getSalesEveryMonthByYear(Integer year);
+
+	public List<Object[]> getSalesEveryDayByYearAndMonth(Integer year, Integer month);
+	
+	
+	public List<Object[]> getSalesRateEveryMotnhInYear(Integer year);
+	
+	public List<Object[]> getSalesRateEveryDayInMonthOfYear(Integer year, Integer month);
+	
 }
+

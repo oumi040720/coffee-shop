@@ -338,46 +338,18 @@ values	('ca-phe', N'Cà Phê', 0),
 		('banh', N'Bánh', 0)
 go
 
--------------------------- PROC --------------------------
---------------- Best seller by year ---------------
-select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where YEAR(o.order_date) = 2000
-group by p.product_name, p.price, p.photo
-order by COUNT(p.product_name) desc
---------------- Best seller by month ---------------
-select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where MONTH(o.order_date) = 1
-group by p.product_name, p.price, p.photo
-order by COUNT(p.product_name) desc
---------------- Best seller by day ---------------
-select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where o.order_date = '2000/01/05'
-group by p.product_name, p.price, p.photo
-order by COUNT(p.product_name) desc
---------------- dashboard total price by year ---------------
-select SUM(o.total_price)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where YEAR(o.order_date) = 2000
---------------- dashboard total price by month ---------------
-select SUM(o.total_price)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where Month(o.order_date) = 1
---------------- dashboard total price by day ---------------
-select SUM(o.total_price)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where o.order_date = '2000/01/01'
+/*
+% = (( cuoi - dau ) / dau ) * 100
+*/
+
+---- Compare order rate current month with last month
+create proc sp_orderDetailStatistic (@year int, @month int)
+as
+	select (select COUNT(*) from orders where MONTH(orders.order_date) = @month and YEAR(orders.order_date) = @year) as 'ORDERS',
+			SUM(od.quantity * od.total_money) as 'SALES',
+			AVG(od.price) as 'AVG PRICE',
+			SUM(od.quantity) as 'QUANTITY'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where MONTH(o.order_date) = @month and YEAR(o.order_date) = @year
+go
