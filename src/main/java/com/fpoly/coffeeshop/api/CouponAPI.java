@@ -1,5 +1,6 @@
 package com.fpoly.coffeeshop.api;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,11 @@ public class CouponAPI {
 		return couponService.findOne(couponCode);
 	}
 	
+	@GetMapping(value = "/api/coupon/discount/{discount}")
+	public CouponDTO findOne1(@PathVariable("discount") String discount) {
+		return couponService.findOne1(discount);
+	}
+	
 	@PostMapping(value = "/api/coupon/insert")
 	public Boolean insert(@RequestBody CouponDTO couponDTO) {
 		return couponService.insert(couponDTO);
@@ -80,6 +86,12 @@ public class CouponAPI {
 	@DeleteMapping(value = "/api/coupon/delete")
 	public Boolean delete(@RequestParam("id") Long id) {
 		return couponService.delete(id);
+	}
+	
+	@SuppressWarnings("deprecation")
+	@GetMapping(value = "/api/coupon/{datenow}/{flagDelete}")
+	public List<CouponDTO> findAllDate(@PathVariable("datenow") String datenow, @PathVariable("flagDelete") Boolean flagDelete) {
+		return couponService.findAllDate(new Date(System.currentTimeMillis()), flagDelete);
 	}
 	
 }

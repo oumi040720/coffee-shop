@@ -9,10 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.OrderConveter;
 import com.fpoly.coffeeshop.dto.OrderDTO;
+import com.fpoly.coffeeshop.entity.CouponEntity;
 import com.fpoly.coffeeshop.entity.CustomersEntity;
 import com.fpoly.coffeeshop.entity.OrderEntity;
+import com.fpoly.coffeeshop.entity.UserEntity;
+import com.fpoly.coffeeshop.repository.ICouponRepository;
 import com.fpoly.coffeeshop.repository.ICustomersRepository;
 import com.fpoly.coffeeshop.repository.IOrderRepository;
+import com.fpoly.coffeeshop.repository.IUserRepository;
 import com.fpoly.coffeeshop.service.IOrderService;
 
 @Service
@@ -26,6 +30,12 @@ public class OrderService implements IOrderService {
 
 	@Autowired
 	private ICustomersRepository cusctomersRepository;
+	
+	@Autowired
+	private ICouponRepository couponRepository;
+	
+	@Autowired
+	private IUserRepository userRepository;
 
 	@Override
 	public List<OrderDTO> findAll() {
@@ -100,9 +110,10 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
-	public Boolean insert(OrderDTO customerDTO) {
+	public Boolean insert(OrderDTO customerDTO, String username) {
 		try {
-			CustomersEntity customersEntity = cusctomersRepository.findOneByFullname(customerDTO.getFullname());
+			UserEntity userEntity = userRepository.findOneByUsername(username);
+			CustomersEntity customersEntity = cusctomersRepository.findOneByUser(userEntity);
 			OrderEntity orderEntity = orderConveter.convertToEntity(customerDTO);
 			orderEntity.setCustomer(customersEntity);
 			//orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
@@ -124,10 +135,11 @@ public class OrderService implements IOrderService {
 	public Boolean update(OrderDTO orderDTO) {
 		try {
 			CustomersEntity customersEntity = cusctomersRepository.findOneByFullname(orderDTO.getFullname());
+			CouponEntity couponEntity = couponRepository.findOneByCouponCode(orderDTO.getCouponCode());
 			OrderEntity oldOrder = orderRepository.getOne(orderDTO.getId());
 			OrderEntity newOrder = orderConveter.convertToEntity(orderDTO, oldOrder);
 			newOrder.setCustomer(customersEntity);
-
+			newOrder.setCoupon(couponEntity);
 			OrderEntity result = orderRepository.save(newOrder);
 
 			if (result != null) {

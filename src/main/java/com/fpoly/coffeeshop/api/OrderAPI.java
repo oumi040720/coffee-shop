@@ -85,10 +85,10 @@ public class OrderAPI {
 		return orderService.findOne(id);
 	}
 	
-	@PostMapping(value = "/api/order/insert")
-	public Boolean insert(@RequestBody OrderDTO orderDTO) {
-		return orderService.insert(orderDTO);
-	}
+//	@PostMapping(value = "/api/order/insert")
+//	public Boolean insert(@RequestBody OrderDTO orderDTO) {
+//		return orderService.insert(orderDTO);
+//	}
 	
 	@PutMapping(value = "/api/order/update")
 	public Boolean update(@RequestBody OrderDTO orderDTO, @RequestParam("id") Long id) {

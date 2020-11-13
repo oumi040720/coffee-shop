@@ -42,10 +42,16 @@
 	        						</c:if>
 									<form method="post" action="<c:url value='/check_login' />" class="mt-2">
 										<div class="form-group mb-3">
-											<input class="form-control" type="text" name="username" placeholder="Tên tài khoản">
+											<input id="username" class="form-control" type="text" name="username" placeholder="Tên tài khoản">
+											<span>
+												<small id="warningUsername" class="text-danger"></small>
+											</span>
 										</div>
 										<div class="form-group mb-3">
 											<input class="form-control" type="password" name="password" id="password" placeholder="Mật khẩu">
+											<span>
+												<small id="warningPassword" class="text-danger"></small>
+											</span>
 										</div>
 										<div class="form-group mb-3">
 											 <div class="custom-control custom-checkbox">
@@ -94,5 +100,36 @@
 		</div>
 	
 		<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
+		<script type="text/javascript">
+			$('form').on('submit', () => {
+				var username = $('#username').val();
+        		var password = $('#password').val();
+        		
+        		var checkUsername = false;
+    			var checkPassword = false;
+    			
+    			if (username.trim().length > 0) {
+					$('#warningUsername').text('');
+					checkUsername = true;
+				} else {
+					$('#warningUsername').text('Không được bỏ trống TÊN TÀI KHOẢN!');
+					checkUsername = false;
+				}
+    			
+    			if (password.trim().length > 0) {
+					$('#warningPassword').text('');
+					checkPassword = true;
+				} else {
+					$('#warningPassword').text('Không được bỏ trống MẬT KHẨU!');
+					checkPassword = false;
+				}
+    			
+    			if (checkUsername && checkPassword) {
+					return true;
+    			} else {
+    				return false;
+    			}
+			});
+		</script>
 	</body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.CustomersConveter;
 import com.fpoly.coffeeshop.dto.CustomersDTO;
+import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.entity.CustomersEntity;
 import com.fpoly.coffeeshop.entity.UserEntity;
 import com.fpoly.coffeeshop.repository.ICustomersRepository;
@@ -176,5 +177,11 @@ public class CustomersService implements ICustomersService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public CustomersDTO findOne1(String user) {
+		UserEntity userDTO = userRepository.findOneByUsername(user);
+		return customersConveter.convertToDTO(cusctomersRepository.findOneByUser(userDTO));
 	}
 }

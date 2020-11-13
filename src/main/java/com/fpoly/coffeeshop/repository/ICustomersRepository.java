@@ -9,11 +9,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.fpoly.coffeeshop.entity.CustomersEntity;
+import com.fpoly.coffeeshop.entity.UserEntity;
 
 @Repository
 public interface ICustomersRepository extends JpaRepository<CustomersEntity, Long> {
 
 	public CustomersEntity findOneByFullname(String fullname);
+	
+	public CustomersEntity findOneByUser(UserEntity user);
 
 	public List<CustomersEntity> findAllByFlagDeleteIs(Boolean flagDelete);
 

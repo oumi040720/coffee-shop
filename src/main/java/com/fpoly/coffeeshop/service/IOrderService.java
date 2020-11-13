@@ -34,7 +34,7 @@ public interface IOrderService {
 	
 	public OrderDTO findOne(String orderCode);
 	
-	public Boolean insert(OrderDTO customerDTO);
+	public Boolean insert(OrderDTO customerDTO, String username);
 	
 	public Boolean update(OrderDTO orderDTO);
 	

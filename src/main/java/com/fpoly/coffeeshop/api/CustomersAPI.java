@@ -81,6 +81,11 @@ public class CustomersAPI {
 	public CustomersDTO findOne(@PathVariable("fullname") String fullname) {
 		return customersService.findOne(fullname);
 	}
+	
+	@GetMapping(value = "/api/customers/username/{username}")
+	public CustomersDTO findOne1(@PathVariable("username") String username) {
+		return customersService.findOne1(username);
+	}
 
 	@PostMapping(value = "/api/customers/insert")
 	public Boolean insert(@RequestBody CustomersDTO customersDTO) {

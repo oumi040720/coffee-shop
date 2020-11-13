@@ -15,86 +15,6 @@
 <link rel="stylesheet" href='<c:url value="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>'>
 <script src='<c:url value="https://code.jquery.com/jquery-3.5.1.min.js" />'></script>
 <script src='<c:url value="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" />'></script>
-<style type="text/css">
-.modal-confirm {		
-	color: #434e65;
-	width: 525px;
-}
-.modal-confirm .modal-content {
-	padding: 20px;
-	font-size: 16px;
-	border-radius: 5px;
-	border: none;
-}
-.modal-confirm .modal-header {
-	background: #e85e6c;
-	border-bottom: none;   
-	position: relative;
-	text-align: center;
-	margin: -20px -20px 0;
-	border-radius: 5px 5px 0 0;
-	padding: 35px;
-}
-.modal-confirm h4 {
-	text-align: center;
-	font-size: 36px;
-	margin: 10px 0;
-}
-.modal-confirm .form-control, .modal-confirm .btn {
-	min-height: 40px;
-	border-radius: 3px; 
-}
-.modal-confirm .close {
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	color: #fff;
-	text-shadow: none;
-	opacity: 0.5;
-}
-.modal-confirm .close:hover {
-	opacity: 0.8;
-}
-.modal-confirm .icon-box {
-	color: #fff;		
-	width: 95px;
-	height: 95px;
-	display: inline-block;
-	border-radius: 50%;
-	z-index: 9;
-	border: 5px solid #fff;
-	padding: 15px;
-	text-align: center;
-}
-.modal-confirm .icon-box i {
-	font-size: 58px;
-	margin: -2px 0 0 -2px;
-}
-.modal-confirm.modal-dialog {
-	margin-top: 80px;
-}
-.modal-confirm .btn, .modal-confirm .btn:active {
-	color: #fff;
-	border-radius: 4px;
-	background: #eeb711 !important;
-	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	border-radius: 30px;
-	margin-top: 10px;
-	padding: 6px 20px;
-	min-width: 150px;
-	border: none;
-}
-.modal-confirm .btn:hover, .modal-confirm .btn:focus {
-	background: #eda645 !important;
-	outline: none;
-}
-.trigger-btn {
-	display: inline-block;
-	margin: 100px auto;
-}
-</style>
 </head>
 
 <body>
@@ -166,7 +86,7 @@
 															<th>Số Lượng</th>
 															<th>Giá Tiền</th>
 															<th>Thành Tiền Sản Phẩm</th>
-															<th>#</th>															
+															<th id="action">#</th>															
                                                         </tr></thead>
                                                         <tbody id="dataList"> 
                                                         </tbody>
@@ -175,23 +95,53 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-6">                                            	
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="text-right mt-4">
+                                                	<button id="submitCart" type="button"
+														class="btn btn-outline-success btn-rounded waves-effect waves-light">
+													<i class="  ion ion-md-checkmark-circle"></i> Xác nhận sản phẩm
+													</button>
                                                     <h2>Tổng Tiền </h2>
                                                     <hr>
-                                                    <h3 class="float-right">VNĐ</h3> <h3 id="sumMoneyy" class="float-right"> </h3>
+                                                    <h3 class="float-right">VNĐ</h3> <h3 id="sumMoneyy"  class="float-right"></h3>
+                                                    <input type="hidden" id="sumMoney">
                                                 </div>
-                                            </div>
+                                            </div>                                       
                                         </div>
+                                        <div id="formevent">
+                                         <form:form modelAttribute="coupon">
+		                                         <div class="row">
+		                                         	<div class="col-sm-6"></div>
+		        									<label class="col-sm-2 col-form-label">
+		        										Mã giảm giá
+		        									</label>
+		        									<div class="col-sm-4" id="products">
+		        										 <form:select path="" cssClass="form-control" onchange="selected(this)" id="choose">
+		        											<form:option value="0" id="titlecoupon">-- Lựa chọn mã giảm giá --</form:option>
+		        											<c:forEach items="${coupon}" var="coupons">
+		        											
+		        												<form:option value="${coupons.couponCode}">${coupons.couponCode}</form:option>
+		        											</c:forEach>
+		        										</form:select> 
+		        									</div>
+		        								</div> 
+        								</form:form>
+        								</div>
                                         <hr>
                                         <div class="d-print-none">
                                             <div class="float-right">                                                
                                                <button id="submit" type="button"
 												class="btn btn-outline-success btn-rounded waves-effect waves-light"
-												style="float: right;">
+												style="float: right; margin-left: 10px">
 												<i class="ion ion-ios-save"></i> Hoàn Thành
+												</button>
+												
+												<button id="returnProduct" type="button"
+												class="btn btn-outline-success btn-rounded waves-effect waves-light"
+												style="float: right">
+												<i class=" ion ion-ios-refresh"></i> Thêm lại sản phẩm
 												</button>
                                             </div>
                                             <div class="clearfix"></div>
@@ -207,7 +157,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="container-fluid">
+			<div class="container-fluid" id="listProduct">
 				<div class="row">
 					 <%-- <div class="col-lg-12">
 						<div class="card-box">
@@ -340,7 +290,7 @@
 													</span>
 												</div>
 										</div>
-										<button id="btn_click" type="button" onclick="add('${menu.productName}')"
+										<button id="btn_click-${menu.productName}" type="button" onclick="add('${menu.productName}')"
 											class="btn btn-outline-success btn-rounded waves-effect waves-light">
 											<i class="ion ion-md-add-circle"></i> Thêm sản phẩm
 										</button>
@@ -365,7 +315,7 @@
 					<div class="modal-body text-center">
 						<h4>Thất Bại!</h4>	
 						<s:message code="message.orderdetail.addproduct.fail"/>
-						<button class="btn btn-success" data-dismiss="modal">Xem Lại</button>
+						<button class="btn btn-success" data-dismiss="modal" id="lick">Xem Lại</button>
 					</div>
 				</div>
 			</div>
@@ -374,7 +324,9 @@
 		<%@ include file="/WEB-INF/views/admin/common/js.jsp"%>
 		<script
 			src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
-
+		
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		
 		 <script type="text/javascript">
 		function plus(id) {
 			var price = document.getElementById("price-" +id).value
@@ -398,8 +350,11 @@
 				var quantity  = document.getElementById("quantity-"+id).value;
 				var orderCode = document.getElementById("orderCode").value;
 				var product = document.getElementById("productName-"+id).value;
-				var totalMoney = document.getElementById("totalMoney-"+id).value;
+				var totalMoney = document.getElementById("totalMoney-"+id).value;				
 				var price = document.getElementById("price-"+id).value;
+				if(document.getElementById("totalMoney-"+id).value == ""){
+					totalMoney = 1 * price
+				}
 				var orderDetail = {
 					'quantity' : quantity,
 					'order' : orderCode,
@@ -412,22 +367,39 @@
 				if (currenIndex == -1 ) {
 					addTag(orderDetail);
 				}else {
-					dataList[currenIndex] = orderDetail;
-					currenIndex = -1
-					document.getElementById("btn_click").innerHTML = "Thêm";
+					dataList[currenIndex] = orderDetail;					
+					console.log(orderDetail)
+					document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Thêm Sản Phẩm";
 					displayAll();
 				}
 				document.getElementById("quantity-"+id).value = 1;
 				document.getElementById("totalMoney-"+id).value = "";
-			}
-			var i=0 ;
-			function addTag(orderDetail) {
+			}	
+			
+			$(document).ready(function(){
+				  $('#choose').hover(function(){
+					  if(window.dataList.length == 0){
+						  $(this).attr('disabled',true);
+					  }					  
+				  });
+				  
+				  $('#submitCart').hover(function(){
+					  if(window.dataList.length != 0){
+						  $(this).attr('disabled',false);
+					  }else{
+						  $(this).attr('disabled',true); 						 
+					  }	
+				  });
+				});
+			
+			var i= 0;
+			function addTag(orderDetail) {				
 					dataList.push(orderDetail);
 					console.log(dataList)
 					var table = document.getElementById("dataList");						
 					i = i+parseInt(orderDetail.totalMoney);
-					console.log(i);
 					document.getElementById("sumMoneyy").innerHTML = i;
+					document.getElementById("sumMoney").setAttribute('value',i);
 					table.innerHTML += "<tr>"
 							+ "<td>"
 							+ orderDetail.product
@@ -444,21 +416,126 @@
 							+ "<td>"
 							+ orderDetail.totalMoney + " VNĐ"
 							+ "</td>"
-							+ "<td><button onclick= 'edit("
+							+ "<td name ='btnAll'><button onclick= 'edit("
 							+ (dataList.length - 1)
-							+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
+							+ ")' class='btn btn-outline-info' ><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
 							+ ((dataList.length - 1))
 							+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
 							+ "</tr>";	
+						$('#submitCart').attr("disabled",false); 
+						
+						
+		
 			}
+			var type = '';	
+			var discount = '';
+			var minbill = '';
+			var incoupon = '';			
+			//chọn combobox
+			function selected(obj) {
+				var options = obj.children;		
+				for (var i = 0; i < options.length; i++) {
+					if (options[i].selected) {
+						coupon = options[i].value;						
+					}					
+				}
+				incoupon = coupon;
+				
+				$.ajax({
+						method: 'GET',
+						url: '${domain}/coupon/coupon_code/' + incoupon,
+						success: function(res){
+							type = res.type
+							discount = res.discount;
+							minbill = res.minTotalBill
+							maxDiscount = res.maxDiscount
+							if(type == 'Giảm Giá Trực Tiếp' && Number(document.getElementById("sumMoney").value) >= minbill){
+								if((Number(document.getElementById("sumMoney").value) - discount) > maxDiscount){
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - maxDiscount
+									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - maxDiscount
+								} else{
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - discount
+									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - discount					
+								}	
+							} else {
+								document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value)
+								document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value)	
+							}
+							
+							
+							if(type == 'Giảm Giá Theo Phần Trăm' && Number(document.getElementById("sumMoney").value) >= minbill){
+								console.log(Number(document.getElementById("sumMoney").value)*(discount.substring(0,res.discount.length - 1))/100)
+								if((Number(document.getElementById("sumMoney").value)*(discount.substring(0,res.discount.length - 1))/100) > maxDiscount){
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - maxDiscount
+									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - maxDiscount
+								}else{
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - (Number(document.getElementById("sumMoney").value) * (discount.substring(0,res.discount.length - 1)/100));
+									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - (Number(document.getElementById("sumMoney").value) * (discount.substring(0,res.discount.length - 1)/100));
+								}								
+							}else{
+								document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value)
+								document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value)
+							}
+						}
+				})	
+			}
+			
+			
+			  $('#submit').on('click', () => {
+				if(window.dataList.length == 0){
+					$('#myModal').modal('show');
+				}else{
+				var id = ${order.id};
+				var orderdate = new Date('${order.orderDate}');
+				var ordercode = new String('${order.orderCode}');
+				var status = ${order.status};
+				var fullname =  new String('${order.fullname}'); 
+				var address =  new String('${order.address}'); 
+				var phone = new String('${order.phone}');
+				var totalprice = new Number('${order.totalPrice}');
+				var note = new String('${order.note}');
+				var flag = ${order.flagDelete};
+
+				  var settings = {
+						  "url": "${domain}/order/update?id=" +id,
+						  "method": "PUT",
+						  "timeout": 0,
+						  "headers": {
+						    "Content-Type": "application/json"
+						  },
+						  "data": JSON.stringify({
+							  "id":id,
+							  "orderDate":orderdate,
+							  "orderCode":ordercode,
+							  "status":status,
+							  "fullname":fullname,
+							  "address":address,
+							  "phone":phone,
+							  "totalPrice":Number(document.getElementById("sumMoney").value),
+							  "note":note,
+							  "flagDelete":flag,
+							  "couponCode":incoupon,
+							  }),
+				  			};
+				  $.ajax(settings).done(function (response) {
+					  console.log(response);
+					}); 				  
+				  $.ajax({
+					method: "POST",
+					url: 'save',
+					contentType: "application/json; charset=utf-8",
+					data: JSON.stringify(window.dataList),
+				}).done(result => window.location.href="${domainURL}/order/list?page=1&message=message_orderdetail_insert_success&alert=success")
+				 
+				} 
+			})  
+			
 			function displayAll() {
-					var table = document.getElementById("dataList");
-					table.innerHTML = "";
-					for (i = 0; i < dataList.length; i++) {
-						var orderDetail = dataList[i];
-						i = i+parseInt(orderDetail.totalMoney);
-						console.log(i);
-						document.getElementById("sumMoney").innerHTML = i;
+				var table = document.getElementById("dataList");
+				table.innerHTML = "";					
+					for (e = 0; e < dataList.length; e++) {		
+						var orderDetail = dataList[e];						
+						console.log(orderDetail);
 						table.innerHTML += "<tr>"
 								+ "<td>"
 								+ orderDetail.product
@@ -475,45 +552,61 @@
 								+ "<td>"
 								+ orderDetail.totalMoney + " VNĐ"
 								+ "</td>"
-								+ "<td><button onclick= 'edit("
-								+ i
+								+ "<td name ='btnAll'><button onclick= 'edit("
+								+ e
 								+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
-								+ i
+								+ e
 								+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
-								+ "</tr>";
+								+ "</tr>"
+					 	i = i+parseInt(orderDetail.totalMoney);
+						console.log(i);
+						document.getElementById("sumMoneyy").innerHTML = i;	
+						document.getElementById("sumMoney").setAttribute('value',i); 
 					}
-
+					
 			}
 			var currenIndex = -1;
 			function edit(index) {
 				currenIndex = index;
 				var orderDetail = dataList[index];
-				//console.log(orderDetail)
-				 document.getElementById("quantity-"+orderDetail.product).value = orderDetail.quantity;
+				console.log(orderDetail)
+				document.getElementById("quantity-" + orderDetail.product).value = orderDetail.quantity;
 				document.getElementById("orderCode").value = orderDetail.order;
 				document.getElementById("totalMoney-"+orderDetail.product).value = orderDetail.totalMoney;
-				document.getElementById("btn_click").innerHTML = "Cập nhật sản phẩm"; 
+				document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Cập nhật sản phẩm"; 				
 			}
 			function deleete(index) {
 				//currenIndex = index;
+				console.log(dataList[index].totalMoney)
+				 i = i - Number(dataList[index].totalMoney);
+				console.log(i);
+				document.getElementById("sumMoneyy").innerHTML = i;	
+				document.getElementById("sumMoney").setAttribute('value',"");
+				document.getElementById("sumMoney").value = i;
+				document.getElementById("sumMoney").setAttribute('value',i);  
 				dataList.splice(index, 1);
+				if(i < minbill){
+					alert("a")
+				}
 				var quantity = document.getElementById("quantity-"+index);
 				var orderCode = document.getElementById("orderCode-"+index);
 				var product = document.getElementById("product-"+index);
 				var totalMoney = document.getElementById("totalMoney-"+index);
-				var price = document.getElementById("price-"+index);
+				var price = document.getElementById("price");
+				console.log(price)
 				var orderDetail = {
 					'quantity' : quantity,
 					'orderCode' : orderCode,
 					'product' : product,
-					'price' : parseInt(price),
 					'totalMoney' : totalMoney,
-				};
+					'price' : price,
+				}
 				console.log(orderDetail);
 				var table = document.getElementById("dataList");
 				table.innerHTML = "";
-				for (i = 0; i < dataList.length; i++) {
-					var orderDetail = dataList[i];
+				for (e = 0; e < dataList.length; e++) {
+					var orderDetail = dataList[e];
+					console.log(orderDetail)
 					table.innerHTML += "<tr>"
 							+ "<td>"
 							+ orderDetail.product
@@ -525,225 +618,37 @@
 							+ orderDetail.quantity
 							+ "</td>"
 							+ "<td>"
-							+ "<td>"
-							+ orderDetail.totalMoney + " VNĐ"
-							+ "</td>"
 							+ orderDetail.price + " VNĐ"
-							+ "<td><button onclick= 'edit("
-							+ i
-							+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
-							+ i
-							+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
-							+ "</tr>";
-				}
-			}
-		</script> 
-
-		<!--  <script type="text/javascript">
-		var dem = 1;
-		function clearnull() {
-			dem = 1
-			document.getElementById("quantity").value = dem;
-			document.getElementById("choise").value = "";	
-			document.getElementById("totalMoney").value = "";	
-		}
-		function plus() {
-			dem++;
-
-			document.getElementById("quantity").value = dem;
-			document.getElementById("totalMoney").value = dem * totalmoney;
-		}
-		function minus() {
-			if (dem > 1) {
-				--dem;
-				console.log(dem)
-			} else {
-				dem = 1
-				
-			}
-			document.getElementById("quantity").value = dem;
-			document.getElementById("totalMoney").value = dem * totalmoney;
-		}
-			function selected(obj) {
-				var options = obj.children;
-				dem = 1;
-				for (var i = 0; i < options.length; i++) {
-					if (options[i].selected) {
-						products = options[i].value;
-						totalmoney = options[i].dataset.price;	
-						document.getElementById("quantity").value = dem;
-					}
-					document.getElementById("totalMoney").value = totalmoney;
-					
-				}
-			}
-			window.dataList = new Array();
-			var products = '';
-			var totalmoney = '';
-			function add() {
-				var t = document.getElementById("finishdata");
-				if (t.style.display === "none") {
-					t.style.display = "block";
-				}
-				var quantity = document.getElementById("quantity").value;
-				var orderCode = document.getElementById("orderCode").value;
-				var product = document.getElementById("product").value;
-				var totalMoney = document.getElementById("totalMoney").value;
-				console.log(products)
-				var orderDetail = {
-					'quantity' : quantity,
-					'order' : orderCode,
-					'product' : products,
-					'totalMoney' : totalMoney,
-				};
-				if (currenIndex == -1) {
-					addTag(orderDetail);					
-				} else {
-					dataList[currenIndex] = orderDetail;
-					currenIndex = -1
-					document.getElementById("btn_click").innerHTML = "Thêm";
-					displayAll();
-				}
-
-			}
-			function checkValidated() {
-				var product = document.getElementById("choise").value;
-				var warnningproduct = document
-						.getElementById("warnningproduct");
-				if (product == "") {
-					warnningproduct.style.display = "block"
-					return false;
-				} else {
-					warnningproduct.style.display = "none"
-				}
-				return true;
-			}
-
-			function displayAll() {
-				if (checkValidated()) {
-					var table = document.getElementById("dataList");
-					table.innerHTML = "";
-					for (i = 0; i < dataList.length; i++) {
-						var orderDetail = dataList[i];
-						table.innerHTML += "<tr>"
-								+ "<td>"
-								+ products
-								+ "</td>"
-								+ "<td>"
-								+ orderDetail.order
-								+ "</td>"
-								+ "<td>"
-								+ orderDetail.quantity
-								+ "</td>"
-								+ "<td>"
-								+ orderDetail.totalMoney + " VNĐ"
-								+ "</td>"
-								+ "<td><button onclick= 'edit("
-								+ i
-								+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
-								+ i
-								+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
-								+ "</tr>";
-					}
-					clearnull();
-				}
-			}
-
-			function addTag(orderDetail) {
-				if (checkValidated()) {
-					dataList.push(orderDetail);
-					console.log(dataList)
-					var table = document.getElementById("dataList");
-					table.innerHTML += "<tr>"
-							+ "<td>"
-							+ products
-							+ "</td>"
-							+ "<td>"
-							+ orderDetail.order
-							+ "</td>"
-							+ "<td>"
-							+ orderDetail.quantity
 							+ "</td>"
 							+ "<td>"
 							+ orderDetail.totalMoney + " VNĐ"
-							+ "</td>"
+							+ "</td>"	
 							+ "<td><button onclick= 'edit("
-							+ (dataList.length - 1)
+							+ e
 							+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
-							+ (dataList.length - 1)
+							+ e
 							+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
-							+ "</tr>";	
-					clearnull();
+							+ "</tr>"
 				}
 			}
-
-			var currenIndex = -1;
-			function edit(index) {
-				currenIndex = index;
-				var orderDetail = dataList[index];
-				 document.getElementById("quantity").value = orderDetail.quantity;
-				document.getElementById("orderCode").value = orderDetail.order;
-				console.log(products)
-				document.getElementById("choise").value  = products;
-				document.getElementById("totalMoney").value  =  orderDetail.totalMoney;
-				document.getElementById("btn_click").innerHTML = "Cập Nhật";
-			}
-
-			function deleete(index) {
-				currenIndex = index;
-				dataList.splice(index, 1);
-				var quantity = document.getElementById("quantity").value;
-				var orderCode = document.getElementById("orderCode").value;
-				var product = document.getElementById("product").value;
-				var totalMoney = document.getElementById("totalMoney").value;
-				console.log(products)
-				var orderDetail = {
-					'quantity' : quantity,
-					'orderCode' : orderCode,
-					'product' : products,
-					'totalMoney' : totalmoney,
-				};
-				console.log(orderDetail);
-				var table = document.getElementById("dataList");
-				table.innerHTML = "";
-				for (i = 0; i < dataList.length; i++) {
-					var orderDetail = dataList[i];
-					table.innerHTML += "<tr>"
-							+ "<td>"
-							+ products
-							+ "</td>"
-							+ "<td>"
-							+ orderDetail.order
-							+ "</td>"
-							+ "<td>"
-							+ orderDetail.quantity
-							+ "</td>"
-							+ "<td>"
-							+ orderDetail.totalmoney + " VNĐ"
-							+ "</td>"
-							+ "<td><button onclick= 'edit("
-							+ i
-							+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
-							+ i
-							+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
-							+ "</tr>";
-				}
-			}
-		</script>  -->
-		<script type="text/javascript">
-		$('#submit').on('click', () => {
-			if(window.dataList){
-				$('#myModal').modal('show');
-			}
-			$.ajax({
-				method: "POST",
-				url: 'save',
-				contentType: "application/json; charset=utf-8",
-				data: JSON.stringify(window.dataList),
-			}).done(result => window.location.href="http://localhost:8080/CoffeeShop/admin/order/list?page=1&message=message_orderdetail_insert_success&alert=success");
 			
-		})
-		</script>
+			$(document).ready(function(){
+				$( "#submitCart" ).click(function() {
+					$('#action').hide();
+					$('[name="btnAll"]').hide();
+					$('#listProduct').hide();
+					$('#choose').attr("disabled", false);
+					});
+				});
+						
+			$(document).ready(function(){
+				$( "#returnProduct" ).click(function() {
+					window.location.href="${domainURL}/orderdetail/editDetail?orderCode=${orderCode}";
+					});
+				});
+			
+		</script> 
+		
 	</div>
 </body>
 </html>
