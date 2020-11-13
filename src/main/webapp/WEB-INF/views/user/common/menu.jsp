@@ -11,17 +11,17 @@
 		</button>
 		<div class="collapse navbar-collapse" id="ftco-nav">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item active">
+				<li class="nav-item">
 					<a href="<c:url value='/home' />" class="nav-link">Trang Chủ</a>
 				</li>
 				<li class="nav-item">
-					<a href="menu.html" class="nav-link">Thực Đơn</a>
+					<a href="<c:url value='/menu' />" class="nav-link">Thực Đơn</a>
 				</li>
 				<li class="nav-item">
-					<a href="about.html" class="nav-link">Giới Thiệu</a>
+					<a href="<c:url value='/about' />" class="nav-link">Giới Thiệu</a>
 				</li>
 				<li class="nav-item">
-					<a href="contact.html" class="nav-link">Liên Lạc</a>
+					<a href="<c:url value='contact' />" class="nav-link">Liên Lạc</a>
 				</li>
 				<c:choose>
 					<c:when test="${USER == null}">
@@ -31,7 +31,7 @@
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="room.html" 
+							<a class="nav-link dropdown-toggle" href="" 
 								id="dropdown04" data-toggle="dropdown" 
 								aria-haspopup="true" aria-expanded="false">
 								Chào, ${USER.username}
@@ -60,10 +60,10 @@
 					</c:otherwise>
 				</c:choose>
 				<li class="nav-item cart">
-					<a href="cart.html" class="nav-link">
+					<a href="<c:url value='/cart' />" class="nav-link">
 						<span class="icon icon-shopping_cart"></span>
 						<span class="bag d-flex justify-content-center align-items-center">
-							<small>1</small>
+							<small id='quantityItems'></small>
 						</span>
 					</a>
 				</li>

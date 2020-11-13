@@ -21,10 +21,10 @@ public class IngredientsEntity {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@Column(name = "name")
-	private String Name;
+	private String name;
 	
 	@Column(name= "quantity")
 	private Integer quantity;
@@ -37,20 +37,20 @@ public class IngredientsEntity {
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public Integer getQuantity() {

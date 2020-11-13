@@ -1,6 +1,5 @@
 package com.fpoly.coffeeshop.service.impl;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,4 +197,36 @@ public class OrderService implements IOrderService {
 		return orderConveter.convertToDTO(orderRepository.findOneByOrderCode(orderCode));
 	}
 
+	
+	
+	@Override
+	public List<Long[]> getOrderDetailStatistic(Integer year, Integer month) {
+		return orderRepository.getOrderDetailStatistic(year, month);
+	}
+	
+	@Override
+	public List<Object[]> getSalesEveryYear() {
+		return orderRepository.getSalesEveryYear();
+	}
+	
+	@Override
+	public List<Object[]> getSalesEveryMonthByYear(Integer year) {
+		return orderRepository.getSalesEveryMonthByYear(year);
+	}
+
+	@Override
+	public List<Object[]> getSalesEveryDayByYearAndMonth(Integer year, Integer month) {
+		return orderRepository.getSalesEveryDayByYearAndMonth(year, month);
+	}
+	
+	@Override
+	public List<Object[]> getSalesRateEveryMotnhInYear(Integer year) {
+		return orderRepository.getSalesRateEveryMotnhInYear(year);
+	}
+	
+	@Override
+	public List<Object[]> getSalesRateEveryDayInMonthOfYear(Integer year, Integer month) {
+		return orderRepository.getSalesRateEveryDayInMonthOfYear(year, month);
+	}
+	
 }

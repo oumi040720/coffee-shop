@@ -6,7 +6,7 @@ import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.entity.ProductEntity;
 
 @Component
-public class MenuConverter {
+public class ProductConverter {
 	
 	public ProductDTO convertToDTO (ProductEntity entity) {
 		
@@ -15,6 +15,7 @@ public class MenuConverter {
 		dto.setProductName(entity.getProductName());
 		dto.setPhoto(entity.getPhoto());
 		dto.setPrice(entity.getPrice());
+		dto.setCategoryCode(entity.getCategory().getCategoryCode());
 		dto.setFlagDelete(entity.getFlagDelete());
 		
 		return dto;

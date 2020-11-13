@@ -312,10 +312,10 @@ values	('admin', 'lwsj/S+Olkk4Nc1PPRkKGpTtSmoBbvs9GlWkRk0tYofOSx5jrWUuT+Jas6KFj9
 go
 
 insert into staffs (fullname, address, phone, birthday, email, photo, user_id, flag_delete)
-values	(N'Admin', N'Bình Dương', '0988542326', '2000-01-01', 'admin@coffeeshop.com.vn', 'https://i.imgur.com/7UXxJI1.jpg', 1, 0),
-		(N'Cashier', N'TP Hồ Chí Minh', '0987532326', '2000-01-01', 'cashier@coffeeshop.com.vn', 'https://i.imgur.com/en1K2Yu.jpg', 2, 0),
-		(N'Nguyễn Văn Tèo', N'Bình Dương', '0988542326', '2000-01-01', 'teonv@coffeeshop.com.vn', 'https://i.imgur.com/xiJuh5z.jpg', 4, 0),
-		(N'Nguyễn Văn Tí', N'Bà Rịa Vũng Tàu', '0988052375', '2000-01-01', 'tinv@coffeeshop.com.vn', 'https://i.imgur.com/K0dpSHk.jpg', 5, 0)
+values	(N'Admin', N'Bình Dương', '0988542326', '2000-01-01', 'admin@coffeeshop.com.vn', 'https://i.imgur.com/hUcTeEa.jpg', 1, 0),
+		(N'Cashier', N'TP Hồ Chí Minh', '0987532326', '2000-01-01', 'cashier@coffeeshop.com.vn', 'https://i.imgur.com/iY2JfT3.jpg', 2, 0),
+		(N'Nguyễn Văn Tèo', N'Bình Dương', '0988542326', '2000-01-01', 'teonv@coffeeshop.com.vn', 'https://i.imgur.com/1OE3yoj.jpg', 4, 0),
+		(N'Nguyễn Văn Tí', N'Bà Rịa Vũng Tàu', '0988052375', '2000-01-01', 'tinv@coffeeshop.com.vn', 'https://i.imgur.com/hAcu44U.jpg', 5, 0)
 go
 
 insert into customers (fullname, email, address, phone, user_id, flag_delete)
@@ -329,46 +329,27 @@ values	('FREESHIP', '100%', '300000', '100%', '2020-01-01', '2050-12-31', N'Mi�
 		('GIAM10', '10000', '100000', '10000', '2020-12-20', '2020-12-31', N'Giảm Giá Trực Tiếp', 0),
 		('CHI2020', '10%', '150000', '50000', '2020-12-20', '2020-12-31', N'Giảm Giá Theo Phần Trăm', 0)
 
--------------------------- PROC --------------------------
---------------- Best seller by year ---------------
-select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where YEAR(o.order_date) = 2000
-group by p.product_name, p.price, p.photo
-order by COUNT(p.product_name) desc
---------------- Best seller by month ---------------
-select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where MONTH(o.order_date) = 1
-group by p.product_name, p.price, p.photo
-order by COUNT(p.product_name) desc
---------------- Best seller by day ---------------
-select top 10 p.product_name, p.price, p.photo, COUNT(p.product_name)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where o.order_date = '2000/01/05'
-group by p.product_name, p.price, p.photo
-order by COUNT(p.product_name) desc
---------------- dashboard total price by year ---------------
-select SUM(o.total_price)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where YEAR(o.order_date) = 2000
---------------- dashboard total price by month ---------------
-select SUM(o.total_price)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where Month(o.order_date) = 1
---------------- dashboard total price by day ---------------
-select SUM(o.total_price)
-from orders o
-join order_details od on o.id = od.order_id
-join products p on p.id = od.product_id
-where o.order_date = '2000/01/01'
+insert into categories (category_code, category_name, flag_delete)
+values	('ca-phe', N'Cà Phê', 0),
+		('tra', N'Trà', 0),
+		('tra-sua', N'Trà Sữa', 0),
+		('sinh-to', N'Sinh Tố', 0),
+		('nuoc-trai-cay', N'Nước Trái Cây', 0),
+		('banh', N'Bánh', 0)
+go
+
+/*
+% = (( cuoi - dau ) / dau ) * 100
+*/
+
+---- Compare order rate current month with last month
+create proc sp_orderDetailStatistic (@year int, @month int)
+as
+	select (select COUNT(*) from orders where MONTH(orders.order_date) = @month and YEAR(orders.order_date) = @year) as 'ORDERS',
+			SUM(od.quantity * od.total_money) as 'SALES',
+			AVG(od.price) as 'AVG PRICE',
+			SUM(od.quantity) as 'QUANTITY'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where MONTH(o.order_date) = @month and YEAR(o.order_date) = @year
+go

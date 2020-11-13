@@ -1,15 +1,17 @@
 package com.fpoly.coffeeshop.dto;
 
 public class ProductDTO {
-	
+
 	private Integer id;
-	
+
 	private String productName;
-	
+
 	private String photo;
-	
+
 	private Double price;
-	
+
+	private String categoryCode;
+
 	private Boolean flagDelete;
 
 	public Integer getId() {
@@ -44,6 +46,14 @@ public class ProductDTO {
 		this.price = price;
 	}
 
+	public String getCategoryCode() {
+		return categoryCode;
+	}
+
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
+	}
+
 	public Boolean getFlagDelete() {
 		return flagDelete;
 	}
@@ -51,7 +61,5 @@ public class ProductDTO {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-	
-	
-	
+
 }

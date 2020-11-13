@@ -426,8 +426,17 @@
     						}
     					}
 
-    					
-    					///////////////////////////////////////////// SO SANH END DATE AND STRAT DATE
+						if (checkStartTime && checkEndTime) {
+							if (new Date(endTime) > new Date(startTime)) {
+								$('#warningEndTime').text('');
+								$('#endTime').removeClass('parsley-error');
+								checkEndTime = true;
+							} else {
+								$('#endTime').addClass('parsley-error');
+    							$('#warningEndTime').text('NGÀY KẾT THÚC phải lớn hơn NGÀY BẮT ĐẦU');
+    							checkEndTime = false;
+							}
+						}
     					
     					if (checkCouponCode && checkType && checkDiscount && checkStartTime && checkEndTime) {
     						return true;
