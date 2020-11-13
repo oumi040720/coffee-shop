@@ -8,7 +8,7 @@
 		<meta charset="UTF-8">
 		<title>Coffee Shop | Admin | Customers</title>
 		
-		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
 	<link rel="stylesheet" href='<c:url value="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"/>'>
 	<link rel="stylesheet" href='<c:url value="https://fonts.googleapis.com/icon?family=Material+Icons"/>'>
 	<link rel="stylesheet" href='<c:url value="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>'>
@@ -84,9 +84,9 @@
         								<thead>
         									<tr class="thead-dark">
         										<th>Họ Và Tên</th>
-        										<th>Email</th>
-        										<th>Địa Chỉ</th>
+        										<th>Email</th>      										
         										<th>Số Điện Thoại</th>
+        										<th style="width: 25%">Địa Chỉ</th>
         										<th>Tên Tài Khoản</th>
         										<th>#</th>
         									</tr>

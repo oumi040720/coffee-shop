@@ -31,6 +31,8 @@ public interface ICustomersService {
 	
 	public CustomersDTO findOne(String fullname);
 	
+	public CustomersDTO findOne1(String user);
+	
 	public Boolean insert(CustomersDTO userDTO);
 	
 	public Boolean  update(CustomersDTO userDTO);

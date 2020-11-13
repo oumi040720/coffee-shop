@@ -27,6 +27,16 @@ public class OrderDTO {
 	private String note;
 	
 	private Boolean flagDelete;
+	
+	private String couponCode;
+	
+	public String getCouponCode() {
+		return couponCode;
+	}
+
+	public void setCouponCode(String couponCode) {
+		this.couponCode = couponCode;
+	}
 
 	public Long getId() {
 		return id;

@@ -106,9 +106,16 @@
 											<tr>
 												<td id="orderDate${order.id}"><fmt:formatDate type = "both" value="${order.orderDate}"/></td>
 												<td>${order.orderCode}</td>
-												<td><c:if test="${order.status == 0}">Chưa Giao</c:if></td>
+												<td>
+												<c:if test="${order.status == 0}">Đã đặt hàng</c:if>
+												<c:if test="${order.status == 1}">Tiếp nhận đơn hàng</c:if>
+												<c:if test="${order.status == 2}">Chế biến</c:if>
+												<c:if test="${order.status == 3}">Vận chuyển</c:if>
+												<c:if test="${order.status == 4}">Giao hàng hoàn thành</c:if>
+												<c:if test="${order.status == -1}">Đã hủy đơn hàng</c:if>
+												</td>
 												<td>${order.totalPrice} VNĐ</td>
-												<td><c:url var="editdetailURL"
+												<td class="text-center"><c:url var="editdetailURL"
 														value="/admin/orderdetail/edit">
 														<c:param name="orderCode" value="${order.orderCode}" />
 													</c:url> <a href="${editdetailURL}" class="btn btn-outline-info">
@@ -117,35 +124,18 @@
 												<a href="#myModal-${order.orderCode}" class="btn btn-outline-danger" data-toggle="modal">
         													<i class=" mdi mdi-window-close"></i>
         												</a>
+												<c:if test="${order.status != -1 && order.status != 4}">
+        										<a href="#" class="btn btn-outline-info" data-id="${order.id}">
+        													<i class="fas fa-truck"></i>
+        												</a>
+        										</c:if>			
+ 												<c:if test="${order.status != -1 && order.status != 4}">
+        										<a href="#" class="btn btn-outline-primary" data-id="${order.id}">
+        													<i class="fas fa-sad-tear"></i>
+        												</a>
+        										</c:if>						
 												</td>
 											</tr>
-											<!-- Modal HTML -->
-													<div id="myModal-${order.orderCode}" class="modal fade" data-backdrop="static" data-keyboard="false">
-														<div class="modal-dialog modal-confirm">
-															<div class="modal-content">
-																<div class="modal-header flex-column">
-																	<div class="icon-box">
-																		<i class="material-icons text-warning">&#xe645;</i>
-																	</div>
-																	<h4 class="modal-title w-100">Lệnh Xóa</h4>
-																</div>
-																<div class="modal-body">
-																	<p>Bán Chắc Chắn Muốn Xóa</p>
-																</div>
-																<div class="modal-footer justify-content-center">
-																	<c:url var="deleteURL" value="/admin/order/delete">
-																		<c:param name="orderCode" value="${order.orderCode}" />
-																	</c:url> 
-																	<a id="alerts" href="${deleteURL}">
-																			<button type="button" class="btnn">Đồng ý</button>
-																		</a>
-																	<button type="button" data-dismiss="modal"
-																		class="btnn btn-danger">Từ chối</button>
-								
-																</div>
-															</div>
-														</div>
-													</div>
 										</c:forEach>
 									</tbody>
 								</table>
@@ -161,6 +151,24 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal HTML -->
+		<div id="myModal" class="modal fade" data-backdrop="static" data-keyboard="false">
+			<div class="modal-dialog modal-confirmm">
+				<div class="modal-content">
+					<div class="modal-header justify-content-center">
+						<div class="icon-box">
+							<i class="material-icons">&#xE5CD;</i>
+						</div>
+					</div>
+					<div class="modal-body text-center">
+						<h4>Thất Bại!</h4>	
+						<s:message code="message.order.update.fail"/>
+						<button class="btn btn-success" data-dismiss="modal" id="lick">Đồng ý</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<%@ include file="/WEB-INF/views/admin/common/js.jsp"%>
 		<script
 			src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
@@ -182,6 +190,85 @@
 					}
 				});
 			});
+		</script>
+		<script type="text/javascript">
+		
+		$(".btn-outline-info").click(function() {
+			console.log($(this))
+			var	id = $(this).data("id");
+			 $.ajax({
+				method: 'GET',
+				url: '${domain}/order/id/' + id,
+				success: function(res){		
+				var	status = res.status + 1;				
+				var settings = {
+						  "url": "${domain}/order/update?id=" +id,
+						  "method": "PUT",
+						  "timeout": 0,
+						  "headers": {
+						    "Content-Type": "application/json"
+						  },
+						  "data": JSON.stringify({
+							  "id":res.id,
+							  "orderDate":res.orderDate,
+							  "orderCode":res.orderCode,
+							  "status":status,
+							  "fullname":res.fullname,
+							  "address":res.address,
+							  "phone":res.phone,
+							  "totalPrice":res.totalPrice,
+							  "note":res.note,
+							  "flagDelete":res.flagDelete,
+							  "couponCode":res.couponCode,
+							  }),
+				  			};
+				$.ajax(settings).done(function (response) {
+					console.log(response);	
+					location.reload();
+						})
+					}			
+				})	
+				 
+			});
+		
+		$(".btn-outline-primary").click(function() {
+			console.log($(this))
+			var	id = $(this).data("id");
+			 $.ajax({
+				method: 'GET',
+				url: '${domain}/order/id/' + id,
+				success: function(res){		
+				var	status = -1;				
+				var settings = {
+						  "url": "${domain}/order/update?id=" +id,
+						  "method": "PUT",
+						  "timeout": 0,
+						  "headers": {
+						    "Content-Type": "application/json"
+						  },
+						  "data": JSON.stringify({
+							  "id":res.id,
+							  "orderDate":res.orderDate,
+							  "orderCode":res.orderCode,
+							  "status":status,
+							  "fullname":res.fullname,
+							  "address":res.address,
+							  "phone":res.phone,
+							  "totalPrice":res.totalPrice,
+							  "note":res.note,
+							  "flagDelete":res.flagDelete,
+							  "couponCode":res.couponCode,
+							  }),
+				  			};
+				$.ajax(settings).done(function (response) {
+					console.log(response);	
+					location.reload();
+						})
+					}			
+				})	
+				 
+			});
+			
 		</script>
 	</div>
 </body>

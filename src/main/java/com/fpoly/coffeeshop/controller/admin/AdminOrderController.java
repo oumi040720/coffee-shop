@@ -22,6 +22,9 @@ import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderLogService;
 import com.fpoly.coffeeshop.service.IOrderService;
+import com.fpoly.coffeeshop.service.impl.CouponService;
+import com.fpoly.coffeeshop.util.DomainURLUntil;
+import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/order")
@@ -35,6 +38,14 @@ public class AdminOrderController extends Thread {
 	@Autowired IOrderLogService orderLogService;
 	
 	@Autowired IOrderDetailService orderDetailService;
+
+	private String getDomain() {
+		return DomainUtil.getDoamin();
+	}
+	
+	private String getDomainURLUntil() {
+		return DomainURLUntil.getDomainURLUntil();
+	}
 	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
@@ -54,7 +65,8 @@ public class AdminOrderController extends Thread {
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", orderService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("orders", orderService.findAllByFlagDelete(flagDelete, page-1, limit));
-		
+		request.setAttribute("domain", getDomain());
+		request.setAttribute("domainURL", getDomainURLUntil());
 		return "admin/order/list";
 	}
 
@@ -109,7 +121,7 @@ public class AdminOrderController extends Thread {
 		orderDTO.setOrderDate(date);
 		if (orderDTO.getId() == null) {
 			
-			Boolean result = orderService.insert(orderDTO);
+			Boolean result = orderService.insert(orderDTO,"");
 			orderLogDTO.setOrderID(orderDTO.getId());
 			orderLogDTO.setCreatedBy("admin");
 			orderLogDTO.setCreatedDate(new Date(System.currentTimeMillis()));

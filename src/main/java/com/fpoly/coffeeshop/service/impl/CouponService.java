@@ -1,6 +1,7 @@
 package com.fpoly.coffeeshop.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class CouponService implements ICouponService {
 
 	@Autowired
 	private ICouponRepository couponRepository;
-	
+
 	@Autowired
 	private CouponConveter couponConveter;
 
@@ -26,11 +27,11 @@ public class CouponService implements ICouponService {
 	public List<CouponDTO> findAll() {
 		List<CouponEntity> list = couponRepository.findAll();
 		List<CouponDTO> result = new ArrayList<>();
-		
+
 		for (CouponEntity coupon : list) {
 			result.add(couponConveter.convertToDTO(coupon));
 		}
-		
+
 		return result;
 	}
 
@@ -38,51 +39,51 @@ public class CouponService implements ICouponService {
 	public List<CouponDTO> findAllByFlagDelete(Boolean flagDelete) {
 		List<CouponEntity> list = couponRepository.findAllByFlagDelete(flagDelete);
 		List<CouponDTO> result = new ArrayList<>();
-		
+
 		for (CouponEntity coupon : list) {
 			result.add(couponConveter.convertToDTO(coupon));
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public Integer getTotalPageByFlagDelete(Boolean flagDelete, Integer page, Integer limit) {
-		return couponRepository.findAllByFlagDelete(flagDelete, PageRequest.of(page - 1, limit))
-								.getTotalPages();
+		return couponRepository.findAllByFlagDelete(flagDelete, PageRequest.of(page - 1, limit)).getTotalPages();
 	}
 
 	@Override
 	public List<CouponDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit) {
 		List<CouponEntity> list = couponRepository.findAllByFlagDelete(flagDelete, PageRequest.of(page - 1, limit))
-													.getContent();
+				.getContent();
 		List<CouponDTO> result = new ArrayList<>();
-		
+
 		for (CouponEntity coupon : list) {
 			result.add(couponConveter.convertToDTO(coupon));
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public Integer getTotalPageByFlagDeleteAndType(Boolean flagDelete, String type, Integer page, Integer limit) {
-		return couponRepository.findAllByFlagDeleteAndType(flagDelete, type, PageRequest.of(page - 1, limit)).getTotalPages();
+		return couponRepository.findAllByFlagDeleteAndType(flagDelete, type, PageRequest.of(page - 1, limit))
+				.getTotalPages();
 	}
-	
+
 	@Override
 	public List<CouponDTO> findAllByFlagDeleteAndType(Boolean flagDelete, String type, Integer page, Integer limit) {
-		List<CouponEntity> list = couponRepository.findAllByFlagDeleteAndType(flagDelete, type, PageRequest.of(page - 1, limit))
-													.getContent();
+		List<CouponEntity> list = couponRepository
+				.findAllByFlagDeleteAndType(flagDelete, type, PageRequest.of(page - 1, limit)).getContent();
 		List<CouponDTO> result = new ArrayList<>();
-		
+
 		for (CouponEntity coupon : list) {
-		result.add(couponConveter.convertToDTO(coupon));
+			result.add(couponConveter.convertToDTO(coupon));
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public CouponDTO findOne(Long id) {
 		try {
@@ -105,7 +106,7 @@ public class CouponService implements ICouponService {
 	public Boolean insert(CouponDTO couponDTO) {
 		try {
 			CouponEntity result = couponRepository.save(couponConveter.convertToEntity(couponDTO));
-			
+
 			if (result != null) {
 				return true;
 			} else {
@@ -121,9 +122,9 @@ public class CouponService implements ICouponService {
 		try {
 			CouponEntity oldCoupon = couponRepository.getOne(couponDTO.getId());
 			CouponEntity newCoupon = couponConveter.convertToEntity(couponDTO, oldCoupon);
-			
+
 			CouponEntity result = couponRepository.save(newCoupon);
-			
+
 			if (result != null) {
 				return true;
 			} else {
@@ -138,11 +139,33 @@ public class CouponService implements ICouponService {
 	public Boolean delete(Long id) {
 		try {
 			couponRepository.deleteById(id);
-			
+
 			return true;
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
+	@Override
+	public CouponDTO findOne1(String discount) {
+		try {
+			return couponConveter.convertToDTO(couponRepository.findOneByDiscount(discount));
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<CouponDTO> findAllDate(Date datenow, Boolean flagDelete) {
+		List<CouponEntity> list = couponRepository.find(datenow, flagDelete);
+				
+		List<CouponDTO> result = new ArrayList<>();
+
+		for (CouponEntity coupon : list) {
+			result.add(couponConveter.convertToDTO(coupon));
+		}
+
+		return result;
+	}
+
 }

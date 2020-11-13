@@ -19,6 +19,9 @@ public class OrderConveter {
 		dto.setTotalPrice(entity.getTotalPrice());
 		dto.setNote(entity.getNote());
 		dto.setFlagDelete(entity.getFlagDelete());
+		if(entity.getCoupon() != null){
+		dto.setCouponCode(entity.getCoupon().getCouponCode());
+		}
 		if(entity.getCustomer() != null) {		
 			dto.setFullname(entity.getCustomer().getFullname());
 		}
