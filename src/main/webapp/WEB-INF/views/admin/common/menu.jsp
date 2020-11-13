@@ -55,7 +55,8 @@
 					</li>
 					<li>
 						<a href="<c:url value='/admin/category/list' />">
-							<i class="mdi mdi-menu"></i>
+							<!--  <i class="mdi mdi-menu"></i>-->
+							<i class="mdi-arrange-bring-forward"></i>
 							<span>Thể loại</span>
 						</a>
 					</li>				
@@ -78,7 +79,7 @@
 				</li>
 				<li class="menu-title">Nguyên Liệu</li>
 				<li>
-					<a href="">
+					<a href="<c:url value='/admin/unit/list' />">
 						<i class="mdi mdi-water"></i>
 						<span> Đơn vị </span>
 					</a>

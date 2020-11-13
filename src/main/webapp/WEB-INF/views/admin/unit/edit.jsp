@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Coffee Shop | Admin | Category</title>
+		<title>Coffee Shop | Admin | Unit</title>
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
 	</head>
@@ -26,7 +26,7 @@
         						<div class="page-title-right">
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-        								<li class="breadcrumb-item"><a href="javascript: void(0);">Thể loại</a></li>
+        								<li class="breadcrumb-item"><a href="javascript: void(0);">Đơn vị</a></li>
         								<c:if test="${check}">
         									<li class="breadcrumb-item active">Cập nhật</li>
         								</c:if>
@@ -36,10 +36,10 @@
         							</ol>
         						</div>
         						<c:if test="${check}">
-        							<h4 class="page-title">Cập nhật thể loại</h4>
+        							<h4 class="page-title">Cập nhật đơn vị</h4>
         						</c:if>
         						<c:if test="${!check}">
-        							<h4 class="page-title">Thêm mới thể loại</h4>
+        							<h4 class="page-title">Thêm mới đơn vị</h4>
         						</c:if>
         					</div>
         				</div>
@@ -48,31 +48,21 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div class="row">
-        							<c:url var="action" value="/admin/category/save" />
-        							<form:form action="${action}" modelAttribute="category" cssClass="col-lg-12" 
+        							<c:url var="action" value="/admin/unit/save" />
+        							<form:form action="${action}" modelAttribute="unit" cssClass="col-lg-12" 
         									onsubmit="return checkValidated()" data-parsley-validate="" novalidate="">
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label">
-        										Tên thể loại<span class="text-danger"> (*) </span>
+        										Tên đơn vị<span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="categoryName" cssClass="form-control"/>
+        										<form:input path="unitName" cssClass="form-control" onfocusout="getUnit()"/>
         										<ul class="parsley-errors-list filled">
-        											<li id="warningCategoryName" class="parsley-required"></li>
+        											<li id="warningUnitName" class="parsley-required"></li>
         										</ul>
         									</div>
         								</div>
-        								<div class="form-group row">
-        									<label class="col-lg-2 col-form-label">
-        										Mã thể loại <span class="text-danger"> (*) </span>
-        									</label>
-        									<div class="col-lg-10">
-        										<form:input path="categoryCode" cssClass="form-control" onfocusout="getCategory()"/>
-        										<ul class="parsley-errors-list filled">
-        											<li id="warningCategoryCode" class="parsley-required"></li>
-        										</ul>
-        									</div>
-        								</div>
+        								
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label"></label>
         									<div class="col-lg-10">
@@ -102,39 +92,25 @@
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script type="text/javascript">
 	        	
-        		var checkValidated = function() {
-        			var categoryName = $('#categoryName').val();
-        			var categoryCode = $('#categoryCode').val();
-        			
-        			var checkcategoryName = false;
-        			var checkcategoryCode = false;
-        			
-					if (categoryName.trim().length > 0) {
-						$('#warningCategoryName').text('');
-						$('#categoryName').removeClass('parsley-error');
-						checkCategoryName = true;
-					} else {
-						$('#categoryName').addClass('parsley-error');
-						$('#warningCategoryName').text('Không được bỏ trống TÊN THỂ LOẠI!');
-					}
-					
-					if (categoryCode.trim().length > 0) {
-						$('#warningCategoryCode').text('');
-						$('#categoryCode').removeClass('parsley-error');
-						checkRoleCode = true;
-					} else {
-						$('#categoryCode').addClass('parsley-error');
-						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
-					}
-
-					
-					
-					if (checkCategoryName && checkCategoryCode) {
-						return true;
-					} else {
-						return false;
-					}
-        		}
+        	var checkValidated = function() {
+    			var unitName = $('#unitName').val();
+    			var checkunitName = false;
+    			
+				if (unitName.trim().length > 0) {
+					$('#warningUnitName').text('');
+					$('#unitName').removeClass('parsley-error');
+					checkUnitName = true;
+				} else {
+					$('#unitName').addClass('parsley-error');
+					$('#warningUnitName').text('Không được bỏ trống TÊN ĐƠN VỊ!');
+				}
+				
+				if (checkUnitName) {
+					return true;
+				} else {
+					return false;
+				}
+    		}
         	</script>
         		
         </div>
