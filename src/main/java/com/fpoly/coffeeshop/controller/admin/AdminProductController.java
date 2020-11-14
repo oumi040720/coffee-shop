@@ -35,7 +35,7 @@ public class AdminProductController {
 		String alert = request.getParameter("alert");
 		
 		int page = Integer.parseInt(request.getParameter("page"));
-		int limit = 10;
+		int limit = 5;
 		boolean flagDelete = false;
 		
 		if (message != null && alert != null) {
@@ -56,7 +56,7 @@ public class AdminProductController {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("check", false);
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("product", new ProductDTO());
+		model.addAttribute("products", new ProductDTO());
 		
 		return "admin/product/edit";
 	}
@@ -66,7 +66,8 @@ public class AdminProductController {
 		model.addAttribute("category", categoryService.findAll());
 		model.addAttribute("check", false);
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("prudct", productService.findOne(productName));
+		model.addAttribute("products", new ProductDTO());
+		model.addAttribute("pruduct", productService.findOne(productName));
 		
 		return "admin/product/edit";
 	}

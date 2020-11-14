@@ -49,7 +49,7 @@ public class AdminStaffController {
 		String alert = request.getParameter("alert");
 
 		int page = Integer.parseInt(request.getParameter("page"));
-		int limit = 10;
+		int limit = 5;
 		boolean flagDelete = false;
 
 		if (message != null && alert != null) {

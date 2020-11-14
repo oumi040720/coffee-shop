@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Coffee Shop | Admin | Category</title>
+		<title>Coffee Shop | Admin | Product</title>
 		
 		<!-- Table datatable css -->
 		<link href="<c:url value='/template/admin/libs/datatables/dataTables.bootstrap4.min.css' />" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
-        								<li class="breadcrumb-item active">Sản phẩm</li>
+        								<li class="breadcrumb-item active">Danh sách</li>
         							</ol>
         						</div>
         						<h4 class="page-title">Danh sách sản phẩm</h4>
@@ -41,7 +41,7 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
-        							<a href="<c:url value='/admin/category/add' />" class="btn btn-success">Thêm</a>
+        							<a href="<c:url value='/admin/product/add' />" class="btn btn-success">Thêm</a>
         						</div>
         						<br>
         						<c:if test="${not empty message}">
@@ -77,19 +77,19 @@
         											<td>${product.price}</td>
         											<td>
         												<c:url var="editURL" value="/admin/product/edit">
-        													<c:param name="category_code" value="${product.productName}" />
+        													<c:param name="id" value="${product.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
         												</a>
         												
         												<c:url var="deleteURL" value="/admin/product/delete">
-        													<c:param name="category_code" value="${product.productName}" />
+        													<c:param name="id" value="${product.id}" />
         												</c:url>
-        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${product.productName}">
+        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${product.id}">
         													<i class="mdi mdi-window-close"></i>
         												</a>
-        												<div class="modal fade" id="confirm-${product.productName}">
+        												<div class="modal fade" id="confirm-${product.id}">
         													<div class="modal-dialog modal-dialog-centered">
         														<div class="modal-content">
 	        														<div class="modal-header">
@@ -111,6 +111,11 @@
         									</c:forEach>
         								</tbody>
         							</table>
+        							<nav aria-label="Page navigation">
+										<ul class="pagination" id="pagination"></ul>
+										<input type="hidden" id="page" name="page" value=""> 
+										<br><br>
+									</nav>
         						</div>
         					</div>
         				</div>
@@ -119,10 +124,27 @@
         	</div>
         
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
-        	
-        	<!-- Table datatable js -->
-        	<script src="<c:url value='/template/admin/libs/datatables/jquery.dataTables.min.js' />"></script>
-        	<script src="<c:url value='/template/admin/libs/datatables/dataTables.bootstrap4.min.js' />"></script>
+        	<script src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
+        	<script type="text/javascript">
+			var totalPages = ${totalPages};
+			var currentPage = ${page};
+			var limit = ${limit};
+		
+			$(function() {
+				window.pagObj = $('#pagination').twbsPagination({
+					totalPages : totalPages,
+					visiblePages : 5,
+					startPage : currentPage,
+					onPageClick : function(event, page) {
+						if (currentPage != page) {
+							$('#page').val(page);
+							$('#form-submit').submit();
+						}
+					}
+				});
+			});
+		</script>
+		<
         </div>
 	</body>
 </html>
