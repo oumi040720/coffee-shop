@@ -35,9 +35,9 @@ public interface IProductService {
 	
 	public ProductDTO findOne(String productName);
 	
-	public Boolean insert(ProductDTO categoryDTO);
+	public Boolean insert(ProductDTO productDTO);
 	
-	public Boolean update(ProductDTO categoryDTO);
+	public Boolean update(ProductDTO productDTO);
 	
 	public Boolean delete(Integer id);
 	
