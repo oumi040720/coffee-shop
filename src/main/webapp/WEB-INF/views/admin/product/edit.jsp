@@ -58,8 +58,8 @@
         									<div class="col-lg-10">
         										<form:select path="categoryCode" cssClass="form-control">
         											<form:option value="">-- Lựa chọn thể loại --</form:option>
-        											<<c:forEach items="${products}" var="product">
-        												<form:option value="${product.categoryCode}">${product.categoryCode}</form:option>
+        											<<c:forEach items="${category}" var="category">
+        												<form:option value="${category.categoryCode}">${category.categoryCode}</form:option>
         											</c:forEach>
         										</form:select>
         										<ul class="parsley-errors-list filled">
@@ -112,6 +112,7 @@
         										</button>
         										<c:if test="${check}"> 
         											<form:hidden path="id"/>
+        											
         										</c:if>
         										<form:hidden path="flagDelete"/>
         										<button type="reset" class="btn btn-outline-warning">

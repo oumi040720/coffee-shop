@@ -1,5 +1,7 @@
 package com.fpoly.coffeeshop.controller.admin;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fpoly.coffeeshop.dto.CategoryDTO;
 import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IProductService;
@@ -53,20 +56,32 @@ public class AdminProductController {
 	
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
-		model.addAttribute("category", categoryService.findAll());
+		List<CategoryDTO> category = categoryService.findAll();
+		for (int i = 0; i < category.size(); i++) {
+			if (category.get(i).getCategoryCode().equals("product")) {
+				category.remove(i);
+			}
+		}
+		model.addAttribute("category", category);
 		model.addAttribute("check", false);
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("products", new ProductDTO());
+		model.addAttribute("product", new ProductDTO());
 		
 		return "admin/product/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("productName") String productName) {
-		model.addAttribute("category", categoryService.findAll());
+		List<CategoryDTO> category = categoryService.findAll();
+		for (int i = 0; i < category.size(); i++) {
+			if (category.get(i).getCategoryCode().equals("product")) {
+				category.remove(i);
+			}
+		}
+		model.addAttribute("category", category);
 		model.addAttribute("check", false);
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("products", new ProductDTO());
+		model.addAttribute("products", productService.findAll());
 		model.addAttribute("pruduct", productService.findOne(productName));
 		
 		return "admin/product/edit";
