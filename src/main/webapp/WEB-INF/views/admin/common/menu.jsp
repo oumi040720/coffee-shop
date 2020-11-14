@@ -42,15 +42,15 @@
 					</li>
 					<li class="menu-title mt-2">Thực đơn</li>
 					<li>
-						<a href="">
+						<a href="<c:url value='/admin/product/list?page=1' />">
 							<i class="mdi mdi-coffee"></i>
-							<span> Món </span>
+							<span> Sản phẩm </span>
 						</a>
 					</li>
 					<li>
-						<a href="">
+						<a href="<c:url value='/admin/priceHistories/list?page=1' />">
 							<i class="mdi mdi-menu"></i>
-							<span> Danh mục </span>
+							<span> Giá sản phẩm theo ngày </span>
 						</a>
 					</li>
 					<li>

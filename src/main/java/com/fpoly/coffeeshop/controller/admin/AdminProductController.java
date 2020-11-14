@@ -46,7 +46,7 @@ public class AdminProductController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
-		request.setAttribute("user", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
+		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
 		
 		return "admin/product/list";
 	}
@@ -121,7 +121,7 @@ public class AdminProductController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages",productService.getTotalPagesByFlagDeleteIsAndProductNameContaining(flagDelete, key, page, limit));
-		request.setAttribute("user", productService.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key, page - 1, limit));
+		request.setAttribute("product", productService.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key, page - 1, limit));
 		
 		return "admin/product/search";
 	}
