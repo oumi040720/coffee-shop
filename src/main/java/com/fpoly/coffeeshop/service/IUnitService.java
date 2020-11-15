@@ -5,11 +5,14 @@ import java.util.List;
 import com.fpoly.coffeeshop.dto.UnitDTO;
 
 public interface IUnitService {
-  public List<UnitDTO> findAll();
+	
+		public List<UnitDTO> findAll();
   
-  		public List<UnitDTO> findAllbyFlagDelete(Boolean flagDelete);
+  		 public List<UnitDTO> findAllbyFlagDelete(Boolean flagDelete);
   		
   		 public UnitDTO findOne(Integer id);
+  		 
+  		 public UnitDTO findOne(String unitName);
   		 
   		 public Boolean insert(UnitDTO unitDTO);
   		 

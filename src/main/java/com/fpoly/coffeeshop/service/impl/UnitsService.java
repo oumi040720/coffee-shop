@@ -41,13 +41,12 @@ public class UnitsService implements IUnitService {
 	}
 	@Override
 	public UnitDTO findOne(Integer id) {
-		// TODO Auto-generated method stub
 		
 		return unitConveter.ConvertToDTO(unitRepository.getOne(id));
 	}
+	
 	@Override
 	public Boolean insert(UnitDTO unitDTO) {
-		// TODO Auto-generated method 
 		try {
 			UnitEntity result = unitRepository.save(unitConveter.convertToEntity(unitDTO));
 			if (result != null) {
@@ -85,6 +84,12 @@ public class UnitsService implements IUnitService {
 			return false;
 		}
 	}
+	@Override
+	public UnitDTO findOne(String unitName) {
+		
+		return unitConveter.ConvertToDTO(unitRepository.findOneByUnitName(unitName));
+	}
+	
 	
 	
 	

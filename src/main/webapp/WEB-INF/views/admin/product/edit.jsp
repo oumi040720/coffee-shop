@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Coffee Shop | Admin | Category</title>
+		<title>Coffee Shop | Admin | Product</title>
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
 	</head>
@@ -26,7 +26,7 @@
         						<div class="page-title-right">
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-        								<li class="breadcrumb-item"><a href="javascript: void(0);">Thể loại</a></li>
+        								<li class="breadcrumb-item"><a href="javascript: void(0);">Sản phẩm</a></li>
         								<c:if test="${check}">
         									<li class="breadcrumb-item active">Cập nhật</li>
         								</c:if>
@@ -48,28 +48,58 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div class="row">
-        							<c:url var="action" value="/admin/category/save" />
-        							<form:form action="${action}" modelAttribute="category" cssClass="col-lg-12" 
+        							<c:url var="action" value="/admin/product/save" />
+        							<form:form action="${action}" modelAttribute="product" cssClass="col-lg-12" 
         									onsubmit="return checkValidated()" data-parsley-validate="" novalidate="">
-        								<div class="form-group row">
-        									<label class="col-lg-2 col-form-label">
-        										Tên thể loại<span class="text-danger"> (*) </span>
-        									</label>
-        									<div class="col-lg-10">
-        										<form:input path="categoryName" cssClass="form-control"/>
-        										<ul class="parsley-errors-list filled">
-        											<li id="warningCategoryName" class="parsley-required"></li>
-        										</ul>
-        									</div>
-        								</div>
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label">
         										Mã thể loại <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="categoryCode" cssClass="form-control" onfocusout="getCategory()"/>
+        										<form:select path="categoryCode" cssClass="form-control">
+        											<form:option value="">-- Lựa chọn thể loại --</form:option>
+        											<<c:forEach items="${category}" var="category">
+        												<form:option value="${category.categoryCode}">${category.categoryCode}</form:option>
+        											</c:forEach>
+        										</form:select>
         										<ul class="parsley-errors-list filled">
         											<li id="warningCategoryCode" class="parsley-required"></li>
+        										</ul>
+        									</div>
+        								</div>
+        								
+        								<div class="form-group row">
+        									<label class="col-lg-2 col-form-label">
+        										Tên sản phẩm <span class="text-danger"> (*) </span>
+        									</label>
+        									<div class="col-lg-10">
+        										<form:input path="productName" cssClass="form-control" onfocusout="getProduct()"/>
+        										<ul class="parsley-errors-list filled">
+        											<li id="warningProductName" class="parsley-required"></li>
+        										</ul>
+        									</div>
+        								</div>
+        								
+        								<div class="form-group row">
+        									<label class="col-lg-2 col-form-label">
+        										Hình ảnh <span class="text-danger"> (*) </span>
+        									</label>
+        									<div class="col-lg-10">
+        										<form:input path="photo" cssClass="form-control" />
+        										<ul class="parsley-errors-list filled">
+        											<li id="warningPhoto" class="parsley-required"></li>
+        										</ul>
+        									</div>
+        								</div>
+        								
+        								<div class="form-group row">
+        									<label class="col-lg-2 col-form-label">
+        										Giá <span class="text-danger"> (*) </span>
+        									</label>
+        									<div class="col-lg-10">
+        										<form:input path="price" cssClass="form-control" />
+        										<ul class="parsley-errors-list filled">
+        											<li id="warningPrice" class="parsley-required"></li>
         										</ul>
         									</div>
         								</div>
@@ -82,6 +112,7 @@
         										</button>
         										<c:if test="${check}"> 
         											<form:hidden path="id"/>
+        											
         										</c:if>
         										<form:hidden path="flagDelete"/>
         										<button type="reset" class="btn btn-outline-warning">
@@ -103,33 +134,57 @@
         	<script type="text/javascript">
 	        	
         		var checkValidated = function() {
-        			var categoryName = $('#categoryName').val();
         			var categoryCode = $('#categoryCode').val();
+        			var productName = $('#productName').val();
+        			var photo = $('photo').val();
+        			var price = $('price').val();
         			
-        			var checkcategoryName = false;
-        			var checkcategoryCode = false;
-        			
-					if (categoryName.trim().length > 0) {
-						$('#warningCategoryName').text('');
-						$('#categoryName').removeClass('parsley-error');
-						checkCategoryName = true;
-					} else {
-						$('#categoryName').addClass('parsley-error');
-						$('#warningCategoryName').text('Không được bỏ trống TÊN THỂ LOẠI!');
-					}
+        			var checkCategoryCode = false;
+        			var checkProductName = false;
+        			var checkPhoto = false;
+        			var checkPrice = false;
 					
 					if (categoryCode.trim().length > 0) {
 						$('#warningCategoryCode').text('');
 						$('#categoryCode').removeClass('parsley-error');
-						checkRoleCode = true;
+						checkCategoryCode = true;
 					} else {
 						$('#categoryCode').addClass('parsley-error');
 						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
+						checkCategoryCode = false;
 					}
-
 					
+					if(productName.trim().length > 0){
+						$('#warningProductName').text('');
+						$('#productName').removeClass('parsley-error');
+						checkProductName = true;
+					} else {
+						$('#productName').addClass('parsley-error');
+						$('#warningProductName').text('Không được bỏ trống TÊN SẢN PHẨM!');
+						checkProductName = false;
+					}
 					
-					if (checkCategoryName && checkCategoryCode) {
+					if(photo.trim().length > 0){
+						$('#warningPhoto').text('');
+						$('#photo').removeClass('parsley-error');
+						checkPhoto = true;
+					} else {
+						$('#photo').addClass('parsley-error');
+						$('#warningPhoto').text('Không được bỏ trống GIÁ SẢN PHẨM!');
+						checkPhoto = false;
+					}
+					
+					if(price.trim().length > 0){
+						$('#warningPrice').text('');
+						$('#price').removeClass('parsley-error');
+						checkPrice = true;
+					} else {
+						$('#price').addClass('parsley-error');
+						$('#warningPrice').text('Không được bỏ trống GIÁ SẢN PHẨM!');
+						checkPrice = false;
+					}
+					
+					if (checkproductName && checkCategoryCode && checkPhoto && checkPrice) {
 						return true;
 					} else {
 						return false;

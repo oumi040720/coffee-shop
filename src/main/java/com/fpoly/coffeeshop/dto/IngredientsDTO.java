@@ -3,8 +3,6 @@ package com.fpoly.coffeeshop.dto;
 public class IngredientsDTO {
 
 	
-
-	
 	private Long id;
 	
 	private String name;
