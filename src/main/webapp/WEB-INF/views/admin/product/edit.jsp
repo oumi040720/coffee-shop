@@ -136,8 +136,8 @@
         		var checkValidated = function() {
         			var categoryCode = $('#categoryCode').val();
         			var productName = $('#productName').val();
-        			var photo = $('photo').val();
-        			var price = $('price').val();
+        			var photo = $('#photo').val();
+        			var price = $('#price').val();
         			
         			var checkCategoryCode = false;
         			var checkProductName = false;
@@ -151,18 +151,19 @@
 					} else {
 						$('#categoryCode').addClass('parsley-error');
 						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
-						checkCategoryCode = false;
+						
 					}
 					
 					if(productName.trim().length > 0){
 						$('#warningProductName').text('');
 						$('#productName').removeClass('parsley-error');
-						checkProductName = true;
+						
 					} else {
 						$('#productName').addClass('parsley-error');
 						$('#warningProductName').text('Không được bỏ trống TÊN SẢN PHẨM!');
-						checkProductName = false;
+						
 					}
+					
 					
 					if(photo.trim().length > 0){
 						$('#warningPhoto').text('');
@@ -170,18 +171,24 @@
 						checkPhoto = true;
 					} else {
 						$('#photo').addClass('parsley-error');
-						$('#warningPhoto').text('Không được bỏ trống GIÁ SẢN PHẨM!');
-						checkPhoto = false;
+						$('#warningPhoto').text('Không được bỏ trống HÌNH ẢNH!');
+						
 					}
-					
-					if(price.trim().length > 0){
+					var pattern = new RegExp('^[0-9]*$');
+					if(price.trim().length > 0 && price.match(pattern)){
 						$('#warningPrice').text('');
 						$('#price').removeClass('parsley-error');
 						checkPrice = true;
-					} else {
+					}
+					else if(price.trim().length > 0){
+						$('#price').addClass('parsley-error');
+						$('#warningPrice').text('GIÁ SẢN PHẨM là số!');
+						
+					}
+					else {
 						$('#price').addClass('parsley-error');
 						$('#warningPrice').text('Không được bỏ trống GIÁ SẢN PHẨM!');
-						checkPrice = false;
+						
 					}
 					
 					if (checkproductName && checkCategoryCode && checkPhoto && checkPrice) {

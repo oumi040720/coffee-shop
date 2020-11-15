@@ -83,7 +83,8 @@ public class AdminProductController {
 		ProductDTO productDTO = productService.findOne(id);
 		productService.findOne(productName);
 		productDTO = productService.findOne(productDTO.getCategoryCode());
-
+		
+		model.addAttribute("domain", getDomain());
 		model.addAttribute("category", category);
 		model.addAttribute("categoryCode", productDTO.getCategoryCode());
 		model.addAttribute("productID", productDTO.getId());
@@ -93,37 +94,56 @@ public class AdminProductController {
 		return "admin/product/edit";
 	}
 	
-//	@RequestMapping(value = "/save")
-//	public String save(@ModelAttribute ProductDTO productDTO) {
-//		String message = "";
-//		String alert = "danger";
-//		
-//		productDTO.setFlagDelete(false);
-//		
-//		if(productDTO.getId() == null) {
-//			Boolean result = productService.insert(productDTO);
-//			
-//			if(result) {
-//				message = "message_user_insert_success";
-//				alert = "success";
-//			}
-//			else {
-//				message = "message_user_insert_fail";
-//			}
-//		}
-//		else {
-//			Boolean result = productService.update(productDTO);
-//			
-//			if (result) {
-//				message = "message_user_update_success";
-//				alert = "success";
-//			} else {
-//				message = "message_user_update_fail";
-//			}
-//		}
-//		
-//		return "redirect:/admin/product/list?page=1&message=" + message + "&alert=" + alert;
-//	}
+	@RequestMapping(value = "/save")
+	public String save(@ModelAttribute ProductDTO productDTO) {
+		String message = "";
+		String alert = "danger";
+		
+		productDTO.setFlagDelete(false);
+
+		if(productDTO.getId() == null) {
+			Boolean result = productService.insert(productDTO);
+			if(result != null) {
+				message = "message_product_insert_success";
+				alert = "success";
+			}
+			else {
+				message = "message_product_insert_fail";
+			}
+		}
+		else {
+			Boolean result = productService.update(productDTO);
+			
+			if (result != null) {
+				message = "message_product_update_success";
+				alert = "success";
+			} else {
+				message = "message_product_update_fail";
+			}
+		}
+		
+		return "redirect:/admin/product/list?page=1&message=" + message + "&alert=" + alert;
+	}
+	
+	@RequestMapping(value = "/delete")
+	public String delete(@RequestParam("id") Integer id) {
+		String message = "";
+		String alert = "danger";
+		
+		ProductDTO productDTO = productService.findOne(id);
+		productDTO.setFlagDelete(true);
+		
+		Boolean result = productService.update(productDTO);
+		
+		if (result) {
+			message = "message_product_delete_success";
+			alert = "success";
+		} else {
+			message = "message_product_delete_fail";
+		}
+		
+		return "redirect:/admin/product/list?page=1&message=" + message + "&alert=" + alert;
+	}
 	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)

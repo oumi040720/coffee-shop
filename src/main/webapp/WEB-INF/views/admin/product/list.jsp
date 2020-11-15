@@ -96,12 +96,12 @@
         											<td>${product.categoryCode}</td>
         											<td>${product.productName}</td>
         											<td>
-        												<img style="width: 200px; height: 200px" src="<c:url value='${product.photo}' />">
+        												<img style="width: 100px; height: 100px" src="<c:url value='${product.photo}' />">
         											</td>
         											<td>${product.price}</td>
         											<td>
         												<c:url var="editURL" value="/admin/product/edit">
-        													<c:param name="productName" value="${product.productName}" />
+        													<c:param name="id" value="${product.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>

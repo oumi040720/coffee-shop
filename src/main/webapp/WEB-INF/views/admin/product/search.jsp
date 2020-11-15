@@ -78,7 +78,7 @@
         											<td>${product.categoryCode}</td>
         											<td>${product.productName}</td>
         											<td>
-        												<img style="width: 200px; height: 200px" src="<c:url value='${product.photo}' />">
+        												<img style="width: 100px; height: 100px" src="<c:url value='${product.photo}' />">
         											</td>
         											<td>${product.price}</td>
         											<td>
