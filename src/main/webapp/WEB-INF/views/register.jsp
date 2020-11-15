@@ -65,22 +65,14 @@
 											</span>
 										</div>
 										<div class="form-group mb-3">
-											<input class="form-control" type="tel" id="phone"
+											<input class="form-control" type="number" id="phone"
 													name="phone" placeholder="Nhập số điện thoại">
 											<span>
 												<small id="warningPhone" class="text-danger"></small>
 											</span>
 										</div>
-										<div class="form-group mb-3">
-											 <div class="custom-control custom-checkbox">
-											 	 <input type="checkbox" class="custom-control-input" id="checkbox-signup" >
-											 	 <label class="custom-control-label" for="checkbox-signup">
-											 	 	I accept <a href="#">Terms and Conditions</a>
-											 	 </label>
-											 </div>
-										</div>
 										<div class="form-group text-center">
-											<button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Join Now </button>
+											<button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Đăng ký </button>
 										</div>
 									</form>
 									<div class="text-center mt-4">

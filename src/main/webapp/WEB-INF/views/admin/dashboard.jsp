@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -50,7 +51,10 @@
                             <div class="card-box tilebox-one">
                                 <i class="icon-paypal float-right m-0 h2 text-muted"></i>
                                 <h6 class="text-muted text-uppercase mt-0">Doanh số</h6>
-                                <h3 class="my-3"><span data-plugin="counterup">${currentSales}</span> VNĐ</h3>
+                                <h3 class="my-3">
+                                	<span data-plugin="counterup">
+                                		${currentSales}
+                                	</span> đ</h3>
                                 <span class="badge badge-danger mr-1"> ${grownRateSales}% </span> 
                                 <span class="text-muted">So với tháng trước</span>
                             </div>
@@ -59,7 +63,7 @@
                             <div class="card-box tilebox-one">
                                 <i class="icon-chart float-right m-0 h2 text-muted"></i>
                                 <h6 class="text-muted text-uppercase mt-0">Trung bình giá</h6>
-                                <h3 class="my-3"><span data-plugin="counterup">${currentAveragePrice}</span> VNĐ</h3>
+                                <h3 class="my-3"><span data-plugin="counterup">${currentAveragePrice}</span> đ</h3>
                                 <span class="badge badge-pink mr-1"> ${grownRateAveragePrice}% </span>
                                 <span class="text-muted">So với tháng trước</span>
                             </div>

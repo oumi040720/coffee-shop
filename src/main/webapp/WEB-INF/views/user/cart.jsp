@@ -110,7 +110,7 @@
 							</p>
 							<p class="d-flex">
 								<span>Giao hàng</span>
-								<span id="delivery" data-price="22000">22000 VNĐ</span>
+								<span id="delivery" data-price="22000">22.000 đ</span>
 							</p>
 							<hr>
 							<p class="d-flex total-price">
@@ -158,7 +158,7 @@
 								'<div class="img" style="background-image:url( ' + item.photo + ' );"></div>' +
 							'</td>' +
 							'<td class="product-name">' + item.productName + '</td>' +
-							'<td class="price"> ' + item.price + '</td>' + 
+							'<td class="price"> ' + formatVNDCurrency(item.price) + '</td>' + 
 							'<td>' + 
 								'<div>' +
 									'<span class="left">'  +
@@ -170,7 +170,7 @@
 									'</span>' + 
 								'</div>' +
 							'</td>' + 
-							'<td class="total">' + item.price * item.quantity + '</td>' + 
+							'<td class="total">' + formatVNDCurrency(item.price * item.quantity) + '</td>' + 
 	 	        		'</tr>'
 	 	        	);
 	 	        });	

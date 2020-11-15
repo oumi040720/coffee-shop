@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
@@ -111,27 +112,27 @@
 				<div class="row justify-content-end">
 					<div class="col col-lg-4 col-md-7 mt-5 cart-wrap ftco-animate">
 						<div class="cart-total mb-3">
-							<h3>Cart Totals</h3>
+							<h3>Tổng cộng</h3>
 							<p class="d-flex">
-								<span>Tổng cộng</span>
-								<span id="subtotal">${order.totalPrice}</span>
+								<span>Tạm tính</span>
+								<span id="subtotal"></span>
 							</p>
 							<p class="d-flex">
-								<span>Delivery</span>
-								<span>$0.00</span>
+								<span>Giao hàng</span>
+								<span>22.000 đ</span>
 							</p>
 							<p class="d-flex">
-								<span>Mã giảm giá</span>
-								<span></span>
-							</p>
-							<p class="d-flex">
-								<span>Discount</span>
-								<span>$3.00</span>
+								<span>Giảm giá</span>
+								<span>
+									<fmt:formatNumber value="${discount}" type="currency"/>
+								</span>
 							</p>
 							<hr>
 							<p class="d-flex total-price">
 								<span>Total</span>
-								<span>$17.60</span>
+								<span>
+									<fmt:formatNumber value="${order.totalPrice}" type="currency"/>
+								</span>
 							</p>
 						</div>
 					</div>
@@ -144,7 +145,15 @@
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
         <script type="text/javascript">
 	        $(document).ready(function() {
-	        	localStorage.removeItem("items");
+	        	var message = '${message}';
+	        	
+	        	if (message.trim().length != 0) {
+		        	localStorage.removeItem("items");
+	        	}
+	        	
+	        	var totalPrice = ${order.totalPrice};
+	        	var discount = ${discount}
+				$('#subtotal').html(formatVNDCurrency(totalPrice - 22000 + discount));	        	
 	        });
         </script>
 	</body>

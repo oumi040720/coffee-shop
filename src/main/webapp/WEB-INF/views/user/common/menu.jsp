@@ -50,9 +50,9 @@
 							</c:if>
 							<c:if test="${USER.roleCode eq 'user'}">
 								<div class="dropdown-menu" aria-labelledby="dropdown04">
-									<a class="dropdown-item" href="shop.html">Tài Khoản</a>
-									<a class="dropdown-item" href="product-single.html">Giỏ Hàng</a>
-									<a class="dropdown-item" href="checkout.html">Quản Lý Đơn Hàng</a>
+									<a class="dropdown-item" href="<c:url value='/account' />">Tài Khoản</a>
+									<a class="dropdown-item" href="<c:url value='/cart' />">Giỏ Hàng</a>
+									<a class="dropdown-item" href="<c:url value='order_list?page=1' />">Quản Lý Đơn Hàng</a>
 									<a class="dropdown-item" href="<c:url value='/logout' />">Đăng Xuất</a>
 								</div>
 							</c:if>

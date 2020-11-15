@@ -27,8 +27,8 @@
         						A small river named Duden flows by their place and supplies it with the necessary regelialia.
         					</p>
               				<p>
-              					<a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> 
-              					<a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
+              					<a href="<c:url value="/cart" />" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt hàng</a> 
+              					<a href="<c:url value="/menu" />" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem thực đơn</a>
               				</p>
         				</div>
         			</div>
@@ -47,8 +47,8 @@
               					A small river named Duden flows by their place and supplies it with the necessary regelialia.
               				</p>
               				<p>
-              					<a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> 
-              					<a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
+              					<a href="<c:url value="/cart" />" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt hàng</a> 
+              					<a href="<c:url value="/menu" />" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem thực đơn</a>
               				</p>
         				</div>
         			</div>
@@ -67,8 +67,8 @@
               					A small river named Duden flows by their place and supplies it with the necessary regelialia.
               				</p>
               				<p>
-              					<a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Order Now</a> 
-              					<a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a>
+              					<a href="<c:url value="/cart" />" class="btn btn-primary p-3 px-xl-4 py-xl-3">Đặt hàng</a> 
+              					<a href="<c:url value="/menu" />" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Xem thực đơn</a>
               				</p>
         				</div>
         			</div>
