@@ -1,15 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Coffee Shop | Admin | Product</title>
-		
-		<!-- Table datatable css -->
-		<link href="<c:url value='/template/admin/libs/datatables/dataTables.bootstrap4.min.css' />" rel="stylesheet" type="text/css">
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
 	</head>
@@ -21,7 +17,7 @@
         
         	<%@ include file="/WEB-INF/views/admin/common/menu.jsp" %>
         
-        	<div class="content-page"> 
+        	<div class="content-page">
         		<div class="container-fluid">
         			<div class="row">
         				<div class="col-12">
@@ -42,17 +38,15 @@
         					<div class="card-box">
         						<div>
         							<div class="row">
-        								<div class="col-sm-8">
-        									<a href="<c:url value='/admin/product/add' />" 
-        									class="btn btn-outline-success btn-rounded waves-effect waves-light"><i class="ion ion-md-add-circle"></i> Thêm</a>
+        								<div class="col-lg-8">
+        									<a href="<c:url value='/admin/product/add' />" class="btn btn-success">Thêm</a>
         								</div>
-        								<div class="col-sm-4">
+        								<div class="col-lg-4">
         									<div class="d-none d-sm-block">
         										<form action="<c:url value='/admin/product/search' />" class="app-search" method="post">
         											<div class="app-search-box">
         												<div class="input-group">
-        													<input type="text" name="key" class="form-control" placeholder="Search product...">
-        													<input type="hidden" name="page" value="1" >
+        													<input type="text" class="form-control" placeholder="Search...">
         													<div class="input-group-append">
         														<button class="btn btn-dark" type="submit">
         															<i class="fas fa-search"></i>
@@ -66,21 +60,8 @@
         							</div>
         						</div>
         						<br>
-        						<c:if test="${not empty message}">
-        							<div>
-        								<div class="alert alert-${alert} alert-dismissible fade show mb-0" role="alert">
-        									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        										<span aria-hidden="true">&times;</span>
-        									</button>
-        									<s:message code="${message}" />
-	        							</div>
-	        						</div>
-	        						<br>
-        						</c:if>
-        						<div>
-        							<table id="datatable" 
-        								   class="table table-bordered dt-responsive nowrap" 
-        								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        						<form id="form-submit" action="<c:url value='/admin/product/search' />" method="get">
+        							<table class="table table-bordered">
         								<thead>
         									<tr>
         										<th>Mã thể loại</th>
@@ -91,8 +72,9 @@
         									</tr>
         								</thead>
         								<tbody>
-        									<c:forEach items="${product}" var="product">
+        									<c:forEach var="product" items="${product}">
         										<tr>
+        											
         											<td>${product.categoryCode}</td>
         											<td>${product.productName}</td>
         											<td>
@@ -101,7 +83,7 @@
         											<td>${product.price}</td>
         											<td>
         												<c:url var="editURL" value="/admin/product/edit">
-        													<c:param name="productName" value="${product.productName}" />
+        													<c:param name="id" value="${product.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
@@ -111,17 +93,17 @@
         													<c:param name="id" value="${product.id}" />
         												</c:url>
         												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${product.id}">
-        													<i class="mdi mdi-window-close"></i>
+        													<i class=" mdi mdi-window-close"></i>
         												</a>
         												<div class="modal fade" id="confirm-${product.id}">
         													<div class="modal-dialog modal-dialog-centered">
         														<div class="modal-content">
 	        														<div class="modal-header">
-	        															<h4 class="modal-title">Xác nhận xóa</h4>
+	        															<h4 class="modal-title">Xác nhận xóa nhân viên</h4>
 	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        														</div>
 	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa thể loại "${product.productName}" không?
+	        															Bạn có chắc muốn xóa nhân viên có mã là "${product.productName}" không?
 	        														</div>
 	        														<div class="modal-footer">
 	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
@@ -138,10 +120,11 @@
         							<br>
         							<nav aria-label="Page navigation">
 										<ul class="pagination" id="pagination"></ul>
+										<input type="hidden" id="key" name="key" value=""> 
 										<input type="hidden" id="page" name="page" value="">
 										<br><br>
 									</nav>
-        						</div>
+        						</form>
         					</div>
         				</div>
         			</div>
@@ -171,7 +154,6 @@
 				});
 			});
 		</script>
-		
         </div>
 	</body>
 </html>

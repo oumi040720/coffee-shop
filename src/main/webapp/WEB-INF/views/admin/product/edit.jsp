@@ -59,7 +59,7 @@
         										<form:select path="categoryCode" cssClass="form-control">
         											<form:option value="">-- Lựa chọn thể loại --</form:option>
         											<<c:forEach items="${category}" var="category">
-        												<form:option value="${category.categoryCode}">${category.categoryCode}</form:option>
+        												<form:option value="${category.categoryCode}">${category.categoryName}</form:option>
         											</c:forEach>
         										</form:select>
         										<ul class="parsley-errors-list filled">

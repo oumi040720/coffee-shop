@@ -33,7 +33,7 @@ public class AdminProductController {
 	}
 
 	@RequestMapping(value = "/list")
-	public String showListPage(HttpServletRequest request) {
+	public String showListPage(HttpServletRequest request, Model model) {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 		
@@ -45,10 +45,9 @@ public class AdminProductController {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
-		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page - 1, limit));
 		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
 		
 		return "admin/product/list";
@@ -62,28 +61,35 @@ public class AdminProductController {
 				category.remove(i);
 			}
 		}
+		
+		model.addAttribute("domain", getDomain());
 		model.addAttribute("category", category);
 		model.addAttribute("check", false);
-		model.addAttribute("domain", getDomain());
 		model.addAttribute("product", new ProductDTO());
 		
 		return "admin/product/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("productName") String productName) {
+	public String showUpdatePage(Model model, @RequestParam("id") Integer id
+			,@RequestParam("productName") String productName) {
 		List<CategoryDTO> category = categoryService.findAll();
 		for (int i = 0; i < category.size(); i++) {
 			if (category.get(i).getCategoryCode().equals("product")) {
 				category.remove(i);
 			}
 		}
-		model.addAttribute("category", category);
-		model.addAttribute("check", false);
-		model.addAttribute("domain", getDomain());
-		model.addAttribute("products", productService.findAll());
-		model.addAttribute("pruduct", productService.findOne(productName));
 		
+		ProductDTO productDTO = productService.findOne(id);
+		productService.findOne(productName);
+		productDTO = productService.findOne(productDTO.getCategoryCode());
+
+		model.addAttribute("category", category);
+		model.addAttribute("categoryCode", productDTO.getCategoryCode());
+		model.addAttribute("productID", productDTO.getId());
+		model.addAttribute("product", productDTO);
+		model.addAttribute("check", true);
+
 		return "admin/product/edit";
 	}
 	
@@ -121,7 +127,7 @@ public class AdminProductController {
 	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String search(Model model, HttpServletRequest request) {
+	public String search(HttpServletRequest request) {
 		String key = request.getParameter("key");
 		
 		return "redirect:/admin/product/search?key="+key+"&page=1";
@@ -133,10 +139,10 @@ public class AdminProductController {
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
 		boolean flagDelete = false;
-		
+		request.setAttribute("key", key);
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages",productService.getTotalPagesByFlagDeleteIsAndProductNameContaining(flagDelete, key, page, limit));
+		request.setAttribute("totalPages",productService.getTotalPagesByFlagDeleteIsAndProductNameContaining(flagDelete, key, page - 1, limit));
 		request.setAttribute("product", productService.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key, page - 1, limit));
 		
 		return "admin/product/search";
