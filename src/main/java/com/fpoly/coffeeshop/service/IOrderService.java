@@ -30,6 +30,11 @@ public interface IOrderService {
 	public List<OrderDTO> findAllByFlagDeleteAndOrderCode(Boolean flagDelete, String key, Integer page, Integer limit);
 	
 	
+	public Integer getTotalPagesByFlagDeleteAndUsername(Boolean flagDelete, String username, Integer page, Integer limit);
+	
+	public List<OrderDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String username, Integer page, Integer limit);
+	
+	
 	public OrderDTO findOne(Long id);
 	
 	public OrderDTO findOne(String orderCode);

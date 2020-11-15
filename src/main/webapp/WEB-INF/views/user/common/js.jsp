@@ -57,8 +57,8 @@
 		}
 		
 		$('#subtotal').attr('data-price', total)
-		$('#subtotal').html(total + ' VND');
-
+		$('#subtotal').html(formatVNDCurrency(total));
+		
 		return total;
 	}
 	
@@ -76,7 +76,7 @@
 			total = (subtotal + delivery) - priceDiscount;
 		}
 		
-		$('#t').html(total + ' VND');
+		$('#t').html(formatVNDCurrency(total));
 		
 		return total;
 	}
@@ -87,7 +87,6 @@
 		getCoupon();
 	});
 	$('#c').on('change', () => {
-		console.log('a')
 		calculateTotal();
 	});
 	
@@ -104,19 +103,15 @@
 				axios.get(url)
 				.then((response) => {
 					var coupon = response.data;
-	
+					
 					var now = Date.now();
 					if (coupon != null) {
 						if (new Date(coupon.startTime) < now && new Date(coupon.endTime) > now && subtotal >= coupon.minTotalBill) {
-							sessionStorage.setItem("coupon", JSON.stringify(coupon));
-	
-							if (coupon.type === 'Miễn Phí Vận Chuyển') {
+							$('#couponCode').val(coupon.couponCode);
+							
+							if (coupon.type === 'Giảm Giá Trực Tiếp') {
 								$('#c').val(coupon.discount);
-								$('#priceDiscount').html('-' + coupon.discount);
-								$('#priceDiscount').attr('data-price', coupon.discount);
-							} else if (coupon.type === 'Giảm Giá Trực Tiếp') {
-								$('#c').val(coupon.discount);
-								$('#priceDiscount').html('-' + coupon.discount);
+								$('#priceDiscount').html('-' + formatVNDCurrency(coupon.discount));
 								$('#priceDiscount').attr('data-price', coupon.discount);
 							} else if (coupon.type === 'Giảm Giá Theo Phần Trăm') {
 								var percent = coupon.discount.substring(0, coupon.discount.length - 1) / 100;
@@ -128,34 +123,50 @@
 								
 								$('#c').val(discountPrice);
 								$('#priceDiscount').attr('data-price', discountPrice);
-								$('#priceDiscount').html('-' + discountPrice + ' VNĐ');
+								$('#priceDiscount').html('-' +  formatVNDCurrency(discountPrice));
 							}
 							
 							$('#discountWarning').hide();
-							$('#discountWarning small.text-danger').html('');
 							$('#submitButton').show();
+							$('#discountWarning small.text-danger').html('');
+							
+							calculateTotal();
 						} else {
+							$('#priceDiscount').html(formatVNDCurrency(0));
 							$('#priceDiscount').attr('data-price', 0);
 							$('#discountWarning').show();
-							$('#discountWarning small.text-danger').html('Mã không hợp lệ!');
 							$('#submitButton').hide();
+							$('#discountWarning small.text-danger').html('Mã không hợp lệ!');
+							
+							calculateTotal();
 						}
 					}	
 				}); 
 			} else {
+				$('#priceDiscount').html(formatVNDCurrency(0));
 				$('#c').val(0);
+				$('#submitButton').show();
 				$('#priceDiscount').attr('data-price', 0);
-				$('#checkOutButton').show();
 				$('#discountWarning').hide();
 				$('#discountWarning small.text-danger').html('');
+				
+				calculateTotal();
 			}
 		} else {
+			$('#submitButton').show();
 			$('#priceDiscount').attr('data-price', 0);
-			$('#checkOutButton').show();
 			$('#discountWarning').hide();
 			$('#discountWarning small.text-danger').html('');
+			
+			calculateTotal();
 		}
-		
-		calculateTotal();
+	}
+</script>
+
+<script>
+	function formatVNDCurrency(number) {
+		return  Number(number).toFixed(0).replace(/./g, function(c, i, a) {
+		    return i > 0 && c !== "," && (a.length - i) % 3 === 0 ? "." + c : c;
+		 }) + ' đ';
 	}
 </script>

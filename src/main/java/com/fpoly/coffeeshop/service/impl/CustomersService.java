@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.CustomersConveter;
 import com.fpoly.coffeeshop.dto.CustomersDTO;
-import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.entity.CustomersEntity;
 import com.fpoly.coffeeshop.entity.UserEntity;
 import com.fpoly.coffeeshop.repository.ICustomersRepository;

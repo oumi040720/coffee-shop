@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.fpoly.coffeeshop.entity.CustomersEntity;
 import com.fpoly.coffeeshop.entity.OrderEntity;
 
 @Repository
@@ -27,6 +28,8 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 	
 	public Page<OrderEntity> findAllByFlagDeleteIsAndOrderCodeContaining(Boolean flagDelete, String orderCode, Pageable pageable);
 	
+	
+	public Page<OrderEntity> findAllByFlagDeleteIsAndCustomer(Boolean flagDelete, CustomersEntity customer, Pageable pageable);
 	
 	
 	

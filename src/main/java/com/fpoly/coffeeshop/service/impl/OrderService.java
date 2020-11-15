@@ -117,7 +117,6 @@ public class OrderService implements IOrderService {
 			OrderEntity orderEntity = orderConveter.convertToEntity(customerDTO);
 			orderEntity.setCustomer(customersEntity);
 			//orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
-			System.out.println(orderEntity.getOrderDate());
 			
 			OrderEntity result = orderRepository.save(orderEntity);
 
@@ -197,6 +196,31 @@ public class OrderService implements IOrderService {
 		return orderConveter.convertToDTO(orderRepository.findOneByOrderCode(orderCode));
 	}
 
+	
+	
+	@Override
+	public Integer getTotalPagesByFlagDeleteAndUsername(Boolean flagDelete, String username, Integer page, Integer limit) {
+		UserEntity user = userRepository.findOneByUsername(username);
+		CustomersEntity customer = cusctomersRepository.findOneByUser(user);
+		
+		return orderRepository.findAllByFlagDeleteIsAndCustomer(flagDelete, customer, PageRequest.of(page, limit)).getTotalPages();
+	}
+	
+	@Override
+	public List<OrderDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String username, Integer page, Integer limit) {
+		UserEntity user = userRepository.findOneByUsername(username);
+		CustomersEntity customer = cusctomersRepository.findOneByUser(user);
+		
+		List<OrderEntity> list  = orderRepository.findAllByFlagDeleteIsAndCustomer(flagDelete, customer, PageRequest.of(page, limit))
+													.getContent();
+		List<OrderDTO> result = new ArrayList<>();
+		
+		for(OrderEntity order : list) {
+			result.add(orderConveter.convertToDTO(order));
+		}
+		return result;
+	}
+	
 	
 	
 	@Override

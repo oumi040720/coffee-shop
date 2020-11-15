@@ -45,8 +45,8 @@
         						<div>
         							<div class="row">
         								<div class="col-sm-8">
-        									<a href="<c:url value='/admin/customers/add' />"
-        									 class="btn btn-outline-success btn-rounded waves-effect waves-light"><i class="ion ion-md-add-circle"></i> Thêm</a>
+        									<%-- <a href="<c:url value='/admin/customers/add' />"
+        									 class="btn btn-outline-success btn-rounded waves-effect waves-light"><i class="ion ion-md-add-circle"></i> Thêm</a> --%>
         								</div>
         								<div class="col-sm-4">
         									<div class="d-none d-sm-block">
@@ -100,12 +100,12 @@
         											<td>${customer.address}</td>
         											<td>${customer.username}</td>
         											<td>
-        												<c:url var="editURL" value="/admin/customers/edit">
+        												<%-- <c:url var="editURL" value="/admin/customers/edit">
         													<c:param name="id" value="${customer.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
-        												</a>
+        												</a> --%>
         												
         												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
         													<i class=" mdi mdi-window-close"></i>

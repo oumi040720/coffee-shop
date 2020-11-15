@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -58,7 +59,11 @@
 											style="background-image: url(${product.photo}); background-size: 16.875rem;"></a>
 										<div class="text">
 											<h3><a href="#">${product.productName}</a></h3>
-											<p class="price"><span>${product.price}</span></p>
+											<p class="price">
+												<span>
+													<fmt:formatNumber pattern="#,### đ" value="${product.price}" type="currency"/>
+												</span>
+											</p>
 											<p>
 												<a class="btn btn-primary btn-outline-primary" 
 													onclick="add(${product.id},'${product.productName}', '${product.photo}', ${product.price})">
@@ -109,7 +114,7 @@
 											'style="background-image: url( ' + product.photo + ' ); background-size: 16.875rem;"></a>' + 
 										'<div class="text">' + 
 											'<h3><a href="#"> ' + product.productName + '</a></h3>' + 
-											'<p class="price"><span> ' + product.price + '</span></p>' +
+											'<p class="price"><span> ' + formatVNDCurrency(product.price) + '</span></p>' +
 											'<p>' + 
 												'<a class="btn btn-primary btn-outline-primary" ' +
 													'onclick="add(' + product.id + ', \'' + product.productName + '\', \'' + product.photo + '\', ' + product.price + ');">' + 
