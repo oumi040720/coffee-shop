@@ -77,6 +77,8 @@
 	        						</div>
 	        						<br>
         						</c:if>
+        						<form id="form-submit"
+								action="<c:url value='/admin/product/list' />" method="get">
         						<div>
         							<table id="datatable" 
         								   class="table table-bordered dt-responsive nowrap" 
@@ -141,6 +143,7 @@
 										<input type="hidden" id="page" name="page" value="">
 										<br><br>
 									</nav>
+									</form>
         						</div>
         					</div>
         				</div>

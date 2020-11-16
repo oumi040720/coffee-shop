@@ -16,6 +16,7 @@ import com.fpoly.coffeeshop.dto.CategoryDTO;
 import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IProductService;
+import com.fpoly.coffeeshop.util.DomainURLUntil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -30,6 +31,10 @@ public class AdminProductController {
 	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
+	}
+	
+	private String getDomainURLUntil() {
+		return DomainURLUntil.getDomainURLUntil();
 	}
 
 	@RequestMapping(value = "/list")
@@ -47,8 +52,9 @@ public class AdminProductController {
 		}
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page - 1, limit));
+		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
+		request.setAttribute("domainURL", getDomainURLUntil());
 		
 		return "admin/product/list";
 	}
