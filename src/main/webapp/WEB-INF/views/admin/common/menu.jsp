@@ -48,12 +48,6 @@
 						</a>
 					</li>
 					<li>
-						<a href="<c:url value='/admin/priceHistories/list?page=1' />">
-							<i class="mdi mdi-menu"></i>
-							<span> Giá sản phẩm theo ngày </span>
-						</a>
-					</li>
-					<li>
 						<a href="<c:url value='/admin/category/list' />">
 							<!--  <i class="mdi mdi-menu"></i>-->
 							<i class="mdi-arrange-bring-forward"></i>

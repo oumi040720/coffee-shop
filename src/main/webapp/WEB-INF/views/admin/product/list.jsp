@@ -85,7 +85,6 @@
         								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         								<thead>
         									<tr>
-        										<th>Mã thể loại</th>
         										<th>Tên sản phẩm</th>
         										<th>Hình ảnh</th>
         										<th>Giá</th>
@@ -95,7 +94,6 @@
         								<tbody>
         									<c:forEach items="${product}" var="product">
         										<tr>
-        											<td>${product.categoryCode}</td>
         											<td>${product.productName}</td>
         											<td>
         												<img style="width: 100px; height: 100px" src="<c:url value='${product.photo}' />">

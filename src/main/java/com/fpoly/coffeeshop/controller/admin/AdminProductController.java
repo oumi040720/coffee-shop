@@ -78,7 +78,7 @@ public class AdminProductController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Integer id
-			,@RequestParam("productName") String productName) {
+			) {
 		List<CategoryDTO> category = categoryService.findAll();
 		for (int i = 0; i < category.size(); i++) {
 			if (category.get(i).getCategoryCode().equals("product")) {
@@ -87,14 +87,13 @@ public class AdminProductController {
 		}
 		
 		ProductDTO productDTO = productService.findOne(id);
-		productService.findOne(productName);
 		productDTO = productService.findOne(productDTO.getCategoryCode());
 		
 		model.addAttribute("domain", getDomain());
 		model.addAttribute("category", category);
 		model.addAttribute("categoryCode", productDTO.getCategoryCode());
 		model.addAttribute("productID", productDTO.getId());
-		model.addAttribute("product", productDTO);
+		model.addAttribute("product", productService.findAllByFlagDeleteIs(false));
 		model.addAttribute("check", true);
 
 		return "admin/product/edit";
