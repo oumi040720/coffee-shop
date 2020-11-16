@@ -40,7 +40,7 @@ public class AdminIngredientController {
 		request.setAttribute("totalPages", ingredientService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("customers", ingredientService.findAllByFlagDelete(flagDelete, page-1, limit));
 		
-		return "admin/ingredients/list";
+		return "admin/ingredient/list";
 	}
 	@RequestMapping(value = "/add")
 	public String showPage(Model model) {
@@ -48,7 +48,7 @@ public class AdminIngredientController {
 		model.addAttribute("ingredient", new IngredientsDTO());
 		model.addAttribute("domain", getDomain());
 		
-		return "admin/ingredients/edit";
+		return "admin/ingredient/edit";
 	}
 	@RequestMapping(value = "/save")
 	public String save(Model model, @ModelAttribute IngredientsDTO ingredientsDTO) {

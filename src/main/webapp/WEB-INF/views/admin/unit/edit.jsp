@@ -56,7 +56,7 @@
         										Tên đơn vị<span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="unitName" cssClass="form-control" onfocusout="getUnit()"/>
+        										<form:input path="unitName" cssClass="form-control"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningUnitName" class="parsley-required"></li>
         										</ul>

@@ -9,6 +9,8 @@ public class IngredientsDTO {
 	 
 	private Integer quantity;
 	
+	private String unitCode;
+	
 	private Boolean flagDelete;
 	
 	
@@ -30,6 +32,13 @@ public class IngredientsDTO {
 	}
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
+	}
+	
+	public String getUnitCode() {
+		return unitCode;
+	}
+	public void setUnitCode(String unitCode) {
+		this.unitCode = unitCode;
 	}
 	public Boolean getFlagDelete() {
 		return flagDelete;
