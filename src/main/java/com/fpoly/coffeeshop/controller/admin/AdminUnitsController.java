@@ -45,9 +45,9 @@ public class AdminUnitsController {
 		return "admin/unit/edit";
 	}
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("unit_name") String unitName) {
+	public String showUpdatePage(Model model, @RequestParam("unit_id") Integer id) {
 		model.addAttribute("check", true);
-		model.addAttribute("unit", unitService.findOne(unitName));
+		model.addAttribute("unit", unitService.findOne(id));
 		model.addAttribute("domain", getDomain());
 		
 		return "admin/unit/edit";
@@ -86,11 +86,11 @@ public class AdminUnitsController {
 		return "redirect:/admin/unit/list?message=" + message + "&alert=" + alert;
 	}
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("unit_name") String unitName) {
+	public String delete(Model model, @RequestParam("unit_id") Integer id) {
 		String message = "";
 		String alert = "danger";
 		
-		UnitDTO unitDTO = unitService.findOne(unitName);
+		UnitDTO unitDTO = unitService.findOne(id);
 		unitDTO.setFlagDelete(true);
 		
 		Boolean result = unitService.update(unitDTO);
