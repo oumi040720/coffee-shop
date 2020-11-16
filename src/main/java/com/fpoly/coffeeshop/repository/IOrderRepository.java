@@ -36,6 +36,11 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 	@Query(value = "sp_orderDetailStatistic @year = ?1, @month = ?2", nativeQuery = true)
 	public List<Long[]> getOrderDetailStatistic(Integer year, Integer month);
 	
+	
+	@Query(value = "sp_getTop4BestSeller", nativeQuery = true)
+	public List<Object[]> getTop4BestSeller();
+	
+	
 	@Query(value = "sp_getSalesEveryYear", nativeQuery = true)
 	public List<Object[]> getSalesEveryYear();
 	

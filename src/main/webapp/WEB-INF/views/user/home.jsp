@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -235,56 +236,24 @@
 	    	<div class="container">
 	    		<div class="row justify-content-center mb-5 pb-3">
 	          		<div class="col-md-7 heading-section ftco-animate text-center">
-			          	<span class="subheading">Discover</span>
-			            <h2 class="mb-4">Best Coffee Sellers</h2>
-			            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+			          	<span class="subheading">Khám phá</span>
+			            <h2 class="mb-4">NHỮNG SẢN PHẨM BÁN CHẠY</h2>
 	          		</div>
 	        	</div>
 		        <div class="row">
-		        	<div class="col-md-3">
-		        		<div class="menu-entry">
-	    					<a href="#" class="img" style="background-image: url(template/user/images/menu-1.jpg);"></a>
-	    					<div class="text text-center pt-4">
-	    						<h3><a href="#">Coffee Capuccino</a></h3>
-	    						<p>A small river named Duden flows by their place and supplies</p>
-	    						<p class="price"><span>$5.90</span></p>
-	    						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-	    					</div>
-	    				</div>
-	        		</div>
-		        	<div class="col-md-3">
-		        		<div class="menu-entry">
-		    				<a href="#" class="img" style="background-image: url(template/user/images/menu-2.jpg);"></a>
-		    				<div class="text text-center pt-4">
-		    					<h3><a href="#">Coffee Capuccino</a></h3>
-		    					<p>A small river named Duden flows by their place and supplies</p>
-		    					<p class="price"><span>$5.90</span></p>
-		   						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-		   					</div>
-		   				</div>
-       				</div>
-		        	<div class="col-md-3">
-		        		<div class="menu-entry">
-		    				<a href="#" class="img" style="background-image: url(template/user/images/menu-3.jpg);"></a>
-		    				<div class="text text-center pt-4">
-		    					<h3><a href="#">Coffee Capuccino</a></h3>
-		    					<p>A small river named Duden flows by their place and supplies</p>
-		    					<p class="price"><span>$5.90</span></p>
-		   						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-		   					</div>
-		   				</div>
-       				</div>
-		        	<div class="col-md-3">
-		        		<div class="menu-entry">
-		   					<a href="#" class="img" style="background-image: url(template/user/images/menu-4.jpg);"></a>
-		   					<div class="text text-center pt-4">
-		   						<h3><a href="#">Coffee Capuccino</a></h3>
-		   						<p>A small river named Duden flows by their place and supplies</p>
-		   						<p class="price"><span>$5.90</span></p>
-		   						<p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
-		   					</div>
-		   				</div>
-		        	</div>
+		        	<c:forEach items="${bestSeller}" var="item">
+			        	<div class="col-md-3">
+			        		<div class="menu-entry">
+		    					<a class="img" style="background-image: url(${item[2]}); background-size: 10rem;"></a>
+		    					<div class="text text-center pt-4">
+		    						<h3><a>${item[1]}</a></h3>
+		    						<p class="price">
+		    							<span><fmt:formatNumber pattern="#,### đ" value="${item[3]}" type="currency"/></span>
+		    						</p>
+		    					</div>
+		    				</div>
+		        		</div>
+		        	</c:forEach>
        			</div>
     		</div>
     	</section>

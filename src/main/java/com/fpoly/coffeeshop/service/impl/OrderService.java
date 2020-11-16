@@ -229,6 +229,11 @@ public class OrderService implements IOrderService {
 	}
 	
 	@Override
+	public List<Object[]> getTop4BestSeller() {
+		return orderRepository.getTop4BestSeller();
+	}
+	
+	@Override
 	public List<Object[]> getSalesEveryYear() {
 		return orderRepository.getSalesEveryYear();
 	}

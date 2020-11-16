@@ -50,6 +50,9 @@ public interface IOrderService {
 	public List<Long[]> getOrderDetailStatistic(Integer year, Integer month);
 	
 	
+	public List<Object[]> getTop4BestSeller();
+	
+	
 	public List<Object[]> getSalesEveryYear();
 	
 	public List<Object[]> getSalesEveryMonthByYear(Integer year);

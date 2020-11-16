@@ -11,7 +11,7 @@ public class CategoryUtil {
 		HttpSession session = request.getSession();
 		
 		if (session.getAttribute("CATEGORIES") == null) {
-			request.setAttribute("CATEGORIES", categoryService.findAllByFlagDelete(false));
+			session.setAttribute("CATEGORIES", categoryService.findAllByFlagDelete(false));
 		}
 	}
 	

@@ -353,3 +353,16 @@ as
 	on o.id = od.order_id
 	where MONTH(o.order_date) = @month and YEAR(o.order_date) = @year
 go
+
+create proc sp_getTop4BestSeller 
+as
+	select top 4 p.id,
+				 p.product_name,
+				 p.photo,
+			     p.price,
+			     SUM(od.quantity)
+	from products p join order_details od
+	on p.id = od.product_id
+	group by p.id, p.photo, p.product_name, p.price
+	order by SUM(od.quantity) DESC
+go
