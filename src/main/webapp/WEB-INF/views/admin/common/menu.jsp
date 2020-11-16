@@ -85,6 +85,12 @@
 					</a>
 				</li>
 				<li>
+					<a href="href="<c:url value='/admin/ingredient/list' />">
+						<i class="mdi mdi-water"></i>
+						<span> Thành phần </span>
+					</a>
+				</li>
+				<li>
 					<a href="">
 						<i class="mdi mdi-water"></i>
 						<span> Nguyên Liệu </span>
