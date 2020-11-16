@@ -31,6 +31,12 @@ public interface IProductService {
 	
 	public List<ProductDTO> findAllByFlagDeleteIsAndProductNameContaining(Boolean flagDelete, String key, Integer page, Integer limit);
 	
+	
+	public Integer getTotalPagesByFlagDeleteAndCategoryCode(Boolean flagDelete, String categoryCode, Integer page, Integer limit);
+	
+	public List<ProductDTO> findAllByFlagDeleteAndCategoryCode(Boolean flagDelete, String categoryCode, Integer page, Integer limit);
+	
+	
 	public ProductDTO findOne(Integer id);
 	
 	public ProductDTO findOne(String productName);

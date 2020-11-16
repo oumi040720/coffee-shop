@@ -18,8 +18,10 @@ import com.fpoly.coffeeshop.dto.ItemDTO;
 import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
 import com.fpoly.coffeeshop.dto.UserDTO;
+import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderService;
+import com.fpoly.coffeeshop.util.CategoryUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -31,6 +33,8 @@ public class UserOrderController {
 	@Autowired
 	private IOrderDetailService orderDetailService;
 	
+	@Autowired
+	private ICategoryService categoryService;
 	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
@@ -38,6 +42,8 @@ public class UserOrderController {
 	
 	@RequestMapping(value = "/cart")
 	public String showCartPage(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		request.setAttribute("domain", getDomain());
 		
 		return "user/cart";
@@ -45,6 +51,8 @@ public class UserOrderController {
 	
 	@RequestMapping(value = "/order_list")
 	public String showOrderListPage(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		HttpSession httpSession = request.getSession();
 		UserDTO user = (UserDTO) httpSession.getAttribute("USER");
 		
@@ -62,6 +70,8 @@ public class UserOrderController {
 	
 	@RequestMapping(value = "/order_detail")
 	public String showOrderDetailPage(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		String orderCode = request.getParameter("order_code");
 		
 		OrderDTO orderDTO = orderService.findOne(orderCode);
@@ -87,6 +97,8 @@ public class UserOrderController {
 	
 	@RequestMapping(value = "/order_result")
 	public String showOrderSuccessPage(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 		String orderCode = request.getParameter("order_code");
@@ -119,6 +131,8 @@ public class UserOrderController {
 	
 	@RequestMapping(value = "/checkout")
 	public String showCheckoutPage(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		request.setAttribute("domain", getDomain());
 		
 		return "user/checkout";
@@ -126,6 +140,8 @@ public class UserOrderController {
 	
 	@RequestMapping(value = "/order")
 	public String order(HttpServletRequest request, HttpServletResponse response) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("UTF-8");
 		
@@ -196,6 +212,7 @@ public class UserOrderController {
 					temp.setTotalPrice(totalPrice);
 					
 					boolean isOrderSuccess = orderService.update(temp);
+					
 					if (isOrderSuccess) {
 						return "redirect:/order_result?order_code=" + orderCode + "&message=message_order_success&alert=success";
 					} else {

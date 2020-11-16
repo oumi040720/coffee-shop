@@ -79,6 +79,24 @@ public class ProductAPI {
 		return productService.findAllByFlagDeleteIsAndProductNameContaining(flagDelete, key, page - 1, limit);
 	}
 	
+	
+	@GetMapping(value = "/api/prodct/flag_delete/category/total_pages")
+	public Integer getTotalPagesByFlagDeleteAndCategoryCode(@RequestParam("flag_delete") Boolean flagDelete,
+															@RequestParam("category_code") String categoryCode,
+															@RequestParam("page") Integer page, 
+															@RequestParam("limit") Integer limit) {
+		return productService.getTotalPagesByFlagDeleteAndCategoryCode(flagDelete, categoryCode, page - 1, limit);
+	}
+	
+	@GetMapping(value = "/api/product/flag_delete/category/list")
+	public List<ProductDTO> findAllByFlagDeleteAndCategoryCode(@RequestParam("flag_delete") Boolean flagDelete,
+																@RequestParam("category_code") String categoryCode,
+																@RequestParam("page") Integer page, 
+																@RequestParam("limit") Integer limit) {
+		return productService.findAllByFlagDeleteAndCategoryCode(flagDelete, categoryCode, page - 1, limit);
+	}
+	
+	
 	@GetMapping(value = "/api/product/id/{id}")
 	public ProductDTO findOne(@PathVariable("id") Integer id) {
 		return productService.findOne(id);

@@ -23,7 +23,7 @@
 	<body>
         <%@ include file="/WEB-INF/views/user/common/menu.jsp" %>
         
-        <section class="home-slider owl-carousel">
+        <%-- <section class="home-slider owl-carousel">
         	<div class="slider-item" style="background-image: url(template/user/images/bg_3.jpg);">
         		<div class="overlay"></div>
         		<div class="container">
@@ -38,15 +38,14 @@
         			</div>
         		</div>
         	</div>
-        </section>
-		
+        </section> --%>
 		<section class="ftco-menu mb-5 pb-5">
+			<br><br>
 	    	<div class="container">
 		    	<div class="row justify-content-center mb-5">
 		          	<div class="col-md-7 heading-section text-center ftco-animate">
-		          		<span class="subheading">Discover</span>
-		            	<h2 class="mb-4">Our Products</h2>
-		            	<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		          		<span class="subheading">Khám phá</span>
+		            	<h2 class="mb-4">Sản phẩm của chúng tôi</h2>
 		          	</div>
 		        </div>
 	    		<div class="row d-md-flex">
@@ -94,6 +93,14 @@
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script type="text/javascript">
+        	$(document).ready(() => {
+        		var totalPages = ${PRODUCTS_TOTAL_PAGES};
+        		if (totalPages <= 1) {
+        			$('#view').hide();
+        		}
+        	});
+        </script>
+        <script type="text/javascript">
         	$('#view').on('click', () => {
 	        	var products = [];
 
@@ -101,6 +108,10 @@
         		var page = $('#view').attr('data-page');
         		var totalPages = ${PRODUCTS_TOTAL_PAGES};
 				var url =  '${domain}' + '/product/flag_delete/list?flag_delete=false&page=' + page + '&limit=12';
+				var categoryCode = '${categoryCode}';
+        		if (categoryCode.trim().length > 0) {
+        			url = '${domain}' + '/product/flag_delete/category/list?flag_delete=false&category_code='+ categoryCode + '&page=' + page + '&limit=12';
+        		}
 				
 				axios.get(url)
 					.then((response) => {

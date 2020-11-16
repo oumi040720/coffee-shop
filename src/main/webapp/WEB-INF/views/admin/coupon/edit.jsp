@@ -70,7 +70,6 @@
         									<div class="col-lg-10">
         										<form:select path="type" cssClass="form-control" >
         											<form:option value="">-- Chọn loại phiếu mua hàng --</form:option>
-        											<form:option value="Miễn Phí Vận Chuyển">Miễn phí vận chuyển</form:option>
         											<form:option value="Giảm Giá Trực Tiếp">Giảm giá trực tiếp</form:option>
         											<form:option value="Giảm Giá Theo Phần Trăm">Giảm giá theo phần trăm</form:option>
         										</form:select>

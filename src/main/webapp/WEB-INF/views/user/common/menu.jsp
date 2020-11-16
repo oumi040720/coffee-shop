@@ -14,8 +14,15 @@
 				<li class="nav-item">
 					<a href="<c:url value='/home' />" class="nav-link">Trang Chủ</a>
 				</li>
-				<li class="nav-item">
-					<a href="<c:url value='/menu' />" class="nav-link">Thực Đơn</a>
+				<li class="nav-item dropdown">
+					<a href="<c:url value='/menu' />"  class="nav-link">
+						Thực Đơn
+					</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown04">
+						<c:forEach items="${CATEGORIES}" var="category">
+							<a class="dropdown-item" href="<c:url value='/menu/${category.categoryCode}' />">${category.categoryName}</a>
+						</c:forEach>
+					</div>
 				</li>
 				<li class="nav-item">
 					<a href="<c:url value='/about' />" class="nav-link">Giới Thiệu</a>

@@ -15,6 +15,8 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Integer
 	
 	public List<ProductEntity> findAllByCategory(CategoryEntity categoryEntity);
 	
+	public Page<ProductEntity> findAllByFlagDeleteIsAndCategory(Boolean flagDelete, CategoryEntity categoryEntity, Pageable pageable);
+	
 	public ProductEntity findOneByProductName(String productName);
 	
 	public List<ProductEntity> findAllByFlagDeleteIs(Boolean flagDelete);

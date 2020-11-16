@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fpoly.coffeeshop.dto.CustomersDTO;
 import com.fpoly.coffeeshop.dto.UserDTO;
+import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IUserService;
+import com.fpoly.coffeeshop.util.CategoryUtil;
 import com.fpoly.coffeeshop.util.DecryptionUtil;
 
 @Controller
@@ -22,8 +24,13 @@ public class UserAccountController {
 	@Autowired
 	private ICustomersService customersService;
 	
+	@Autowired
+	private ICategoryService categoryService;
+	
 	@RequestMapping(value = "/account")
 	public String showAccountPage(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 		
@@ -37,6 +44,8 @@ public class UserAccountController {
 	
 	@RequestMapping(value = "/change_password")
 	public String changePassword(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		HttpSession session = request.getSession();
 		UserDTO user = (UserDTO) session.getAttribute("USER");
 		
@@ -67,6 +76,8 @@ public class UserAccountController {
 	
 	@RequestMapping(value = "/change_info")
 	public String changeAccountInfo(HttpServletRequest request) {
+		CategoryUtil.setCategory(request, categoryService);
+		
 		HttpSession session = request.getSession();
 		CustomersDTO customer = (CustomersDTO) session.getAttribute("CUSTOMER");
 		

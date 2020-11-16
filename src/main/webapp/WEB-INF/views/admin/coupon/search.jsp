@@ -49,7 +49,6 @@
         												<div class="input-group">
         													<select name="type" class="form-control">
         														<option value="">-- Chọn loại phiếu mua hàng --</option>
-        														<option value="mien-phi-van-chuyen">Miễn phí vận chuyển</option>
 			        											<option value="giam-gia-truc-tiep">Giảm giá trực tiếp</option>
 			        											<option value="giam-gia-theo-phan-tram">Giảm giá theo phần trăm</option>
         													</select>
