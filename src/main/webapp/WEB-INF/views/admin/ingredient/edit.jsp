@@ -67,7 +67,7 @@
         										Định lượng <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="caingredientCode" cssClass="form-control" onfocusout="getIngredient()"/>
+        										<form:input path="ingredientCode" cssClass="form-control" onfocusout="getIngredient()"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningIngredientCode" class="parsley-required"></li>
         										</ul>
@@ -78,7 +78,7 @@
         										Đơn vị <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="caingredientCode" cssClass="form-control" onfocusout="getIngredient()"/>
+        										<form:input path="ingredientCode" cssClass="form-control" onfocusout="getIngredient()"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningIngredientCode" class="parsley-required"></li>
         										</ul>

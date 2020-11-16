@@ -22,7 +22,6 @@ public class IngredientService implements IIngredientService {
 
 	@Override
 	public List<IngredientsDTO> findAll() {
-		// TODO Auto-generated method stub
 		List<IngredientsEntity> list = iIngredientsRepository.findAll();
 		List<IngredientsDTO> result = new ArrayList<>();
 		for (IngredientsEntity ingredient : list) {
@@ -44,7 +43,6 @@ public class IngredientService implements IIngredientService {
 
 	@Override
 	public Integer getTotalPages(Boolean flagDelete, Integer page, Integer limit) {
-		// cái lỗi ngay đây nè m //
 		return iIngredientsRepository.findByFlagDeleteIs(flagDelete, PageRequest.of(page, limit)).getTotalPages();
 	}
 

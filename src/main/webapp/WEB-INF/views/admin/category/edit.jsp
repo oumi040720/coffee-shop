@@ -107,7 +107,7 @@
         			var categoryCode = $('#categoryCode').val();
         			
         			var checkcategoryName = false;
-        			var checkcategoryCode = false;
+        			var checkcategoryName = false;
         			
 					if (categoryName.trim().length > 0) {
 						$('#warningCategoryName').text('');
@@ -129,7 +129,7 @@
 
 					
 					
-					if (checkCategoryName && checkCategoryCode) {
+					if (checkcategoryName && checkcategoryName) {
 						return true;
 					} else {
 						return false;

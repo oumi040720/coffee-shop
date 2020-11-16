@@ -43,7 +43,10 @@ public class AdminCategoryController {
 		model.addAttribute("check", false);
 		model.addAttribute("category", new CategoryDTO());
 		model.addAttribute("domain", getDomain());
-		return "admin/category/edit";
+		if (model.getAttribute("check") == null) {
+			return "admin/category/add";
+		} else
+			return "admin/category/edit";
 	}
 
 	@RequestMapping(value = "/edit")
