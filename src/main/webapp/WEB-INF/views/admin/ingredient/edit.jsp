@@ -56,7 +56,7 @@
         										Tên thành phần<span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="ingredientName" cssClass="form-control"/>
+        										<form:input path="name" cssClass="form-control"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningIngredientName" class="parsley-required"></li>
         										</ul>

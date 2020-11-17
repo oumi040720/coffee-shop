@@ -105,7 +105,7 @@
 					$('#warningUnitName').text('Không được bỏ trống TÊN ĐƠN VỊ!');
 				}
 				
-				if (checkUnitName) {
+				if (checkunitName) {
 					return true;
 				} else {
 					return false;

@@ -57,7 +57,7 @@
 										<th>#</th>
 									</tr>
 								</thead>
-								<tbody id="dataList">
+							 	<tbody id="dataList">
 								</tbody>
 							</table>
 							<br>
@@ -79,8 +79,7 @@
                                             <div class="col-12">
                                                 <div class="table-responsive">
                                                     <table class="table table-nowrap" id="my-table">
-                                                        <thead>
-                                                        <tr>
+                                                        <thead>   
                                                         	<th>Sản Phẩm</th>
 															<th>Mã Hóa Đơn</th>
 															<th>Số Lượng</th>
