@@ -17,7 +17,6 @@ public class UnitConveter {
 	
 	public UnitEntity convertToEntity(UnitDTO dto) {
 		UnitEntity entity = new UnitEntity();
-		entity.setId(dto.getId());
 		entity.setUnitName(dto.getUnitName());
 		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;

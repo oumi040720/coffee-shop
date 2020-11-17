@@ -91,7 +91,7 @@
 	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        														</div>
 	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa đơn vị "${unit.id}" không?
+	        															Bạn có chắc muốn xóa đơn vị "${unit.unitName}" không?
 	        														</div>
 	        														<div class="modal-footer">
 	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>

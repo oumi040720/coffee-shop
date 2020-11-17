@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.fpoly.coffeeshop.converter.IngredientsConveter;
 import com.fpoly.coffeeshop.dto.IngredientsDTO;
 import com.fpoly.coffeeshop.entity.IngredientsEntity;
+import com.fpoly.coffeeshop.entity.UnitEntity;
 import com.fpoly.coffeeshop.repository.IIngredientsRepository;
+import com.fpoly.coffeeshop.repository.IUnitRepository;
 import com.fpoly.coffeeshop.service.IIngredientService;
 
 @Service
@@ -19,6 +21,8 @@ public class IngredientService implements IIngredientService {
 	private IngredientsConveter ingredientsConveter;
 	@Autowired
 	private IIngredientsRepository iIngredientsRepository;
+	@Autowired
+	private IUnitRepository unitRepository;
 
 	@Override
 	public List<IngredientsDTO> findAll() {
@@ -75,8 +79,8 @@ public class IngredientService implements IIngredientService {
 
 	@Override
 	public List<IngredientsDTO> findAllByIngredientCode(String ingredientCode, Integer page, Integer limit) {
-		List<IngredientsEntity> list = iIngredientsRepository
-				.findAllByName(ingredientCode, PageRequest.of(page, limit)).getContent();
+		List<IngredientsEntity> list = iIngredientsRepository.findAllByName(ingredientCode, PageRequest.of(page, limit))
+				.getContent();
 
 		List<IngredientsDTO> result = new ArrayList<>();
 		for (IngredientsEntity ingredient : list) {
@@ -88,13 +92,15 @@ public class IngredientService implements IIngredientService {
 	@Override
 	public Boolean insert(IngredientsDTO ingredientDTO) {
 		try {
-			IngredientsEntity resutl = iIngredientsRepository.save(ingredientsConveter.convertToEntity(ingredientDTO));
-			if (resutl != null) {
+			UnitEntity unitEntity = unitRepository.getOne(ingredientDTO.getUnitCode());
+			IngredientsEntity ingredientEntity = ingredientsConveter.convertToEntity(ingredientDTO);
+			ingredientEntity.setUnit(unitEntity);
+			
+			IngredientsEntity result = iIngredientsRepository.save(ingredientEntity);
+			if (result != null) {
 				return true;
-
 			} else {
 				return false;
-
 			}
 		} catch (Exception e) {
 			return false;
@@ -119,7 +125,7 @@ public class IngredientService implements IIngredientService {
 	}
 
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Integer id) {
 		try {
 			iIngredientsRepository.deleteById(id);
 			return true;
@@ -138,8 +144,7 @@ public class IngredientService implements IIngredientService {
 	}
 
 	@Override
-	public IngredientsDTO findOne(Long id) {
-
+	public IngredientsDTO findOne(Integer id) {
 		return ingredientsConveter.convertToDTO(iIngredientsRepository.getOne(id));
 	}
 

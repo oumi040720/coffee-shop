@@ -3,22 +3,22 @@ package com.fpoly.coffeeshop.dto;
 public class IngredientsDTO {
 
 	
-	private Long id;
+	private Integer id;
 	
 	private String name;
 	 
 	private Integer quantity;
 	
-	private String unitCode;
+	private Long unitCode;
 	
 	private Boolean flagDelete;
 	
 	
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -34,10 +34,10 @@ public class IngredientsDTO {
 		this.quantity = quantity;
 	}
 	
-	public String getUnitCode() {
+	public Long getUnitCode() {
 		return unitCode;
 	}
-	public void setUnitCode(String unitCode) {
+	public void setUnitCode(Long unitCode) {
 		this.unitCode = unitCode;
 	}
 	public Boolean getFlagDelete() {

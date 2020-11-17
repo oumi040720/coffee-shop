@@ -16,24 +16,27 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "units")
 public class UnitEntity {
-	
-	
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
+	private Long id;
+
 	@Column(name = "unit_name")
 	private String unitName;
-	
+
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
 
-	public Integer getId() {
+	@OneToMany(mappedBy = "units", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<IngredientsEntity> ingredients;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -52,8 +55,13 @@ public class UnitEntity {
 	public void setFlagDelete(Boolean flagDelete) {
 		this.flagDelete = flagDelete;
 	}
-	
-	@OneToMany(mappedBy = "unit", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<IngredientsEntity> ingredients ;
+
+	public List<IngredientsEntity> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(List<IngredientsEntity> ingredients) {
+		this.ingredients = ingredients;
+	}
+
 }

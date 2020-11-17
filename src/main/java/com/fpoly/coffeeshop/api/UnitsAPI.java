@@ -29,7 +29,7 @@ public class UnitsAPI {
 		
 	}
 	@GetMapping(value = "api/unit/id{id}")
-	public UnitDTO findOne(@PathVariable("id") Integer id) {
+	public UnitDTO findOne(@PathVariable("id") Long id) {
 		return unitService.findOne(id);
 	}
 	@PostMapping(value = "api/unit/insert")
@@ -37,12 +37,12 @@ public class UnitsAPI {
 		return unitService.insert(unitDTO);
 	}
 	@PutMapping(value = "api/unit/update")
-	public Boolean update(@RequestBody UnitDTO unitDTO, @RequestParam("id") Integer id) {
+	public Boolean update(@RequestBody UnitDTO unitDTO, @RequestParam("id") Long id) {
 		unitDTO.setId(id);
 		return unitService.update(unitDTO);
 	}
 	@DeleteMapping(value = "api/unit/delete")
-	public Boolean delete(@RequestParam("id") Integer id) {
+	public Boolean delete(@RequestParam("id") Long id) {
 		return unitService.delete(id);
 	}
 	
