@@ -28,14 +28,12 @@
 							<div class="page-title-right">
 								<ol class="breadcrumb m-0">
 									<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-									<li class="breadcrumb-item"><a href="javascript: void(0);">Hóa
-											Đơn</a></li>
-									<li class="breadcrumb-item"><a href="javascript: void(0);">Hóa
-											Đơn Chi Tiết</a></li>
+									<li class="breadcrumb-item"><a href="javascript: void(0);">Nguyên Liệu</a></li>
+									<li class="breadcrumb-item"><a href="javascript: void(0);">Nguyên Liệu Chi Tiết</a></li>
 									<li class="breadcrumb-item active">Danh sách</li>
 								</ol>
 							</div>
-							<h4 class="page-title">Danh sách hóa đơn chi tiết</h4>
+							<h4 class="page-title">Danh sách nguyên liệu chi tiết</h4>
 						</div>
 					</div>
 				</div>
@@ -45,8 +43,8 @@
 							<table class="table table-bordered" id="my-table">
 								<thead>
 									<tr class="thead-dark">
-										<th>Sản Phẩm</th>
-										<th>Mã Hóa Đơn</th>
+										<th>Nguyên Liệu</th>
+										<th>Mã Nguyên Liệu</th>
 										<th>Số Lượng</th>
 										<th>Giá Tiền</th>
 									</tr>
@@ -74,7 +72,7 @@
                                     <div class="panel-body">
                                         <div class="clearfix">
                                             <div class="float-sm-right mt-4 mt-sm-0">
-                                                <h5>Mã Hóa Đơn<br>
+                                                <h5>Mã Nguyên Liệu<br>
                                                     <small>${input.inputCode}</small>
                                                 </h5>
                                             </div>
@@ -95,11 +93,11 @@
                                                     <table class="table table-nowrap">
                                                         <thead>
                                                         <tr>
-                                                        	<th>Sản Phẩm</th>
-															<th>Mã Hóa Đơn</th>
+                                                        	<th>Nguyên Liệu</th>
+															<th>Mã Nguyên Liệu</th>
 															<th>Số Lượng</th>
 															<th>Giá Tiền</th>
-															<th>Thành Tiền Sản Phẩm</th>
+															<th>Thành Tiền Nguyên Liệu</th>
 															
                                                         </tr></thead>
                                                         <tbody> 

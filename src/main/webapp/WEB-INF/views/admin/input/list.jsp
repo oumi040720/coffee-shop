@@ -38,7 +38,7 @@
 									<li class="breadcrumb-item active">Danh sách</li>
 								</ol>
 							</div>
-							<h4 class="page-title">Danh sách hóa đơn</h4>
+							<h4 class="page-title">Danh sách Nguyên Liệu</h4>
 						</div>
 					</div>
 				</div>
@@ -94,7 +94,7 @@
 									<thead>
 										<tr class="thead-dark">
 											<th>Ngày Đặt</th>
-											<th>Mã Hóa Đơn</th>
+											<th>Mã Nguyên Liệu</th>
 											<th>Trạng Thái</th>
 											<th>Tổng Hóa Đơn</th>
 											<th>#</th>

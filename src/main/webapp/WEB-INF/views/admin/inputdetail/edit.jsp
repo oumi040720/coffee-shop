@@ -32,14 +32,12 @@
 							<div class="page-title-right">
 								<ol class="breadcrumb m-0">
 									<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-									<li class="breadcrumb-item"><a href="javascript: void(0);">Hóa
-											Đơn</a></li>
-									<li class="breadcrumb-item"><a href="javascript: void(0);">Hóa
-											Đơn Chi Tiết</a></li>
+									<li class="breadcrumb-item"><a href="javascript: void(0);">Nguyên liệu</a></li>
+									<li class="breadcrumb-item"><a href="javascript: void(0);">Nguyên liệu chi tiết</a></li>
 									<li class="breadcrumb-item active">Danh sách</li>
 								</ol>
 							</div>
-							<h4 class="page-title">Danh sách hóa đơn chi tiết</h4>
+							<h4 class="page-title">Danh sách nguyên liệu chi tiết</h4>
 						</div>
 					</div>
 				</div>
@@ -49,11 +47,11 @@
 <!-- 							<table class="table table-bordered" id="my-table">
 								<thead>
 									<tr class="thead-dark">
-										<th>Sản Phẩm</th>
-										<th>Mã Hóa Đơn</th>
+										<th>Nguyên Liệu</th>
+										<th>Mã Nguyên Liệu</th>
 										<th>Số Lượng</th>
 										<th>Giá Tiền</th>
-										<th>Thành Tiền Sản Phẩm</th>
+										<th>Thành Tiền</th>
 										<th>#</th>
 									</tr>
 								</thead>
@@ -80,11 +78,11 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-nowrap" id="my-table">
                                                         <thead>   
-                                                        	<th>Sản Phẩm</th>
-															<th>Mã Hóa Đơn</th>
+                                                        	<th>Nguyên</th>
+															<th>Mã Nguyên Liệu</th>
 															<th>Số Lượng</th>
 															<th>Giá Tiền</th>
-															<th>Thành Tiền Sản Phẩm</th>
+															<th>Thành Tiền Nguyên Liệu</th>
 															<th id="action">#</th>															
                                                         </tr></thead>
                                                         <tbody id="dataList"> 
@@ -100,7 +98,7 @@
                                                 <div class="text-right mt-4">
                                                 	<button id="submitCart" type="button"
 														class="btn btn-outline-success btn-rounded waves-effect waves-light">
-													<i class="  ion ion-md-checkmark-circle"></i> Xác nhận sản phẩm
+													<i class="  ion ion-md-checkmark-circle"></i> Xác nhận nguyên liệu
 													</button>
                                                     <h2>Tổng Tiền </h2>
                                                     <hr>
@@ -140,7 +138,7 @@
 												<button id="returnProduct" type="button"
 												class="btn btn-outline-success btn-rounded waves-effect waves-light"
 												style="float: right">
-												<i class=" ion ion-ios-refresh"></i> Thêm lại sản phẩm
+												<i class=" ion ion-ios-refresh"></i> Thêm lại nguyên liệu
 												</button>
                                             </div>
                                             <div class="clearfix"></div>
@@ -163,7 +161,7 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="form-group row">
-										<label class="col-lg-2 col-form-label"> Mã Hóa Đơn <span
+										<label class="col-lg-2 col-form-label"> Mã Nguyên Liệu <span
 											class="text-danger"> (*) </span>
 										</label>
 										<div class="col-lg-10">
@@ -184,13 +182,13 @@
 										onsubmit="return checkValidated()" data-parsley-validate=""
 										novalidate="">
 										<div class="form-group row">
-											<label class="col-lg-2 col-form-label"> Sản Phẩm <span
+											<label class="col-lg-2 col-form-label"> Nguyên Liệu <span
 												class="text-danger"> (*) </span>
 											</label>
 											<div class="col-lg-10">
 												<form:select path="" cssClass="form-control"
 													onchange="selected(this)" id="choise">
-													<form:option value="" id="product">-- Lựa chọn sản phẩm --</form:option>
+													<form:option value="" id="product">-- Lựa chọn Nguyên Liệu --</form:option>
 													<c:forEach items="${menus}" var="menu">
 														<form:option value="${menu.productName}"
 															data-price="${menu.price}">${menu.productName}</form:option>
@@ -291,7 +289,7 @@
 										</div>
 										<button id="btn_click-${menu.productName}" type="button" onclick="add('${menu.productName}')"
 											class="btn btn-outline-success btn-rounded waves-effect waves-light">
-											<i class="ion ion-md-add-circle"></i> Thêm sản phẩm
+											<i class="ion ion-md-add-circle"></i> Thêm nguyên liệu
 										</button>
 									</div>
 								</div>
@@ -368,7 +366,7 @@
 				}else {
 					dataList[currenIndex] = inputDetail;					
 					console.log(inputDetail)
-					document.getElementById("btn_click-"+inputDetail.product).innerHTML = "Thêm Sản Phẩm";
+					document.getElementById("btn_click-"+inputDetail.product).innerHTML = "Thêm Nguyên Liệu";
 					displayAll();
 				}
 				document.getElementById("quantity-"+id).value = 1;
@@ -572,7 +570,7 @@
 				document.getElementById("quantity-" + inputDetail.product).value = inputDetail.quantity;
 				document.getElementById("inputCode").value = inputDetail.input;
 				document.getElementById("totalMoney-"+inputDetail.product).value = inputDetail.totalMoney;
-				document.getElementById("btn_click-"+inputDetail.product).innerHTML = "Cập nhật sản phẩm"; 				
+				document.getElementById("btn_click-"+inputDetail.product).innerHTML = "Cập nhật nguyên liệu"; 				
 			}
 			function deleete(index) {
 				//currenIndex = index;
