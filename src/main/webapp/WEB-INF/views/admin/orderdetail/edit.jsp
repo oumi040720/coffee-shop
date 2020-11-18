@@ -15,6 +15,19 @@
 <link rel="stylesheet" href='<c:url value="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>'>
 <script src='<c:url value="https://code.jquery.com/jquery-3.5.1.min.js" />'></script>
 <script src='<c:url value="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" />'></script>
+<style type="text/css">
+.divStyle
+{
+	-webkit-box-shadow: 9px 9px 20px 0px rgba(125,120,122,1);
+	-moz-box-shadow: 9px 9px 20px 0px rgba(125,120,122,1);
+	box-shadow: 9px 9px 20px 0px rgba(125,120,122,1);
+	border-radius: 8px 8px 8px 8px;
+	-moz-border-radius: 8px 8px 8px 8px;
+	-webkit-border-radius: 8px 8px 8px 8px;
+	border: 0px solid #260b26;
+}	
+
+</style>
 </head>
 
 <body>
@@ -43,9 +56,9 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" id="turnupTable">
 					<div class="col-lg-12">
-						<div class="card-box">
+						<div class="card-box" >
 <!-- 							<table class="table table-bordered" id="my-table">
 								<thead>
 									<tr class="thead-dark">
@@ -70,12 +83,12 @@
 									</button>
 								</div>
 							</div> -->
-							<div class="row">
+							<div class="row" >
                             <div class="col-12">
-                                <div class="card-box">
+                                <div class="card-box" >
                                     <div class="panel-body">
                                         <!-- end row -->
-                                        <div class="row mt-4">
+                                        <div class="row mt-4" id="turnupTable">
                                             <div class="col-12">
                                                 <div class="table-responsive">
                                                     <table class="table table-nowrap" id="my-table">
@@ -106,7 +119,8 @@
                                                     <h2>Tổng Tiền </h2>
                                                     <hr>
                                                     <h3 class="float-right">VNĐ</h3> <h3 id="sumMoneyy"  class="float-right"></h3>
-                                                    <input type="hidden" id="sumMoney">
+                                                    <input type="hidden"  id="sumMoney">
+                                                    <input type="hidden"   id="oldSumMoney">
                                                 </div>
                                             </div>                                       
                                         </div>
@@ -251,14 +265,12 @@
 					 <div class="port text-center mb-3">
 						<div class="portfolioContainer row">
 							<c:forEach items="${menus}" var="menu">
-								<div class="col-md-6 col-xl-3 natural personal">
-									<div class="gallery-box">
-										<a
-											href='<c:url value="/template/admin/images/small/img-1.jpg"/>'
-											class="image-popup" title="Screenshot-1"> <img
-											src='<c:url value="/template/admin/images/small/img-1.jpg"/>'
+								<div class="col-md-6 col-xl-3 natural personal" style="position: relative;">
+									<div class="gallery-box" id= "divProduct-${menu.productName}">
+										 <img
+											src='<c:url value="${menu.photo}"/>'
 											class="thumb-img img-fluid" alt="work-thumbnail">
-										</a>
+										
 										<div class="gal-detail p-3">
 										<h4 class="font-16 mt-0">${menu.productName}</h4>
 											<input id="orderCode" Class="form-control"
@@ -271,7 +283,7 @@
 												value="${menu.productName}" hidden="" />
 											 <input id="totalMoney-${menu.productName}" Class="form-control"
 												readonly="readonly" hidden=""/>
-												<div class="input-group">
+												<div class="input-group" id="formQuantity-${menu.productName}">
 													<span class="input-group-btn">
 														<button type="button" onclick="minus('${menu.productName}')"
 															class="quantity-left-minus btn btn-danger btn-number"
@@ -291,9 +303,12 @@
 												</div>
 										</div>
 										<button id="btn_click-${menu.productName}" type="button" onclick="add('${menu.productName}')"
-											class="btn btn-outline-success btn-rounded waves-effect waves-light">
+											class="btn btn-outline-success btn-rounded waves-effect waves-light" style="margin-bottom: 5px;">
 											<i class="ion ion-md-add-circle"></i> Thêm sản phẩm
 										</button>
+									</div>
+									<div class="text-wrap" id="buyProduct-${menu.productName}" style="position: absolute; transform:translate(130%,-130%); width: 80px ;height:80px;font-size: 2.25rem; border-style: solid; border-width: 5px;border-color: red;border-radius: 50%;box-shadow:#00FFCC -3px 3px 0px;display: none;">
+										<h1 style="color: red;text-shadow:#00FFCC -4px 3px 0px"><i class="fas fa-check"></i></h1>
 									</div>
 								</div>
 							</c:forEach>
@@ -331,16 +346,15 @@
 		function plus(id) {
 			var price = document.getElementById("price-" +id).value
 			var quantity  = document.getElementById("quantity-"+id).value;
-			console.log(price)
 			document.getElementById("quantity-"+id).value = parseInt(quantity)+1;
-			document.getElementById("totalMoney-"+id).value = parseInt(quantity) * price;
+			document.getElementById("totalMoney-"+id).value = Number(document.getElementById("quantity-"+id).value) * price;
 		}
 		function minus(id) {
 			var quantity  = document.getElementById("quantity-"+id).value;
 			var price = document.getElementById("price-" +id).value
 			if (quantity > 1) {
 				document.getElementById("quantity-"+id).value = parseInt(quantity)-1;
-				document.getElementById("totalMoney-"+id).value = parseInt(quantity) * price;
+				document.getElementById("totalMoney-"+id).value = Number(document.getElementById("quantity-"+id).value) * price;
 			} else {
 				document.getElementById("quantity-"+id).value = 1;				
 			}
@@ -355,6 +369,7 @@
 				if(document.getElementById("totalMoney-"+id).value == ""){
 					totalMoney = 1 * price
 				}
+
 				var orderDetail = {
 					'quantity' : quantity,
 					'order' : orderCode,
@@ -363,17 +378,24 @@
 					'totalMoney' : totalMoney,
 					
 				};
-				console.log(orderDetail)
-				if (currenIndex == -1 ) {
-					addTag(orderDetail);
-				}else {
-					dataList[currenIndex] = orderDetail;					
-					console.log(orderDetail)
-					document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Thêm Sản Phẩm";
-					displayAll();
-				}
+				
+				 if(currenIndex == -1){
+					 addTag(orderDetail);
+					 document.getElementById("buyProduct-"+id).style.display = "block";
+					 document.getElementById("formQuantity-"+id).style.visibility = "hidden"
+					 document.getElementById("btn_click-"+id).style.visibility = "hidden"
+					 
+				 }else{
+					dataList[currenIndex] = orderDetail;
+					currenIndex = -1;
+					document.getElementById("btn_click-"+orderDetail.product).innerHTML = "<i class='ion ion-md-add-circle'></i> Thêm Sản Phẩm";
+					displayAll(); 
+					document.getElementById("formQuantity-"+id).style.visibility = "hidden";
+					document.getElementById("btn_click-"+id).style.visibility = "hidden";
+					document.getElementById("buyProduct-"+id).style.display = "block";
+				 }
 				document.getElementById("quantity-"+id).value = 1;
-				document.getElementById("totalMoney-"+id).value = "";
+				document.getElementById("totalMoney-"+id).value = ""; 
 			}	
 			
 			$(document).ready(function(){
@@ -400,7 +422,11 @@
 					i = i+parseInt(orderDetail.totalMoney);
 					document.getElementById("sumMoneyy").innerHTML = i;
 					document.getElementById("sumMoney").setAttribute('value',i);
+					document.getElementById("oldSumMoney").setAttribute('value',i);
 					table.innerHTML += "<tr>"
+							+ "<td style='display:none;'>"
+							+ dataList.length
+							+ "</td>"
 							+ "<td>"
 							+ orderDetail.product
 							+ "</td>"
@@ -423,9 +449,8 @@
 							+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
 							+ "</tr>";	
 						$('#submitCart').attr("disabled",false); 
-						
-						
-		
+						$('#choose').attr('disabled',true);						
+										
 			}
 			var type = '';	
 			var discount = '';
@@ -449,32 +474,28 @@
 							discount = res.discount;
 							minbill = res.minTotalBill
 							maxDiscount = res.maxDiscount
-							if(type == 'Giảm Giá Trực Tiếp' && Number(document.getElementById("sumMoney").value) >= minbill){
-								if((Number(document.getElementById("sumMoney").value) - discount) > maxDiscount){
-									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - maxDiscount
-									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - maxDiscount
+							
+							if(type == 'Giảm Giá Theo Phần Trăm' && Number(document.getElementById("oldSumMoney").value) >= minbill){
+								if((Number(document.getElementById("oldSumMoney").value)*(discount/100)) > maxDiscount){
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("oldSumMoney").value) - maxDiscount
+									document.getElementById("sumMoney").value = Number(document.getElementById("oldSumMoney").value) - maxDiscount
+								}else{
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("oldSumMoney").value) - (Number(document.getElementById("oldSumMoney").value) * (discount.substring(0,res.discount.length - 1)/100))
+									document.getElementById("sumMoney").value = Number(document.getElementById("oldSumMoney").value) - (Number(document.getElementById("oldSumMoney").value) * (discount.substring(0,res.discount.length - 1)/100))
+								}								
+							}else if(type == "Giảm Giá Trực Tiếp" && Number(document.getElementById("oldSumMoney").value) >= minbill){		
+								if((Number(document.getElementById("oldSumMoney").value) - discount) > maxDiscount){
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("oldSumMoney").value) - maxDiscount							
+									document.getElementById("sumMoney").value = Number(document.getElementById("oldSumMoney").value) - maxDiscount
+									console.log(document.getElementById("sumMoneyy").innerHTML)
 								} else{
-									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - discount
-									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - discount					
+									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("oldSumMoney").value) - discount
+									document.getElementById("sumMoney").value = Number(document.getElementById("oldSumMoney").value) - discount	
 								}	
 							} else {
-								document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value)
-								document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value)	
-							}
-							
-							
-							if(type == 'Giảm Giá Theo Phần Trăm' && Number(document.getElementById("sumMoney").value) >= minbill){
-								console.log(Number(document.getElementById("sumMoney").value)*(discount.substring(0,res.discount.length - 1))/100)
-								if((Number(document.getElementById("sumMoney").value)*(discount.substring(0,res.discount.length - 1))/100) > maxDiscount){
-									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - maxDiscount
-									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - maxDiscount
-								}else{
-									document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value) - (Number(document.getElementById("sumMoney").value) * (discount.substring(0,res.discount.length - 1)/100));
-									document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value) - (Number(document.getElementById("sumMoney").value) * (discount.substring(0,res.discount.length - 1)/100));
-								}								
-							}else{
-								document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("sumMoney").value)
-								document.getElementById("sumMoney").value = Number(document.getElementById("sumMoney").value)
+								document.getElementById("sumMoneyy").innerHTML = Number(document.getElementById("oldSumMoney").value)
+								document.getElementById("sumMoney").value = Number(document.getElementById("oldSumMoney").value)	
+								//console.log(document.getElementById("sumMoneyy").innerHTML)
 							}
 						}
 				})	
@@ -525,18 +546,21 @@
 					url: 'save',
 					contentType: "application/json; charset=utf-8",
 					data: JSON.stringify(window.dataList),
-				}).done(result => window.location.href="${domainURL}/order/list?page=1&message=message_orderdetail_insert_success&alert=success")
-				 
+				}).done(result => window.location.href="${domainURL}/order/list?page=1&message=message_orderdetail_insert_success&alert=success")				 
 				} 
 			})  
 			
 			function displayAll() {
 				var table = document.getElementById("dataList");
+				var  sum = 0;
 				table.innerHTML = "";					
 					for (e = 0; e < dataList.length; e++) {		
-						var orderDetail = dataList[e];						
-						console.log(orderDetail);
+						var orderDetail = dataList[e];	
+						sum  += Number(dataList[e].totalMoney);						
 						table.innerHTML += "<tr>"
+								+ "<td style='display:none;'>"
+								+ (e+1)
+								+ "</td>"
 								+ "<td>"
 								+ orderDetail.product
 								+ "</td>"
@@ -557,12 +581,16 @@
 								+ ")' class='btn btn-outline-info'><i class='mdi mdi-pencil-outline'></i></button> <button onclick= 'deleete("
 								+ e
 								+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
-								+ "</tr>"
-					 	i = i+parseInt(orderDetail.totalMoney);
-						console.log(i);
-						document.getElementById("sumMoneyy").innerHTML = i;	
-						document.getElementById("sumMoney").setAttribute('value',i); 
+								+ "</tr>"	
+								var moving = document.getElementById("divProduct-"+ orderDetail.product);	
+								moving.classList.remove("divStyle");								
 					}
+					document.getElementById("sumMoneyy").innerHTML = sum;
+					document.getElementById("sumMoney").setAttribute('value',sum);
+					document.getElementById("oldSumMoney").setAttribute('value',sum); 
+					var movingTable = document.getElementById("turnupTable");
+					movingTable.scrollIntoView();
+					
 					
 			}
 			var currenIndex = -1;
@@ -570,24 +598,29 @@
 				currenIndex = index;
 				var orderDetail = dataList[index];
 				console.log(orderDetail)
+				document.getElementById("productName-" + orderDetail.product).value = orderDetail.product;
 				document.getElementById("quantity-" + orderDetail.product).value = orderDetail.quantity;
 				document.getElementById("orderCode").value = orderDetail.order;
 				document.getElementById("totalMoney-"+orderDetail.product).value = orderDetail.totalMoney;
-				document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Cập nhật sản phẩm"; 				
+				document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Cập nhật sản phẩm";
+				var moving = document.getElementById("divProduct-"+ orderDetail.product);
+				moving.scrollIntoView();
+				moving.classList.add("divStyle");
+				document.getElementById("formQuantity-"+orderDetail.product).style.visibility = "visible";
+				document.getElementById("btn_click-"+orderDetail.product).style.visibility = "visible";
+				document.getElementById("buyProduct-"+orderDetail.product).style.display = "none";
 			}
 			function deleete(index) {
 				//currenIndex = index;
 				console.log(dataList[index].totalMoney)
-				 i = i - Number(dataList[index].totalMoney);
+				 i -=  Number(dataList[index].totalMoney);
 				console.log(i);
 				document.getElementById("sumMoneyy").innerHTML = i;	
 				document.getElementById("sumMoney").setAttribute('value',"");
 				document.getElementById("sumMoney").value = i;
 				document.getElementById("sumMoney").setAttribute('value',i);  
+				document.getElementById("oldSumMoney").setAttribute('value',i);
 				dataList.splice(index, 1);
-				if(i < minbill){
-					alert("a")
-				}
 				var quantity = document.getElementById("quantity-"+index);
 				var orderCode = document.getElementById("orderCode-"+index);
 				var product = document.getElementById("product-"+index);

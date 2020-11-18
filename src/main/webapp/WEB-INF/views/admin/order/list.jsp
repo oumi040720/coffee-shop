@@ -93,11 +93,12 @@
 								<table class="table table-bordered" id="my-table">
 									<thead>
 										<tr class="thead-dark">
-											<th>Ngày Đặt</th>
-											<th>Mã Hóa Đơn</th>
-											<th>Trạng Thái</th>
-											<th>Tổng Hóa Đơn</th>
-											<th>#</th>
+											<th style="width: 15%">Ngày Đặt</th>
+											<th style="width: 10%">Mã Hóa Đơn</th>
+											<th style="width: 15%">Trạng Thái</th>
+											<th>Ghi Chú</th>
+											<th style="width: 10%">Tổng Hóa Đơn</th>
+											<th class="text-center" style="width: 20%">#</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -114,6 +115,7 @@
 												<c:if test="${order.status == 4}">Giao hàng hoàn thành</c:if>
 												<c:if test="${order.status == -1}">Đã hủy đơn hàng</c:if>
 												</td>
+												<td>${order.note}</td>
 												<td>${order.totalPrice} VNĐ</td>
 												<td class="text-center"><c:url var="editdetailURL"
 														value="/admin/orderdetail/edit">

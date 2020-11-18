@@ -145,8 +145,8 @@
         							<br>
         							<nav aria-label="Page navigation">
 										<ul class="pagination" id="pagination"></ul>
-										<input type="hidden" id="page" name="page" value=""> 
-										<br><br>
+										<input type="hidden" id="page" name="page" value=""> <br>
+										<br>
 									</nav>
         						</form>
         					</div>
@@ -158,17 +158,17 @@
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
         	<script type="text/javascript">
-			var totalPagess = ${totalPages};
-			var currentPages = ${page};
+			var totalPages = ${totalPages};
+			var currentPage = ${page};
 			var limit = ${limit};
 		
 			$(function() {
 				window.pagObj = $('#pagination').twbsPagination({
-					totalPagess : totalPagess,
+					totalPages : totalPages,
 					visiblePages : 5,
-					startPage : currentPages,
+					startPage : currentPage,
 					onPageClick : function(event, page) {
-						if (currentPages != page) {
+						if (currentPage != page) {
 							$('#page').val(page);
 							$('#form-submit').submit();
 						}

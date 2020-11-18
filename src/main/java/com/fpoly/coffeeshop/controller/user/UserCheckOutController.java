@@ -88,7 +88,7 @@ public class UserCheckOutController {
 		orderDTO.setNote(note);
 		orderDTO.setOrderDate(new Date(System.currentTimeMillis()));
 		
-		boolean isCreatedOrder = orderService.insert(orderDTO);
+		boolean isCreatedOrder = orderService.insert(orderDTO,"");
 		
 		if (isCreatedOrder) {
 			boolean isSaveSuccess = false;
