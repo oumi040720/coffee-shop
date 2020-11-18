@@ -10,7 +10,7 @@ public class CouponDTO {
 
 	private String discount;
 
-	private double minTotalBill;
+	private long minTotalBill;
 
 	private String maxDiscount;
 
@@ -46,11 +46,11 @@ public class CouponDTO {
 		this.discount = discount;
 	}
 
-	public double getMinTotalBill() {
+	public long getMinTotalBill() {
 		return minTotalBill;
 	}
 
-	public void setMinTotalBill(double minTotalBill) {
+	public void setMinTotalBill(long minTotalBill) {
 		this.minTotalBill = minTotalBill;
 	}
 

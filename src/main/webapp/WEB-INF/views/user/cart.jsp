@@ -80,6 +80,15 @@
        						</div>
     					</div>
       				</c:if>
+      				<div id="warningUpdatePrice">
+   						<div class="alert alert-warning alert-dismissible fade show mb-0" role="alert">
+   							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+   								<span aria-hidden="true">&times;</span>
+   							</button>
+   							Vui lòng tải lại trang để cập nhật giá mới!
+    					</div>
+   					</div>
+   					<br>
 				</div>
 				<div class="row">
 					<div class="col-md-12 ftco-animate">
@@ -136,6 +145,8 @@
         <script type="text/javascript">
 	        $(document).ready(function() {
 	        	renderItems();
+	        	
+	        	$('#warningUpdatePrice').hide();
 	        });
         </script>
         <script type="text/javascript">

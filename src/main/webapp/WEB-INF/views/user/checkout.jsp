@@ -185,6 +185,7 @@
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
         <script type="text/javascript">
 	        $(document).ready(function() {
+	        	updatePrices();
 	        	calculateSubtotal();
 	        	renderBillItems();
 	    		calculateTotal();
