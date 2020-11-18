@@ -30,11 +30,12 @@ public class AdminIngredientController {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
-		int page = Integer.parseInt(request.getParameter("page"));
+		
 		
 		int limit = 10;
 		boolean flagDelete = false;
-
+		int page = Integer.parseInt(request.getParameter("page"));
+		
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
