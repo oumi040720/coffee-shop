@@ -46,19 +46,19 @@ public class InputDTO {
 		this.id = id;
 	}
 
-	public Date getinputDate() {
+	public Date getInputDate() {
 		return inputDate;
 	}
 
-	public void setinputDate(Date inputDate) {
+	public void setInputDate(Date inputDate) {
 		this.inputDate = inputDate;
 	}
 
-	public String getinputCode() {
+	public String getInputCode() {
 		return inputCode;
 	}
 
-	public void setinputCode(String inputCode) {
+	public void setInputCode(String inputCode) {
 		this.inputCode = inputCode;
 	}
 

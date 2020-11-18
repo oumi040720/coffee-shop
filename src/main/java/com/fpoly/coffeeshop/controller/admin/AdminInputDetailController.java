@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fpoly.coffeeshop.dto.OrderDTO;
-import com.fpoly.coffeeshop.dto.OrderDetailDTO;
+import com.fpoly.coffeeshop.dto.InputDTO;
+import com.fpoly.coffeeshop.dto.InputDetailDTO;
 import com.fpoly.coffeeshop.service.IProductService;
 import com.fpoly.coffeeshop.service.impl.CouponService;
 import com.fpoly.coffeeshop.util.DomainURLUntil;
 import com.fpoly.coffeeshop.util.DomainUtil;
-import com.fpoly.coffeeshop.service.IOrderDetailService;
-import com.fpoly.coffeeshop.service.IOrderService;
+import com.fpoly.coffeeshop.service.IInputDetailService;
+import com.fpoly.coffeeshop.service.IInputService;
 
 @Controller
-@RequestMapping(value = "/admin/orderdetail")
-public class AdminOrderDetailController {
+@RequestMapping(value = "/admin/inputdetail")
+public class AdminInputDetailController {
 	
 	@Autowired
 	private IProductService menuService;
 	
 	@Autowired
-	private IOrderService orderService;
+	private IInputService inputService;
 	
 	@Autowired
-	private IOrderDetailService orderDetailService;
+	private IInputDetailService inputDetailService;
 	
 	@Autowired CouponService couponService;
 	
@@ -51,51 +51,51 @@ public class AdminOrderDetailController {
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("orderCode") String orderCode) throws JsonParseException, JsonMappingException, IOException {
+	public String showUpdatePage(Model model, @RequestParam("inputCode") String inputCode) throws JsonParseException, JsonMappingException, IOException {
 		
 		model.addAttribute("menus",menuService.findAllByFlagDeleteIs(false));
 		model.addAttribute("check", true);
-		List<OrderDetailDTO> list = orderDetailService.findAllByOrderCode(orderCode);
-		model.addAttribute("orderDetails", list);	
-		model.addAttribute("order", orderService.findOne(orderCode));
-		return "admin/orderdetail/list";
+		List<InputDetailDTO> list = inputDetailService.findAllByInputCode(inputCode);
+		model.addAttribute("inputDetails", list);	
+		model.addAttribute("input", inputService.findOne(inputCode));
+		return "admin/inputdetail/list";
 	}
 	
 	@RequestMapping(value = "/editDetail")
-	public String editDetailPage(Model model, @RequestParam("orderCode") String orderCode) {
+	public String editDetailPage(Model model, @RequestParam("inputCode") String inputCode) {
 		model.addAttribute("menus",menuService.findAllByFlagDeleteIs(false));
 		model.addAttribute("coupon", couponService.findAllDate(new Date(System.currentTimeMillis()), false));
-		model.addAttribute("orderCode", orderCode);
+		model.addAttribute("inputCode", inputCode);
 		model.addAttribute("domain", getDomain());
 		model.addAttribute("domainURL", getDomainURLUntil());
-		model.addAttribute("order", orderService.findOne(orderCode));
-		return "admin/orderdetail/edit";
+		model.addAttribute("input", inputService.findOne(inputCode));
+		return "admin/inputdetail/edit";
 	}
 	
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public String save(Model model, @RequestBody List<OrderDetailDTO> list) throws JsonParseException, JsonMappingException, IOException {
+	public String save(Model model, @RequestBody List<InputDetailDTO> list) throws JsonParseException, JsonMappingException, IOException {
 
 		String message = "";
 		String alert = "danger";
 		Long totalprice = 0L;
 		System.out.println(totalprice);
-		for (OrderDetailDTO orderDetailDTO : list) {
-			totalprice += orderDetailDTO.getTotalMoney();
-			System.out.println(orderDetailDTO);
-			Boolean result = orderDetailService.insert(orderDetailDTO);
+		for (InputDetailDTO inputDetailDTO : list) {
+			totalprice += inputDetailDTO.getTotalMoney();
+			System.out.println(inputDetailDTO);
+			Boolean result = inputDetailService.insert(inputDetailDTO);
 			
 			if (result != null) {
-				message = "message_orderdetail_insert_success";
+				message = "message_inputdetail_insert_success";
 				alert = "success";
 			} else {
-				message = "message_orderdetail_insert_fail";
+				message = "message_inputdetail_insert_fail";
 				alert = "danger";
 			}
 		}
-		OrderDTO orderDTO = orderService.findOne(list.get(0).getOrder());
-		orderDTO.setTotalPrice(totalprice);
-		orderService.update(orderDTO);
-		return "redirect:/admin/order/list?page=1" ;
+		InputDTO inputDTO = inputService.findOne(list.get(0).getInput());
+		inputDTO.setTotalPrice(totalprice);
+		inputService.update(inputDTO);
+		return "redirect:/admin/input/list?page=1" ;
 	}
 }

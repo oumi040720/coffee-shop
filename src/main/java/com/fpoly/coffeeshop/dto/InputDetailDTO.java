@@ -32,11 +32,11 @@ public class InputDetailDTO {
 		this.quantity = quantity;
 	}
 
-	public String getinput() {
+	public String getInput() {
 		return input;
 	}
 
-	public void setinput(String input) {
+	public void setInput(String input) {
 		this.input = input;
 	}
 

@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fpoly.coffeeshop.dto.ItemDTO;
-import com.fpoly.coffeeshop.dto.OrderDTO;
-import com.fpoly.coffeeshop.dto.OrderDetailDTO;
+import com.fpoly.coffeeshop.dto.InputDTO;
+import com.fpoly.coffeeshop.dto.InputDetailDTO;
 import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
-import com.fpoly.coffeeshop.service.IOrderDetailService;
-import com.fpoly.coffeeshop.service.IOrderService;
+import com.fpoly.coffeeshop.service.IInputDetailService;
+import com.fpoly.coffeeshop.service.IInputService;
 import com.fpoly.coffeeshop.util.CategoryUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
-public class UserOrderController {
+public class UserInputController {
 
 	@Autowired
-	private IOrderService orderService;
+	private IInputService inputService;
 	
 	@Autowired
-	private IOrderDetailService orderDetailService;
+	private IInputDetailService inputDetailService;
 	
 	@Autowired
 	private ICategoryService categoryService;
@@ -49,8 +49,8 @@ public class UserOrderController {
 		return "user/cart";
 	}
 	
-	@RequestMapping(value = "/order_list")
-	public String showOrderListPage(HttpServletRequest request) {
+	@RequestMapping(value = "/input_list")
+	public String showInputListPage(HttpServletRequest request) {
 		CategoryUtil.setCategory(request, categoryService);
 		
 		HttpSession httpSession = request.getSession();
@@ -62,59 +62,59 @@ public class UserOrderController {
 		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages", orderService.getTotalPagesByFlagDeleteAndUsername(flagDelete, user.getUsername(), page, limit));
-		request.setAttribute("orders", orderService.findAllByFlagDeleteAndUsername(flagDelete, user.getUsername(), page - 1, limit));
+		request.setAttribute("totalPages", inputService.getTotalPagesByFlagDeleteAndUsername(flagDelete, user.getUsername(), page, limit));
+		request.setAttribute("inputs", inputService.findAllByFlagDeleteAndUsername(flagDelete, user.getUsername(), page - 1, limit));
 		
-		return "user/orders";
+		return "user/inputs";
 	}
 	
-	@RequestMapping(value = "/order_detail")
-	public String showOrderDetailPage(HttpServletRequest request) {
+	@RequestMapping(value = "/input_detail")
+	public String showInputDetailPage(HttpServletRequest request) {
 		CategoryUtil.setCategory(request, categoryService);
 		
-		String orderCode = request.getParameter("order_code");
+		String inputCode = request.getParameter("input_code");
 		
-		OrderDTO orderDTO = orderService.findOne(orderCode);
-		List<OrderDetailDTO> orderDetailDTOs = orderDetailService.findAllByOrderCode(orderCode);
+		InputDTO inputDTO = inputService.findOne(inputCode);
+		List<InputDetailDTO> inputDetailDTOs = inputDetailService.findAllByInputCode(inputCode);
 		Long discount = 0L;
 		
-		if (orderDTO.getCouponCode() != null) {
+		if (inputDTO.getCouponCode() != null) {
 			Long subtotal = 0L;
 			
-			for (OrderDetailDTO orderDetailDTO : orderDetailDTOs) {
-				subtotal += orderDetailDTO.getTotalMoney();
+			for (InputDetailDTO inputDetailDTO : inputDetailDTOs) {
+				subtotal += inputDetailDTO.getTotalMoney();
 			}
 			
-			discount = subtotal + 22000 - orderDTO.getTotalPrice();
+			discount = subtotal + 22000 - inputDTO.getTotalPrice();
 		}
 		
-		request.setAttribute("order", orderDTO);
+		request.setAttribute("input", inputDTO);
 		request.setAttribute("discount", discount);
-		request.setAttribute("orderDetails", orderDetailDTOs);
+		request.setAttribute("inputDetails", inputDetailDTOs);
 		
-		return "user/orderResult";
+		return "user/inputResult";
 	}
 	
-	@RequestMapping(value = "/order_result")
-	public String showOrderSuccessPage(HttpServletRequest request) {
+	@RequestMapping(value = "/input_result")
+	public String showInputSuccessPage(HttpServletRequest request) {
 		CategoryUtil.setCategory(request, categoryService);
 		
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
-		String orderCode = request.getParameter("order_code");
+		String inputCode = request.getParameter("input_code");
 		
-		OrderDTO orderDTO = orderService.findOne(orderCode);
-		List<OrderDetailDTO> orderDetailDTOs = orderDetailService.findAllByOrderCode(orderCode);
+		InputDTO inputDTO = inputService.findOne(inputCode);
+		List<InputDetailDTO> inputDetailDTOs = inputDetailService.findAllByInputCode(inputCode);
 		Long discount = 0L;
 		
-		if (orderDTO.getCouponCode() != null) {
+		if (inputDTO.getCouponCode() != null) {
 			Long subtotal = 0L;
 			
-			for (OrderDetailDTO orderDetailDTO : orderDetailDTOs) {
-				subtotal += orderDetailDTO.getTotalMoney();
+			for (InputDetailDTO inputDetailDTO : inputDetailDTOs) {
+				subtotal += inputDetailDTO.getTotalMoney();
 			}
 			
-			discount = subtotal + 22000 - orderDTO.getTotalPrice();
+			discount = subtotal + 22000 - inputDTO.getTotalPrice();
 		}
 		
 		if (message != null && alert != null) {
@@ -122,11 +122,11 @@ public class UserOrderController {
 			request.setAttribute("alert", alert);
 		}
 		
-		request.setAttribute("order", orderDTO);
+		request.setAttribute("input", inputDTO);
 		request.setAttribute("discount", discount);
-		request.setAttribute("orderDetails", orderDetailDTOs);
+		request.setAttribute("inputDetails", inputDetailDTOs);
 		
-		return "user/orderResult";
+		return "user/inputResult";
 	}
 	
 	@RequestMapping(value = "/checkout")
@@ -138,8 +138,8 @@ public class UserOrderController {
 		return "user/checkout";
 	}
 	
-	@RequestMapping(value = "/order")
-	public String order(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/input")
+	public String input(HttpServletRequest request, HttpServletResponse response) {
 		CategoryUtil.setCategory(request, categoryService);
 		
 		response.setCharacterEncoding("UTF-8");
@@ -157,7 +157,7 @@ public class UserOrderController {
 		String note = request.getParameter("note");
 		long subPrice = Long.parseLong(request.getParameter("subPrice"));
 		String c = request.getParameter("c");
-		String orderCode = RandomStringUtils.randomAlphanumeric(7);
+		String inputCode = RandomStringUtils.randomAlphanumeric(7);
 		
 		long discount = 0;
 		if (c.length() != 0) {
@@ -166,40 +166,40 @@ public class UserOrderController {
 		
 		long totalPrice = subPrice + 22000 - discount;
 		
-		OrderDTO orderDTO = new OrderDTO();
-		orderDTO.setFlagDelete(false);
-		orderDTO.setOrderCode(orderCode);
-		orderDTO.setStatus(0);
-		orderDTO.setFullname(fullname);
-		orderDTO.setAddress(address);
-		orderDTO.setPhone(phone);
-		orderDTO.setNote(note);
-		orderDTO.setOrderDate(new Date(System.currentTimeMillis()));
+		InputDTO inputDTO = new InputDTO();
+		inputDTO.setFlagDelete(false);
+		inputDTO.setInputCode(inputCode);
+		inputDTO.setStatus(0);
+		inputDTO.setFullname(fullname);
+		inputDTO.setAddress(address);
+		inputDTO.setPhone(phone);
+		inputDTO.setNote(note);
+		inputDTO.setInputDate(new Date(System.currentTimeMillis()));
 		
-		boolean isCreatedOrder = orderService.insert(orderDTO, user.getUsername());
+		boolean isCreatedInput = inputService.insert(inputDTO, user.getUsername());
 		
-		if (isCreatedOrder) {
+		if (isCreatedInput) {
 			boolean isSaveSuccess = false;
-			OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
-			orderDetailDTO.setFlagDelete(false);
-			orderDetailDTO.setOrder(orderCode);
+			InputDetailDTO inputDetailDTO = new InputDetailDTO();
+			inputDetailDTO.setFlagDelete(false);
+			inputDetailDTO.setInput(inputCode);
 			
 			try {
 				ObjectMapper mapper = new ObjectMapper();
 				List<ItemDTO> itemDTOs =  mapper.readValue(items, new TypeReference<List<ItemDTO>>(){});
 				
 				for (ItemDTO itemDTO : itemDTOs) {
-					orderDetailDTO.setProduct(itemDTO.getProductName());
-					orderDetailDTO.setQuantity(itemDTO.getQuantity());
-					orderDetailDTO.setPrice(itemDTO.getPrice());
-					orderDetailDTO.setTotalMoney(itemDTO.getPrice() * itemDTO.getQuantity());
-					isSaveSuccess = orderDetailService.insert(orderDetailDTO);
+					inputDetailDTO.setProduct(itemDTO.getProductName());
+					inputDetailDTO.setQuantity(itemDTO.getQuantity());
+					inputDetailDTO.setPrice(itemDTO.getPrice());
+					inputDetailDTO.setTotalMoney(itemDTO.getPrice() * itemDTO.getQuantity());
+					isSaveSuccess = inputDetailService.insert(inputDetailDTO);
 					
 					if (!isSaveSuccess) {
-						OrderDTO temp = orderService.findOne(orderCode);
+						InputDTO temp = inputService.findOne(inputCode);
 						temp.setTotalPrice(totalPrice);
 						temp.setFlagDelete(true);
-						orderService.update(temp);
+						inputService.update(temp);
 						isSaveSuccess = false;
 						
 						break;
@@ -207,16 +207,16 @@ public class UserOrderController {
 				}
 				
 				if (isSaveSuccess) {
-					OrderDTO temp = orderService.findOne(orderCode);
+					InputDTO temp = inputService.findOne(inputCode);
 					temp.setCouponCode(couponCode);
 					temp.setTotalPrice(totalPrice);
 					
-					boolean isOrderSuccess = orderService.update(temp);
+					boolean isInputSuccess = inputService.update(temp);
 					
-					if (isOrderSuccess) {
-						return "redirect:/order_result?order_code=" + orderCode + "&message=message_order_success&alert=success";
+					if (isInputSuccess) {
+						return "redirect:/input_result?input_code=" + inputCode + "&message=message_input_success&alert=success";
 					} else {
-						return "redirect:/order_result?message=message_order_fail&alert=danger";
+						return "redirect:/input_result?message=message_input_fail&alert=danger";
 					}
 				}
 			} catch (Exception e) {
