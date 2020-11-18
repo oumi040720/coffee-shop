@@ -49,7 +49,7 @@ public class AdminStaffController {
 		String alert = request.getParameter("alert");
 
 		int page = Integer.parseInt(request.getParameter("page"));
-		int limit = 5;
+		int limit = 10;
 		boolean flagDelete = false;
 
 		if (message != null && alert != null) {
@@ -57,6 +57,32 @@ public class AdminStaffController {
 			request.setAttribute("alert", alert);
 		}
 
+		request.setAttribute("isBin", false);
+		
+		request.setAttribute("page", page);
+		request.setAttribute("limit", limit);
+		request.setAttribute("totalPages", staffService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("staffs", staffService.findAllByFlagDelete(flagDelete, page - 1, limit));
+		
+		return "admin/staff/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = true;
+
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+
+		request.setAttribute("isBin", true);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", staffService.getTotalPages(flagDelete, page, limit));
@@ -186,26 +212,8 @@ public class AdminStaffController {
 		String message = "";
 		String alert = "danger";
 		
-		StaffLogDTO log = new StaffLogDTO();
-		
 		StaffDTO staff = staffService.findOne(id);
 		
-		log.setStaffID(staff.getId());
-		log.setOldAddress(staff.getAddress());
-		log.setOldBirthday(staff.getBirthday());
-		log.setOldEmail(staff.getEmail());
-		log.setOldFlagDelete(staff.getFlagDelete());
-		log.setOldFullname(staff.getFullname());
-		log.setOldPhone(staff.getPhone());
-		log.setOldPhoto(staff.getPhoto());
-		log.setOldUsername(staff.getUsername());
-		log.setModifiedBy("admin");
-		log.setCreatedDate(new Date(System.currentTimeMillis()));
-		log.setCreatedBy("admin");
-		log.setCreatedDate(new Date(System.currentTimeMillis()));
-		
-		staffLogService.insert(log);
-
 		staff.setFlagDelete(true);
 		
 		Boolean result = staffService.update(staff);
@@ -221,9 +229,36 @@ public class AdminStaffController {
 		return "redirect:/admin/staff/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
+	@RequestMapping(value = "/restore")
+	public String restore(@RequestParam("id") Long id) {
+		String message = "";
+		String alert = "danger";
+		
+		StaffDTO staff = staffService.findOne(id);
+		
+		staff.setFlagDelete(false);
+		
+		Boolean result = staffService.update(staff);
+		
+		if (result) {
+			message = "message_staff_restore_success";
+			alert = "success";
+		} else {
+			message = "message_staff_restore_fail";
+			alert = "danger";
+		}
+		
+		return "redirect:/admin/staff/bin/list?page=1&message=" + message + "&alert=" + alert;
+	}
+	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
+		
+		if (isDeleted != null) {
+			return "redirect:/admin/staff/search?key=" + key + "&page=1&is_deleted=true";
+		}
 		
 		return "redirect:/admin/staff/search?key=" + key + "&page=1";
 	}
@@ -231,9 +266,17 @@ public class AdminStaffController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
 		boolean flagDelete = false;
+		
+		if (isDeleted != null) {
+			flagDelete = true;
+			request.setAttribute("isBin", true);
+		} else {
+			request.setAttribute("isBin", false);
+		}
 
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);

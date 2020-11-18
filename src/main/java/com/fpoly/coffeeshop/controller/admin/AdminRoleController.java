@@ -34,7 +34,24 @@ public class AdminRoleController {
 			request.setAttribute("alert", alert);
 		}
 		
+		request.setAttribute("isBin", false);
 		request.setAttribute("roles", roleService.findAllByFlagDelete(false));
+		
+		return "admin/role/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+		
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+		
+		request.setAttribute("isBin", true);
+		request.setAttribute("roles", roleService.findAllByFlagDelete(true));
 		
 		return "admin/role/list";
 	}
@@ -110,6 +127,27 @@ public class AdminRoleController {
 		}
 		
 		return "redirect:/admin/role/list?message=" + message + "&alert=" + alert;
+	}
+	
+	@RequestMapping(value = "/restore")
+	public String restore(Model model, @RequestParam("role_code") String roleCode) {
+		String message = "";
+		String alert = "danger";
+		
+		RoleDTO roleDTO = roleService.findOne(roleCode);
+		roleDTO.setFlagDelete(false);
+		
+		Boolean result = roleService.update(roleDTO);
+		
+		if (result) {
+			message = "message_role_restore_success";
+			alert = "success";
+		} else {
+			message = "message_role_restore_fail";
+			alert = "danger";
+		}
+		
+		return "redirect:/admin/role/bin/list?message=" + message + "&alert=" + alert;
 	}
 	
 }

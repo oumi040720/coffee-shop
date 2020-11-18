@@ -302,7 +302,7 @@
 	        					          	text: 'Tháng',
 	        					          	position: 'outer-center'
 	        					        },
-	        					        type: 'category',
+	        					        /* type: 'category', */
 	        							show: true,
 	        						},
 	        						y: {
@@ -357,7 +357,7 @@
 	        					          	text: 'Ngày',
 	        					          	position: 'outer-center'
 	        					        },
-	        					        type: 'category',
+	        					        /* type: 'category', */
 	        							show: true,
 	        						},
 	        						y: {

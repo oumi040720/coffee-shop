@@ -21,10 +21,35 @@
 
 <script>
 	$(document).ready(function() {
+		updatePrices();
 		getTotalItems();
 	});
 </script>
 <script>
+	function updatePrices() {
+		var items = JSON.parse(localStorage.getItem("items"));
+    	if (items === null) {
+        	var items = [];
+    	}
+    	
+    	items.map((item, index) => {
+    		var url =  '${domain}' + '/product/id/' + item.id;
+    		
+    		axios.get(url)
+				.then((response) => {
+					var temp = response.data;
+					
+					if (temp.price != item.price) {
+						items[index].price = temp.price;
+						
+						localStorage.setItem("items", JSON.stringify(items));
+						
+						$('#warningUpdatePrice').show();
+					}
+				});
+    	}); 
+	}
+
 	function getTotalItems() {
 		var items = JSON.parse(localStorage.getItem("items"));
 		
@@ -114,8 +139,7 @@
 								$('#priceDiscount').html('-' + formatVNDCurrency(coupon.discount));
 								$('#priceDiscount').attr('data-price', coupon.discount);
 							} else if (coupon.type === 'Giảm Giá Theo Phần Trăm') {
-								var percent = coupon.discount.substring(0, coupon.discount.length - 1) / 100;
-								var discountPrice =  (subtotal * percent);
+								var discountPrice =  (subtotal * coupon.discount);
 							
 								if (discountPrice >= coupon.maxDiscount) {
 									discountPrice = coupon.maxDiscount;

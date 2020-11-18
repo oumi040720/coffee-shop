@@ -64,8 +64,12 @@
 												</span>
 											</p>
 											<p>
-												<a class="btn btn-primary btn-outline-primary" 
+												<%-- <a class="btn btn-primary btn-outline-primary" 
 													onclick="add(${product.id},'${product.productName}', '${product.photo}', ${product.price})">
+													Đặt hàng
+												</a> --%>
+												<a class="btn btn-primary btn-outline-primary" 
+													onclick="add(${product.id})">
 													Đặt hàng
 												</a>
 											</p>
@@ -87,6 +91,8 @@
 			    </div>
 	    	</div>
 	    </section>
+		        
+		<input type="hidden" id="item" />
 		        
         <%@ include file="/WEB-INF/views/user/common/footer.jsp" %>
         
@@ -128,7 +134,7 @@
 											'<p class="price"><span> ' + formatVNDCurrency(product.price) + '</span></p>' +
 											'<p>' + 
 												'<a class="btn btn-primary btn-outline-primary" ' +
-													'onclick="add(' + product.id + ', \'' + product.productName + '\', \'' + product.photo + '\', ' + product.price + ');">' + 
+													'onclick="add(' + product.id + ');">' + 
 													'Đặt hàng' +
 												'</a>' +
 											'</p>' +
@@ -147,47 +153,53 @@
 				});
         </script>
         <script type="text/javascript">
-        	var items = JSON.parse(localStorage.getItem("items"));
-        	if (items === null) {
-	        	var items = [];
-        	}
-        	var item = {};
-        	var check = false;
-        	
-        	function add(id, productName, photo, price) {
-        		if (items.length === 0) {
-       				items.push({
-       					'id': id,
-       					'productName': productName,
-       					'photo': photo,
-       					'price': price,
-       					'quantity': 1
-       				});
-   				} else {
-   					for (var i = 0; i < items.length; i++) {
-   						if (items[i].id === id) {
-   							items[i].quantity += 1;
-   							check = false;
-   							break;
-   						} else {
-   							check = true;
-   						}
-   					}
-   					
-   					if (check) {
-   						items.push({
-        					'id': id,
-        					'productName': productName,
-        					'photo': photo,
-        					'price': price,
-        					'quantity': 1
-        				});
-   					}
-   				}
-
-        		localStorage.setItem("items", JSON.stringify(items));
+        	function add(id) {
+        		var url =  '${domain}' + '/product/id/' + id;
         		
-        		getTotalItems();
+        		axios.get(url)
+        			.then((response) => {
+        				var items = JSON.parse(localStorage.getItem("items"));
+                    	if (items === null) {
+            	        	var items = [];
+                    	}
+                    	var item = response.data;
+                    	var check = false;
+        				
+                    	if (items.length === 0) {
+                    		items.push({
+               					'id': item.id,
+               					'productName': item.productName,
+               					'photo': item.photo,
+               					'price': item.price,
+               					'quantity': 1
+               				});
+           				} else {
+           					for (var i = 0; i < items.length; i++) {
+           						if (items[i].id === id) {
+           							items[i].quantity += 1;
+           							check = false;
+           							
+           							break;
+           						} else {
+           							check = true;
+           						}
+           					}
+           					
+           					if (check) {
+           						items.push({
+                   					'id': item.id,
+                   					'productName': item.productName,
+                   					'photo': item.photo,
+                   					'price': item.price,
+                   					'quantity': 1
+                   				});
+           					}
+           				}
+
+                		localStorage.setItem("items", JSON.stringify(items));
+                		
+                		getTotalItems();
+        			});
         	}
         </script>
 	</body>

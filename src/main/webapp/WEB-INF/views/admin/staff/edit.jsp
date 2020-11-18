@@ -125,7 +125,7 @@
         								</div>
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label">
-        										Mật khẩu <span class="text-danger"> (*) </span>
+        										Mật khẩu <c:if test="${!check}"><span class="text-danger"> (*) </span></c:if>
         									</label>
         									<div class="col-lg-10">
         										<input id="password" type="password" name="p" class="form-control"/>
@@ -136,7 +136,7 @@
         								</div>
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label">
-        										Xác nhận mật khẩu <span class="text-danger"> (*) </span>
+        										Xác nhận mật khẩu <c:if test="${!check}"><span class="text-danger"> (*) </span></c:if>
         									</label>
         									<div class="col-lg-10">
         										<input id="confirm" type="password" class="form-control">
@@ -146,6 +146,17 @@
         									</div>
         								</div>
         								<div class="form-group row">
+        									<label class="col-lg-2 col-form-label">
+        										Địa chỉ <span class="text-danger"> (*) </span>
+        									</label>
+        									<div class="col-lg-10">
+        										<form:input path="address" cssClass="form-control"/>
+        										<ul class="parsley-errors-list filled">
+        											<li id="warningAddress" class="parsley-required"></li>
+        										</ul>
+        									</div>
+        								</div>
+       									<div class="form-group row">
         									<label class="col-lg-2 col-form-label">
         										Ngày Sinh <span class="text-danger"> (*) </span>
         									</label>
@@ -169,22 +180,31 @@
         									</div>
         								</div>
         								<div class="form-group row">
-        									<label class="col-lg-2 col-form-label">
-        										Địa chỉ <span class="text-danger"> (*) </span>
-        									</label>
-        									<div class="col-lg-10">
-        										<form:input path="address" cssClass="form-control"/>
-        										<ul class="parsley-errors-list filled">
-        											<li id="warningAddress" class="parsley-required"></li>
-        										</ul>
-        									</div>
-        								</div>
-        								<div class="form-group row">
-        									<label class="col-lg-2 col-form-label">
+        									<label class="col-lg-2">
         										Hình ảnh <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="photo" cssClass="form-control"/>
+        										<div class="input-group mb-3 mr-3">
+	        										<form:input path="photo" cssClass="form-control" />
+        											<div class="input-group-prepend">
+                                                        <button class="btn btn-info" type="button" data-toggle="modal" data-target="#viewPhoto">
+                                                        	Xem
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal fade" id="viewPhoto">
+                                                    	<div class="modal-dialog modal-dialog-centered modal-sm">
+                                                    		<div class="modal-content">
+                                                    			<div class="modal-body">
+                                                    				<div>
+	                                                    				<img id="tempAvatar" src="<c:url value="${INFO.photo}" />" 
+																			height="auto" width="100%" 
+																			style="box-shadow: 9px 9px 20px 0px rgba(125, 120, 122, 0.5);">
+                                                    				</div>
+                                                    			</div>
+                                                    		</div>
+                                                    	</div>
+                                                    </div>
+        										</div>
         										<ul class="parsley-errors-list filled">
         											<li id="warningPhoto" class="parsley-required"></li>
         										</ul>
@@ -222,10 +242,27 @@
         	<script src="<c:url value='/template/admin/libs/bootstrap-datepicker/bootstrap-datepicker.min.js' />"></script>
 	        <script type="text/javascript">
 		        $(document).ready(function(){
+		        	var photo = '${staff.photo}';
+		        	
 		    		$("#birthday").attr({
 		    			"placeholder": "mm/dd/yyyy"
 		    		});
+		    		
+		    		if (photo.trim().length === 0) {
+			    		$("#photo").val('${INFO.photo}');
+		    		} else {
+		    			$('#tempAvatar').attr('src', $("#photo").val());	        
+		    		}
 		    	});
+	        </script>
+	       <script type="text/javascript">
+	        	$("#photo").on('change', () => {
+	        		if ($('#photo').val().trim().length === 0) {
+	        			$('#tempAvatar').attr('src', '${INFO.photo}');	  
+	        		} else {
+	        			$('#tempAvatar').attr('src', $("#photo").val());	        			
+	        		}
+	        	});
 	        </script>
 	        <c:if test="${check}">
 		        <script type="text/javascript">

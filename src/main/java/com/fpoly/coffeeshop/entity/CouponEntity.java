@@ -30,7 +30,7 @@ public class CouponEntity {
 	private String discount;
 
 	@Column(name = "min_total_bill")
-	private double minTotalBill;
+	private long minTotalBill;
 
 	@Column(name = "max_discount")
 	private String maxDiscount;
@@ -75,11 +75,11 @@ public class CouponEntity {
 		this.discount = discount;
 	}
 
-	public double getMinTotalBill() {
+	public long getMinTotalBill() {
 		return minTotalBill;
 	}
 
-	public void setMinTotalBill(double minTotalBill) {
+	public void setMinTotalBill(long minTotalBill) {
 		this.minTotalBill = minTotalBill;
 	}
 

@@ -27,9 +27,9 @@
 				<li class="nav-item">
 					<a href="<c:url value='/about' />" class="nav-link">Giới Thiệu</a>
 				</li>
-				<li class="nav-item">
+				<%-- <li class="nav-item">
 					<a href="<c:url value='contact' />" class="nav-link">Liên Lạc</a>
-				</li>
+				</li> --%>
 				<c:choose>
 					<c:when test="${USER == null}">
 						<li class="nav-item">

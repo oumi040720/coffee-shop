@@ -58,6 +58,8 @@ public class AuthorizationFilter implements Filter {
 					response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 				} else if (user.getRoleCode().equals("user")) {
 					response.sendRedirect(request.getContextPath() + "/home");
+				} else {
+					filterChain.doFilter(servletRequest, servletResponse);
 				}
 			} else {
 				filterChain.doFilter(servletRequest, servletResponse);
