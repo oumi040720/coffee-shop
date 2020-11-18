@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Coffee Shop | Admin | Order</title>
+<title>Coffee Shop | Admin | Input</title>
 
 <%@ include file="/WEB-INF/views/admin/common/css.jsp"%>
 <link rel="stylesheet" href='<c:url value="https://fonts.googleapis.com/css?family=Roboto|Varela+Round"/>'>
@@ -48,13 +48,13 @@
 							<div>
 								<div class="row">
 									<div class="col-sm-8">
-										<a href="<c:url value='/admin/order/save' />"
+										<a href="<c:url value='/admin/input/save' />"
 											class="btn btn-outline-success btn-rounded waves-effect waves-light" ><i  
 											class="ion ion-md-add-circle"></i> Thêm</a>
 									</div>
 									<div class="col-sm-4">
 										<div class="d-none d-sm-block">
-											<form action="<c:url value='/admin/order/search' />"
+											<form action="<c:url value='/admin/input/search' />"
 												class="app-search" method="post">
 												<div class="app-search-box">
 													<div class="input-group">
@@ -89,7 +89,7 @@
 								<br>
 							</c:if>
 							<form id="form-submit"
-								action="<c:url value='/admin/order/list' />" method="get">
+								action="<c:url value='/admin/input/list' />" method="get">
 								<table class="table table-bordered" id="my-table">
 									<thead>
 										<tr class="thead-dark">
@@ -102,35 +102,35 @@
 									</thead>
 									<tbody>
 
-										<c:forEach var="order" items="${orders}">
+										<c:forEach var="input" items="${inputs}">
 											<tr>
-												<td id="orderDate${order.id}"><fmt:formatDate type = "both" value="${order.orderDate}"/></td>
-												<td>${order.orderCode}</td>
+												<td id="inputDate${input.id}"><fmt:formatDate type = "both" value="${input.inputDate}"/></td>
+												<td>${input.inputCode}</td>
 												<td>
-												<c:if test="${order.status == 0}">Đã đặt hàng</c:if>
-												<c:if test="${order.status == 1}">Tiếp nhận đơn hàng</c:if>
-												<c:if test="${order.status == 2}">Chế biến</c:if>
-												<c:if test="${order.status == 3}">Vận chuyển</c:if>
-												<c:if test="${order.status == 4}">Giao hàng hoàn thành</c:if>
-												<c:if test="${order.status == -1}">Đã hủy đơn hàng</c:if>
+												<c:if test="${input.status == 0}">Đã đặt hàng</c:if>
+												<c:if test="${input.status == 1}">Tiếp nhận đơn hàng</c:if>
+												<c:if test="${input.status == 2}">Chế biến</c:if>
+												<c:if test="${input.status == 3}">Vận chuyển</c:if>
+												<c:if test="${input.status == 4}">Giao hàng hoàn thành</c:if>
+												<c:if test="${input.status == -1}">Đã hủy đơn hàng</c:if>
 												</td>
-												<td>${order.totalPrice} VNĐ</td>
+												<td>${input.totalPrice} VNĐ</td>
 												<td class="text-center"><c:url var="editdetailURL"
-														value="/admin/orderdetail/edit">
-														<c:param name="orderCode" value="${order.orderCode}" />
+														value="/admin/inputdetail/edit">
+														<c:param name="inputCode" value="${input.inputCode}" />
 													</c:url> <a href="${editdetailURL}" class="btn btn-outline-info">
 														<i class="mdi mdi-pencil-box-multiple-outline"></i>
 												</a> 
-												<a href="#myModal-${order.orderCode}" class="btn btn-outline-danger" data-toggle="modal">
+												<a href="#myModal-${input.inputCode}" class="btn btn-outline-danger" data-toggle="modal">
         													<i class=" mdi mdi-window-close"></i>
         												</a>
-												<c:if test="${order.status != -1 && order.status != 4}">
-        										<a href="#" class="btn btn-outline-info" data-id="${order.id}">
+												<c:if test="${input.status != -1 && input.status != 4}">
+        										<a href="#" class="btn btn-outline-info" data-id="${input.id}">
         													<i class="fas fa-truck"></i>
         												</a>
         										</c:if>			
- 												<c:if test="${order.status != -1 && order.status != 4}">
-        										<a href="#" class="btn btn-outline-primary" data-id="${order.id}">
+ 												<c:if test="${input.status != -1 && input.status != 4}">
+        										<a href="#" class="btn btn-outline-primary" data-id="${input.id}">
         													<i class="fas fa-sad-tear"></i>
         												</a>
         										</c:if>						
@@ -162,7 +162,7 @@
 					</div>
 					<div class="modal-body text-center">
 						<h4>Thất Bại!</h4>	
-						<s:message code="message.order.update.fail"/>
+						<s:message code="message.input.update.fail"/>
 						<button class="btn btn-success" data-dismiss="modal" id="lick">Đồng ý</button>
 					</div>
 				</div>
@@ -198,11 +198,11 @@
 			var	id = $(this).data("id");
 			 $.ajax({
 				method: 'GET',
-				url: '${domain}/order/id/' + id,
+				url: '${domain}/input/id/' + id,
 				success: function(res){		
 				var	status = res.status + 1;				
 				var settings = {
-						  "url": "${domain}/order/update?id=" +id,
+						  "url": "${domain}/input/update?id=" +id,
 						  "method": "PUT",
 						  "timeout": 0,
 						  "headers": {
@@ -210,8 +210,8 @@
 						  },
 						  "data": JSON.stringify({
 							  "id":res.id,
-							  "orderDate":res.orderDate,
-							  "orderCode":res.orderCode,
+							  "inputDate":res.inputDate,
+							  "inputCode":res.inputCode,
 							  "status":status,
 							  "fullname":res.fullname,
 							  "address":res.address,
@@ -236,11 +236,11 @@
 			var	id = $(this).data("id");
 			 $.ajax({
 				method: 'GET',
-				url: '${domain}/order/id/' + id,
+				url: '${domain}/input/id/' + id,
 				success: function(res){		
 				var	status = -1;				
 				var settings = {
-						  "url": "${domain}/order/update?id=" +id,
+						  "url": "${domain}/input/update?id=" +id,
 						  "method": "PUT",
 						  "timeout": 0,
 						  "headers": {
@@ -248,8 +248,8 @@
 						  },
 						  "data": JSON.stringify({
 							  "id":res.id,
-							  "orderDate":res.orderDate,
-							  "orderCode":res.orderCode,
+							  "inputDate":res.inputDate,
+							  "inputCode":res.inputCode,
 							  "status":status,
 							  "fullname":res.fullname,
 							  "address":res.address,

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Coffee Shop | Admin | OrderDetail</title>
+<title>Coffee Shop | Admin | InputDetail</title>
 
 <%@ include file="/WEB-INF/views/admin/common/css.jsp"%>
 
@@ -53,12 +53,12 @@
 								</thead>
 								<tbody>
 
-									<c:forEach var="orderDetail" items="${orderDetails}">
+									<c:forEach var="inputDetail" items="${inputDetails}">
 										<tr>
-											<td>${orderDetail.product}</td>
-											<td id="nameCode" accesskey="${orderDetail.order}">${orderDetail.order}</td>
-											<td>${orderDetail.quantity}</td>
-											<td>${orderDetail.price} VNĐ</td>
+											<td>${inputDetail.product}</td>
+											<td id="nameCode" accesskey="${inputDetail.input}">${inputDetail.input}</td>
+											<td>${inputDetail.quantity}</td>
+											<td>${inputDetail.price} VNĐ</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -75,7 +75,7 @@
                                         <div class="clearfix">
                                             <div class="float-sm-right mt-4 mt-sm-0">
                                                 <h5>Mã Hóa Đơn<br>
-                                                    <small>${order.orderCode}</small>
+                                                    <small>${input.inputCode}</small>
                                                 </h5>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mt-4 text-sm-right">
-                                                    <p><strong>Order Date: </strong>${order.orderDate}</p>
+                                                    <p><strong>Input Date: </strong>${input.inputDate}</p>
                                                 </div>
                                             </div><!-- end col -->
                                         </div>
@@ -103,13 +103,13 @@
 															
                                                         </tr></thead>
                                                         <tbody> 
-                                                        <c:forEach var="orderDetail" items="${orderDetails}">
+                                                        <c:forEach var="inputDetail" items="${inputDetails}">
 															<tr>
-																<td>${orderDetail.product}</td>
-																<td id="nameCode" accesskey="${orderDetail.order}">${orderDetail.order}</td>
-																<td>${orderDetail.quantity}</td>
-																<td>${orderDetail.price} VNĐ</td>
-																<td>${orderDetail.totalMoney} VNĐ</td>
+																<td>${inputDetail.product}</td>
+																<td id="nameCode" accesskey="${inputDetail.input}">${inputDetail.input}</td>
+																<td>${inputDetail.quantity}</td>
+																<td>${inputDetail.price} VNĐ</td>
+																<td>${inputDetail.totalMoney} VNĐ</td>
 															</tr>
 														</c:forEach> 
                                                         </tbody>
@@ -124,7 +124,7 @@
                                                 <div class="text-right mt-4">
                                                     <h2>Tổng Tiền </h2>
                                                     <hr>
-                                                    <h3 class="float-right">VNĐ</h3><h3 class="float-right">${order.totalPrice}</h3>
+                                                    <h3 class="float-right">VNĐ</h3><h3 class="float-right">${input.totalPrice}</h3>
                                                 </div>
                                             </div>
                                         </div>

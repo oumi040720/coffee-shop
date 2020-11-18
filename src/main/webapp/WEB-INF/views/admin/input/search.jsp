@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Coffee Shop | Admin | Order</title>
+<title>Coffee Shop | Admin | Input</title>
 
 <%@ include file="/WEB-INF/views/admin/common/css.jsp"%>
 </head>
@@ -41,13 +41,13 @@
 							<div>
 								<div class="row">
 									<div class="col-sm-8">
-										<a href="<c:url value='/admin/order/save' />"
+										<a href="<c:url value='/admin/input/save' />"
 											class="btn btn-outline-success btn-rounded waves-effect waves-light"><i
 											class="ion ion-md-add-circle"></i> Thêm</a>
 									</div>
 									<div class="col-lg-4">
 										<div class="d-none d-sm-block">
-											<form action="<c:url value='/admin/order/search' />"
+											<form action="<c:url value='/admin/input/search' />"
 												class="app-search" method="post">
 												<div class="app-search-box">
 													<div class="input-group">
@@ -81,7 +81,7 @@
 								<br>
 							</c:if>
 							<form id="form-submit"
-								action="<c:url value='/admin/order/search' />" method="get">
+								action="<c:url value='/admin/input/search' />" method="get">
 								<table class="table table-bordered">
 									<thead>
 										<tr class="thead-dark">
@@ -92,20 +92,20 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="order" items="${orders}">
+										<c:forEach var="input" items="${inputs}">
 											<tr>
 												<td id="length" hidden>${length}</td>
-												<td id="orderID" hidden>${order.id}</td>
-												<td id="orderDate${order.id}">${order.orderDate}</td>
-												<td>${order.orderCode}</td>
-												<td><c:if test="${order.status == 0}">Chưa Giao</c:if></td>
+												<td id="inputID" hidden>${input.id}</td>
+												<td id="inputDate${input.id}">${input.inputDate}</td>
+												<td>${input.inputCode}</td>
+												<td><c:if test="${input.status == 0}">Chưa Giao</c:if></td>
 												<td><c:url var="editdetailURL"
-														value="/admin/orderdetail/edit">
-														<c:param name="orderCode" value="${order.orderCode}" />
+														value="/admin/inputdetail/edit">
+														<c:param name="inputCode" value="${input.inputCode}" />
 													</c:url> <a href="${editdetailURL}" class="btn btn-outline-info">
 														<i class="mdi mdi-pencil-box-multiple-outline"></i>
-												</a> <c:url var="deleteURL" value="/admin/order/delete">
-														<c:param name="id" value="${order.id}" />
+												</a> <c:url var="deleteURL" value="/admin/input/delete">
+														<c:param name="id" value="${input.id}" />
 													</c:url> <a href="${deleteURL}" class="btn btn-outline-danger">
 														<i class=" mdi mdi-window-close"></i>
 												</a></td>

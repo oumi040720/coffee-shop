@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Coffee Shop | Admin | OrderDetail</title>
+<title>Coffee Shop | Admin | InputDetail</title>
 
 <%@ include file="/WEB-INF/views/admin/common/css.jsp"%>
 <link rel="stylesheet" href='<c:url value= "https://fonts.googleapis.com/css?family=Roboto|Varela+Round" />'s>
@@ -167,8 +167,8 @@
 											class="text-danger"> (*) </span>
 										</label>
 										<div class="col-lg-10">
-											<input id="orderCode" Class="form-control"
-												readonly="readonly" value="${orderCode}" />
+											<input id="inputCode" Class="form-control"
+												readonly="readonly" value="${inputCode}" />
 										</div>
 									</div>
 									<div class="form-group row">
@@ -260,8 +260,8 @@
 										</a>
 										<div class="gal-detail p-3">
 										<h4 class="font-16 mt-0">${menu.productName}</h4>
-											<input id="orderCode" Class="form-control"
-												readonly="readonly" value="${orderCode}" hidden=""/> 
+											<input id="inputCode" Class="form-control"
+												readonly="readonly" value="${inputCode}" hidden=""/> 
 											<input
 												id="price-${menu.productName}" Class="form-control" readonly="readonly"
 												value="${menu.price}" hidden=""/> 
@@ -313,7 +313,7 @@
 					</div>
 					<div class="modal-body text-center">
 						<h4>Thất Bại!</h4>	
-						<s:message code="message.orderdetail.addproduct.fail"/>
+						<s:message code="message.inputdetail.addproduct.fail"/>
 						<button class="btn btn-success" data-dismiss="modal" id="lick">Xem Lại</button>
 					</div>
 				</div>
@@ -347,28 +347,28 @@
 			window.dataList = new Array();
 			function add(id) {
 				var quantity  = document.getElementById("quantity-"+id).value;
-				var orderCode = document.getElementById("orderCode").value;
+				var inputCode = document.getElementById("inputCode").value;
 				var product = document.getElementById("productName-"+id).value;
 				var totalMoney = document.getElementById("totalMoney-"+id).value;				
 				var price = document.getElementById("price-"+id).value;
 				if(document.getElementById("totalMoney-"+id).value == ""){
 					totalMoney = 1 * price
 				}
-				var orderDetail = {
+				var inputDetail = {
 					'quantity' : quantity,
-					'order' : orderCode,
+					'input' : inputCode,
 					'product' : product,
 					'price' : parseInt(price),
 					'totalMoney' : totalMoney,
 					
 				};
-				console.log(orderDetail)
+				console.log(inputDetail)
 				if (currenIndex == -1 ) {
-					addTag(orderDetail);
+					addTag(inputDetail);
 				}else {
-					dataList[currenIndex] = orderDetail;					
-					console.log(orderDetail)
-					document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Thêm Sản Phẩm";
+					dataList[currenIndex] = inputDetail;					
+					console.log(inputDetail)
+					document.getElementById("btn_click-"+inputDetail.product).innerHTML = "Thêm Sản Phẩm";
 					displayAll();
 				}
 				document.getElementById("quantity-"+id).value = 1;
@@ -392,28 +392,28 @@
 				});
 			
 			var i= 0;
-			function addTag(orderDetail) {				
-					dataList.push(orderDetail);
+			function addTag(inputDetail) {				
+					dataList.push(inputDetail);
 					console.log(dataList)
 					var table = document.getElementById("dataList");						
-					i = i+parseInt(orderDetail.totalMoney);
+					i = i+parseInt(inputDetail.totalMoney);
 					document.getElementById("sumMoneyy").innerHTML = i;
 					document.getElementById("sumMoney").setAttribute('value',i);
 					table.innerHTML += "<tr>"
 							+ "<td>"
-							+ orderDetail.product
+							+ inputDetail.product
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.order
+							+ inputDetail.input
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.quantity
+							+ inputDetail.quantity
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.price + " VNĐ"
+							+ inputDetail.price + " VNĐ"
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.totalMoney + " VNĐ"
+							+ inputDetail.totalMoney + " VNĐ"
 							+ "</td>"
 							+ "<td name ='btnAll'><button onclick= 'edit("
 							+ (dataList.length - 1)
@@ -484,19 +484,19 @@
 				if(window.dataList.length == 0){
 					$('#myModal').modal('show');
 				}else{
-				var id = ${order.id};
-				var orderdate = new Date('${order.orderDate}');
-				var ordercode = new String('${order.orderCode}');
-				var status = ${order.status};
-				var fullname =  new String('${order.fullname}'); 
-				var address =  new String('${order.address}'); 
-				var phone = new String('${order.phone}');
-				var totalprice = new Number('${order.totalPrice}');
-				var note = new String('${order.note}');
-				var flag = ${order.flagDelete};
+				var id = ${input.id};
+				var inputdate = new Date('${input.inputDate}');
+				var inputcode = new String('${input.inputCode}');
+				var status = ${input.status};
+				var fullname =  new String('${input.fullname}'); 
+				var address =  new String('${input.address}'); 
+				var phone = new String('${input.phone}');
+				var totalprice = new Number('${input.totalPrice}');
+				var note = new String('${input.note}');
+				var flag = ${input.flagDelete};
 
 				  var settings = {
-						  "url": "${domain}/order/update?id=" +id,
+						  "url": "${domain}/input/update?id=" +id,
 						  "method": "PUT",
 						  "timeout": 0,
 						  "headers": {
@@ -504,8 +504,8 @@
 						  },
 						  "data": JSON.stringify({
 							  "id":id,
-							  "orderDate":orderdate,
-							  "orderCode":ordercode,
+							  "inputDate":inputdate,
+							  "inputCode":inputcode,
 							  "status":status,
 							  "fullname":fullname,
 							  "address":address,
@@ -524,7 +524,7 @@
 					url: 'save',
 					contentType: "application/json; charset=utf-8",
 					data: JSON.stringify(window.dataList),
-				}).done(result => window.location.href="${domainURL}/order/list?page=1&message=message_orderdetail_insert_success&alert=success")
+				}).done(result => window.location.href="${domainURL}/input/list?page=1&message=message_inputdetail_insert_success&alert=success")
 				 
 				} 
 			})  
@@ -533,23 +533,23 @@
 				var table = document.getElementById("dataList");
 				table.innerHTML = "";					
 					for (e = 0; e < dataList.length; e++) {		
-						var orderDetail = dataList[e];						
-						console.log(orderDetail);
+						var inputDetail = dataList[e];						
+						console.log(inputDetail);
 						table.innerHTML += "<tr>"
 								+ "<td>"
-								+ orderDetail.product
+								+ inputDetail.product
 								+ "</td>"
 								+ "<td>"
-								+ orderDetail.order
+								+ inputDetail.input
 								+ "</td>"
 								+ "<td>"
-								+ orderDetail.quantity
+								+ inputDetail.quantity
 								+ "</td>"
 								+ "<td>"
-								+ orderDetail.price + " VNĐ"
+								+ inputDetail.price + " VNĐ"
 								+ "</td>"
 								+ "<td>"
-								+ orderDetail.totalMoney + " VNĐ"
+								+ inputDetail.totalMoney + " VNĐ"
 								+ "</td>"
 								+ "<td name ='btnAll'><button onclick= 'edit("
 								+ e
@@ -557,7 +557,7 @@
 								+ e
 								+ ")' class='btn btn-outline-danger'><i class=' mdi mdi-window-close'></i></button></td>"
 								+ "</tr>"
-					 	i = i+parseInt(orderDetail.totalMoney);
+					 	i = i+parseInt(inputDetail.totalMoney);
 						console.log(i);
 						document.getElementById("sumMoneyy").innerHTML = i;	
 						document.getElementById("sumMoney").setAttribute('value',i); 
@@ -567,12 +567,12 @@
 			var currenIndex = -1;
 			function edit(index) {
 				currenIndex = index;
-				var orderDetail = dataList[index];
-				console.log(orderDetail)
-				document.getElementById("quantity-" + orderDetail.product).value = orderDetail.quantity;
-				document.getElementById("orderCode").value = orderDetail.order;
-				document.getElementById("totalMoney-"+orderDetail.product).value = orderDetail.totalMoney;
-				document.getElementById("btn_click-"+orderDetail.product).innerHTML = "Cập nhật sản phẩm"; 				
+				var inputDetail = dataList[index];
+				console.log(inputDetail)
+				document.getElementById("quantity-" + inputDetail.product).value = inputDetail.quantity;
+				document.getElementById("inputCode").value = inputDetail.input;
+				document.getElementById("totalMoney-"+inputDetail.product).value = inputDetail.totalMoney;
+				document.getElementById("btn_click-"+inputDetail.product).innerHTML = "Cập nhật sản phẩm"; 				
 			}
 			function deleete(index) {
 				//currenIndex = index;
@@ -588,39 +588,39 @@
 					alert("a")
 				}
 				var quantity = document.getElementById("quantity-"+index);
-				var orderCode = document.getElementById("orderCode-"+index);
+				var inputCode = document.getElementById("inputCode-"+index);
 				var product = document.getElementById("product-"+index);
 				var totalMoney = document.getElementById("totalMoney-"+index);
 				var price = document.getElementById("price");
 				console.log(price)
-				var orderDetail = {
+				var inputDetail = {
 					'quantity' : quantity,
-					'orderCode' : orderCode,
+					'inputCode' : inputCode,
 					'product' : product,
 					'totalMoney' : totalMoney,
 					'price' : price,
 				}
-				console.log(orderDetail);
+				console.log(inputDetail);
 				var table = document.getElementById("dataList");
 				table.innerHTML = "";
 				for (e = 0; e < dataList.length; e++) {
-					var orderDetail = dataList[e];
-					console.log(orderDetail)
+					var inputDetail = dataList[e];
+					console.log(inputDetail)
 					table.innerHTML += "<tr>"
 							+ "<td>"
-							+ orderDetail.product
+							+ inputDetail.product
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.order
+							+ inputDetail.input
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.quantity
+							+ inputDetail.quantity
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.price + " VNĐ"
+							+ inputDetail.price + " VNĐ"
 							+ "</td>"
 							+ "<td>"
-							+ orderDetail.totalMoney + " VNĐ"
+							+ inputDetail.totalMoney + " VNĐ"
 							+ "</td>"	
 							+ "<td><button onclick= 'edit("
 							+ e
@@ -642,7 +642,7 @@
 						
 			$(document).ready(function(){
 				$( "#returnProduct" ).click(function() {
-					window.location.href="${domainURL}/orderdetail/editDetail?orderCode=${orderCode}";
+					window.location.href="${domainURL}/inputdetail/editDetail?inputCode=${inputCode}";
 					});
 				});
 			
