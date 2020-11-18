@@ -13,19 +13,19 @@ import com.fpoly.coffeeshop.entity.InputEntity;
 @Repository
 public interface IInputDetailRepository extends JpaRepository<InputDetailEntity, Long> {
 	
-	public InputDetailEntity findOneByOrder(String input);
+	public InputDetailEntity findOneByInput(String input);
 
 	public List<InputDetailEntity> findAllByFlagDeleteIs(Boolean flagDelete);
 
 	public Page<InputDetailEntity> findAllByFlagDeleteIs(Boolean flagDelete, Pageable pageable);
 	
 	
-	public List<InputDetailEntity> findAllByOrder(InputEntity order); 
+	public List<InputDetailEntity> findAllByInput(InputEntity input); 
 	
-	public Page<InputDetailEntity> findAllByOrder(InputEntity order, Pageable pageable);
+	public Page<InputDetailEntity> findAllByInput(InputEntity input, Pageable pageable);
 	
 	
-	public List<InputDetailEntity> findAllByFlagDeleteIsAndOrder(Boolean flagDelete, InputEntity order);
+	public List<InputDetailEntity> findAllByFlagDeleteIsAndInput(Boolean flagDelete, InputEntity input);
 	
-	public Page<InputDetailEntity> findAllByFlagDeleteIsAndOrder(Boolean flagDelete, InputEntity order, Pageable pageable);
+	public Page<InputDetailEntity> findAllByFlagDeleteIsAndInput(Boolean flagDelete, InputEntity input, Pageable pageable);
 }

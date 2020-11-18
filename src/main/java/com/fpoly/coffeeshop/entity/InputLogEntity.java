@@ -143,7 +143,7 @@ public class InputLogEntity {
 		return oldInputCode;
 	}
 
-	public void setOldINputCode(String oldInputCode) {
+	public void setOldInputCode(String oldInputCode) {
 		this.oldInputCode = oldInputCode;
 	}
 

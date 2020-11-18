@@ -16,12 +16,12 @@ public interface IInputLogRepository extends JpaRepository<InputLogEntity, Long>
 
 	public Page<InputLogEntity> findAllByOldFlagDeleteIs(Boolean oldFlagDelete, Pageable pageable);
 	
-	public List<InputLogEntity> findAllByOrderID(Long orderId);
+	public List<InputLogEntity> findAllByInputID(Long inputId);
 	
-	public Page<InputLogEntity> findAllByOrderID(Long orderId, Pageable pageable);
+	public Page<InputLogEntity> findAllByInputID(Long inputId, Pageable pageable);
 	
-	public List<InputLogEntity> findAllByOldFlagDeleteIsAndOrderID(Boolean oldFlagDelete, Long orderId);
+	public List<InputLogEntity> findAllByOldFlagDeleteIsAndInputID(Boolean oldFlagDelete, Long inputId);
 	
-	public Page<InputLogEntity> findAllByOldFlagDeleteIsAndOrderID(Boolean oldFlagDelete, Long orderId, Pageable pageable);
+	public Page<InputLogEntity> findAllByOldFlagDeleteIsAndInputID(Boolean oldFlagDelete, Long inputId, Pageable pageable);
 	
 }
