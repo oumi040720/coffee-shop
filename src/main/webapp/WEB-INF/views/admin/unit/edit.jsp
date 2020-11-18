@@ -92,25 +92,34 @@
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script type="text/javascript">
 	        	
-        	var checkValidated = function() {
-    			var unitName = $('#unitName').val();
-    			var checkunitName = false;
+        	
     			
-				if (unitName.trim().length > 0) {
-					$('#warningUnitName').text('');
-					$('#unitName').removeClass('parsley-error');
-					checkUnitName = true;
-				} else {
-					$('#unitName').addClass('parsley-error');
-					$('#warningUnitName').text('Không được bỏ trống TÊN ĐƠN VỊ!');
-				}
-				
-				if (checkUnitName) {
-					return true;
-				} else {
-					return false;
-				}
-    		}
+    			var checkValidated = function() {
+        			var unitName = $('#unitName').val();
+
+        			
+        			var checkunitName = false;
+
+        			
+					if (unitName.trim().length > 0) {
+						$('#warningUnitName').text('');
+						$('#unitName').removeClass('parsley-error');
+						checkunitName = true;
+					} else {
+						$('#unitName').addClass('parsley-error');
+						$('#warningUnitName').text('Không được bỏ trống TÊN ĐƠN VỊ');
+					}
+					
+					
+
+					
+					
+					if (checkunitName ) {
+						return true;
+					} else {
+						return false;
+					}
+        		}
         	</script>
         		
         </div>

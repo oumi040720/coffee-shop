@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.IngredientsDTO;
 import com.fpoly.coffeeshop.service.IIngredientService;
+import com.fpoly.coffeeshop.service.IUnitService;
+import com.fpoly.coffeeshop.service.impl.UnitsService;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -21,12 +23,15 @@ public class AdminIngredientController {
 	}
 	@Autowired
 	private IIngredientService ingredientService;
+	@Autowired
+	private IUnitService unitService;
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
 		int page = Integer.parseInt(request.getParameter("page"));
+		
 		int limit = 10;
 		boolean flagDelete = false;
 
@@ -38,7 +43,7 @@ public class AdminIngredientController {
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", ingredientService.getTotalPages(flagDelete, page, limit));
-		request.setAttribute("customers", ingredientService.findAllByFlagDelete(flagDelete, page-1, limit));
+		request.setAttribute("ingredients", ingredientService.findAllByFlagDelete(flagDelete, page - 1, limit));
 		
 		return "admin/ingredient/list";
 	}
@@ -46,10 +51,22 @@ public class AdminIngredientController {
 	public String showPage(Model model) {
 		model.addAttribute("check", false);
 		model.addAttribute("ingredient", new IngredientsDTO());
+		model.addAttribute("units", unitService.findAll());
 		model.addAttribute("domain", getDomain());
 		
 		return "admin/ingredient/edit";
 	}
+	
+	@RequestMapping(value = "/edit")
+	public String showUpdatePage(Model model, @RequestParam("id") Integer id) {
+		model.addAttribute("check", true);
+		model.addAttribute("ingredient", ingredientService.findOne(id));
+		model.addAttribute("units", unitService.findAll());
+		model.addAttribute("domain", getDomain());
+		
+		return "admin/ingredient/edit";
+	}
+	
 	@RequestMapping(value = "/save")
 	public String save(Model model, @ModelAttribute IngredientsDTO ingredientsDTO) {
 		String message = "";
@@ -75,18 +92,15 @@ public class AdminIngredientController {
 				alert = "danger";
 			}
 		}
-		 
-		model.addAttribute("message", message);
-		model.addAttribute("alert", alert);
 		
-		return "redirect:/admin/ingredient/list?message=" + message + "&alert=" + alert;
+		return "redirect:/admin/ingredient/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("name") String name) {
+	public String delete(Model model, @RequestParam("id") Integer id) {
 		String message = "";
 		String alert = "danger";
 		
-		IngredientsDTO ingredientsDTO = ingredientService.findOne(name);
+		IngredientsDTO ingredientsDTO = ingredientService.findOne(id);
 		ingredientsDTO.setFlagDelete(true);
 		
 		Boolean result = ingredientService.update(ingredientsDTO);
@@ -98,7 +112,7 @@ public class AdminIngredientController {
 			message = "message_ingredient_update_fail";
 			alert = "danger";
 		}
-		return "redirect:/admin/ingredient/list?message=" + message + "&alert=" + alert;
+		return "redirect:/admin/ingredient/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
 

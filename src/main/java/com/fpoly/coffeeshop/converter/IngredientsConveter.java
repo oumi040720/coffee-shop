@@ -11,6 +11,7 @@ public class IngredientsConveter {
 	 dto.setId(entity.getId());
 	 dto.setName(entity.getName());
 	 dto.setQuantity(entity.getQuantity());
+	 dto.setUnitCode(entity.getUnit().getId());
 	 dto.setFlagDelete(entity.getFlagDelete());
 	 return dto;
 	 
@@ -18,10 +19,9 @@ public class IngredientsConveter {
  }
 	public IngredientsEntity convertToEntity(IngredientsDTO dto) {
 		IngredientsEntity entity = new IngredientsEntity();
-		entity.setId(entity.getId());
-		entity.setName(entity.getName());
-		entity.setQuantity(entity.getQuantity());
-		entity.setFlagDelete(entity.getFlagDelete());
+		entity.setName(dto.getName());
+		entity.setQuantity(dto.getQuantity());
+		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}
 	public IngredientsEntity convetToEntity(IngredientsDTO dto, IngredientsEntity entity) {

@@ -29,7 +29,7 @@ public interface IIngredientService {
 	
 	
 	
-	public IngredientsDTO findOne(Long id);
+	public IngredientsDTO findOne(Integer id);
 	
 	public IngredientsDTO findOne(String name);
 	
@@ -37,7 +37,7 @@ public interface IIngredientService {
 	
 	public Boolean update(IngredientsDTO ingredientDTO);
 	
-	public Boolean delete(Long id);
+	public Boolean delete(Integer id);
 	
 	
 }

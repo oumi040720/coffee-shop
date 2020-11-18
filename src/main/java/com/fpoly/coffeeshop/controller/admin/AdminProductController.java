@@ -16,6 +16,7 @@ import com.fpoly.coffeeshop.dto.CategoryDTO;
 import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IProductService;
+import com.fpoly.coffeeshop.util.DomainURLUntil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -30,6 +31,10 @@ public class AdminProductController {
 	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
+	}
+	
+	private String getDomainURLUntil() {
+		return DomainURLUntil.getDomainURLUntil();
 	}
 
 	@RequestMapping(value = "/list")
@@ -47,8 +52,9 @@ public class AdminProductController {
 		}
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
-		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page - 1, limit));
+		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
+		request.setAttribute("domainURL", getDomainURLUntil());
 		
 		return "admin/product/list";
 	}
@@ -72,7 +78,7 @@ public class AdminProductController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Integer id
-			,@RequestParam("productName") String productName) {
+			) {
 		List<CategoryDTO> category = categoryService.findAll();
 		for (int i = 0; i < category.size(); i++) {
 			if (category.get(i).getCategoryCode().equals("product")) {
@@ -81,14 +87,13 @@ public class AdminProductController {
 		}
 		
 		ProductDTO productDTO = productService.findOne(id);
-		productService.findOne(productName);
 		productDTO = productService.findOne(productDTO.getCategoryCode());
 		
 		model.addAttribute("domain", getDomain());
 		model.addAttribute("category", category);
 		model.addAttribute("categoryCode", productDTO.getCategoryCode());
 		model.addAttribute("productID", productDTO.getId());
-		model.addAttribute("product", productDTO);
+		model.addAttribute("product", productService.findAllByFlagDeleteIs(false));
 		model.addAttribute("check", true);
 
 		return "admin/product/edit";

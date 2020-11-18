@@ -41,7 +41,7 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
-        							<a href="<c:url value='/admin/unit/add' />" class="btn btn-success">Thêm</a>
+        							<a href="<c:url value='/admin/unit/add'/>" class="btn btn-success">Thêm</a>
         						</div>
         						<br>
         						<c:if test="${not empty message}">
@@ -71,19 +71,19 @@
         											<td>${unit.unitName}</td>
         											<td>
         												<c:url var="editURL" value="/admin/unit/edit">
-        													<c:param name="unit_name" value="${unit.unitName}" />
+        													<c:param name="unit_id" value="${unit.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
         												</a>
         												
         												<c:url var="deleteURL" value="/admin/unit/delete">
-        													<c:param name="unit_name" value="${unit.unitName}" />
+        													<c:param name="unit_id" value="${unit.id}" />
         												</c:url>
-        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${unit.unitName}">
+        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${unit.id}">
         													<i class="mdi mdi-window-close"></i>
         												</a>
-        												<div class="modal fade" id="confirm-${unit.unitName}">
+        												<div class="modal fade" id="confirm-${unit.id}">
         													<div class="modal-dialog modal-dialog-centered">
         														<div class="modal-content">
 	        														<div class="modal-header">
@@ -91,7 +91,7 @@
 	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        														</div>
 	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa thể loại "${unit.unitName}" không?
+	        															Bạn có chắc muốn xóa đơn vị "${unit.unitName}" không?
 	        														</div>
 	        														<div class="modal-footer">
 	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>

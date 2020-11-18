@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
@@ -36,10 +36,10 @@
         							</ol>
         						</div>
         						<c:if test="${check}">
-        							<h4 class="page-title">Cập nhật thể loại</h4>
+        							<h4 class="page-title">Cập nhật sản phẩm</h4>
         						</c:if>
         						<c:if test="${!check}">
-        							<h4 class="page-title">Thêm mới thể loại</h4>
+        							<h4 class="page-title">Thêm mới sản phẩm</h4>
         						</c:if>
         					</div>
         				</div>
@@ -106,16 +106,15 @@
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label"></label>
         									<div class="col-lg-10">
-        										<button id="submit" type="submit" class="btn btn-success">
+        										<button id="submit" type="submit" class="btn btn-outline-success btn-rounded waves-effect waves-light"><i class="ion ion-ios-save"></i>
         											<c:if test="${check}"> Cập nhật </c:if>
         											<c:if test="${!check}"> Thêm </c:if>
         										</button>
         										<c:if test="${check}"> 
         											<form:hidden path="id"/>
-        											
         										</c:if>
         										<form:hidden path="flagDelete"/>
-        										<button type="reset" class="btn btn-outline-warning">
+        										<button type="reset" class="btn btn-outline-warning btn-rounded waves-effect waves-light"><i class="ion ion-md-refresh"></i>
         											Nhập lại
         										</button>
         									</div>
@@ -134,66 +133,71 @@
         	<script type="text/javascript">
 	        	
         		var checkValidated = function() {
-        			var categoryCode = $('#categoryCode').val();
-        			var productName = $('#productName').val();
-        			var photo = $('#photo').val();
-        			var price = $('#price').val();
-        			
-        			var checkCategoryCode = false;
-        			var checkProductName = false;
-        			var checkPhoto = false;
-        			var checkPrice = false;
-					
-					if (categoryCode.trim().length > 0) {
-						$('#warningCategoryCode').text('');
-						$('#categoryCode').removeClass('parsley-error');
-						checkCategoryCode = true;
-					} else {
-						$('#categoryCode').addClass('parsley-error');
-						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
-						
-					}
-					
-					if(productName.trim().length > 0){
-						$('#warningProductName').text('');
-						$('#productName').removeClass('parsley-error');
-						
-					} else {
-						$('#productName').addClass('parsley-error');
-						$('#warningProductName').text('Không được bỏ trống TÊN SẢN PHẨM!');
-						
-					}
-					
-					
-					if(photo.trim().length > 0){
-						$('#warningPhoto').text('');
-						$('#photo').removeClass('parsley-error');
-						checkPhoto = true;
-					} else {
-						$('#photo').addClass('parsley-error');
-						$('#warningPhoto').text('Không được bỏ trống HÌNH ẢNH!');
-						
-					}
-					var pattern = new RegExp('^[0-9]*$');
-					if(price.trim().length > 0 && price.match(pattern)){
-						$('#warningPrice').text('');
-						$('#price').removeClass('parsley-error');
-						checkPrice = true;
-					}
-					else if(price.trim().length > 0){
-						$('#price').addClass('parsley-error');
-						$('#warningPrice').text('GIÁ SẢN PHẨM là số!');
-						
-					}
-					else {
-						$('#price').addClass('parsley-error');
-						$('#warningPrice').text('Không được bỏ trống GIÁ SẢN PHẨM!');
-						
-					}
-					
-					if (checkproductName && checkCategoryCode && checkPhoto && checkPrice) {
-						return true;
-					} else {
+        			try{
+        				var categoryCode = $('#categoryCode').val();
+            			var productName = $('#productName').val();
+            			var photo = $('#photo').val();
+            			var price = $('#price').val();
+            			
+            			var checkCategoryCode = false;
+            			var checkProductName = false;
+            			var checkPhoto = false;
+            			var checkPrice = false;
+    					
+    					if (categoryCode.trim().length > 0) {
+    						$('#warningCategoryCode').text('');
+    						$('#categoryCode').removeClass('parsley-error');
+    						checkCategoryCode = true;
+    					} else {
+    						$('#categoryCode').addClass('parsley-error');
+    						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
+    						
+    					}
+    					
+    					if(productName.trim().length > 0){
+    						$('#warningProductName').text('');
+    						$('#productName').removeClass('parsley-error');
+    						
+    					} else {
+    						$('#productName').addClass('parsley-error');
+    						$('#warningProductName').text('Không được bỏ trống TÊN SẢN PHẨM!');
+    						
+    					}
+    					
+    					
+    					if(photo.trim().length > 0){
+    						$('#warningPhoto').text('');
+    						$('#photo').removeClass('parsley-error');
+    						checkPhoto = true;
+    					} else {
+    						$('#photo').addClass('parsley-error');
+    						$('#warningPhoto').text('Không được bỏ trống HÌNH ẢNH!');
+    						
+    					}
+    					var pattern = new RegExp('^[0-9]*$');
+    					if(price.trim().length > 0 && price.match(pattern)){
+    						$('#warningPrice').text('');
+    						$('#price').removeClass('parsley-error');
+    						checkPrice = true;
+    					}
+    					else if(price.trim().length > 0){
+    						$('#price').addClass('parsley-error');
+    						$('#warningPrice').text('GIÁ SẢN PHẨM là số!');
+    						
+    					}
+    					else {
+    						$('#price').addClass('parsley-error');
+    						$('#warningPrice').text('Không được bỏ trống GIÁ SẢN PHẨM!');
+    						
+    					}
+    					
+    					if (checkproductName && checkCategoryCode && checkPhoto && checkPrice) {
+    						return true;
+    					} else {
+    						return false;
+    					}
+        			}
+        			catch (err) {
 						return false;
 					}
         		}

@@ -77,13 +77,14 @@
 	        						</div>
 	        						<br>
         						</c:if>
+        						<form id="form-submit"
+								action="<c:url value='/admin/product/list' />" method="get">
         						<div>
         							<table id="datatable" 
         								   class="table table-bordered dt-responsive nowrap" 
         								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         								<thead>
         									<tr>
-        										<th>Mã thể loại</th>
         										<th>Tên sản phẩm</th>
         										<th>Hình ảnh</th>
         										<th>Giá</th>
@@ -93,7 +94,6 @@
         								<tbody>
         									<c:forEach items="${product}" var="product">
         										<tr>
-        											<td>${product.categoryCode}</td>
         											<td>${product.productName}</td>
         											<td>
         												<img style="width: 100px; height: 100px" src="<c:url value='${product.photo}' />">
@@ -141,6 +141,7 @@
 										<input type="hidden" id="page" name="page" value="">
 										<br><br>
 									</nav>
+									</form>
         						</div>
         					</div>
         				</div>

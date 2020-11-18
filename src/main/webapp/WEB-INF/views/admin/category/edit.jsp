@@ -67,7 +67,7 @@
         										Mã thể loại <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="categoryCode" cssClass="form-control" onfocusout="getCategory()"/>
+        										<form:input path="categoryCode" cssClass="form-control" />
         										<ul class="parsley-errors-list filled">
         											<li id="warningCategoryCode" class="parsley-required"></li>
         										</ul>
