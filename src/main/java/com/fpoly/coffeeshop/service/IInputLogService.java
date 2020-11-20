@@ -16,7 +16,7 @@ public interface IInputLogService {
 	public List<InputLogDTO> findAllByOldFlagDelete(Boolean oldFlagDelete, Integer page, Integer limit);
 	
 	
-	public List<InputLogDTO> findAllByInputID(Long orderID);
+	public List<InputLogDTO> findAllByInputID(Long inputID);
 	
 	public Integer getTotalPagesByInputID(Long inputID, Integer page, Integer limit); 
 	

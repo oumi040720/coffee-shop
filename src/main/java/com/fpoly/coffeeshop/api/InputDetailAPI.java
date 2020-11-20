@@ -86,9 +86,9 @@ public class InputDetailAPI {
 		return detailService.findOne(id);
 	}
 	
-	@GetMapping(value = "/api/inputdetail/order/{order}")
-	public InputDetailDTO findOne(@PathVariable("order") String  order) {
-		return detailService.findOne(order);
+	@GetMapping(value = "/api/inputdetail/input/{input}")
+	public InputDetailDTO findOne(@PathVariable("input") String  input) {
+		return detailService.findOne(input);
 	}
 	
 	@PostMapping(value = "/api/inputdetail/insert")
