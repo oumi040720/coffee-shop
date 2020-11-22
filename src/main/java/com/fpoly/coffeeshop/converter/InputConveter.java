@@ -10,21 +10,21 @@ public class InputConveter {
 	public InputDTO ConvertToDTO(InputEntity entity) {
 		InputDTO dto = new InputDTO();
 		dto.setId(entity.getId());
-		dto.setInputName(entity.getInputName());
+		dto.setInputDate(entity.getInputDate());
 		dto.setFlagDelete(entity.getFlagDelete());
 		return dto;
 	}
 	
 	public InputEntity convertToEntity(InputDTO dto) {
 		InputEntity entity = new InputEntity();
-		entity.setInputName(dto.getInputName());
+		entity.setInputDate(dto.getInputDate());
 		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
 	}
 	
 	public InputEntity convertToEntity(InputDTO dto, InputEntity entity) {
 		entity.setId(dto.getId());
-		entity.setInputName(dto.getInputName());
+		entity.setInputDate(dto.getInputDate());
 		entity.setFlagDelete(dto.getFlagDelete());
 		
 		return entity;

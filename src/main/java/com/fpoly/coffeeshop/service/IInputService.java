@@ -12,7 +12,7 @@ public interface IInputService {
   		
   		 public InputDTO findOne(Long id);
   		 
-  		 public InputDTO findOne(String inputName);
+  		 public InputDTO findOne(String inputDate);
   		 
   		 public Boolean insert(InputDTO inputDTO);
   		 

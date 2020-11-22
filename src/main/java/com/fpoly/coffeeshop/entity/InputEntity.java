@@ -22,8 +22,8 @@ public class InputEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "input_name")
-	private String inputName;
+	@Column(name = "input_date")
+	private String inputDate;
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
@@ -40,12 +40,12 @@ public class InputEntity {
 		this.id = id;
 	}
 
-	public String getInputName() {
-		return inputName;
+	public String getInputDate() {
+		return inputDate;
 	}
 
-	public void setInputName(String inputName) {
-		this.inputName = inputName;
+	public void setInputDate(String inputDate) {
+		this.inputDate = inputDate;
 	}
 
 	public Boolean getFlagDelete() {

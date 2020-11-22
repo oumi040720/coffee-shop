@@ -6,7 +6,7 @@ public class InputDTO {
 	
 	private Long id;
 	
-	private String InputName;
+	private String InputDate;
  
 	private Boolean flagDelete;
 	
@@ -18,11 +18,11 @@ public class InputDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getInputName() {
-		return InputName;
+	public String getInputDate() {
+		return InputDate;
 	}
-	public void setInputName(String inputName) {
-		InputName = inputName;
+	public void setInputDate(String inputDate) {
+		InputDate = inputDate;
 	}
 	public Boolean getFlagDelete() {
 		return flagDelete;
