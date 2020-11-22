@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Coffee Shop | Admin | Unit</title>
+		<title>Coffee Shop | Admin | Input</title>
 		
 		<!-- Table datatable css -->
 		<link href="<c:url value='/template/admin/libs/datatables/dataTables.bootstrap4.min.css' />" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@
         								<li class="breadcrumb-item active">Danh sách</li>
         							</ol>
         						</div>
-        						<h4 class="page-title">Danh sách đơn vị</h4>
+        						<h4 class="page-title">Danh sách nguyên liệu</h4>
         					</div>
         				</div>
         			</div>
@@ -41,7 +41,7 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
-        							<a href="<c:url value='/admin/unit/add'/>" class="btn btn-success">Thêm</a>
+        							<a href="<c:url value='/admin/input/add'/>" class="btn btn-success">Thêm</a>
         						</div>
         						<br>
         						<c:if test="${not empty message}">
@@ -61,29 +61,29 @@
         								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         								<thead>
         									<tr>
-        										<th>Tên đơn vị</th>
+        										<th>Tên nguyên liệu</th>
         										<th>#</th>
         									</tr>
         								</thead>
         								<tbody>
-        									<c:forEach items="${unit}" var="unit">
+        									<c:forEach items="${input}" var="input">
         										<tr>
-        											<td>${unit.unitName}</td>
+        											<td>${input.inputName}</td>
         											<td>
-        												<c:url var="editURL" value="/admin/unit/edit">
-        													<c:param name="unit_id" value="${unit.id}" />
+        												<c:url var="editURL" value="/admin/input/edit">
+        													<c:param name="input_id" value="${input.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
         												</a>
         												
-        												<c:url var="deleteURL" value="/admin/unit/delete">
-        													<c:param name="unit_id" value="${unit.id}" />
+        												<c:url var="deleteURL" value="/admin/input/delete">
+        													<c:param name="input_id" value="${input.id}" />
         												</c:url>
-        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${unit.id}">
+        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${input.id}">
         													<i class="mdi mdi-window-close"></i>
         												</a>
-        												<div class="modal fade" id="confirm-${unit.id}">
+        												<div class="modal fade" id="confirm-${input.id}">
         													<div class="modal-dialog modal-dialog-centered">
         														<div class="modal-content">
 	        														<div class="modal-header">
@@ -91,7 +91,7 @@
 	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        														</div>
 	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa đơn vị "${unit.unitName}" không?
+	        															Bạn có chắc muốn xóa nguyên liệu "${input.inputName}" không?
 	        														</div>
 	        														<div class="modal-footer">
 	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>

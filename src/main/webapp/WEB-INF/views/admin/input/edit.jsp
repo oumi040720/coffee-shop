@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Coffee Shop | Admin | Unit</title>
+		<title>Coffee Shop | Admin | Input</title>
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
 	</head>
@@ -36,10 +36,10 @@
         							</ol>
         						</div>
         						<c:if test="${check}">
-        							<h4 class="page-title">Cập nhật đơn vị</h4>
+        							<h4 class="page-title">Cập nhật nguyên liệu</h4>
         						</c:if>
         						<c:if test="${!check}">
-        							<h4 class="page-title">Thêm mới đơn vị</h4>
+        							<h4 class="page-title">Thêm mới nguyên liệu</h4>
         						</c:if>
         					</div>
         				</div>
@@ -48,17 +48,17 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div class="row">
-        							<c:url var="action" value="/admin/unit/save" />
-        							<form:form action="${action}" modelAttribute="unit" cssClass="col-lg-12" 
+        							<c:url var="action" value="/admin/input/save" />
+        							<form:form action="${action}" modelAttribute="input" cssClass="col-lg-12" 
         									onsubmit="return checkValidated()" data-parsley-validate="" novalidate="">
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label">
-        										Tên đơn vị<span class="text-danger"> (*) </span>
+        										Tên nguyên liệu<span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="unitName" cssClass="form-control"/>
+        										<form:input path="inputName" cssClass="form-control"/>
         										<ul class="parsley-errors-list filled">
-        											<li id="warningUnitName" class="parsley-required"></li>
+        											<li id="warningInputName" class="parsley-required"></li>
         										</ul>
         									</div>
         								</div>
@@ -95,26 +95,26 @@
         	
     			
     			var checkValidated = function() {
-        			var unitName = $('#unitName').val();
+        			var inputName = $('#inputName').val();
 
         			
-        			var checkunitName = false;
+        			var checkinputName = false;
 
         			
-					if (unitName.trim().length > 0) {
-						$('#warningUnitName').text('');
-						$('#unitName').removeClass('parsley-error');
-						checkunitName = true;
+					if (inputName.trim().length > 0) {
+						$('#warningInputName').text('');
+						$('#inputName').removeClass('parsley-error');
+						checkinputName = true;
 					} else {
-						$('#unitName').addClass('parsley-error');
-						$('#warningUnitName').text('Không được bỏ trống TÊN ĐƠN VỊ');
+						$('#inputName').addClass('parsley-error');
+						$('#warningInputName').text('Không được bỏ trống TÊN ĐƠN VỊ');
 					}
 					
 					
 
 					
 					
-					if (checkunitName ) {
+					if (checkinputName ) {
 						return true;
 					} else {
 						return false;
