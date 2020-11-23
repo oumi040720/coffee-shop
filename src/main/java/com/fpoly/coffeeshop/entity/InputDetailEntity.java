@@ -29,12 +29,12 @@ public class InputDetailEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "unit_id	")
 	@JsonManagedReference
-	private UnitEntity unit;
+	private UnitEntity unit_id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ingredient_id")
 	@JsonManagedReference
-	private IngredientsEntity ingredient;
+	private IngredientsEntity ingredient_id;
 	
 	@Column(name = "input_id")
 	private Integer input_id;
@@ -67,26 +67,26 @@ public class InputDetailEntity {
 	}
 
 	public UnitEntity getUnit() {
-		return unit;
+		return unit_id;
 	}
 
-	public void setUnit(UnitEntity unit) {
-		this.unit = unit;
+	public void setUnit(UnitEntity unit_id) {
+		this.unit_id = unit_id;
 	}
 
 	public IngredientsEntity getIngredient() {
-		return ingredient;
+		return ingredient_id;
 	}
 
-	public void setIngredient(IngredientsEntity ingredient) {
-		this.ingredient = ingredient;
+	public void setIngredient(IngredientsEntity ingredient_id) {
+		this.ingredient_id = ingredient_id;
 	}
 	
-	public Integer getInput_Id() {
+	public Integer getInputId() {
 		return input_id;
 	}
 
-	public void setInput_Id(Integer input_id) {
+	public void setInputId(Integer input_id) {
 		this.input_id = input_id;
 	}
 

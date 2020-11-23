@@ -8,11 +8,11 @@ public class InputDetailDTO {
 	
 	private Long price;
 	
-	private String unit;
+	private Integer unit_id;
 	
-	private String ingredient;
+	private Integer ingredient_id;
 	
-	private String input_id;
+	private Integer input_id;
 
 	private Boolean flagDelete = false;
 
@@ -40,27 +40,27 @@ public class InputDetailDTO {
 		this.price = price;
 	}
 	
-	public String getUnit() {
-		return unit;
+	public Integer getUnitId() {
+		return unit_id;
 	}
 
-	public void setUnit(String unit) {
-		this.unit = unit;
+	public void setUnit(Integer unit_id) {
+		this.unit_id = unit_id;
 	}
 	
-	public String getIngredient() {
-		return ingredient;
+	public Integer getIngredientId() {
+		return ingredient_id;
 	}
 
-	public void setIngredient(String ingredient) {
-		this.ingredient = ingredient;
+	public void setIngredient(Integer ingredient_id) {
+		this.ingredient_id = ingredient_id;
 	}
 	
-	public String getInput_Id() {
+	public Integer getInputId() {
 		return input_id;
 	}
 
-	public void setInput_Id(String input_id) {
+	public void setInputId(Integer input_id) {
 		this.input_id = input_id;
 	}
 

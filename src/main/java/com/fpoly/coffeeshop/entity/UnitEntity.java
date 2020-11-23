@@ -20,7 +20,7 @@ public class UnitEntity {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "unit_name")
 	private String unitName;
@@ -32,11 +32,11 @@ public class UnitEntity {
 	@JsonBackReference
 	private List<IngredientsEntity> ingredients;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
