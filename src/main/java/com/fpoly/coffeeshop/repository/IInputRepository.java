@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.fpoly.coffeeshop.entity.InputEntity;
 @Repository
 
-	public interface IInputRepository extends JpaRepository<InputEntity, Long> {
+	public interface IInputRepository extends JpaRepository<InputEntity, Integer> {
 	
 		public InputEntity findOneByInputDate(String inputDate);
 		

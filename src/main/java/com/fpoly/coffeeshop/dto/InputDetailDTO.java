@@ -48,7 +48,7 @@ public class InputDetailDTO {
 		this.unit_id = unit_id;
 	}
 	
-	public Integer getIngredientId() {
+	public Integer getIngredient() {
 		return ingredient_id;
 	}
 
@@ -56,11 +56,11 @@ public class InputDetailDTO {
 		this.ingredient_id = ingredient_id;
 	}
 	
-	public Integer getInputId() {
+	public Integer getInput() {
 		return input_id;
 	}
 
-	public void setInputId(Integer input_id) {
+	public void setInput(Integer input_id) {
 		this.input_id = input_id;
 	}
 
