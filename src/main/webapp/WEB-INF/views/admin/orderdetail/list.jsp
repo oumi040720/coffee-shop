@@ -46,19 +46,19 @@
 								<thead>
 									<tr class="thead-dark">
 										<th>Sản Phẩm</th>
-										<th>Mã Hóa Đơn</th>
+										<th>Mã Nguyên Liệu</th>
 										<th>Số Lượng</th>
 										<th>Giá Tiền</th>
 									</tr>
 								</thead>
 								<tbody>
 
-									<c:forEach var="orderDetail" items="${orderDetails}">
+									<c:forEach var="inputDetail" items="${inputDetails}">
 										<tr>
-											<td>${orderDetail.product}</td>
-											<td id="nameCode" accesskey="${orderDetail.order}">${orderDetail.order}</td>
-											<td>${orderDetail.quantity}</td>
-											<td>${orderDetail.price} VNĐ</td>
+											<td>${inputDetail.unit}</td>
+											<td id="nameCode" accesskey="${inputDetail.input}">${inputDetail.input}</td>
+											<td>${inputDetail.quantity}</td>
+											<td>${inputDetail.price} VNĐ</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -74,8 +74,8 @@
                                     <div class="panel-body">
                                         <div class="clearfix">
                                             <div class="float-sm-right mt-4 mt-sm-0">
-                                                <h5>Mã Hóa Đơn<br>
-                                                    <small>${order.orderCode}</small>
+                                                <h5>Mã Nguyên Liệu<br>
+                                                    <small>${input.inputDate}</small>
                                                 </h5>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="mt-4 text-sm-right">
-                                                    <p><strong>Order Date: </strong>${order.orderDate}</p>
+                                                    <p><strong>Order Date: </strong>${input.inputDate}</p>
                                                 </div>
                                             </div><!-- end col -->
                                         </div>
@@ -96,20 +96,19 @@
                                                         <thead>
                                                         <tr>
                                                         	<th>Sản Phẩm</th>
-															<th>Mã Hóa Đơn</th>
+															<th>Mã Nguyên Liệu</th>
 															<th>Số Lượng</th>
 															<th>Giá Tiền</th>
 															<th>Thành Tiền Sản Phẩm</th>
 															
                                                         </tr></thead>
                                                         <tbody> 
-                                                        <c:forEach var="orderDetail" items="${orderDetails}">
+                                                        <c:forEach var="inputDetail" items="${inputDetails}">
 															<tr>
-																<td>${orderDetail.product}</td>
-																<td id="nameCode" accesskey="${orderDetail.order}">${orderDetail.order}</td>
-																<td>${orderDetail.quantity}</td>
-																<td>${orderDetail.price} VNĐ</td>
-																<td>${orderDetail.totalMoney} VNĐ</td>
+																<td>${inputDetail.unit}</td>
+																<td id="nameCode" accesskey="${inputDetail.input}">${inputDetail.input}</td>
+																<td>${inputDetail.quantity}</td>
+																<td>${inputDetail.price} VNĐ</td>
 															</tr>
 														</c:forEach> 
                                                         </tbody>
@@ -124,7 +123,7 @@
                                                 <div class="text-right mt-4">
                                                     <h2>Tổng Tiền </h2>
                                                     <hr>
-                                                    <h3 class="float-right">VNĐ</h3><h3 class="float-right">${order.totalPrice}</h3>
+                                                    <h3</h3>
                                                 </div>
                                             </div>
                                         </div>

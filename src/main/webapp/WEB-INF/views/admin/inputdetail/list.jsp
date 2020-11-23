@@ -56,7 +56,7 @@
 									<c:forEach var="orderDetail" items="${orderDetails}">
 										<tr>
 											<td>${orderDetail.product}</td>
-											<td id="nameCode" accesskey="${orderDetail.order}">${orderDetail.order}</td>
+											<td id="nameCode" accesskey="${inputDetail.input}">${orderDetail.input}</td>
 											<td>${orderDetail.quantity}</td>
 											<td>${orderDetail.price} VNĐ</td>
 										</tr>
