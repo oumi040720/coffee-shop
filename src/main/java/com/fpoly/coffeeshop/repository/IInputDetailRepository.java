@@ -11,7 +11,7 @@ import com.fpoly.coffeeshop.entity.InputDetailEntity;
 import com.fpoly.coffeeshop.entity.InputEntity;
 
 @Repository
-public interface IInputDetailRepository extends JpaRepository<InputDetailEntity, Long> {
+public interface IInputDetailRepository extends JpaRepository<InputDetailEntity, Integer> {
 	
 	public InputDetailEntity findOneByInputDate(String inputDate);
 

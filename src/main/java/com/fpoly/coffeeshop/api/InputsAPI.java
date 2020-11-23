@@ -29,7 +29,7 @@ public class InputsAPI {
 		
 	}
 	@GetMapping(value = "api/input/id{id}")
-	public InputDTO findOne(@PathVariable("id") Long id) {
+	public InputDTO findOne(@PathVariable("id") Integer id) {
 		return inputService.findOne(id);
 	}
 	@PostMapping(value = "api/input/insert")
@@ -37,12 +37,12 @@ public class InputsAPI {
 		return inputService.insert(inputDTO);
 	}
 	@PutMapping(value = "api/input/update")
-	public Boolean update(@RequestBody InputDTO inputDTO, @RequestParam("id") Long id) {
+	public Boolean update(@RequestBody InputDTO inputDTO, @RequestParam("id") Integer id) {
 		inputDTO.setId(id);
 		return inputService.update(inputDTO);
 	}
 	@DeleteMapping(value = "api/input/delete")
-	public Boolean delete(@RequestParam("id") Long id) {
+	public Boolean delete(@RequestParam("id") Integer id) {
 		return inputService.delete(id);
 	}
 	

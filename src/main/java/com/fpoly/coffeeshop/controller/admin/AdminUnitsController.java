@@ -45,7 +45,7 @@ public class AdminUnitsController {
 		return "admin/unit/edit";
 	}
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("unit_id") Long id) {
+	public String showUpdatePage(Model model, @RequestParam("unit_id") Integer id) {
 		model.addAttribute("check", true);
 		model.addAttribute("unit", unitService.findOne(id));
 		model.addAttribute("domain", getDomain());
@@ -86,7 +86,7 @@ public class AdminUnitsController {
 		return "redirect:/admin/unit/list?message=" + message + "&alert=" + alert;
 	}
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("unit_id") Long id) {
+	public String delete(Model model, @RequestParam("unit_id") Integer id) {
 		String message = "";
 		String alert = "danger";
 		

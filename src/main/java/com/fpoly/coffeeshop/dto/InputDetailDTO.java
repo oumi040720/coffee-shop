@@ -2,11 +2,11 @@ package com.fpoly.coffeeshop.dto;
 
 public class InputDetailDTO {
 	
-	private Long id;
+	private Integer id;
 	
 	private Integer quantity;
 	
-	private Long price;
+	private Integer price;
 	
 	private Integer unit_id;
 	
@@ -16,11 +16,11 @@ public class InputDetailDTO {
 
 	private Boolean flagDelete = false;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -32,15 +32,15 @@ public class InputDetailDTO {
 		this.quantity = quantity;
 	}
 
-	public Long getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	
-	public Integer getUnitId() {
+	public Integer getUnit() {
 		return unit_id;
 	}
 

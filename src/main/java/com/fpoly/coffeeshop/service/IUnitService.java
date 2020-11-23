@@ -10,7 +10,7 @@ public interface IUnitService {
   
   		 public List<UnitDTO> findAllbyFlagDelete(Boolean flagDelete);
   		
-  		 public UnitDTO findOne(Long id);
+  		 public UnitDTO findOne(Integer id);
   		 
   		 public UnitDTO findOne(String unitName);
   		 
@@ -18,6 +18,6 @@ public interface IUnitService {
   		 
   		 public Boolean update(UnitDTO unitDTO);
   		 
-  		 public Boolean delete(Long id);
+  		 public Boolean delete(Integer id);
   		 
 }

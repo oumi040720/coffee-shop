@@ -24,7 +24,7 @@ public class InputEntity {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "input_date")
@@ -37,11 +37,11 @@ public class InputEntity {
 	@JsonBackReference
 	private List<IngredientsEntity> ingredients;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

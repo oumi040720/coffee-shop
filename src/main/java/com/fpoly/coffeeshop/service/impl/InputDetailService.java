@@ -75,18 +75,18 @@ public class InputDetailService implements IInputDetailService {
 	}
 	
 	@Override
-	public InputDetailDTO findOne(Long id) {
+	public InputDetailDTO findOne(Integer id) {
 		return inputDetailConveter.convertToDTO(inputDetailRepository.getOne(id));
 	}
 
 	@Override
 	public Boolean insert(InputDetailDTO inputDTO) {
 		try {
-			ProductEntity menuEntity = menuRepository.findOneByProductName(inputDTO.getProduct());
-			InputEntity inputEntity = inputRepository.findOneByInputId(inputDTO.getInput());
+			UnitEntity menuEntity = menuRepository.findOneByUnitName(inputDTO.getUnit());
+			InputEntity inputEntity = inputRepository.findOneByInputDate(inputDTO.getInputDate());
 			InputDetailEntity inputDetailEntity = inputDetailConveter.convertToEntity(inputDTO);
-			inputDetailEntity.setProduct(menuEntity);
-			inputDetailEntity.setInput(inputEntity);
+			inputDetailEntity.setUnit(menuEntity);
+			inputDetailEntity.setId(inputEntity);
 			
 			InputDetailEntity result = inputDetailRepository.save(inputDetailEntity);
 
@@ -104,7 +104,7 @@ public class InputDetailService implements IInputDetailService {
 	public Boolean update(InputDetailDTO inputdetailDTO) {
 		try {
 			ProductEntity menuEntity = menuRepository.findOneByProductName(inputdetailDTO.getProduct());
-			InputEntity inputEntity = inputRepository.findOneByInputId(inputdetailDTO.getInput());
+			InputEntity inputEntity = inputRepository.findOneByInputDate(inputdetailDTO.getInput());
 			InputDetailEntity oldInputDetailEntity = inputDetailRepository.getOne(inputdetailDTO.getId());
 			InputDetailEntity newInputDetailEntity = inputDetailConveter.convertToEntity(inputdetailDTO,oldInputDetailEntity);
 			newInputDetailEntity.setProduct(menuEntity);
@@ -123,7 +123,7 @@ public class InputDetailService implements IInputDetailService {
 	}
 
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Integer id) {
 		try {
 			inputDetailRepository.deleteById(id);
 			
@@ -134,8 +134,8 @@ public class InputDetailService implements IInputDetailService {
 	}
 	
 	@Override
-	public List<InputDetailDTO> findAllByInputId(String inputId) {
-		InputEntity input = inputRepository.findOneByInputId(inputId);
+	public List<InputDetailDTO> findAllByInputDate(String inputDate) {
+		InputEntity input = inputRepository.findOneByInputDate(inputDate);
 		System.out.println(input);
 		List<InputDetailDTO> result = new ArrayList<>();
 		List<InputDetailEntity> list = inputDetailRepository.findAllByInput(input);
@@ -148,14 +148,14 @@ public class InputDetailService implements IInputDetailService {
 	}
 
 	@Override
-	public Integer getTotalPagesByInputId(String inputId, Integer page, Integer limit) {
-		InputEntity input = inputRepository.findOneByInputId(inputId);
+	public Integer getTotalPagesByInputDate(String inputDate, Integer page, Integer limit) {
+		InputEntity input = inputRepository.findOneByInputDate(inputDate);
 		return inputDetailRepository.findAllByInput(input,  PageRequest.of(page, limit)).getTotalPages();
 	}
 
 	@Override
-	public List<InputDetailDTO> findAllByInputId(String inputId, Integer page, Integer limit) {
-		InputEntity input = inputRepository.findOneByInputId(inputId);
+	public List<InputDetailDTO> findAllByInputDate(String inputDate, Integer page, Integer limit) {
+		InputEntity input = inputRepository.findOneByInputDate(inputDate);
 		List<InputDetailDTO> result = new ArrayList<>();
 		List<InputDetailEntity> list = inputDetailRepository.findAllByInput(input,PageRequest.of(page, limit)).getContent();
 		
@@ -167,8 +167,8 @@ public class InputDetailService implements IInputDetailService {
 	}
 
 	@Override
-	public List<InputDetailDTO> findAllByFlagDeleteAndInputId(Boolean flagDelete, String inputId) {
-		InputEntity input = inputRepository.findOneByInputId(inputId);
+	public List<InputDetailDTO> findAllByFlagDeleteAndInputDate(Boolean flagDelete, String inputDate) {
+		InputEntity input = inputRepository.findOneByInputDate(inputDate);
 		
 		List<InputDetailDTO> result = new ArrayList<>();
 		List<InputDetailEntity> list = inputDetailRepository.findAllByFlagDeleteIsAndInput(flagDelete, input);
@@ -181,17 +181,17 @@ public class InputDetailService implements IInputDetailService {
 	}
 
 	@Override
-	public Integer getTotalPagesByFlagDeleteAndInputId(Boolean flagDelete, String inputId, Integer page,
+	public Integer getTotalPagesByFlagDeleteAndInputDate(Boolean flagDelete, String inputDate, Integer page,
 			Integer limit) {
-		InputEntity input = inputRepository.findOneByInputId(inputId);
+		InputEntity input = inputRepository.findOneByInputDate(inputDate);
 		return inputDetailRepository
 				.findAllByFlagDeleteIsAndInput(flagDelete, input, PageRequest.of(page, limit)).getTotalPages();
 	}
 
 	@Override
-	public List<InputDetailDTO> findAllByFlagDeleteAndInputId(Boolean flagDelete, String inputId, Integer page,
+	public List<InputDetailDTO> findAllByFlagDeleteAndInputDate(Boolean flagDelete, String inputDate, Integer page,
 			Integer limit) {
-		InputEntity input = inputRepository.findOneByInputId(inputId);
+		InputEntity input = inputRepository.findOneByInputDate(inputDate);
 		
 		List<InputDetailDTO> result = new ArrayList<>();
 		List<InputDetailEntity> list = inputDetailRepository.findAllByFlagDeleteIsAndInput(flagDelete, input, PageRequest.of(page, limit)).getContent();
@@ -204,8 +204,8 @@ public class InputDetailService implements IInputDetailService {
 	}
 
 	@Override
-	public InputDetailDTO findOne(String input) {
-		return inputDetailConveter.convertToDTO(inputDetailRepository.findOneByInput(input));
+	public InputDetailDTO findOne(String inputDate) {
+		return inputDetailConveter.convertToDTO(inputDetailRepository.findOneByInputDate(inputDate));
 	}
 	
 }

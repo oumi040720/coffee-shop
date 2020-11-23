@@ -40,7 +40,7 @@ public class UnitsService implements IUnitService {
 		return result;
 	}
 	@Override
-	public UnitDTO findOne(Long id) {
+	public UnitDTO findOne(Integer id) {
 		
 		return unitConveter.ConvertToDTO(unitRepository.getOne(id));
 	}
@@ -76,7 +76,7 @@ public class UnitsService implements IUnitService {
 		}
 	}
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Integer id) {
 		try {
 			unitRepository.deleteById(id);
 			return true;

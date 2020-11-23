@@ -17,21 +17,21 @@ public interface IInputDetailService {
 	public List<InputDetailDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit);
 
 	
-	public List<InputDetailDTO> findAllByInputId(String input_id);
+	public List<InputDetailDTO> findAllByInputDate(String input_id);
 	
-	public Integer getTotalPagesByInputId(String inputId, Integer page, Integer limit);
+	public Integer getTotalPagesByInputDate(String inputDate, Integer page, Integer limit);
 
-	public List<InputDetailDTO> findAllByInputId(String inputId, Integer page, Integer limit);
+	public List<InputDetailDTO> findAllByInputDate(String inputDate, Integer page, Integer limit);
 	
 	
-	public List<InputDetailDTO> findAllByFlagDeleteAndInputId(Boolean flagDelete, String inputId);
+	public List<InputDetailDTO> findAllByFlagDeleteAndInputDate(Boolean flagDelete, String inputDate);
 	
-	public Integer getTotalPagesByFlagDeleteAndInputId(Boolean flagDelete, String inputId, Integer page, Integer limit);
+	public Integer getTotalPagesByFlagDeleteAndInputDate(Boolean flagDelete, String inputDate, Integer page, Integer limit);
 	
-	public List<InputDetailDTO> findAllByFlagDeleteAndInputId(Boolean flagDelete, String inputId, Integer page, Integer limit);
+	public List<InputDetailDTO> findAllByFlagDeleteAndInputDate(Boolean flagDelete, String inputDate, Integer page, Integer limit);
 	
 	
-	public InputDetailDTO findOne(Long id);
+	public InputDetailDTO findOne(Integer id);
 	
 	public InputDetailDTO findOne(String input);
 	
@@ -39,5 +39,5 @@ public interface IInputDetailService {
 	
 	public Boolean update(InputDetailDTO inputdetailDTO);
 	
-	public Boolean delete(Long id);
+	public Boolean delete(Integer id);
 }

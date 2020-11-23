@@ -40,7 +40,7 @@ public class InputsService implements IInputService {
 		return result;
 	}
 	@Override
-	public InputDTO findOne(Long id) {
+	public InputDTO findOne(Integer id) {
 		
 		return inputConveter.ConvertToDTO(inputRepository.getOne(id));
 	}
@@ -76,7 +76,7 @@ public class InputsService implements IInputService {
 		}
 	}
 	@Override
-	public Boolean delete(Long id) {
+	public Boolean delete(Integer id) {
 		try {
 			inputRepository.deleteById(id);
 			return true;

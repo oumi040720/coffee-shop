@@ -9,7 +9,7 @@ public class InputDTO {
    
 
 	
-	private Long id;
+	private Integer id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date inputDate;
@@ -18,10 +18,10 @@ public class InputDTO {
 	
 	
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	

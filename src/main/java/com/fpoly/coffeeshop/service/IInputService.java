@@ -10,7 +10,7 @@ public interface IInputService {
   
   		 public List<InputDTO> findAllbyFlagDelete(Boolean flagDelete);
   		
-  		 public InputDTO findOne(Long id);
+  		 public InputDTO findOne(Integer id);
   		 
   		 public InputDTO findOne(String inputDate);
   		 
@@ -18,6 +18,6 @@ public interface IInputService {
   		 
   		 public Boolean update(InputDTO inputDTO);
   		 
-  		 public Boolean delete(Long id);
+  		 public Boolean delete(Integer id);
   		 
 }

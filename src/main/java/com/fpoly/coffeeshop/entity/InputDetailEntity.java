@@ -18,13 +18,13 @@ public class InputDetailEntity {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(name = "quantity")
 	private Integer quantity;
 
 	@Column(name = "price")
-	private Long price;
+	private Integer price;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "unit_id	")
@@ -42,11 +42,11 @@ public class InputDetailEntity {
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -58,11 +58,11 @@ public class InputDetailEntity {
 		this.quantity = quantity;
 	}
 
-	public Long getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
