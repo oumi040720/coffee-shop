@@ -1,12 +1,18 @@
 package com.fpoly.coffeeshop.dto;
 
+import java.util.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class InputDTO {
    
 
 	
 	private Long id;
 	
-	private String InputDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date inputDate;
  
 	private Boolean flagDelete;
 	
@@ -18,12 +24,15 @@ public class InputDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getInputDate() {
-		return InputDate;
+	
+	public Date getInputDate() {
+		return inputDate;
 	}
-	public void setInputDate(String inputDate) {
-		InputDate = inputDate;
+
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
 	}
+	
 	public Boolean getFlagDelete() {
 		return flagDelete;
 	}

@@ -56,7 +56,7 @@
         										Tên nguyên liệu<span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="inputName" cssClass="form-control"/>
+        										<form:input path="inputDate" cssClass="form-control"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningInputName" class="parsley-required"></li>
         										</ul>
@@ -95,18 +95,18 @@
         	
     			
     			var checkValidated = function() {
-        			var inputName = $('#inputName').val();
+        			var inputDate = $('#inputDate').val();
 
         			
-        			var checkinputName = false;
+        			var checkinputDate = false;
 
         			
-					if (inputName.trim().length > 0) {
+					if (inputDate.trim().length > 0) {
 						$('#warningInputName').text('');
-						$('#inputName').removeClass('parsley-error');
-						checkinputName = true;
+						$('#inputDate').removeClass('parsley-error');
+						checkinputDate = true;
 					} else {
-						$('#inputName').addClass('parsley-error');
+						$('#inputDate').addClass('parsley-error');
 						$('#warningInputName').text('Không được bỏ trống TÊN ĐƠN VỊ');
 					}
 					
@@ -114,7 +114,7 @@
 
 					
 					
-					if (checkinputName ) {
+					if (checkinputDate ) {
 						return true;
 					} else {
 						return false;

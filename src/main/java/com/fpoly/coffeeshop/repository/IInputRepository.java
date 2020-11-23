@@ -9,7 +9,7 @@ import com.fpoly.coffeeshop.entity.InputEntity;
 
 	public interface IInputRepository extends JpaRepository<InputEntity, Long> {
 	
-		public InputEntity findOneByInputName(String inputDate);
+		public InputEntity findOneByInputDate(String inputDate);
 		
 		public List<InputEntity> findByFlagDeleteIs(Boolean flagDelete);
 	

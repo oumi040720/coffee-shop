@@ -68,7 +68,7 @@
         								<tbody>
         									<c:forEach items="${input}" var="input">
         										<tr>
-        											<td>${input.inputName}</td>
+        											<td>${input.inputDate}</td>
         											<td>
         												<c:url var="editURL" value="/admin/input/edit">
         													<c:param name="input_id" value="${input.id}" />
@@ -91,7 +91,7 @@
 	        															<button type="button" class="close" data-dismiss="modal">&times;</button>
 	        														</div>
 	        														<div class="modal-body">
-	        															Bạn có chắc muốn xóa nguyên liệu "${input.inputName}" không?
+	        															Bạn có chắc muốn xóa nguyên liệu "${input.inputDate}" không?
 	        														</div>
 	        														<div class="modal-footer">
 	        															<a href="${deleteURL}" class="btn btn-outline-success">Có</a>
