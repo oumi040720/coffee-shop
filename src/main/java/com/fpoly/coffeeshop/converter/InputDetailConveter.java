@@ -14,7 +14,7 @@ public class InputDetailConveter {
 		dto.setQuantity(entity.getQuantity());
 		dto.setUnit(entity.getUnit().getId());
 		dto.setIngredient(entity.getIngredient().getId());
-		dto.setInputId(entity.getInputId());
+		dto.setInput(entity.getInputId());
 		dto.setPrice(entity.getPrice());
 		dto.setFlagDelete(entity.getFlagDelete());
 		return dto;
