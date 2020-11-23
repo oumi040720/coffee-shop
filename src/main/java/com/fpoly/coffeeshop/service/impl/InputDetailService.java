@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.InputDetailConveter;
 import com.fpoly.coffeeshop.dto.InputDetailDTO;
-import com.fpoly.coffeeshop.entity.ProductEntity;
+import com.fpoly.coffeeshop.entity.UnitEntity;
 import com.fpoly.coffeeshop.entity.InputDetailEntity;
 import com.fpoly.coffeeshop.entity.InputEntity;
-import com.fpoly.coffeeshop.repository.IProductRepository;
+import com.fpoly.coffeeshop.repository.IUnitRepository;
 import com.fpoly.coffeeshop.repository.IInputDetailRepository;
 import com.fpoly.coffeeshop.repository.IInputRepository;
 import com.fpoly.coffeeshop.service.IInputDetailService;
@@ -30,7 +30,7 @@ public class InputDetailService implements IInputDetailService {
 	private IInputRepository inputRepository;
 	
 	@Autowired
-	private IProductRepository menuRepository;
+	private IUnitRepository menuRepository;
 
 	@Override
 	public List<InputDetailDTO> findAll() {
@@ -103,11 +103,11 @@ public class InputDetailService implements IInputDetailService {
 	@Override
 	public Boolean update(InputDetailDTO inputdetailDTO) {
 		try {
-			ProductEntity menuEntity = menuRepository.findOneByProductName(inputdetailDTO.getProduct());
-			InputEntity inputEntity = inputRepository.findOneByInputDate(inputdetailDTO.getInput());
+			UnitEntity menuEntity = menuRepository.findOneByUnitName(inputdetailDTO.getUnit());
+			InputEntity inputEntity = inputRepository.findOneByInputDate(inputdetailDTO.getInputDate());
 			InputDetailEntity oldInputDetailEntity = inputDetailRepository.getOne(inputdetailDTO.getId());
 			InputDetailEntity newInputDetailEntity = inputDetailConveter.convertToEntity(inputdetailDTO,oldInputDetailEntity);
-			newInputDetailEntity.setProduct(menuEntity);
+			newInputDetailEntity.setUnit(menuEntity);
 			newInputDetailEntity.setInput(inputEntity);
 			
 			InputDetailEntity result = inputDetailRepository.save(newInputDetailEntity);

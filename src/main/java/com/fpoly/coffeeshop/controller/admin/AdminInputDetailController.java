@@ -53,7 +53,7 @@ public class AdminInputDetailController {
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("inputDate") String inputDate) throws JsonParseException, JsonMappingException, IOException {
 		
-		model.addAttribute("menus",menuService.findAllByFlagDelete(false));
+		model.addAttribute("menus",menuService.findAllbyFlagDelete(false));
 		model.addAttribute("check", true);
 		List<InputDetailDTO> list = inputDetailService.findAllByInputDate(inputDate);
 		model.addAttribute("inputDetails", list);	
@@ -63,7 +63,7 @@ public class AdminInputDetailController {
 	
 	@RequestMapping(value = "/editDetail")
 	public String editDetailPage(Model model, @RequestParam("inputDate") String inputDate) {
-		model.addAttribute("menus",menuService.findAllByFlagDeleteIs(false));
+		model.addAttribute("menus",menuService.findAllbyFlagDelete(false));
 		model.addAttribute("coupon", couponService.findAllDate(new Date(System.currentTimeMillis()), false));
 		model.addAttribute("inputDate", inputDate);
 		model.addAttribute("domain", getDomain());
