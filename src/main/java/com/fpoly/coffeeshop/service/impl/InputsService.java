@@ -1,6 +1,7 @@
 package com.fpoly.coffeeshop.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,7 +86,7 @@ public class InputsService implements IInputService {
 		}
 	}
 	@Override
-	public InputDTO findOne(String inputDate) {
+	public InputDTO findOne(Date inputDate) {
 		
 		return inputConveter.ConvertToDTO(inputRepository.findOneByInputDate(inputDate));
 	}
