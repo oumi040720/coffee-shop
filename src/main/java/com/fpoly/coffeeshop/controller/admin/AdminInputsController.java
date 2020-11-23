@@ -45,7 +45,7 @@ public class AdminInputsController {
 		return "admin/input/edit";
 	}
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("input_id") Integer id) {
+	public String showUpdatePage(Model model, @RequestParam("input_id") Long id) {
 		model.addAttribute("check", true);
 		model.addAttribute("input", inputService.findOne(id));
 		model.addAttribute("domain", getDomain());
@@ -86,7 +86,7 @@ public class AdminInputsController {
 		return "redirect:/admin/input/list?message=" + message + "&alert=" + alert;
 	}
 	@RequestMapping(value = "/delete")
-	public String delete(Model model, @RequestParam("input_id") Integer id) {
+	public String delete(Model model, @RequestParam("input_id") Long id) {
 		String message = "";
 		String alert = "danger";
 		

@@ -9,7 +9,7 @@ public class IngredientsDTO {
 	 
 	private Integer quantity;
 	
-	private Integer unitCode;
+	private Long unitCode;
 	
 	private Boolean flagDelete;
 	
@@ -34,10 +34,10 @@ public class IngredientsDTO {
 		this.quantity = quantity;
 	}
 	
-	public Integer getUnitCode() {
+	public Long getUnitCode() {
 		return unitCode;
 	}
-	public void setUnitCode(Integer unitCode) {
+	public void setUnitCode(Long unitCode) {
 		this.unitCode = unitCode;
 	}
 	public Boolean getFlagDelete() {
