@@ -85,9 +85,13 @@
 					</a>
 				</li>
 				<li>
-					<a href="<c:url value='/admin/input/list?page=1' />">
+					<a href="<c:url value='/admin/inputdetail/list?page=1' />">
 						<i class="mdi mdi-water"></i>
 						<span> Nguyên Liệu </span>
+					</a>
+					<a href="<c:url value='/admin/input/list?page=1' />">
+						<i class="mdi mdi-water"></i>
+						<span> Nhập Nguyên Liệu </span>
 					</a>
 				</li>
 			</ul>

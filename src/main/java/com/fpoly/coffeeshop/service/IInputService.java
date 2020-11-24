@@ -1,6 +1,7 @@
 package com.fpoly.coffeeshop.service;
 
 import java.util.List;
+import java.util.Date;
 
 import com.fpoly.coffeeshop.dto.InputDTO;
 
@@ -12,7 +13,7 @@ public interface IInputService {
   		
   		 public InputDTO findOne(Long id);
   		 
-  		 public InputDTO findOne(String inputDate);
+  		 public InputDTO findOne(Date inputDate);
   		 
   		 public Boolean insert(InputDTO inputDTO);
   		 

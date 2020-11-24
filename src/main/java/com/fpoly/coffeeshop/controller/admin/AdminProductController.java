@@ -87,13 +87,11 @@ public class AdminProductController {
 		}
 		
 		ProductDTO productDTO = productService.findOne(id);
-		productDTO = productService.findOne(productDTO.getCategoryCode());
-		
-		model.addAttribute("domain", getDomain());
+		CategoryDTO categoryDTO = categoryService.findOne(productDTO.getCategoryCode());
+
 		model.addAttribute("category", category);
-		model.addAttribute("categoryCode", productDTO.getCategoryCode());
-		model.addAttribute("productID", productDTO.getId());
-		model.addAttribute("product", productService.findAllByFlagDeleteIs(false));
+		model.addAttribute("categoryCode", categoryDTO);
+		model.addAttribute("product", productDTO);
 		model.addAttribute("check", true);
 
 		return "admin/product/edit";

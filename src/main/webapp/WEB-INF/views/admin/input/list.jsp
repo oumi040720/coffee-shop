@@ -61,7 +61,7 @@
         								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         								<thead>
         									<tr>
-        										<th>Tên nguyên liệu</th>
+        										<th>Ngày nhập nguyên liệu</th>
         										<th>#</th>
         									</tr>
         								</thead>
