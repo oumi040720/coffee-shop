@@ -119,7 +119,7 @@
 								<br>
 								<nav aria-label="Page navigation">
 									<ul class="pagination" id="pagination"></ul>
-									<input type="hidden" id="page" name="page" value="${page}"> <br>
+									<input type="hidden" id="page" name="page" value=""> <br>
 									<br>
 								</nav>
 

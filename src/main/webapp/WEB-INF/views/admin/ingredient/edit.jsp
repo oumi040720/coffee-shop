@@ -120,48 +120,60 @@
 		<%@ include file="/WEB-INF/views/admin/common/js.jsp"%>
 		<script type="text/javascript">
 			var checkValidated = function() {
-				var name = $('#name').val();
-				var checkName = false;
-				var quantity = $('#quantity').val();
-				var checkQuantity = false;
-				var unitCode = $('#unitCode').val();
-				var checkUnitCode = false;
+				try {
 
-				if (name.trim().length > 0) {
-					$('#warningIngredientName').text('');
-					name.removeClass('parsley-error');
-					checkName = true;
-				} else {
-					name.addClass('parsley-error');
-					$('#warningIngredientName').text(
-							'KHÔNG ĐƯỢC BỎ TRỐNG TÊN THÀNH PHẦN!');
-				}
-				
-				if (quantity.trim().length > 0) {
-					$('#warningIngredientQuantity').text('');
-					quantity.removeClass('parsley-error');
-					checkQuantity = true;
-				} else {
-					quantity.addClass('parsley-error');
-					$('#warningIngredientQuantity').text(
-							'KHÔNG ĐƯỢC BỎ TRỐNG SỐ LƯỢNG!');
-				}
+					var name = $('#name').val();
+					var quantity = $('#quantity').val();
+					var unitCode = $('#unitCode').val();
 
-				
-				if (unitCode.trim().length > 0) {
-					$('#warningIngredientUnitCode').text('');
-					unitCode.removeClass('parsley-error');
-					checkUnitCode = true;
-				} else {
-					unitCode.addClass('parsley-error');
-					$('#warningIngredientUnitCode').text(
-							'KHÔNG ĐƯỢC BỎ TRỐNG ĐƠN VỊ!');
-				}
+					var checkName = false;
+					var checkQuantity = false;
+					var checkUnitCode = false;
 
+					if (name.trim().length > 0) {
+						$('#warningIngredientName').text('');
+						$('name').removeClass('parsley-error');
+						checkName = true;
+					} else {
+						$('name').addClass('parsley-error');
+						$('#warningIngredientName').text(
+								'KHÔNG ĐƯỢC BỎ TRỐNG TÊN THÀNH PHẦN!');
+					}
+					
+					
+					var pattern = new RegExp('^[0-9]*$');
+					
+					if (quantity.trim().length > 0  && quantity.match(pattern)) {
+						$('#warningIngredientQuantity').text('');
+						$('quantity').removeClass('parsley-error');
+						checkQuantity = true;
+					}
 
-				if (checkName && checkQuantity && checkUnitCode) {
-					return true;
-				} else {
+					else if (quantity.trim().length > 0) {
+						$('#quantity').addClass('parsley-error');
+						$('#warningIngredientQuantity').text('Vui Lòng Nhập Số Nguyên Dương!');
+
+					} else {
+						$('quantity').addClass('parsley-error');
+						$('#warningIngredientQuantity').text(
+								'KHÔNG ĐƯỢC BỎ TRỐNG SỐ LƯỢNG!');
+					}
+
+					if (unitCode.trim().length > 0) {
+						$('#warningIngredientUnitCode').text('');
+						$('unitCode').removeClass('parsley-error');
+						checkUnitCode = true;
+					} else {
+						$('unitCode').addClass('parsley-error');
+						$('#warningIngredientUnitCode').text(
+								'KHÔNG ĐƯỢC BỎ TRỐNG ĐƠN VỊ!');
+					}
+					if (checkName && checkQuantity && checkUnitCode) {
+						return true;
+					} else {
+						return false;
+					}
+				} catch (err) {
 					return false;
 				}
 			}

@@ -102,12 +102,14 @@
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script type="text/javascript">
 	        	
+					
+				
         		var checkValidated = function() {
         			var categoryName = $('#categoryName').val();
         			var categoryCode = $('#categoryCode').val();
         			
         			var checkcategoryName = false;
-        			var checkcategoryName = false;
+        			var checkcategoryCode = false;
         			
 					if (categoryName.trim().length > 0) {
 						$('#warningCategoryName').text('');
@@ -121,20 +123,19 @@
 					if (categoryCode.trim().length > 0) {
 						$('#warningCategoryCode').text('');
 						$('#categoryCode').removeClass('parsley-error');
-						checkRoleCode = true;
+						checkcategoryCode = true;
 					} else {
 						$('#categoryCode').addClass('parsley-error');
 						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
 					}
 
-					
-					
-					if (checkcategoryName && checkcategoryName) {
+					if (checkcategoryName && checkcategoryCode) {
 						return true;
 					} else {
 						return false;
 					}
         		}
+	        	
         	</script>
         		
         </div>

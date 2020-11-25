@@ -195,7 +195,7 @@ z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
     						return true;
     					} else {
     						return false;
-    					}
+    					
         			}
         			catch (err) {
 						return false;
