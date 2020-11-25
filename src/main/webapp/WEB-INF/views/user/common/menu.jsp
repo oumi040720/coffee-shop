@@ -14,15 +14,22 @@
 				<li class="nav-item">
 					<a href="<c:url value='/home' />" class="nav-link">Trang Chủ</a>
 				</li>
-				<li class="nav-item">
-					<a href="<c:url value='/menu' />" class="nav-link">Thực Đơn</a>
+				<li class="nav-item dropdown">
+					<a href="<c:url value='/menu' />"  class="nav-link">
+						Thực Đơn
+					</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown04">
+						<c:forEach items="${CATEGORIES}" var="category">
+							<a class="dropdown-item" href="<c:url value='/menu/${category.categoryCode}' />">${category.categoryName}</a>
+						</c:forEach>
+					</div>
 				</li>
 				<li class="nav-item">
 					<a href="<c:url value='/about' />" class="nav-link">Giới Thiệu</a>
 				</li>
-				<li class="nav-item">
+				<%-- <li class="nav-item">
 					<a href="<c:url value='contact' />" class="nav-link">Liên Lạc</a>
-				</li>
+				</li> --%>
 				<c:choose>
 					<c:when test="${USER == null}">
 						<li class="nav-item">
@@ -50,9 +57,9 @@
 							</c:if>
 							<c:if test="${USER.roleCode eq 'user'}">
 								<div class="dropdown-menu" aria-labelledby="dropdown04">
-									<a class="dropdown-item" href="shop.html">Tài Khoản</a>
-									<a class="dropdown-item" href="product-single.html">Giỏ Hàng</a>
-									<a class="dropdown-item" href="checkout.html">Quản Lý Đơn Hàng</a>
+									<a class="dropdown-item" href="<c:url value='/account' />">Tài Khoản</a>
+									<a class="dropdown-item" href="<c:url value='/cart' />">Giỏ Hàng</a>
+									<a class="dropdown-item" href="<c:url value='order_list?page=1' />">Quản Lý Đơn Hàng</a>
 									<a class="dropdown-item" href="<c:url value='/logout' />">Đăng Xuất</a>
 								</div>
 							</c:if>

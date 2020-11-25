@@ -54,7 +54,7 @@
 					<div class="row">
 						<div class="col-xl-8 ftco-animate">
 							<div class="billing-form ftco-bg-dark p-3 p-md-5">
-								<h3 class="mb-4 billing-heading">Billing Details</h3>
+								<h3 class="mb-4 billing-heading">Thông tin giao hàng</h3>
 								<div class="row align-items-end">
 									<div class="col-md-12">
 										<div class="form-group">
@@ -77,7 +77,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label>Số điện thoại</label>
-											<input type="text" id="phone" name="phone" class="form-control" placeholder="Số điện thoại"
+											<input type="number" id="phone" name="phone" class="form-control" placeholder="Số điện thoại"
 													value="${CUSTOMER.phone}">
 											<small id="warningPhone" class="text-danger"></small>
 										</div>
@@ -100,33 +100,25 @@
 										</div>
 									</div>
 									<div class="w-100"></div>
-									<div class="col-md-12">
-										<div class="form-group mt-4">
-											<div class="radio">
-												<label class="mr-3"><input type="radio" name="optradio"> Create an Account?
-												</label>
-												<label><input type="radio" name="optradio"> Ship to different address</label>
-											</div>
-										</div>
-									</div>
 								</div>
 								<input id="items" type="hidden" name="items" />
-								<input id="totalPrice" type="hidden" name="totalPrice" />
+								<input id="subPrice" type="hidden" name="subPrice" />
 								<input id="couponCode" type="hidden" name="coupon" />
+								<input  id="c" type="hidden" name="c" />
 							</div>
 						</div> <!-- .col-md-8 -->
 		
 						<div class="col-xl-4 sidebar ftco-animate">
 							<div class="col-md-12 d-flex">
 								<div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
-									<h3>Cart Totals</h3>
+									<h3>Đơn giá</h3>
 									<p class="d-flex">
 										<span>Tạm tính</span>
 										<span id="subtotal"></span>
 									</p>
 									<p class="d-flex">
-										<span>Delivery</span>
-										<span  id="delivery" data-price="22000">22000 VNĐ</span>
+										<span>Giao hàng</span>
+										<span  id="delivery" data-price="22000">22.000 đ</span>
 									</p>
 									<p class="d-flex">
 										<span>Mã giảm giá</span>
@@ -139,7 +131,7 @@
 									</p>
 									<p class="d-flex">
 										<span>Discount</span>
-										<span id="priceDiscount" data-price="0">0 VNĐ</span>
+										<span id="priceDiscount" data-price="0">0 đ</span>
 									</p>
 									<hr>
 									<p class="d-flex total-price">
@@ -155,8 +147,10 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
-												<label><input type="radio" name="optradio" class="mr-2"> Direct Bank
-													Tranfer</label>
+												<label>
+													<input type="radio" name="optradio" class="mr-2"> 
+													Direct Bank Tranfer
+												</label>
 											</div>
 										</div>
 									</div>
@@ -177,17 +171,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="checkbox">
-											
-												<label><input type="checkbox" value="" class="mr-2"> I have read and accept
-													the terms and
-													conditions</label>
-											</div>
-										</div>
-									</div>
-									<p><button id="submitButton" type="submit" class="btn btn-primary py-3 px-4">Place an order</button></p>
+									<p><button id="submitButton" type="submit" class="btn btn-primary py-3 px-4">Đặt hàng</button></p>
 								</div>
 							</div>
 						</div>
@@ -196,13 +180,12 @@
 			</div>
 		</section>
 
-		<input type="hidden" id="c" />
-
         <%@ include file="/WEB-INF/views/user/common/footer.jsp" %>
         
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
         <script type="text/javascript">
 	        $(document).ready(function() {
+	        	updatePrices();
 	        	calculateSubtotal();
 	        	renderBillItems();
 	    		calculateTotal();
@@ -213,7 +196,7 @@
 				var items = JSON.parse(localStorage.getItem("items"));
 				
 				$('#items').val( JSON.stringify(items) );
-				$('#totalPrice').val( calculateSubtotal() );
+				$('#subPrice').val( calculateSubtotal() );
 			}
         </script>
        	<script type="text/javascript">
@@ -259,6 +242,17 @@
        				$('#warningEmail').html('Bạn chưa nhập ĐỊA CHỈ EMAIL');
        				checkEmail = false;
        			}
+       			
+       			if (checkEmail) {
+					var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+					if (filter.test(email)) {
+						$('#warningEmail').html('');
+						checkEmail = true;
+					} else {
+						$('#warningEmail').html('E-MAIL không hợp lệ!');
+						checkEmail = false;
+					}
+				}
        			
        			if (checkFullname && checkAddress && checkPhone && checkEmail) {
        				return true;

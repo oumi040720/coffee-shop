@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
 	<body>
         <%@ include file="/WEB-INF/views/user/common/menu.jsp" %>
         
-        <section class="home-slider owl-carousel">
+        <%-- <section class="home-slider owl-carousel">
         	<div class="slider-item" style="background-image: url(template/user/images/bg_3.jpg);">
         		<div class="overlay"></div>
         		<div class="container">
@@ -37,15 +38,14 @@
         			</div>
         		</div>
         	</div>
-        </section>
-		
+        </section> --%>
 		<section class="ftco-menu mb-5 pb-5">
+			<br><br>
 	    	<div class="container">
 		    	<div class="row justify-content-center mb-5">
 		          	<div class="col-md-7 heading-section text-center ftco-animate">
-		          		<span class="subheading">Discover</span>
-		            	<h2 class="mb-4">Our Products</h2>
-		            	<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+		          		<span class="subheading">Khám phá</span>
+		            	<h2 class="mb-4">Sản phẩm của chúng tôi</h2>
 		          	</div>
 		        </div>
 	    		<div class="row d-md-flex">
@@ -58,10 +58,18 @@
 											style="background-image: url(${product.photo}); background-size: 16.875rem;"></a>
 										<div class="text">
 											<h3><a href="#">${product.productName}</a></h3>
-											<p class="price"><span>${product.price}</span></p>
+											<p class="price">
+												<span>
+													<fmt:formatNumber pattern="#,### đ" value="${product.price}" type="currency"/>
+												</span>
+											</p>
 											<p>
-												<a class="btn btn-primary btn-outline-primary" 
+												<%-- <a class="btn btn-primary btn-outline-primary" 
 													onclick="add(${product.id},'${product.productName}', '${product.photo}', ${product.price})">
+													Đặt hàng
+												</a> --%>
+												<a class="btn btn-primary btn-outline-primary" 
+													onclick="add(${product.id})">
 													Đặt hàng
 												</a>
 											</p>
@@ -84,10 +92,20 @@
 	    	</div>
 	    </section>
 		        
+		<input type="hidden" id="item" />
+		        
         <%@ include file="/WEB-INF/views/user/common/footer.jsp" %>
         
         <%@ include file="/WEB-INF/views/user/common/js.jsp" %>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript">
+        	$(document).ready(() => {
+        		var totalPages = ${PRODUCTS_TOTAL_PAGES};
+        		if (totalPages <= 1) {
+        			$('#view').hide();
+        		}
+        	});
+        </script>
         <script type="text/javascript">
         	$('#view').on('click', () => {
 	        	var products = [];
@@ -96,6 +114,10 @@
         		var page = $('#view').attr('data-page');
         		var totalPages = ${PRODUCTS_TOTAL_PAGES};
 				var url =  '${domain}' + '/product/flag_delete/list?flag_delete=false&page=' + page + '&limit=12';
+				var categoryCode = '${categoryCode}';
+        		if (categoryCode.trim().length > 0) {
+        			url = '${domain}' + '/product/flag_delete/category/list?flag_delete=false&category_code='+ categoryCode + '&page=' + page + '&limit=12';
+        		}
 				
 				axios.get(url)
 					.then((response) => {
@@ -109,10 +131,10 @@
 											'style="background-image: url( ' + product.photo + ' ); background-size: 16.875rem;"></a>' + 
 										'<div class="text">' + 
 											'<h3><a href="#"> ' + product.productName + '</a></h3>' + 
-											'<p class="price"><span> ' + product.price + '</span></p>' +
+											'<p class="price"><span> ' + formatVNDCurrency(product.price) + '</span></p>' +
 											'<p>' + 
 												'<a class="btn btn-primary btn-outline-primary" ' +
-													'onclick="add(' + product.id + ', \'' + product.productName + '\', \'' + product.photo + '\', ' + product.price + ');">' + 
+													'onclick="add(' + product.id + ');">' + 
 													'Đặt hàng' +
 												'</a>' +
 											'</p>' +
@@ -131,47 +153,53 @@
 				});
         </script>
         <script type="text/javascript">
-        	var items = JSON.parse(localStorage.getItem("items"));
-        	if (items === null) {
-	        	var items = [];
-        	}
-        	var item = {};
-        	var check = false;
-        	
-        	function add(id, productName, photo, price) {
-        		if (items.length === 0) {
-       				items.push({
-       					'id': id,
-       					'productName': productName,
-       					'photo': photo,
-       					'price': price,
-       					'quantity': 1
-       				});
-   				} else {
-   					for (var i = 0; i < items.length; i++) {
-   						if (items[i].id === id) {
-   							items[i].quantity += 1;
-   							check = false;
-   							break;
-   						} else {
-   							check = true;
-   						}
-   					}
-   					
-   					if (check) {
-   						items.push({
-        					'id': id,
-        					'productName': productName,
-        					'photo': photo,
-        					'price': price,
-        					'quantity': 1
-        				});
-   					}
-   				}
-
-        		localStorage.setItem("items", JSON.stringify(items));
+        	function add(id) {
+        		var url =  '${domain}' + '/product/id/' + id;
         		
-        		getTotalItems();
+        		axios.get(url)
+        			.then((response) => {
+        				var items = JSON.parse(localStorage.getItem("items"));
+                    	if (items === null) {
+            	        	var items = [];
+                    	}
+                    	var item = response.data;
+                    	var check = false;
+        				
+                    	if (items.length === 0) {
+                    		items.push({
+               					'id': item.id,
+               					'productName': item.productName,
+               					'photo': item.photo,
+               					'price': item.price,
+               					'quantity': 1
+               				});
+           				} else {
+           					for (var i = 0; i < items.length; i++) {
+           						if (items[i].id === id) {
+           							items[i].quantity += 1;
+           							check = false;
+           							
+           							break;
+           						} else {
+           							check = true;
+           						}
+           					}
+           					
+           					if (check) {
+           						items.push({
+                   					'id': item.id,
+                   					'productName': item.productName,
+                   					'photo': item.photo,
+                   					'price': item.price,
+                   					'quantity': 1
+                   				});
+           					}
+           				}
+
+                		localStorage.setItem("items", JSON.stringify(items));
+                		
+                		getTotalItems();
+        			});
         	}
         </script>
 	</body>

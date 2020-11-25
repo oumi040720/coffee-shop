@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.OrderConveter;
@@ -66,8 +68,9 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public List<OrderDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit) {
-		List<OrderEntity> list = orderRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit))
+		List<OrderEntity> list = orderRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit,Sort.by(Direction.DESC,"orderDate")))
 				.getContent();
+		
 		List<OrderDTO> result = new ArrayList<>();
 
 		for (OrderEntity order : list) {
@@ -117,7 +120,6 @@ public class OrderService implements IOrderService {
 			OrderEntity orderEntity = orderConveter.convertToEntity(customerDTO);
 			orderEntity.setCustomer(customersEntity);
 			//orderEntity.setOrderDate(new Date(System.currentTimeMillis()));
-			System.out.println(orderEntity.getOrderDate());
 			
 			OrderEntity result = orderRepository.save(orderEntity);
 
@@ -200,8 +202,38 @@ public class OrderService implements IOrderService {
 	
 	
 	@Override
+	public Integer getTotalPagesByFlagDeleteAndUsername(Boolean flagDelete, String username, Integer page, Integer limit) {
+		UserEntity user = userRepository.findOneByUsername(username);
+		CustomersEntity customer = cusctomersRepository.findOneByUser(user);
+		
+		return orderRepository.findAllByFlagDeleteIsAndCustomer(flagDelete, customer, PageRequest.of(page, limit)).getTotalPages();
+	}
+	
+	@Override
+	public List<OrderDTO> findAllByFlagDeleteAndUsername(Boolean flagDelete, String username, Integer page, Integer limit) {
+		UserEntity user = userRepository.findOneByUsername(username);
+		CustomersEntity customer = cusctomersRepository.findOneByUser(user);
+		
+		List<OrderEntity> list  = orderRepository.findAllByFlagDeleteIsAndCustomer(flagDelete, customer, PageRequest.of(page, limit))
+													.getContent();
+		List<OrderDTO> result = new ArrayList<>();
+		
+		for(OrderEntity order : list) {
+			result.add(orderConveter.convertToDTO(order));
+		}
+		return result;
+	}
+	
+	
+	
+	@Override
 	public List<Long[]> getOrderDetailStatistic(Integer year, Integer month) {
 		return orderRepository.getOrderDetailStatistic(year, month);
+	}
+	
+	@Override
+	public List<Object[]> getTop4BestSeller() {
+		return orderRepository.getTop4BestSeller();
 	}
 	
 	@Override

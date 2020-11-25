@@ -7,12 +7,12 @@ import org.springframework.stereotype.Repository;
 import com.fpoly.coffeeshop.entity.UnitEntity;
 @Repository
 
-	public interface IUnitRepository extends JpaRepository<UnitEntity, Integer> {
+	public interface IUnitRepository extends JpaRepository<UnitEntity, Long> {
+	
 		public UnitEntity findOneByUnitName(String unitName);
+		
 		public List<UnitEntity> findByFlagDeleteIs(Boolean flagDelete);
-		
-		
-
+	
 	}
 
 

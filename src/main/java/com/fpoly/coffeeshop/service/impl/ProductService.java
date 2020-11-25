@@ -140,6 +140,29 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
+	public Integer getTotalPagesByFlagDeleteAndCategoryCode(Boolean flagDelete, String categoryCode, Integer page, Integer limit) {
+		CategoryEntity categoryEntity = categoryRepository.findOneByCategoryCode(categoryCode);
+		
+		return productRepository.findAllByFlagDeleteIsAndCategory(flagDelete, categoryEntity, PageRequest.of(page, limit)).getTotalPages();
+	}
+	
+	@Override
+	public List<ProductDTO> findAllByFlagDeleteAndCategoryCode(Boolean flagDelete, String categoryCode, Integer page,
+			Integer limit) {
+		CategoryEntity categoryEntity = categoryRepository.findOneByCategoryCode(categoryCode);
+		
+		List<ProductEntity> list = productRepository
+									.findAllByFlagDeleteIsAndCategory(flagDelete, categoryEntity, PageRequest.of(page, limit))
+									.getContent();
+		List<ProductDTO> result = new ArrayList<>();
+
+		for (ProductEntity product : list) {
+			result.add(productConverter.convertToDTO(product));
+		}
+		return result;
+	}
+	
+	@Override
 	public ProductDTO findOne(Integer id) {
 		return productConverter.convertToDTO(productRepository.getOne(id));
 	}

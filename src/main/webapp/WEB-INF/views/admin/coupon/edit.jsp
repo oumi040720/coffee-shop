@@ -70,7 +70,6 @@
         									<div class="col-lg-10">
         										<form:select path="type" cssClass="form-control" >
         											<form:option value="">-- Chọn loại phiếu mua hàng --</form:option>
-        											<form:option value="Miễn Phí Vận Chuyển">Miễn phí vận chuyển</form:option>
         											<form:option value="Giảm Giá Trực Tiếp">Giảm giá trực tiếp</form:option>
         											<form:option value="Giảm Giá Theo Phần Trăm">Giảm giá theo phần trăm</form:option>
         										</form:select>
@@ -84,7 +83,12 @@
         										Giảm giá <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="discount" cssClass="form-control"/>
+        										<div class="input-group mb-3 mr-3">
+	        										<form:input path="discount" cssClass="form-control"/>
+	        										<div class="input-group-prepend">
+                                                        <span class="input-group-text" id="unit"> &ensp; </span>
+                                                    </div>
+        										</div>
         										<ul class="parsley-errors-list filled">
         											<li id="warningDiscount" class="parsley-required"></li>
         										</ul>
@@ -95,7 +99,12 @@
         										Hóa đơn tối thiểu
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="minTotalBill" cssClass="form-control"/>
+        										<div class="input-group mb-3 mr-3">
+	        										<form:input path="minTotalBill" cssClass="form-control"/>
+	        										<div class="input-group-prepend">
+                                                        <span class="input-group-text"> đ </span>
+                                                    </div>
+        										</div>
         										<ul class="parsley-errors-list filled">
         											<li id="warningMinTotalBill" class="parsley-required"></li>
         										</ul>
@@ -106,7 +115,12 @@
         										Giảm giá tối đa
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="maxDiscount" cssClass="form-control"/>
+        										<div class="input-group mb-3 mr-3">
+	        										<form:input path="maxDiscount" cssClass="form-control"/>
+	        										<div class="input-group-prepend">
+                                                        <span class="input-group-text"> đ </span>
+                                                    </div>
+        										</div>
         										<ul class="parsley-errors-list filled">
         											<li id="warningMaxDiscount" class="parsley-required"></li>
         										</ul>
@@ -139,7 +153,8 @@
         								<div class="form-group row">
         									<label class="col-lg-2 col-form-label"></label>
         									<div class="col-lg-10">
-        										<button id="submit" type="submit" class="btn btn-outline-success btn-rounded waves-effect waves-light"><i class="ion ion-ios-save"></i>
+        										<button id="submit" type="submit" class="btn btn-outline-success btn-rounded waves-effect waves-light">
+        											<i class="ion ion-ios-save"></i>
         											<c:if test="${check}"> Cập nhật </c:if>
         											<c:if test="${!check}"> Thêm </c:if>
         										</button>
@@ -147,7 +162,8 @@
         											<form:hidden path="id"/>
         										</c:if>
         										<form:hidden path="flagDelete"/>
-        										<button type="reset" class="btn btn-outline-warning btn-rounded waves-effect waves-light"><i class="ion ion-md-refresh"></i>
+        										<button type="reset" class="btn btn-outline-warning btn-rounded waves-effect waves-light">
+        											<i class="ion ion-md-refresh"></i>
         											Nhập lại
         										</button>
         									</div>
@@ -173,8 +189,45 @@
 		    		$("#endTime").attr({
 		    			"placeholder": "mm/dd/yyyy"
 		    		});
+		    		
+		    		$("#discount").attr({
+		    			"type": "number"
+		    		});
+		    		$("#minTotalBill").attr({
+		    			"type": "number"
+		    		});
+		    		$("#maxDiscount").attr({
+		    			"type": "number"
+		    		});
+		    		
+		    		var type = '${coupon.type}';
+		    		
+		    		if (type.length > 0) {
+		    			changeUnit(type);
+		    		}
 		    	});
 	        </script>
+	        
+	        <script type="text/javascript">
+	        	$("#type").on('change', () => {
+	        		var type = $("#type").val();
+	        		
+	        		changeUnit(type);
+	        	});
+	        </script>
+	        
+	        <script type="text/javascript">
+	        	function changeUnit(type) {
+	        		if (type === 'Giảm Giá Trực Tiếp') {
+	    				$('#unit').html('đ');
+	    			} else if (type === 'Giảm Giá Theo Phần Trăm') {
+	    				$('#unit').html('%');
+	    			} else if (type === 'Giảm Giá Theo Phần Trăm') {
+	    				$('#unit').html(' ');
+	    			}
+	        	}
+	        </script>
+	        
 	        <c:if test="${check}">
 		        <script type="text/javascript">
 			        $(document).ready(function(){

@@ -21,7 +21,7 @@
 								<div class="card-body p-4">
 									<div class="text-center">
 										<div class="my-3">
-											<a href="#">
+											<a href="<c:url value="/home" />">
 												<span>
 													<img src="<c:url value='/template/admin/images/logo.png' />" height="28">
 												</span>

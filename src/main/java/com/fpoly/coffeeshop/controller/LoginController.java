@@ -1,6 +1,7 @@
 package com.fpoly.coffeeshop.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,23 +45,27 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/check_login")
-	public String checkLogin(HttpServletRequest request) {
+	public String checkLogin(HttpServletRequest request, HttpServletResponse response) {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-
+		
 		UserDTO userDTO = userService.checkLogin(username, password, false);
-
 		
 		if (userDTO != null) {
 			HttpSession httpSession = request.getSession();
 			httpSession.setAttribute("USER", userDTO);
-			httpSession.setAttribute("INFO", staffService.findOne(username));
-
+			
 			if (userDTO.getRoleCode().equals("admin")) {
+				httpSession.setAttribute("INFO", staffService.findOne(username));
+				
 				return "redirect:/admin/dashboard";
 			} else if (userDTO.getRoleCode().equals("cashier")) {
+				httpSession.setAttribute("INFO", staffService.findOne(username));
+				
 				return "redirect:/admin/order/list?page=1";
 			} else if (userDTO.getRoleCode().equals("user")) {
+				httpSession.setAttribute("CUSTOMER", customersService.findOne1(username));
+				
 				return "redirect:/home";
 			}
 		} else {

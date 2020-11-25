@@ -67,7 +67,7 @@
         										Mã thể loại <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="categoryCode" cssClass="form-control" onfocusout="getCategory()"/>
+        										<form:input path="categoryCode" cssClass="form-control" />
         										<ul class="parsley-errors-list filled">
         											<li id="warningCategoryCode" class="parsley-required"></li>
         										</ul>
@@ -101,34 +101,13 @@
         
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script type="text/javascript">
-	        	/*
-        		var getRole =  function() {
-	        		var url = '${domain}' + '/role/role_code/' + $('#roleCode').val();
-	
-	        		$.ajax({
-						 url: url,
-						 type : "get",
-						 success: function(result) {
-							 console.log(result);
-							 if (!result) {
-								 $('#flag').val('true');
-								 $('#warningRoleCode').text('');
-								 $('#roleCode').removeClass('parsley-error');
-							 } else {
-								 $('#flag').val('false');
-								 $('#roleCode').addClass('parsley-error');
-								 $('#warningRoleCode').text('MÃ VAI TRÒ đã tồn tại!');
-							 }
-						 }
-					});
-	        	}
-        		*/
+	        	
         		var checkValidated = function() {
         			var categoryName = $('#categoryName').val();
         			var categoryCode = $('#categoryCode').val();
         			
         			var checkcategoryName = false;
-        			var checkcategoryCode = false;
+        			var checkcategoryName = false;
         			
 					if (categoryName.trim().length > 0) {
 						$('#warningCategoryName').text('');
@@ -141,26 +120,16 @@
 					
 					if (categoryCode.trim().length > 0) {
 						$('#warningCategoryCode').text('');
-						$('#vCode').removeClass('parsley-error');
+						$('#categoryCode').removeClass('parsley-error');
 						checkRoleCode = true;
 					} else {
 						$('#categoryCode').addClass('parsley-error');
 						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
 					}
 
-					/*
-					if (flag === 'true') {
-						$('#warningRoleCode').text('');
-						$('#roleCode').removeClass('parsley-error');
-						checkRoleCode = true;
-					} else {
-						$('#roleCode').addClass('parsley-error');
-						$('#warningRoleCode').text('MÃ VAI TRÒ đã tồn tại!');
-						checkRoleCode = false;
-					} 
-					*/
 					
-					if (checkCategoryName && checkCategoryCode) {
+					
+					if (checkcategoryName && checkcategoryName) {
 						return true;
 					} else {
 						return false;

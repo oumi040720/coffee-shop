@@ -1,4 +1,4 @@
-package com.fpoly.coffeeshop.api;
+	package com.fpoly.coffeeshop.api;
 
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class IngredientsAPI {
 		return ingredientService.findAllByIngredientCode(name, page - 1, limit);
 	}
 	@GetMapping(value = "api/ingredient/id/{id}")
-	public IngredientsDTO findOne(@PathVariable("id") Long id) {
+	public IngredientsDTO findOne(@PathVariable("id") Integer id) {
 		return ingredientService.findOne(id);
 	}
 	@GetMapping(value = "api/ingredient/name/{}")
@@ -68,12 +68,12 @@ public class IngredientsAPI {
 		return ingredientService.insert(ingredientsDTO);
 	}
 	@PutMapping(value = "/api/ingredient/update")
-	public Boolean update(@RequestBody IngredientsDTO ingredientsDTO, @RequestParam("id") Long id) {
+	public Boolean update(@RequestBody IngredientsDTO ingredientsDTO, @RequestParam("id") Integer id) {
 		ingredientsDTO.setId(id);
 		return ingredientService.update(ingredientsDTO);
 	}
 	@DeleteMapping(value = "/api/ingredient/delete")
-	public Boolean delete(@RequestParam("id") Long id) {
+	public Boolean delete(@RequestParam("id") Integer id) {
 		return ingredientService.delete(id);
 	}
 	

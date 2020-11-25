@@ -131,9 +131,6 @@ public class AdminCouponController {
 		int limit = 10;
 		
 		switch (type) {
-		case "mien-phi-van-chuyen":
-			type = "Miễn Phí Vận Chuyển";
-			break;
 		case "giam-gia-truc-tiep":
 			type = "Giảm Giá Trực Tiếp";
 			break;

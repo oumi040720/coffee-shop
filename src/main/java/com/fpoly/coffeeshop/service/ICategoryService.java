@@ -6,6 +6,7 @@ import com.fpoly.coffeeshop.dto.CategoryDTO;
 
 
 public interface ICategoryService {
+	
 public List<CategoryDTO> findAll();
 	
 	public List<CategoryDTO> findAllByFlagDelete(Boolean flagDelete);

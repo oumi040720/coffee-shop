@@ -21,6 +21,11 @@ public class StatisticAPI {
 		return orderService.getOrderDetailStatistic(year, month);
 	}
 	
+	@GetMapping(value = "/api/statistic/get_top_4_best_seller")
+	public List<Object[]> getTop4BestSeller() {
+		return orderService.getTop4BestSeller();
+	}
+	
 	@GetMapping(value = "/api/statistic/get_sales_every_year")
 	public List<Object[]> getSalesEveryYear() {
 		return orderService.getSalesEveryYear();

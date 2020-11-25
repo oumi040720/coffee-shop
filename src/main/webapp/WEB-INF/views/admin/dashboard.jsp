@@ -27,11 +27,10 @@
         						<div class="page-title-right">
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
-        								<li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
-        								<li class="breadcrumb-item active">Starter</li>
+        								<li class="breadcrumb-item active">Thống kê</li>
         							</ol>
         						</div>
-        						<h4 class="page-title">Starter page</h4>
+        						<h4 class="page-title">Thông kê</h4>
         					</div>
         				</div>
         			</div>
@@ -50,7 +49,10 @@
                             <div class="card-box tilebox-one">
                                 <i class="icon-paypal float-right m-0 h2 text-muted"></i>
                                 <h6 class="text-muted text-uppercase mt-0">Doanh số</h6>
-                                <h3 class="my-3"><span data-plugin="counterup">${currentSales}</span> VNĐ</h3>
+                                <h3 class="my-3" id="currentSales">
+                                	<span data-plugin="counterup" >
+                                	</span>
+                                </h3>
                                 <span class="badge badge-danger mr-1"> ${grownRateSales}% </span> 
                                 <span class="text-muted">So với tháng trước</span>
                             </div>
@@ -59,7 +61,10 @@
                             <div class="card-box tilebox-one">
                                 <i class="icon-chart float-right m-0 h2 text-muted"></i>
                                 <h6 class="text-muted text-uppercase mt-0">Trung bình giá</h6>
-                                <h3 class="my-3"><span data-plugin="counterup">${currentAveragePrice}</span> VNĐ</h3>
+                                <h3 class="my-3" id="currentAveragePrice">
+                                	<span data-plugin="counterup">
+                                	</span> 
+                                </h3>
                                 <span class="badge badge-pink mr-1"> ${grownRateAveragePrice}% </span>
                                 <span class="text-muted">So với tháng trước</span>
                             </div>
@@ -190,6 +195,15 @@
     		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>    	
         	<script type="text/javascript">
 	        	$(document).ready(function() {
+	        		var currentSales = ${currentSales}
+	        		var currentAveragePrice = ${currentAveragePrice}
+	        		
+	        		$('#currentSales').html(formatVNDCurrency(currentSales));
+	        		$('#currentAveragePrice').html(formatVNDCurrency(currentAveragePrice));
+	        		
+	        		$('#currentSales').attr('data-plugin', 'counterup');
+	        		$('#currentAveragePrice').attr('data-plugin', 'counterup')
+	        		
 	        		var month = new Date().getMonth() + 1;
 	        		var year = new Date().getFullYear();
 	        		
@@ -200,6 +214,14 @@
 	        		getSalesRateEveryMotnhInYear(year);
 	        		getSalesRateEveryDayInMonthOfYear(year, month)
 	        	});
+        	</script>
+        	
+        	<script type="text/javascript">
+	        	function formatVNDCurrency(number) {
+	        		return  Number(number).toFixed(0).replace(/./g, function(c, i, a) {
+	        		    return i > 0 && c !== "," && (a.length - i) % 3 === 0 ? "." + c : c;
+	        		 }) + ' đ';
+	        	}
         	</script>
         	
         	<script type="text/javascript">
@@ -280,7 +302,7 @@
 	        					          	text: 'Tháng',
 	        					          	position: 'outer-center'
 	        					        },
-	        					        type: 'category',
+	        					        /* type: 'category', */
 	        							show: true,
 	        						},
 	        						y: {
@@ -335,7 +357,7 @@
 	        					          	text: 'Ngày',
 	        					          	position: 'outer-center'
 	        					        },
-	        					        type: 'category',
+	        					        /* type: 'category', */
 	        							show: true,
 	        						},
 	        						y: {

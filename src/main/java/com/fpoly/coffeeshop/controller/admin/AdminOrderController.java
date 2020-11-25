@@ -61,12 +61,38 @@ public class AdminOrderController extends Thread {
 			request.setAttribute("alert", alert);
 		}
 		
+		request.setAttribute("isBin", false);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", orderService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("orders", orderService.findAllByFlagDelete(flagDelete, page-1, limit));
 		request.setAttribute("domain", getDomain());
 		request.setAttribute("domainURL", getDomainURLUntil());
+		return "admin/order/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = true;
+
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+
+		request.setAttribute("isBin", true);
+		
+		request.setAttribute("page", page);
+		request.setAttribute("limit", limit);
+		request.setAttribute("totalPages", orderService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("orders", orderService.findAllByFlagDelete(flagDelete, page - 1, limit));
+		
 		return "admin/order/list";
 	}
 
@@ -117,7 +143,7 @@ public class AdminOrderController extends Thread {
 		Date date =new Date(System.currentTimeMillis());
 		orderDTO.setFlagDelete(false);
 		orderDTO.setOrderCode(code);
-		orderDTO.setStatus(0);
+		orderDTO.setStatus(1);
 		orderDTO.setOrderDate(date);
 		if (orderDTO.getId() == null) {
 			
@@ -169,9 +195,7 @@ public class AdminOrderController extends Thread {
 			log.setOldQuantity(orderDetailDTO.getQuantity());					
 			orderLogService.insert(log);
 		}
-	
-		
-		
+			
 		if (result) {
 			message = "message_orderdetail_delete_success";
 			alert = "success";
@@ -183,19 +207,54 @@ public class AdminOrderController extends Thread {
 		return "redirect:/admin/order/list?page=1&message=" + message + "&alert=" + alert;
 	}
 
+
+	@RequestMapping(value = "/restore")
+	public String restore(@RequestParam("id") Long id) {
+		String message = "";
+		String alert = "danger";
+		
+		OrderDTO orderDTO = orderService.findOne(id);
+		
+		orderDTO.setFlagDelete(false);
+		
+		Boolean result = orderService.update(orderDTO);
+		
+		if (result) {
+			message = "message_order_restore_success";
+			alert = "success";
+		} else {
+			message = "message_order_restore_fail";
+			alert = "danger";
+		}
+		
+		return "redirect:/admin/order/bin/list?page=1&message=" + message + "&alert=" + alert;
+	}
+	
+	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpServletRequest request) {
 		String key = request.getParameter("key");
-
+		String isDeleted = request.getParameter("is_deleted");
+		if (isDeleted != null) {
+			return "redirect:/admin/order/search?key=" + key + "&page=1&is_deleted=true";
+		}
 		return "redirect:/admin/order/search?key=" + key + "&page=1";
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
 		boolean flagDelete = false;
+		
+		if (isDeleted != null) {
+			flagDelete = true;
+			request.setAttribute("isBin", true);
+		} else {
+			request.setAttribute("isBin", false);
+		}
 
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);

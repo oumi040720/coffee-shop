@@ -40,14 +40,13 @@ public class UnitsService implements IUnitService {
 		return result;
 	}
 	@Override
-	public UnitDTO findOne(Integer id) {
-		// TODO Auto-generated method stub
+	public UnitDTO findOne(Long id) {
 		
 		return unitConveter.ConvertToDTO(unitRepository.getOne(id));
 	}
+	
 	@Override
 	public Boolean insert(UnitDTO unitDTO) {
-		// TODO Auto-generated method 
 		try {
 			UnitEntity result = unitRepository.save(unitConveter.convertToEntity(unitDTO));
 			if (result != null) {
@@ -77,7 +76,7 @@ public class UnitsService implements IUnitService {
 		}
 	}
 	@Override
-	public Boolean delete(Integer id) {
+	public Boolean delete(Long id) {
 		try {
 			unitRepository.deleteById(id);
 			return true;
@@ -85,6 +84,12 @@ public class UnitsService implements IUnitService {
 			return false;
 		}
 	}
+	@Override
+	public UnitDTO findOne(String unitName) {
+		
+		return unitConveter.ConvertToDTO(unitRepository.findOneByUnitName(unitName));
+	}
+	
 	
 	
 	

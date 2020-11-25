@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 
@@ -54,7 +55,6 @@
         												<div class="input-group">
         													<select name="type" class="form-control">
         														<option value="">-- Chọn loại phiếu mua hàng --</option>
-        														<option value="mien-phi-van-chuyen">Miễn phí vận chuyển</option>
 			        											<option value="giam-gia-truc-tiep">Giảm giá trực tiếp</option>
 			        											<option value="giam-gia-theo-phan-tram">Giảm giá theo phần trăm</option>
         													</select>
@@ -102,9 +102,20 @@
         										<tr>
         											<td>${coupon.couponCode}</td>
         											<td>${coupon.type}</td>
-        											<td>${coupon.discount}</td>
-        											<td>${coupon.minTotalBill}</td>
-        											<td>${coupon.maxDiscount}</td>
+        											<td>
+        												<c:if test="${coupon.type eq 'Giảm Giá Trực Tiếp'}">
+	        												<fmt:formatNumber pattern="#,### đ" value="${coupon.discount}" type="currency"/>
+        												</c:if>
+        												<c:if test="${coupon.type eq 'Giảm Giá Theo Phần Trăm'}">
+	        												${coupon.discount}%
+        												</c:if>
+        											</td>
+        											<td>
+        												<fmt:formatNumber pattern="#,### đ" value="${coupon.minTotalBill}" type="currency"/>
+        											</td>
+        											<td>
+        												<fmt:formatNumber pattern="#,### đ" value="${coupon.maxDiscount}" type="currency"/>
+        											</td>
         											<td>${coupon.startTime}</td>
         											<td>${coupon.endTime}</td>
         											<td>

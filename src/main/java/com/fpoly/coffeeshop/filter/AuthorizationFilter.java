@@ -31,24 +31,17 @@ public class AuthorizationFilter implements Filter {
 		HttpSession httpSession = request.getSession();
 		
 		String url = request.getRequestURI();
-		String type = "";
-		String [] a = url.split("/");
-		for (int i = 0; i < a.length; i++) {
-			if (a[i].equals("admin")) {
-				type = "/admin";
-				break;
-			}
-		}
 		
 		UserDTO user = (UserDTO) httpSession.getAttribute("USER");
 		
-		if (url.startsWith("/admin") || type.startsWith("/admin")) {
+		if (url.startsWith("/CoffeeShop/admin")) {
 			if (user != null) {
 				if (user.getRoleCode().equals("admin")) {
 					filterChain.doFilter(servletRequest, servletResponse);
 				} else if (user.getRoleCode().equals("cashier")) {
-					if (url.startsWith("/admin/role") || url.startsWith("/admin/staff") || url.startsWith("/admin/role")
-							|| url.startsWith("/admin/dashboard") || url.startsWith("/admin/user") || url.startsWith("/admin/customer") ) {
+					if (url.startsWith("/CoffeeShop/admin/role") || url.startsWith("/CoffeeShop/admin/staff") 
+							|| url.startsWith("/CoffeeShop/admin/role") || url.startsWith("/CoffeeShop/admin/dashboard") 
+							|| url.startsWith("/CoffeeShop/admin/user") || url.startsWith("/CoffeeShop/admin/customer") ) {
 						response.sendRedirect(request.getContextPath() + "/403");
 					} else {
 						filterChain.doFilter(servletRequest, servletResponse);
@@ -59,15 +52,27 @@ public class AuthorizationFilter implements Filter {
 			} else {
 				response.sendRedirect(request.getContextPath() + "/403");
 			}
-		} else if (url.startsWith("/login")) {
+		} else if (url.startsWith("/CoffeeShop/login")) {
 			if (user != null) {
 				if (user.getRoleCode().equals("admin") || user.getRoleCode().equals("cashier")) {
 					response.sendRedirect(request.getContextPath() + "/admin/dashboard");
 				} else if (user.getRoleCode().equals("user")) {
 					response.sendRedirect(request.getContextPath() + "/home");
+				} else {
+					filterChain.doFilter(servletRequest, servletResponse);
 				}
 			} else {
 				filterChain.doFilter(servletRequest, servletResponse);
+			}
+		} else if (url.startsWith("/CoffeeShop/checkout") || url.startsWith("/CoffeeShop/order") 
+						|| url.startsWith("/CoffeeShop/account") || url.startsWith("/CoffeeShop/order_list")
+						|| url.startsWith("/CoffeeShop/order_detail") || url.startsWith("/CoffeeShop/order_result")) {
+			if (user != null) {
+				if (user.getRoleCode().equals("user")) {
+					filterChain.doFilter(servletRequest, servletResponse);
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/403");
 			}
 		} else {
 			filterChain.doFilter(servletRequest, servletResponse);

@@ -41,7 +41,7 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
-        							<a href="<c:url value='/admin/category/add' />" class="btn btn-success">Thêm</a>
+        							<a href="<c:url value='/admin/category/add' />" class="btn btn-success"><i class="ion ion-md-add-circle"></i> Thêm</a>
         						</div>
         						<br>
         						<c:if test="${not empty message}">

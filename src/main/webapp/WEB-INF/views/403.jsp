@@ -19,21 +19,29 @@
 						<div class="text-center">
 	                        <div class="text-error shadow-text">403</div>
 	                        <h3 class="text-uppercase text-white">Không thể truy cập</h3>
-	                        <p class="text-white mt-4">
-	                           Xin lỗi! Bạn không có quyền để truy cập vào link này!
-	                        </p>
-	                        <br>
 	                        <c:if test="${USER == null}">
+	                        	<p class="text-white mt-4">
+		                           Xin lỗi! Bạn không chưa đăng nhập nên không có quyền truy cập vào trang này!
+		                        </p>
+		                        <br>
 	                         	<a class="btn btn-pink waves-effect waves-light" href="<c:url  value='/login'/>"> 
 		                        	Đăng Nhập
 		                        </a>
 	                        </c:if>
 	                        <c:if test="${USER.roleCode eq 'cashier'}">
+	                      	  	<p class="text-white mt-4">
+		                           Xin lỗi! Bạn không có quyền truy cập vào trang này!
+		                        </p>
+		                        <br>
 		                        <a class="btn btn-pink waves-effect waves-light" href="<c:url  value='/admin/order/list?page=1'/>"> 
 		                        	Quay Lại Trang Chủ 
 		                        </a>
 	                        </c:if>
 	                         <c:if test="${USER.roleCode eq 'user'}">
+	                         	<p class="text-white mt-4">
+		                           Xin lỗi! Bạn không có quyền truy cập vào trang này!
+		                        </p>
+		                        <br>
 		                        <a class="btn btn-pink waves-effect waves-light" href="<c:url  value='/home'/>"> 
 		                        	Quay Lại Trang Chủ 
 		                        </a>

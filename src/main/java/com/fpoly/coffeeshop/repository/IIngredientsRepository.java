@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.fpoly.coffeeshop.entity.IngredientsEntity;
 
 @Repository
-public interface IIngredientsRepository extends JpaRepository<IngredientsEntity, Long> {
+public interface IIngredientsRepository extends JpaRepository<IngredientsEntity, Integer> {
 
 	public IngredientsEntity findOneByName(String name);
 

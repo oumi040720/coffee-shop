@@ -14,18 +14,19 @@ public class UnitConveter {
 		dto.setFlagDelete(entity.getFlagDelete());
 		return dto;
 	}
+	
 	public UnitEntity convertToEntity(UnitDTO dto) {
 		UnitEntity entity = new UnitEntity();
-		entity.setId(dto.getId());
-		entity.setUnitName(entity.getUnitName());
-		entity.setFlagDelete(entity.getFlagDelete());
+		entity.setUnitName(dto.getUnitName());
+		entity.setFlagDelete(dto.getFlagDelete());
 		return entity;
-		
 	}
+	
 	public UnitEntity convertToEntity(UnitDTO dto, UnitEntity entity) {
 		entity.setId(dto.getId());
 		entity.setUnitName(dto.getUnitName());
 		entity.setFlagDelete(dto.getFlagDelete());
+		
 		return entity;
 		
 	}
