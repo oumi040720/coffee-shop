@@ -195,9 +195,10 @@
     						return true;
     					} else {
     						return false;
-    					
+    						}
         			}
         			catch (err) {
+						// TODO: handle exception
 						return false;
 					}
         		}

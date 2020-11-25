@@ -74,6 +74,7 @@ public class AdminProductController {
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
+			
 		}
 		
 		request.setAttribute("isBin", true);
