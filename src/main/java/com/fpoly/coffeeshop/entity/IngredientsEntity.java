@@ -37,11 +37,6 @@ public class IngredientsEntity {
 	@JoinColumn(name = "unit_id")
 	@JsonManagedReference
 	private UnitEntity units;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "input_id")
-	@JsonManagedReference
-	private InputEntity inputs;
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
@@ -96,14 +91,6 @@ public class IngredientsEntity {
 
 	public void setUnit(UnitEntity unit) {
 		this.units = unit;
-	}
-	
-	public InputEntity getInput() {
-		return inputs;
-	}
-
-	public void setInput(InputEntity inputs) {
-		this.inputs = inputs;
 	}
 
 	public Boolean getFlagDelete() {

@@ -106,9 +106,7 @@ public class AdminInputController {
 				message = "message_input_insert_fail";
 				alert = "danger";
 			}
-		}
-		//DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZZZZ");  
-        //String strDate = dateFormat.format(date);  
+		}  
 		return "redirect:/admin/inputDetail/add?inputID="+ result.getId();
 	}
 	

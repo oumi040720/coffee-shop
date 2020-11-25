@@ -98,49 +98,6 @@
 	        											<td>${inputdetails.ingredientName}</td>
 	        									</c:forEach>
         									</c:if>
-        									<c:if test="${isBin}">
-	        									<c:forEach var="customer" items="${customers}">
-	        										<tr>
-	        											<td>${customer.fullname}</td>
-	        											<td>${customer.email}</td>
-	        											<td>${customer.phone}</td>
-	        											<td>${customer.address}</td>
-	        											<td>${customer.username}</td>
-	        											<td>
-	        												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
-	        													<i class=" mdi mdi-replay"></i>
-	        												</a>
-	        											</td>
-	        										</tr>
-									        		<!-- Modal HTML -->
-														<div id="myModal-${customer.id}" class="modal fade" data-backdrop="static" data-keyboard="false">
-															<div class="modal-dialog modal-confirm">
-																<div class="modal-content">
-																	<div class="modal-header flex-column">
-																		<div class="icon-box">
-																			<i class="material-icons text-warning">&#xe645;</i>
-																		</div>
-																		<h4 class="modal-title w-100">Xác Nhận Khôi Phục</h4>
-																	</div>
-																	<div class="modal-body">
-																		<p>Bạn Chắc Chắn Muốn Khôi Phục Khách Hàng ${customer.fullname}</p>
-																	</div>
-																	<div class="modal-footer justify-content-center">
-																		<c:url var="restoreURL" value="/admin/customers/restore">
-		        															<c:param name="id" value="${customer.id}" />
-		        														</c:url>
-																			<a id="alerts" href="${restoreURL}">
-																				<button type="button" class="btnn">Đồng ý</button>
-																			</a>
-																		<button type="button" data-dismiss="modal"
-																			class="btnn btn-danger">Từ chối</button>
-									
-																	</div>
-																</div>
-															</div>
-														</div>
-	        									</c:forEach>
-        									</c:if>
         								</tbody>
         							</table>
         							<br>
