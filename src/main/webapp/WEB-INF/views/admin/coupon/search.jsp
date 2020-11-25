@@ -52,8 +52,8 @@
         							<div class="row">
         								<div class="col-lg-8">
         									<a href="<c:url value='/admin/coupon/add' />" 
-        										class="btn btn-outline-success btn-rounded waves-effect waves-light">
-        										<i class="ion ion-md-add-circle"></i> Thêm
+        										class="btn btn-success">
+        										Thêm
         									</a>
         									<c:if test="${!isBin}">
 				        						<a href="<c:url value='/admin/coupon/bin/list?page=1' />" class="btn btn-warning">Thùng rác</a>
@@ -213,8 +213,8 @@
 	        												<c:url var="restoreURL" value="/admin/coupon/restore">
 	        													<c:param name="id" value="${coupon.id}" />
 	        												</c:url>
-	        												<a href="#" class="btn btn-outline-danger" data-toggle="modal" data-target="#confirm-${coupon.id}">
-	        													<i class=" mdi mdi-window-close"></i>
+	        												<a href="#" class="btn btn-outline-info" data-toggle="modal" data-target="#confirm-${coupon.id}">
+	        													<i class=" mdi mdi-replay"></i>
 	        												</a>
 	        												<div class="modal fade" id="confirm-${coupon.id}" data-backdrop="static" data-keyboard="false">
 	        													<div class="modal-dialog modal-confirm modal-dialog-centered">

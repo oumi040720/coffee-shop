@@ -115,35 +115,6 @@
         									</tr>
         								</thead>
         								<tbody>
-<<<<<<< HEAD
-        									<c:forEach var="customer" items="${customers}">
-        										<tr>
-        											<td>${customer.fullname}</td>
-        											<td>${customer.email}</td>
-        											<td>${customer.phone}</td>
-        											<td>${customer.address}</td>
-        											<td>${customer.username}</td>
-        											<td>
-        												<c:url var="editURL" value="/admin/customers/edit">
-        													<c:param name="id" value="${customer.id}" />
-        												</c:url>
-        												<a href="${editURL}" class="btn btn-outline-info">
-        													<i class="mdi mdi-pencil-outline"></i>
-        												</a>
-        												
-        												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
-        													<i class=" mdi mdi-window-close"></i>
-        												</a>
-        											</td>
-        										</tr>
-								        		<!-- Modal HTML -->
-													<div id="myModal-${customer.id}" class="modal fade" data-backdrop="static" data-keyboard="false">
-														<div class="modal-dialog modal-confirm">
-															<div class="modal-content">
-																<div class="modal-header flex-column">
-																	<div class="icon-box">
-																		<i class="material-icons text-warning">&#xe645;</i>
-=======
         									<c:if test="${!isBin}">
 	        									<c:forEach var="customer" items="${customers}">
 	        										<tr>
@@ -180,8 +151,6 @@
 																			</a>
 																		<button type="button" data-dismiss="modal"
 																			class="btnn btn-danger">Từ chối</button>
-									
->>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
 																	</div>
 																</div>
 															</div>
@@ -229,13 +198,8 @@
 																</div>
 															</div>
 														</div>
-<<<<<<< HEAD
-													</div> 
-        									</c:forEach>
-=======
 	        									</c:forEach>
         									</c:if>
->>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
         								</tbody>
         							</table>
         							<br>

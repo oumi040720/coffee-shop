@@ -50,22 +50,11 @@
 							</div>
 						</div>
 					</div>
-<<<<<<< HEAD
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="card-box">
-=======
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="card-box">
-							<div>
-								<a href="<c:url value='/admin/ingredient/add'/>"
-									class="btn btn-success"><i class="ion ion-md-add-circle"></i> Thêm</a>
-							</div>
 							<br>
-							<c:if test="${not empty message}">
->>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
 								<div>
 									<a href="<c:url value='/admin/ingredient/add'/>" class="btn btn-success">Thêm</a>
 									<c:if test="${!isBin}">
@@ -93,10 +82,8 @@
 								<div>
 									<c:if test="${!isBin}">
 										<form id="form-submit" action="<c:url value='/admin/ingredient/list' />" method="get">
-											<table id="datatable"
-											class="table table-bordered dt-responsive nowrap"
-											style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-											<thead>
+											<table class="table table-bordered dt-responsive nowrap">
+											<thead class="thead-dark">
 												<tr>
 													<th>Tên định lượng</th>
 													<th>Số lượng</th>
@@ -161,11 +148,9 @@
 								
 									<c:if test="${isBin}">
 										<form id="form-submit" action="<c:url value='/admin/ingredient/bin/list' />" method="get">
-											<table id="datatable"
-											class="table table-bordered dt-responsive nowrap"
-											style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+											<table class="table table-bordered dt-responsive nowrap">
 											<thead>
-												<tr>
+												<tr class="thead-dark">
 													<th>Tên định lượng</th>
 													<th>Số lượng</th>
 													<th>Đơn vị</th>
@@ -252,6 +237,5 @@
 				});
 			});
 			</script>
-		</div>
 	</body>
 </html>

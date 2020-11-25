@@ -57,8 +57,8 @@
         							<div class="row">
         								<div class="col-sm-8">
         									<a href="<c:url value='/admin/product/add' />" 
-        										class="btn btn-outline-success btn-rounded waves-effect waves-light">
-        										<i class="ion ion-md-add-circle"></i> Thêm
+        										class="btn btn-success">
+        										Thêm
         									</a>
         									<c:if test="${!isBin}">
 				        						<a href="<c:url value='/admin/product/bin/list?page=1' />" class="btn btn-warning">Thùng rác</a>

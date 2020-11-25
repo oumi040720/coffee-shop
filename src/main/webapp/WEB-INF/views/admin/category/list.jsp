@@ -55,7 +55,6 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
-<<<<<<< HEAD
         							<a href="<c:url value='/admin/category/add' />" class="btn btn-success">Thêm</a>
         							<c:if test="${!isBin}">
 		        						<a href="<c:url value='/admin/category/bin/list' />" class="btn btn-warning">Thùng rác</a>
@@ -63,9 +62,6 @@
 	        						<c:if test="${isBin}">
 		        						<a href="<c:url value='/admin/category/list' />" class="btn btn-warning">Danh sách</a>
 	        						</c:if>
-=======
-        							<a href="<c:url value='/admin/category/add' />" class="btn btn-success"><i class="ion ion-md-add-circle"></i> Thêm</a>
->>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
         						</div>
         						<br>
         						<c:if test="${not empty message}">
@@ -80,11 +76,9 @@
 	        						<br>
         						</c:if>
         						<div>
-        							<table id="datatable" 
-        								   class="table table-bordered dt-responsive nowrap" 
-        								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        							<table class="table table-bordered dt-responsive nowrap" >
         								<thead>
-        									<tr>
+        									<tr class="thead-dark">
         										<th>Tên thể loại</th>
         										<th>Mã thể loại</th>
         										<th>#</th>

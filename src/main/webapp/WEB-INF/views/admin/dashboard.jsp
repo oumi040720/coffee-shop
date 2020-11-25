@@ -333,8 +333,8 @@
 	        		axios.get(url)
 	        			.then((response) => {
 	        				var months = ['Ngày'];
-	        				var salesOfMonth = ['Doanh số bán trong năm'];
-	        				var salesQunatityOfMonth = ['Số lượng đã bán trong năm'];
+	        				var salesOfMonth = ['Doanh số bán trong tháng'];
+	        				var salesQunatityOfMonth = ['Số lượng đã bán trong tháng'];
 	        				
 	        				response.data.map((item, index) => {
 	        					months.push( item[0] );
