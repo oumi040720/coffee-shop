@@ -55,12 +55,12 @@
         						<div>
         							<div class="row">
         								<div class="col-sm-8">
-        									<a href="<c:url value='/admin/staff/add' />" class="btn btn-success">Thêm</a>
+        									<a href="<c:url value='/admin/staff/add' />" class="btn btn-success"><i class="ion ion-md-add-circle"></i> Thêm</a>
         									<c:if test="${!isBin}">
-				        						<a href="<c:url value='/admin/staff/bin/list?page=1' />" class="btn btn-warning">Thùng rác</a>
+				        						<a href="<c:url value='/admin/staff/bin/list?page=1' />" class="btn btn-warning"><i class="ion ion-md-trash"></i> Thùng rác</a>
 			        						</c:if>
 			      							<c:if test="${isBin}">
-			       								<a href="<c:url value='/admin/staff/list?page=1' />" class="btn btn-warning">Danh sách</a>
+			       								<a href="<c:url value='/admin/staff/list?page=1' />" class="btn btn-warning"><i class="ion ion-ios-albums"></i> Danh sách</a>
 			      							</c:if>
         								</div>
         								<div class="col-sm-4">

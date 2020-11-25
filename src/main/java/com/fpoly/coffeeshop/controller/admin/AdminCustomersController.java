@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.CustomersDTO;
+import com.fpoly.coffeeshop.dto.StaffDTO;
 import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IUserService;
 
@@ -37,11 +38,37 @@ public class AdminCustomersController {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
-
+		
+		request.setAttribute("isBin", false);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", customersService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("customers", customersService.findAllByFlagDelete(flagDelete, page-1, limit));
+		
+		return "admin/customers/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+		boolean flagDelete = true;
+
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+
+		request.setAttribute("isBin", true);
+		
+		request.setAttribute("page", page);
+		request.setAttribute("limit", limit);
+		request.setAttribute("totalPages", customersService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("customers", customersService.findAllByFlagDelete(flagDelete, page - 1, limit));
 		
 		return "admin/customers/list";
 	}
@@ -119,20 +146,54 @@ public class AdminCustomersController {
 		return "redirect:/admin/customers/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
+	@RequestMapping(value = "/restore")
+	public String restore(@RequestParam("id") Long id) {
+		String message = "";
+		String alert = "danger";
+		
+		CustomersDTO customersDTO = customersService.findOne(id);
+		
+		customersDTO.setFlagDelete(false);
+		
+		Boolean result = customersService.update(customersDTO);
+		
+		if (result) {
+			message = "message_customers_restore_success";
+			alert = "success";
+		} else {
+			message = "message_customers_restore_fail";
+			alert = "danger";
+		}
+		
+		return "redirect:/admin/customers/bin/list?page=1&message=" + message + "&alert=" + alert;
+	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(Model model, HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
 		
+		if (isDeleted != null) {
+			return "redirect:/admin/customers/search?key=" + key + "&page=1&is_deleted=true";
+		}
 		return "redirect:/admin/customers/search?key=" + key + "&page=1";
+
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
 		boolean flagDelete = false;
+		
+		if (isDeleted != null) {
+			flagDelete = true;
+			request.setAttribute("isBin", true);
+		} else {
+			request.setAttribute("isBin", false);
+		}
 		
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);

@@ -105,6 +105,7 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
+<<<<<<< HEAD
         							<button id="showForm" class="btn btn-success">Thêm</button>
         							<c:if test="${!isBin}">
 		        						<a href="<c:url value='/admin/unit/bin/list' />" class="btn btn-warning">Thùng rác</a>
@@ -113,6 +114,9 @@
 	       								<a href="<c:url value='/admin/unit/list' />" class="btn btn-warning">Danh sách</a>
 	      							</c:if>
 	      							<br><br>
+=======
+        							<a href="<c:url value='/admin/unit/add'/>" class="btn btn-success"><i class="ion ion-md-add-circle"></i> Thêm</a>
+>>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
         						</div>
         						<c:if test="${not empty message}">
         							<div>

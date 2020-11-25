@@ -78,10 +78,10 @@ public class AdminOrderDetailController {
 
 		String message = "";
 		String alert = "danger";
-		Long totalprice = 0L;
-		System.out.println(totalprice);
+		//Long totalprice = 0L;
+		//System.out.println(totalprice);
 		for (OrderDetailDTO orderDetailDTO : list) {
-			totalprice += orderDetailDTO.getTotalMoney();
+			//totalprice += orderDetailDTO.getTotalMoney();
 			System.out.println(orderDetailDTO);
 			Boolean result = orderDetailService.insert(orderDetailDTO);
 			
@@ -94,7 +94,7 @@ public class AdminOrderDetailController {
 			}
 		}
 		OrderDTO orderDTO = orderService.findOne(list.get(0).getOrder());
-		orderDTO.setTotalPrice(totalprice);
+		//orderDTO.setTotalPrice(totalprice);
 		orderService.update(orderDTO);
 		return "redirect:/admin/order/list?page=1" ;
 	}

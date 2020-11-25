@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.fpoly.coffeeshop.converter.OrderConveter;
@@ -66,8 +68,9 @@ public class OrderService implements IOrderService {
 
 	@Override
 	public List<OrderDTO> findAllByFlagDelete(Boolean flagDelete, Integer page, Integer limit) {
-		List<OrderEntity> list = orderRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit))
+		List<OrderEntity> list = orderRepository.findAllByFlagDeleteIs(flagDelete, PageRequest.of(page, limit,Sort.by(Direction.DESC,"orderDate")))
 				.getContent();
+		
 		List<OrderDTO> result = new ArrayList<>();
 
 		for (OrderEntity order : list) {

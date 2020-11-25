@@ -1,5 +1,7 @@
 package com.fpoly.coffeeshop.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -36,6 +40,26 @@ public class IngredientsEntity {
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
+	
+	@OneToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
+	@JsonBackReference
+	private List<InputDetailEntity> inputdetail;
+
+	public UnitEntity getUnits() {
+		return units;
+	}
+
+	public void setUnits(UnitEntity units) {
+		this.units = units;
+	}
+
+	public List<InputDetailEntity> getInputdetail() {
+		return inputdetail;
+	}
+
+	public void setInputdetail(List<InputDetailEntity> inputdetail) {
+		this.inputdetail = inputdetail;
+	}
 
 	public Integer getId() {
 		return id;

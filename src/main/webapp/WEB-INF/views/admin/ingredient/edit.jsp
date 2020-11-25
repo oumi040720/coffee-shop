@@ -142,6 +142,7 @@
 					
 					
 					var pattern = new RegExp('^[0-9]*$');
+					
 					if (quantity.trim().length > 0  && quantity.match(pattern)) {
 						$('#warningIngredientQuantity').text('');
 						$('quantity').removeClass('parsley-error');
@@ -167,7 +168,6 @@
 						$('#warningIngredientUnitCode').text(
 								'KHÔNG ĐƯỢC BỎ TRỐNG ĐƠN VỊ!');
 					}
-
 					if (checkName && checkQuantity && checkUnitCode) {
 						return true;
 					} else {

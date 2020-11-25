@@ -32,10 +32,20 @@
         							<ol class="breadcrumb m-0">
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Uplon</a></li>
         								<li class="breadcrumb-item"><a href="javascript: void(0);">Khách Hàng</a></li>
-        								<li class="breadcrumb-item active">Danh sách</li>
+        								<c:if test="${!isBin}">
+	        								<li class="breadcrumb-item active">Danh sách</li>
+        								</c:if>
+        								<c:if test="${isBin}">
+	        								<li class="breadcrumb-item active">Thùng rác</li>
+        								</c:if>
         							</ol>
         						</div>
-        						<h4 class="page-title">Danh sách khách hàng</h4>
+        						<c:if test="${!isBin}">
+	        						<h4 class="page-title">Danh sách khách hàng</h4>
+        						</c:if>
+      							<c:if test="${isBin}">
+       								<h4 class="page-title">Danh sách đã xóa</h4>
+      							</c:if>
         					</div>
         				</div>
         			</div>
@@ -45,16 +55,29 @@
         						<div>
         							<div class="row">
         								<div class="col-sm-8">
-        									<%-- <a href="<c:url value='/admin/customers/add' />"
-        									 class="btn btn-outline-success btn-rounded waves-effect waves-light"><i class="ion ion-md-add-circle"></i> Thêm</a> --%>
+        									<c:if test="${!isBin}">
+				        						<a href="<c:url value='/admin/customers/bin/list?page=1' />" class="btn btn-warning"><i class="ion ion-md-trash"></i> Thùng rác</a>
+			        						</c:if>
+			      							<c:if test="${isBin}">
+			       								<a href="<c:url value='/admin/customers/list?page=1' />" class="btn btn-warning"><i class="ion ion-ios-albums"></i> Danh sách</a>
+			      							</c:if>
         								</div>
         								<div class="col-sm-4">
         									<div class="d-none d-sm-block">
-        										<form action="<c:url value='/admin/customers/search' />" class="app-search" method="post">
+        										<c:if test="${!isBin}">
+													<c:url var="searchURL" value='/admin/customers/search' />
+				        						</c:if>
+				      							<c:if test="${isBin}">
+													<c:url var="searchURL" value='/admin/customers/search' />
+				      							</c:if>
+        										<form action="${searchURL}" class="app-search" method="post">
         											<div class="app-search-box">
         												<div class="input-group">
         													<input type="text" name="key" class="form-control" placeholder="Search...">
         													<input type="hidden" name="page" value="1" >
+        													<c:if test="${isBin}">
+        														<input type="hidden" name="is_deleted" value="true" >
+        													</c:if>
         													<div class="input-group-append">
         														<button class="btn btn-dark" type="submit">
         															<i class="fas fa-search"></i>
@@ -92,6 +115,7 @@
         									</tr>
         								</thead>
         								<tbody>
+<<<<<<< HEAD
         									<c:forEach var="customer" items="${customers}">
         										<tr>
         											<td>${customer.fullname}</td>
@@ -119,34 +143,106 @@
 																<div class="modal-header flex-column">
 																	<div class="icon-box">
 																		<i class="material-icons text-warning">&#xe645;</i>
+=======
+        									<c:if test="${!isBin}">
+	        									<c:forEach var="customer" items="${customers}">
+	        										<tr>
+	        											<td>${customer.fullname}</td>
+	        											<td>${customer.email}</td>
+	        											<td>${customer.phone}</td>
+	        											<td>${customer.address}</td>
+	        											<td>${customer.username}</td>
+	        											<td>
+	        												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
+	        													<i class=" mdi mdi-window-close"></i>
+	        												</a>
+	        											</td>
+	        										</tr>
+									        		<!-- Modal HTML -->
+														<div id="myModal-${customer.id}" class="modal fade" data-backdrop="static" data-keyboard="false">
+															<div class="modal-dialog modal-confirm">
+																<div class="modal-content">
+																	<div class="modal-header flex-column">
+																		<div class="icon-box">
+																			<i class="material-icons text-warning">&#xe645;</i>
+																		</div>
+																		<h4 class="modal-title w-100">Xác Nhận Xóa</h4>
 																	</div>
-																	<h4 class="modal-title w-100">Lệnh Xóa</h4>
-																</div>
-																<div class="modal-body">
-																	<p>Bán Chắc Chắn Muốn Xóa</p>
-																</div>
-																<div class="modal-footer justify-content-center">
-																	<c:url var="deleteURL" value="/admin/customers/delete">
-	        															<c:param name="id" value="${customer.id}" />
-	        														</c:url>
-																		<a id="alerts" href="${deleteURL}">
-																			<button type="button" class="btnn">Đồng ý</button>
-																		</a>
-																	<button type="button" data-dismiss="modal"
-																		class="btnn btn-danger">Từ chối</button>
-								
+																	<div class="modal-body">
+																		<p>Bán Chắc Chắn Muốn Xóa Khách Hàng ${customer.fullname}</p>
+																	</div>
+																	<div class="modal-footer justify-content-center">
+																		<c:url var="deleteURL" value="/admin/customers/delete">
+		        															<c:param name="id" value="${customer.id}" />
+		        														</c:url>
+																			<a id="alerts" href="${deleteURL}">
+																				<button type="button" class="btnn">Đồng ý</button>
+																			</a>
+																		<button type="button" data-dismiss="modal"
+																			class="btnn btn-danger">Từ chối</button>
+									
+>>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
+																	</div>
 																</div>
 															</div>
 														</div>
+	        									</c:forEach>
+        									</c:if>
+        									<c:if test="${isBin}">
+	        									<c:forEach var="customer" items="${customers}">
+	        										<tr>
+	        											<td>${customer.fullname}</td>
+	        											<td>${customer.email}</td>
+	        											<td>${customer.phone}</td>
+	        											<td>${customer.address}</td>
+	        											<td>${customer.username}</td>
+	        											<td>
+	        												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
+	        													<i class=" mdi mdi-replay"></i>
+	        												</a>
+	        											</td>
+	        										</tr>
+									        		<!-- Modal HTML -->
+														<div id="myModal-${customer.id}" class="modal fade" data-backdrop="static" data-keyboard="false">
+															<div class="modal-dialog modal-confirm">
+																<div class="modal-content">
+																	<div class="modal-header flex-column">
+																		<div class="icon-box">
+																			<i class="material-icons text-warning">&#xe645;</i>
+																		</div>
+																		<h4 class="modal-title w-100">Xác Nhận Khôi Phục</h4>
+																	</div>
+																	<div class="modal-body">
+																		<p>Bạn Chắc Chắn Muốn Khôi Phục Khách Hàng ${customer.fullname}</p>
+																	</div>
+																	<div class="modal-footer justify-content-center">
+																		<c:url var="restoreURL" value="/admin/customers/restore">
+		        															<c:param name="id" value="${customer.id}" />
+		        														</c:url>
+																			<a id="alerts" href="${restoreURL}">
+																				<button type="button" class="btnn">Đồng ý</button>
+																			</a>
+																		<button type="button" data-dismiss="modal"
+																			class="btnn btn-danger">Từ chối</button>
+									
+																	</div>
+																</div>
+															</div>
+														</div>
+<<<<<<< HEAD
 													</div> 
         									</c:forEach>
+=======
+	        									</c:forEach>
+        									</c:if>
+>>>>>>> 757ab391c9a5c46a24cea50717cf258e59798f2b
         								</tbody>
         							</table>
         							<br>
         							<nav aria-label="Page navigation">
 										<ul class="pagination" id="pagination"></ul>
-										<input type="hidden" id="page" name="page" value=""> 
-										<br><br>
+										<input type="hidden" id="page" name="page" value=""> <br>
+										<br>
 									</nav>
         						</form>
         					</div>
@@ -158,17 +254,17 @@
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
         	<script src='<c:url value="/template/paging/jquery.twbsPagination.js" />'></script>
         	<script type="text/javascript">
-			var totalPagess = ${totalPages};
-			var currentPages = ${page};
+			var totalPages = ${totalPages};
+			var currentPage = ${page};
 			var limit = ${limit};
 		
 			$(function() {
 				window.pagObj = $('#pagination').twbsPagination({
-					totalPagess : totalPagess,
+					totalPages : totalPages,
 					visiblePages : 5,
-					startPage : currentPages,
+					startPage : currentPage,
 					onPageClick : function(event, page) {
-						if (currentPages != page) {
+						if (currentPage != page) {
 							$('#page').val(page);
 							$('#form-submit').submit();
 						}
