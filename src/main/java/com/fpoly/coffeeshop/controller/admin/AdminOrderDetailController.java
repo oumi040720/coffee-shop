@@ -22,7 +22,7 @@ import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.dto.OrderDetailDTO;
 import com.fpoly.coffeeshop.service.IProductService;
 import com.fpoly.coffeeshop.service.impl.CouponService;
-import com.fpoly.coffeeshop.util.DomainURLUntil;
+import com.fpoly.coffeeshop.util.URLUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderService;
@@ -47,7 +47,7 @@ public class AdminOrderDetailController {
 	}
 	
 	private String getDomainURLUntil() {
-		return DomainURLUntil.getDomainURLUntil();
+		return URLUtil.getDomainURLUntil();
 	}
 	
 	@RequestMapping(value = "/edit")

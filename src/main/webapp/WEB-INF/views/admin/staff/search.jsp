@@ -93,20 +93,20 @@
         							</div>
         						</div>
         						<br>
-        						<form id="form-submit" action="<c:url value='/admin/staff/search' />" method="get">
-        							<table class="table table-bordered">
-        								<thead>
-        									<tr class="thead-dark">
-        										<th style="width: 5%;">Hình</th>
-        										<th>Họ và tên</th>
-        										<th>E-mail</th>
-        										<th>Điện thoại</th>
-        										<th>Tài khoản</th>
-        										<th>#</th>
-        									</tr>
-        								</thead>
-        								<tbody>
-        									<c:if test="${!isBin}">
+        						<c:if test="${!isBin}">
+	        						<form id="form-submit" action="<c:url value='/admin/staff/search' />" method="get">
+	        							<table class="table table-bordered">
+	        								<thead>
+	        									<tr class="thead-dark">
+	        										<th style="width: 5%;">Hình</th>
+	        										<th>Họ và tên</th>
+	        										<th>E-mail</th>
+	        										<th>Điện thoại</th>
+	        										<th>Tài khoản</th>
+	        										<th>#</th>
+	        									</tr>
+	        								</thead>
+	        								<tbody>
 												<c:forEach var="staff" items="${staffs}">
 	        										<tr>
 	        											<td>
@@ -154,8 +154,30 @@
 	        											</td>
 	        										</tr>
 	        									</c:forEach>
-			        						</c:if>
-			      							<c:if test="${isBin}">
+	        								</tbody>
+	        							</table>
+	        							<br>
+	        							<nav aria-label="Page navigation">
+											<ul class="pagination" id="pagination"></ul>
+											<input type="hidden" id="page" name="page" value=""> 
+											<br><br>
+										</nav>
+	        						</form>
+        						</c:if>
+        						<c:if test="${isBin}">
+        							<form id="form-submit" action="<c:url value='/admin/staff/search' />" method="get">
+	        							<table class="table table-bordered">
+	        								<thead>
+	        									<tr class="thead-dark">
+	        										<th style="width: 5%;">Hình</th>
+	        										<th>Họ và tên</th>
+	        										<th>E-mail</th>
+	        										<th>Điện thoại</th>
+	        										<th>Tài khoản</th>
+	        										<th>#</th>
+	        									</tr>
+	        								</thead>
+	        								<tbody>
 												<c:forEach var="staff" items="${staffs}">
 	        										<tr>
 	        											<td>
@@ -196,17 +218,16 @@
 	        											</td>
 	        										</tr>
 	        									</c:forEach>
-			      							</c:if>
-        								</tbody>
-        							</table>
-        							<br>
-        							<nav aria-label="Page navigation">
-										<ul class="pagination" id="pagination"></ul>
-										<input type="hidden" id="key" name="key" value=""> 
-										<input type="hidden" id="page" name="page" value="">
-										<br><br>
-									</nav>
-        						</form>
+	        								</tbody>
+	        							</table>
+	        							<br>
+	        							<nav aria-label="Page navigation">
+											<ul class="pagination" id="pagination"></ul>
+											<input type="hidden" id="page" name="page" value=""> 
+											<br><br>
+										</nav>
+	        						</form>
+        						</c:if>
         					</div>
         				</div>
         			</div>

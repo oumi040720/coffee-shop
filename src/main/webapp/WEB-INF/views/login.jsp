@@ -55,7 +55,7 @@
 										</div>
 										<div class="form-group mb-3">
 											 <div class="custom-control custom-checkbox">
-											 	 <input type="checkbox" class="custom-control-input" id="checkbox-signin" >
+											 	 <input type="checkbox" class="custom-control-input" name="isRemember" id="checkbox-signin" >
 											 	 <label class="custom-control-label" for="checkbox-signin">
 											 	 	Ghi nhớ mật khẩu
 											 	 </label>
@@ -64,7 +64,7 @@
 										<div class="form-group text-center">
 											<button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Đăng Nhập </button>
 										</div>
-										<a href="pages-recoverpw.html" class="text-muted">
+										<a  href="" class="text-muted" data-toggle="modal" data-target="#forgetPasswordModal">
 											<i class="mdi mdi-lock mr-1"></i>  Quên mật khẩu?
 										</a>
 									</form>
@@ -98,10 +98,30 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="modal fade" id="forgetPasswordModal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<form id="forgetForm" action="<c:url value="/get_password" />" method="post">
+							<div class="form-group mb-3">
+								<input class="form-control" type="text" name="username" id="forgetUsername" placeholder="Nhập tên tài khoản">
+								<span>
+									<small id="warningForgetUsername" class="text-danger"></small>
+								</span>
+							</div>
+							<div class="form-group text-center">
+								<button class="btn btn-primary btn-block waves-effect waves-light" type="submit">Lấy mật khẩu</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	
 		<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
 		<script type="text/javascript">
-			$('form').on('submit', () => {
+			$('form.mt-2').on('submit', () => {
 				var username = $('#username').val();
         		var password = $('#password').val();
         		
@@ -125,6 +145,26 @@
 				}
     			
     			if (checkUsername && checkPassword) {
+					return true;
+    			} else {
+    				return false;
+    			}
+			});
+		</script>
+		<script type="text/javascript">
+			$('#forgetPasswordModal').on('submit', () => {
+				var username = $('#forgetUsername').val();
+        		
+        		var checkUsername = false;
+    			
+    			if (username.trim().length > 0) {
+					$('#warningForgetUsername').text('');
+					checkUsername = true;
+				} else {
+					$('#warningForgetUsername').text('Không được bỏ trống TÊN TÀI KHOẢN!');
+					checkUsername = false;
+				}
+    			if (checkUsername) {
 					return true;
     			} else {
     				return false;

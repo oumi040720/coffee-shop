@@ -100,12 +100,12 @@
         											<td>${customer.address}</td>
         											<td>${customer.username}</td>
         											<td>
-        												<%-- <c:url var="editURL" value="/admin/customers/edit">
+        												<c:url var="editURL" value="/admin/customers/edit">
         													<c:param name="id" value="${customer.id}" />
         												</c:url>
         												<a href="${editURL}" class="btn btn-outline-info">
         													<i class="mdi mdi-pencil-outline"></i>
-        												</a> --%>
+        												</a>
         												
         												<a href="#myModal-${customer.id}" class="btn btn-outline-danger" data-toggle="modal">
         													<i class=" mdi mdi-window-close"></i>
@@ -138,7 +138,7 @@
 																</div>
 															</div>
 														</div>
-													</div>
+													</div> 
         									</c:forEach>
         								</tbody>
         							</table>

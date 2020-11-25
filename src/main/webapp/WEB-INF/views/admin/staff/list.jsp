@@ -66,12 +66,7 @@
         								</div>
         								<div class="col-sm-4">
         									<div class="d-none d-sm-block">
-        										<c:if test="${!isBin}">
-													<c:url var="searchURL" value='/admin/staff/search' />
-				        						</c:if>
-				      							<c:if test="${isBin}">
-													<c:url var="searchURL" value='/admin/staff/search' />
-				      							</c:if>
+												<c:url var="searchURL" value='/admin/staff/search' />
         									
         										<form action="${searchURL}" class="app-search" method="post">
         											<div class="app-search-box">
@@ -105,20 +100,20 @@
 	        						</div>
 	        						<br>
         						</c:if>
-        						<form id="form-submit" action="<c:url value='/admin/staff/list' />" method="get">
-        							<table class="table table-bordered">
-        								<thead>
-        									<tr class="thead-dark">
-        										<th style="width: 5%;">Hình</th>
-        										<th>Họ và tên</th>
-        										<th>E-mail</th>
-        										<th>Điện thoại</th>
-        										<th>Tài khoản</th>
-        										<th>#</th>
-        									</tr>
-        								</thead>
-        								<tbody>
-        									<c:if test="${!isBin}">
+        						<c:if test="${!isBin}">
+	        						<form id="form-submit" action="<c:url value='/admin/staff/list' />" method="get">
+	        							<table class="table table-bordered">
+	        								<thead>
+	        									<tr class="thead-dark">
+	        										<th style="width: 5%;">Hình</th>
+	        										<th>Họ và tên</th>
+	        										<th>E-mail</th>
+	        										<th>Điện thoại</th>
+	        										<th>Tài khoản</th>
+	        										<th>#</th>
+	        									</tr>
+	        								</thead>
+	        								<tbody>
 												<c:forEach var="staff" items="${staffs}">
 	        										<tr>
 	        											<td>
@@ -166,8 +161,30 @@
 	        											</td>
 	        										</tr>
 	        									</c:forEach>
-			        						</c:if>
-			      							<c:if test="${isBin}">
+	        								</tbody>
+	        							</table>
+	        							<br>
+	        							<nav aria-label="Page navigation">
+											<ul class="pagination" id="pagination"></ul>
+											<input type="hidden" id="page" name="page" value=""> 
+											<br><br>
+										</nav>
+	        						</form>
+        						</c:if>
+        						<c:if test="${isBin}">
+        							<form id="form-submit" action="<c:url value='/admin/staff/bin/list' />" method="get">
+	        							<table class="table table-bordered">
+	        								<thead>
+	        									<tr class="thead-dark">
+	        										<th style="width: 5%;">Hình</th>
+	        										<th>Họ và tên</th>
+	        										<th>E-mail</th>
+	        										<th>Điện thoại</th>
+	        										<th>Tài khoản</th>
+	        										<th>#</th>
+	        									</tr>
+	        								</thead>
+	        								<tbody>
 												<c:forEach var="staff" items="${staffs}">
 	        										<tr>
 	        											<td>
@@ -208,35 +225,18 @@
 	        											</td>
 	        										</tr>
 	        									</c:forEach>
-			      							</c:if>
-        								</tbody>
-        							</table>
-        							<br>
-        							<nav aria-label="Page navigation">
-										<ul class="pagination" id="pagination"></ul>
-										<input type="hidden" id="page" name="page" value=""> 
-										<br><br>
-									</nav>
-        						</form>
+	        								</tbody>
+	        							</table>
+	        							<br>
+	        							<nav aria-label="Page navigation">
+											<ul class="pagination" id="pagination"></ul>
+											<input type="hidden" id="page" name="page" value=""> 
+											<br><br>
+										</nav>
+	        						</form>
+        						</c:if>
         					</div>
         				</div>
-        			</div>
-        		</div>
-        	</div>
-        
-        	<div class="modal fade" id="infoModal">
-        		<div class="modal-dialog">
-        			<div class="modal-content">
-        				<div class="modal-header">
-				        	<h4 class="modal-title">Modal Heading</h4>
-				        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-				      	</div>
-				      	<div class="modal-body">
-				       	 	Modal body..
-				      	</div>
-				      	<div class="modal-footer">
-				      		<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-				      	</div>
         			</div>
         		</div>
         	</div>

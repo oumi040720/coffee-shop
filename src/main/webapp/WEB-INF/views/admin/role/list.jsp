@@ -79,7 +79,7 @@
         								   class="table table-bordered dt-responsive nowrap" 
         								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
         								<thead>
-        									<tr>
+        									<tr class="thead-dark">
         										<th>Tên vai trò</th>
         										<th>Mã vai trò</th>
         										<th>#</th>

@@ -143,13 +143,13 @@
 							<hr>
 							<div class="col-md-12">
 								<div class="cart-detail ftco-bg-dark p-3 p-md-4">
-									<h3 class="billing-heading mb-4">Payment Method</h3>
+									<h3 class="billing-heading mb-4">Phương thức thanh toán</h3>
 									<div class="form-group">
 										<div class="col-md-12">
 											<div class="radio">
 												<label>
-													<input type="radio" name="optradio" class="mr-2"> 
-													Direct Bank Tranfer
+													<input type="radio" checked="checked" name="payment" value="COD" class="mr-2"> 
+													Trả bằng tiền mặt(COD)
 												</label>
 											</div>
 										</div>
@@ -158,16 +158,9 @@
 										<div class="col-md-12">
 											<div class="radio">
 												<label>
-													<input type="radio" name="optradio" class="mr-2"> 
-													Check Payment
+													<input type="radio" name="payment" value="paypal" class="mr-2"> 
+													Thanh toán bằng paypal
 												</label>
-											</div>
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-md-12">
-											<div class="radio">
-												<label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
 											</div>
 										</div>
 									</div>
