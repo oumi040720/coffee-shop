@@ -95,8 +95,8 @@
 												<c:forEach items="${ingredients}" var="ingredient">
 													<tr>
 														<td>${ingredient.name}</td>
-														<td>${ingredient.unitCode}</td>
 														<td>${ingredient.quantity}</td>
+														<td>${ingredient.unit}</td>
 														<td><c:url var="editURL" value="/admin/ingredient/edit">
 																<c:param name="id" value="${ingredient.id}" />
 															</c:url> 
@@ -161,8 +161,8 @@
 												<c:forEach items="${ingredients}" var="ingredient">
 													<tr>
 														<td>${ingredient.name}</td>
-														<td>${ingredient.unitCode}</td>
 														<td>${ingredient.quantity}</td>
+														<td>${ingredient.unit}</td>
 														<td>
 															<c:url var="restoreURL" value="/admin/ingredient/restore">
 																<c:param name="id" value="${ingredient.id}" />
