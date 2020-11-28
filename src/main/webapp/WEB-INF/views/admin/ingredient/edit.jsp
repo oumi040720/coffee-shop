@@ -82,7 +82,7 @@
 										</label>
 										<div class="col-lg-10">
 											<form:select path="unitCode" cssClass="form-control">
-												<form:option value="">-- Lựa chọn vai trò --</form:option>
+												<form:option value="">-- Lựa chọn đơn vị--</form:option>
         											<<c:forEach items="${units}" var="units">
 													<form:option value="${units.id}">${units.unitName}</form:option>
 												</c:forEach>

@@ -85,7 +85,7 @@
 											<table class="table table-bordered dt-responsive nowrap">
 											<thead class="thead-dark">
 												<tr>
-													<th>Tên định lượng</th>
+													<th>Tên thành phẩm</th>
 													<th>Số lượng</th>
 													<th>Đơn vị</th>
 													<th>#</th>
