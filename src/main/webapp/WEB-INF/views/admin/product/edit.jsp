@@ -73,7 +73,7 @@
         										Tên sản phẩm <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="productName" cssClass="form-control" onfocusout="getProduct()"/>
+        										<form:input path="productName" cssClass="form-control"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningProductName" class="parsley-required"></li>
         										</ul>
