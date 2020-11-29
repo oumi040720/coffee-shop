@@ -1,6 +1,6 @@
 package com.fpoly.coffeeshop.controller.admin;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.RoleDTO;
 import com.fpoly.coffeeshop.dto.StaffDTO;
-import com.fpoly.coffeeshop.dto.StaffLogDTO;
 import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.service.IRoleService;
-import com.fpoly.coffeeshop.service.IStaffLogService;
 import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DomainUtil;
@@ -35,12 +33,28 @@ public class AdminStaffController {
 	
 	@Autowired
 	private IStaffService staffService;
-	
-	@Autowired
-	private IStaffLogService staffLogService;
 
 	private String getDomain() {
 		return DomainUtil.getDoamin();
+	}
+	
+	private List<RoleDTO> getRoles() {
+		RoleDTO role = new RoleDTO();
+		
+		List<RoleDTO> list = roleService.findAll();
+		List<RoleDTO> roles = new ArrayList<RoleDTO>();
+		
+		for (int i = 0; i < list.size(); i++) {
+			role = list.get(i);
+			
+			if (!role.getFlagDelete()) {
+				if (role.getRoleCode().equals("admin") || role.getRoleCode().equals("cashier")) {
+					roles.add(role);
+				}
+			}
+		}
+		
+		return roles;
 	}
 	
 	@RequestMapping(value = "/list")
@@ -93,15 +107,9 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/add")
 	public String showAddPage(Model model) {
-		List<RoleDTO> roles = roleService.findAll();
-		for (int i = 0; i < roles.size(); i++) {
-			if (roles.get(i).getRoleCode().equals("user")) {
-				roles.remove(i);
-			}
-		}
 		
 		model.addAttribute("domain", getDomain());
-		model.addAttribute("roles", roles);
+		model.addAttribute("roles", getRoles());
 		model.addAttribute("check", false);
 		model.addAttribute("staff", new StaffDTO());
 		
@@ -110,18 +118,11 @@ public class AdminStaffController {
 	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
-		List<RoleDTO> roles = roleService.findAll();
-		for (int i = 0; i < roles.size(); i++) {
-			if (roles.get(i).getRoleCode().equals("user")) {
-				roles.remove(i);
-			}
-		}
-		
 		StaffDTO staffDTO = staffService.findOne(id);
 		UserDTO userDTO = userService.findOne(staffDTO.getUsername());
 		RoleDTO roleDTO = roleService.findOne(userDTO.getRoleCode());
 		
-		model.addAttribute("roles", roles);
+		model.addAttribute("roles", getRoles());
 		model.addAttribute("roleCode", roleDTO.getRoleCode());
 		model.addAttribute("userID", userDTO.getId());
 		model.addAttribute("staff", staffDTO);
@@ -138,8 +139,6 @@ public class AdminStaffController {
 		
 		Boolean logResult = false;
 		
-		StaffLogDTO log = new StaffLogDTO();
-		
 		staff.setFlagDelete(false);
 		
 		if (staff.getId() == null) {
@@ -152,12 +151,6 @@ public class AdminStaffController {
 			Boolean userResult = userService.insert(userDTO);
 			StaffDTO staffResult = staffService.insert(staff);
 			
-			log.setStaffID(staffResult.getId());
-			log.setCreatedBy("admin");
-			log.setCreatedDate(new Date(System.currentTimeMillis()));
-			
-			logResult = staffLogService.insert(log);
-			
 			if (staffResult != null && userResult) {
 				message = "message_staff_insert_success";
 				alert = "success";
@@ -168,6 +161,7 @@ public class AdminStaffController {
 		} else {
 			UserDTO userDTO = userService.findOne(staff.getUsername());
 			userDTO.setRoleCode(roleCode);
+			
 			if (p.trim().length() > 0) {
 				userDTO.setPassword(p);
 			} else {
@@ -179,22 +173,6 @@ public class AdminStaffController {
 			Boolean userResult = userService.update(userDTO);
 			Boolean staffUesult = staffService.update(staff);
 		
-			log.setStaffID(tempt.getId());
-			log.setOldAddress(tempt.getAddress());
-			log.setOldBirthday(tempt.getBirthday());
-			log.setOldEmail(tempt.getEmail());
-			log.setOldFlagDelete(tempt.getFlagDelete());
-			log.setOldFullname(tempt.getFullname());
-			log.setOldPhone(tempt.getPhone());
-			log.setOldPhoto(tempt.getPhoto());
-			log.setOldUsername(tempt.getUsername());
-			log.setModifiedBy("admin");
-			log.setCreatedDate(new Date(System.currentTimeMillis()));
-			log.setCreatedBy("admin");
-			log.setCreatedDate(new Date(System.currentTimeMillis()));
-			
-			logResult = staffLogService.insert(log);
-			
 			if (staffUesult && userResult) {
 				message = "message_staff_update_success";
 				alert = "success";

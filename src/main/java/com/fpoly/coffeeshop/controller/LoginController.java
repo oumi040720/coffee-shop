@@ -1,19 +1,24 @@
 package com.fpoly.coffeeshop.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fpoly.coffeeshop.dto.CustomersDTO;
+import com.fpoly.coffeeshop.dto.StaffDTO;
 import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.EmailUtil;
 
 @Controller
 public class LoginController {
@@ -27,6 +32,9 @@ public class LoginController {
 	@Autowired
 	private ICustomersService customersService;
 
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	private String getDomain() {
 		return DomainUtil.getDoamin();
 	}
@@ -40,7 +48,7 @@ public class LoginController {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
-
+		
 		return "login";
 	}
 
@@ -74,7 +82,7 @@ public class LoginController {
 
 		return "redirect:/login?message=message_login_fail&alert=danger";
 	}
-
+	
 	@RequestMapping(value = "/registration")
 	public String showSignUpPage(HttpServletRequest request) {
 		request.setAttribute("domain", getDomain());
@@ -118,10 +126,44 @@ public class LoginController {
 		return "redirect:/registration";
 	}
 
+	@RequestMapping(value = "/get_password")
+	public String forgetPassword(HttpServletRequest request) {
+		String username = request.getParameter("username");
+		String email = "";
+		
+		UserDTO userDTO = userService.findOne(username);
+		String password = RandomStringUtils.randomAlphanumeric(15);
+		String text = "Mật khẩu mới của bạn là: " + password + "<br> <b>Vui lòng đổi lại mật khẩu để tăng tính bảo mật!</b>";
+		
+		userDTO.setPassword(password);
+		
+		if (userDTO.getRoleCode().equals("user")) {
+			CustomersDTO customersDTO = customersService.findOne1(username);
+			
+			email = customersDTO.getEmail();
+		} else {
+			StaffDTO staffDTO = staffService.findOne(username);
+			
+			email = staffDTO.getEmail();
+		}
+		
+		if (userService.update(userDTO)) {
+			EmailUtil.sendSimpleMessage(email, "Mật khẩu mới", text, mailSender);
+		}
+		
+		return "redirect:/login?message=message_forget_password_send_mail&alert=success";
+	}
+	
 	@RequestMapping(value = "/logout")
-	public String logout(HttpServletRequest request) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession httpSession = request.getSession();
-		httpSession.removeAttribute("USER");;
+		httpSession.removeAttribute("USER");
+		httpSession.removeAttribute("INFO");;
+		httpSession.removeAttribute("CUSTOMER");;
+		
+		Cookie cookie = new Cookie("_uid", "");
+		cookie.setMaxAge(-1);
+		response.addCookie(cookie);
 		
 		return "redirect:/home";
 	}

@@ -1,4 +1,4 @@
-z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 
@@ -73,7 +73,7 @@ z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
         										Tên sản phẩm <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="productName" cssClass="form-control" onfocusout="getProduct()"/>
+        										<form:input path="productName" cssClass="form-control"/>
         										<ul class="parsley-errors-list filled">
         											<li id="warningProductName" class="parsley-required"></li>
         										</ul>
@@ -195,9 +195,10 @@ z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
     						return true;
     					} else {
     						return false;
-    					
+    						}
         			}
         			catch (err) {
+						// TODO: handle exception
 						return false;
 					}
         		}

@@ -23,7 +23,7 @@ import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderLogService;
 import com.fpoly.coffeeshop.service.IOrderService;
 import com.fpoly.coffeeshop.service.impl.CouponService;
-import com.fpoly.coffeeshop.util.DomainURLUntil;
+import com.fpoly.coffeeshop.util.URLUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -44,7 +44,7 @@ public class AdminOrderController extends Thread {
 	}
 	
 	private String getDomainURLUntil() {
-		return DomainURLUntil.getDomainURLUntil();
+		return URLUtil.getDomainURLUntil();
 	}
 	
 	@RequestMapping(value = "/list")

@@ -39,6 +39,32 @@ public class AdminCouponController {
 			request.setAttribute("alert", alert);
 		}
 		
+		request.setAttribute("isBin", false);
+		
+		request.setAttribute("page", page);
+		request.setAttribute("limit", limit);
+		request.setAttribute("totalPages", couponService.getTotalPageByFlagDelete(flagDelete, page, limit));
+		request.setAttribute("coupons", couponService.findAllByFlagDelete(flagDelete, page, limit));
+		
+		return "admin/coupon/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showLBinistPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+
+		boolean flagDelete = true;
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 10;
+
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+		
+		request.setAttribute("isBin", true);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", couponService.getTotalPageByFlagDelete(flagDelete, page, limit));
@@ -115,10 +141,35 @@ public class AdminCouponController {
 		return "redirect:/admin/coupon/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
+	@RequestMapping(value = "/restore")
+	public String restore(@RequestParam("id") Long id) {
+		String message = "";
+		String alert = "danger";
+		
+		CouponDTO couponDTO = couponService.findOne(id);
+		couponDTO.setFlagDelete(false);
+		
+		Boolean result = couponService.update(couponDTO);
+		
+		if (result) {
+			message = "message_coupon_restore_success";
+			alert = "success";
+		} else {
+			message = "message_coupon_restore_fail";
+		}
+		
+		return "redirect:/admin/coupon/bin/list?page=1&message=" + message + "&alert=" + alert;
+	}
+	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(HttpServletRequest request) {
 		String type = request.getParameter("type");
-		System.out.println(type);
+		String isDeleted = request.getParameter("is_deleted");
+		
+		if (isDeleted != null) {
+			return "redirect:/admin/coupon/search?type=" + type + "&page=1&is_deleted=true";
+		}
+		
 		return "redirect:/admin/coupon/search?type=" + type + "&page=1";
 	}
 	
@@ -126,6 +177,8 @@ public class AdminCouponController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String type = request.getParameter("type");
+		String isDeleted = request.getParameter("is_deleted");
+		
 		boolean flagDelete = false;
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
@@ -140,6 +193,13 @@ public class AdminCouponController {
 		default:
 			type = "";
 			break;
+		}
+		
+		if (isDeleted != null) {
+			flagDelete = true;
+			request.setAttribute("isBin", true);
+		} else {
+			request.setAttribute("isBin", false);
 		}
 		
 		request.setAttribute("type", type);

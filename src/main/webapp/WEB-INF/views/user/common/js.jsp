@@ -19,35 +19,38 @@
 <script src="<c:url value='/template/user/js/main.js' />"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<script>
+ <script type="text/javascript">
 	$(document).ready(function() {
 		updatePrices();
 		getTotalItems();
 	});
 </script>
-<script>
+
+ <script type="text/javascript">
 	function updatePrices() {
 		var items = JSON.parse(localStorage.getItem("items"));
-    	if (items === null) {
+    	/* if (items === null) {
         	var items = [];
-    	}
+    	} */
     	
-    	items.map((item, index) => {
-    		var url =  '${domain}' + '/product/id/' + item.id;
-    		
-    		axios.get(url)
-				.then((response) => {
-					var temp = response.data;
-					
-					if (temp.price != item.price) {
-						items[index].price = temp.price;
+    	if (items !== null) { 
+	    	items.map((item, index) => {
+	    		var url =  '${domain}' + '/product/id/' + item.id;
+	    		
+	    		axios.get(url)
+					.then((response) => {
+						var temp = response.data;
 						
-						localStorage.setItem("items", JSON.stringify(items));
-						
-						$('#warningUpdatePrice').show();
-					}
-				});
-    	}); 
+						if (temp.price != item.price) {
+							items[index].price = temp.price;
+							
+							localStorage.setItem("items", JSON.stringify(items));
+							
+							$('#warningUpdatePrice').show();
+						}
+					});
+	    	}); 
+    	}
 	}
 
 	function getTotalItems() {
@@ -73,7 +76,7 @@
 		var items = JSON.parse(localStorage.getItem("items"));
 		var total = 0;
 		
-		if (items.length === 0) {
+		if (items === null || items.length === 0) {
 			total = 0;	
 		} else {
 			items.map((item, index) => {
@@ -91,7 +94,7 @@
 		var items = JSON.parse(localStorage.getItem("items"));
 		var total = 0;
 		
-		if (items.length === 0) {
+		if (items === null || items.length === 0) {
 			total = 0;	
 		} else {
 			var subtotal = Number($('#subtotal').attr('data-price'));
@@ -107,7 +110,7 @@
 	}
 </script>
 
-<script>
+ <script type="text/javascript">
 	$('#discount').on('focusout', () => {
 		getCoupon();
 	});

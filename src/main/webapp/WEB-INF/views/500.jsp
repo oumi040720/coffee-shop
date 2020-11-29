@@ -29,7 +29,7 @@
 		                        </a>
 	                        </c:if>
 	                        <c:if test="${USER.roleCode eq 'admin'}">
-		                        <a class="btn btn-pink waves-effect waves-light" href="<c:url  value='/admin/order/list?page=1'/>"> 
+		                        <a class="btn btn-pink waves-effect waves-light" href="<c:url  value='/admin/dashboard'/>"> 
 		                        	Quay Lại Trang Chủ 
 		                        </a>
 	                        </c:if>

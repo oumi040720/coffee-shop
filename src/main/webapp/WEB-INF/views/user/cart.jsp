@@ -152,44 +152,54 @@
         <script type="text/javascript">
         	function renderItems() {
 	 	        var items = JSON.parse(localStorage.getItem("items"));
-	 	        if (items === null) {
+	 	        /* if (items === null) {
 	 	        	var items = [];
-	 	        }
+	 	        } */
 	 	        
 	 	       	var showItemsPlace = $('.cart-list tbody');
 	 	       	showItemsPlace.html('');
 	 	       
-	 	       	items.map((item, index) => {
-	 	        	showItemsPlace.append(
+	 	       	if (items === null) {
+	 	       		showItemsPlace.append(
 	 	        		'<tr class="text-center">' +
-	 	        			'<td class="product-remove">' + 
-								'<a onclick="remove(' + item.id + ')"><span class="icon-close"></span></a>' +
-							'</td>' + 
-							'<td class="image-prod">' +
-								'<div class="img" style="background-image:url( ' + item.photo + ' );"></div>' +
-							'</td>' +
-							'<td class="product-name">' + item.productName + '</td>' +
-							'<td class="price"> ' + formatVNDCurrency(item.price) + '</td>' + 
-							'<td>' + 
-								'<div>' +
-									'<span class="left">'  +
-										'<a class="btn btn-primary btn-outline-primary" onclick="minus(' + item.id + ')"> - </a>' +
-									'</span>' + 
-									'<span>' + item.quantity + '</span>' +
-									'<span class="right">'  +
-										'<a class="btn btn-primary btn-outline-primary" onclick="plus(' + item.id + ')"> + </a>' +
-									'</span>' + 
-								'</div>' +
-							'</td>' + 
-							'<td class="total">' + formatVNDCurrency(item.price * item.quantity) + '</td>' + 
+	 	        			'<td colspan="6"> Không có sản phẩm trong giỏ hàng</td>' +
 	 	        		'</tr>'
 	 	        	);
-	 	        });	
+	 	       		
+					$('div.justify-content-end').hide(); 	       		
+	 	       	} else {	
+	 	       		items.map((item, index) => {
+		 	        	showItemsPlace.append(
+		 	        		'<tr class="text-center">' +
+		 	        			'<td class="product-remove">' + 
+									'<a onclick="remove(' + item.id + ')"><span class="icon-close"></span></a>' +
+								'</td>' + 
+								'<td class="image-prod">' +
+									'<div class="img" style="background-image:url( ' + item.photo + ' );"></div>' +
+								'</td>' +
+								'<td class="product-name">' + item.productName + '</td>' +
+								'<td class="price"> ' + formatVNDCurrency(item.price) + '</td>' + 
+								'<td>' + 
+									'<div>' +
+										'<span class="left">'  +
+											'<a class="btn btn-primary btn-outline-primary" onclick="minus(' + item.id + ')"> - </a>' +
+										'</span>' + 
+										'<span>' + item.quantity + '</span>' +
+										'<span class="right">'  +
+											'<a class="btn btn-primary btn-outline-primary" onclick="plus(' + item.id + ')"> + </a>' +
+										'</span>' + 
+									'</div>' +
+								'</td>' + 
+								'<td class="total">' + formatVNDCurrency(item.price * item.quantity) + '</td>' + 
+		 	        		'</tr>'
+		 	        	);
+		 	        });	
+	 	       	}
 	 	      
-	 	      getTotalItems();
-	 	      calculateSubtotal();
-	 	      calculateTotal();
-	 	      isShowCheckOutButton();
+	 	      	getTotalItems();
+	 	      	calculateSubtotal();
+	 	      	calculateTotal();
+	 	      	isShowCheckOutButton();
         	}
         
         	function remove(id) {
@@ -244,7 +254,7 @@
 			function isShowCheckOutButton() {
 				var items = JSON.parse(localStorage.getItem("items"));
 				
-				if (items.length === 0) {
+				if (items === null || items.length === 0) {
 					$('#checkOutButton').hide();
 				}
 			}

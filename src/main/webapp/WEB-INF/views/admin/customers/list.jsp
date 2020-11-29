@@ -151,7 +151,6 @@
 																			</a>
 																		<button type="button" data-dismiss="modal"
 																			class="btnn btn-danger">Từ chối</button>
-									
 																	</div>
 																</div>
 															</div>

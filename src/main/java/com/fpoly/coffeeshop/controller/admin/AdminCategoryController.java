@@ -34,8 +34,25 @@ public class AdminCategoryController {
 		}
 
 		request.setAttribute("categories", categoryService.findAllByFlagDelete(false));
+		request.setAttribute("isBin", false);
+		
 		return "admin/category/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
 
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+
+		request.setAttribute("categories", categoryService.findAllByFlagDelete(true));
+		request.setAttribute("isBin", true);
+		
+		return "admin/category/list";
 	}
 
 	@RequestMapping(value = "/add")
@@ -106,7 +123,27 @@ public class AdminCategoryController {
 		}
 
 		return "redirect:/admin/category/list?message=" + message + "&alert=" + alert;
+	}
+	
+	@RequestMapping(value = "/restore")
+	public String restore(Model model, @RequestParam("category_code") String categoryCode) {
+		String message = "";
+		String alert = "danger";
 
+		CategoryDTO categoryDTO = categoryService.findOne(categoryCode);
+		categoryDTO.setFlagDelete(false);
+
+		Boolean result = categoryService.update(categoryDTO);
+
+		if (result) {
+			message = "message_category_restore_success";
+			alert = "success";
+		} else {
+			message = "message_cayegory_restore_fail";
+			alert = "danger";
+		}
+
+		return "redirect:/admin/category/bin/list?message=" + message + "&alert=" + alert;
 	}
 
 }

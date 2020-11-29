@@ -86,6 +86,22 @@
 													<c:if test="${item.status == 4}">
 														Giao hàng thành công
 													</c:if>
+													
+													<c:if test="${item.status == 10}">
+														Đã đặt hàng/Đã thanh toán
+													</c:if>
+													<c:if test="${item.status == 11}">
+														Đã tiếp nhận
+													</c:if>
+													<c:if test="${item.status == 12}">
+														Đang chế biến
+													</c:if>
+													<c:if test="${item.status == 13}">
+														Đang giao
+													</c:if>
+													<c:if test="${item.status == 14}">
+														Giao hàng thành công
+													</c:if>
 												</td>
 												<td>
 													<c:url var="editURL" value="/order_detail">
@@ -94,6 +110,15 @@
        												<a href="${editURL}" class="btn btn-primary btn-outline-primary">
        													Xem
        												</a> 
+       												
+       												<c:if test="${(item.status > -1 && item.status < 2) || (item.status > 9 && item.status < 12)}">
+	       												<c:url var="cancelURL" value="/cancel_order">
+	       													<c:param name="order_code" value="${ item.orderCode }" />
+	       												</c:url>
+	       												<a href="${cancelURL}" class="btn btn-danger btn-outline-danger">
+	       													Hủy
+	       												</a> 
+       												</c:if>
 												</td>
 											</tr>
 										</c:forEach>

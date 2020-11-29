@@ -19,10 +19,40 @@ public class AdminUnitsController {
 	private String getDomain() {
 		return DomainUtil.getDoamin();
 	}
+	
 	@Autowired
 	private IUnitService unitService;
+	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+		
+		String id = request.getParameter("unit_id");
+		
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+		}
+		
+		if (id != null) {
+			request.setAttribute("check", true);
+			request.setAttribute("unit", unitService.findOne(Long.parseLong(id)));
+		} else {
+			request.setAttribute("check", false);
+			request.setAttribute("unit", new UnitDTO());
+		}
+		
+		request.setAttribute("domain", getDomain());
+		
+		request.setAttribute("isBin", false);
+		request.setAttribute("units", unitService.findAllbyFlagDelete(false));
+		
+		return "admin/unit/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request) {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 		
@@ -31,7 +61,10 @@ public class AdminUnitsController {
 			request.setAttribute("alert", alert);
 		}
 		
-		request.setAttribute("unit", unitService.findAllbyFlagDelete(false));
+		request.setAttribute("domain", getDomain());
+		
+		request.setAttribute("isBin", true);
+		request.setAttribute("units", unitService.findAllbyFlagDelete(true));
 		
 		return "admin/unit/list";
 	}
@@ -44,6 +77,7 @@ public class AdminUnitsController {
 		
 		return "admin/unit/edit";
 	}
+	
 	@RequestMapping(value = "/edit")
 	public String showUpdatePage(Model model, @RequestParam("unit_id") Long id) {
 		model.addAttribute("check", true);
@@ -52,7 +86,6 @@ public class AdminUnitsController {
 		
 		return "admin/unit/edit";
 	}
-	
 	
 	@RequestMapping(value = "/save")
 	public String save(Model model, @ModelAttribute UnitDTO unitDTO) {
@@ -85,6 +118,7 @@ public class AdminUnitsController {
 		
 		return "redirect:/admin/unit/list?message=" + message + "&alert=" + alert;
 	}
+	
 	@RequestMapping(value = "/delete")
 	public String delete(Model model, @RequestParam("unit_id") Long id) {
 		String message = "";
@@ -105,7 +139,24 @@ public class AdminUnitsController {
 		return "redirect:/admin/unit/list?message=" + message + "&alert=" + alert;
 	}
 	
-	
-	
+	@RequestMapping(value = "/restore")
+	public String restore(Model model, @RequestParam("unit_id") Long id) {
+		String message = "";
+		String alert = "danger";
+		
+		UnitDTO unitDTO = unitService.findOne(id);
+		unitDTO.setFlagDelete(false);
+		
+		Boolean result = unitService.update(unitDTO);
+		
+		if (result) {
+			message = "message_unit_restore_success";
+			alert = "success";
+		} else {
+			message = "message_unit_restore_fail";
+			alert = "danger";
+		}
+		return "redirect:/admin/unit/bin/list?message=" + message + "&alert=" + alert;
+	}
 	
 }

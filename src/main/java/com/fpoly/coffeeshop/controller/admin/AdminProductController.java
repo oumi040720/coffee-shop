@@ -16,7 +16,7 @@ import com.fpoly.coffeeshop.dto.CategoryDTO;
 import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IProductService;
-import com.fpoly.coffeeshop.util.DomainURLUntil;
+import com.fpoly.coffeeshop.util.URLUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -34,7 +34,7 @@ public class AdminProductController {
 	}
 	
 	private String getDomainURLUntil() {
-		return DomainURLUntil.getDomainURLUntil();
+		return URLUtil.getDomainURLUntil();
 	}
 
 	@RequestMapping(value = "/list")
@@ -50,6 +50,35 @@ public class AdminProductController {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
+		
+		request.setAttribute("isBin", false);
+		
+		request.setAttribute("page", page);
+		request.setAttribute("limit", limit);
+		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
+		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
+		request.setAttribute("domainURL", getDomainURLUntil());
+		
+		return "admin/product/list";
+	}
+	
+	@RequestMapping(value = "/bin/list")
+	public String showBinListPage(HttpServletRequest request, Model model) {
+		String message = request.getParameter("message");
+		String alert = request.getParameter("alert");
+		
+		int page = Integer.parseInt(request.getParameter("page"));
+		int limit = 5;
+		boolean flagDelete = true;
+		
+		if (message != null && alert != null) {
+			request.setAttribute("message", message.replaceAll("_", "."));
+			request.setAttribute("alert", alert);
+			
+		}
+		
+		request.setAttribute("isBin", true);
+		
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
@@ -77,8 +106,7 @@ public class AdminProductController {
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("id") Integer id
-			) {
+	public String showUpdatePage(Model model, @RequestParam("id") Integer id) {
 		List<CategoryDTO> category = categoryService.findAll();
 		for (int i = 0; i < category.size(); i++) {
 			if (category.get(i).getCategoryCode().equals("product")) {
@@ -148,20 +176,54 @@ public class AdminProductController {
 		return "redirect:/admin/product/list?page=1&message=" + message + "&alert=" + alert;
 	}
 	
+	@RequestMapping(value = "/restore")
+	public String restore(@RequestParam("id") Integer id) {
+		String message = "";
+		String alert = "danger";
+		
+		ProductDTO productDTO = productService.findOne(id);
+		productDTO.setFlagDelete(false);
+		
+		Boolean result = productService.update(productDTO);
+		
+		if (result) {
+			message = "message_product_restore_success";
+			alert = "success";
+		} else {
+			message = "message_product_restore_fail";
+		}
+		
+		return "redirect:/admin/product/bin/list?page=1&message=" + message + "&alert=" + alert;
+	}
+	
 	
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String search(HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
 		
-		return "redirect:/admin/product/search?key="+key+"&page=1";
+		if (isDeleted != null) {
+			return "redirect:/admin/product/search?key=" + key + "&page=1&is_deleted=true";
+		}
+		
+		return "redirect:/admin/product/search?key=" + key + "&page=1";
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String showSearchPage(HttpServletRequest request) {
 		String key = request.getParameter("key");
+		String isDeleted = request.getParameter("is_deleted");
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
 		boolean flagDelete = false;
+		
+		if (isDeleted != null) {
+			flagDelete = true;
+			request.setAttribute("isBin", true);
+		} else {
+			request.setAttribute("isBin", false);
+		}
+		
 		request.setAttribute("key", key);
 		request.setAttribute("page", page);
 		request.setAttribute("limit", limit);

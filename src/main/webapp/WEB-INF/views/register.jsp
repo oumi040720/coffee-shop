@@ -76,7 +76,7 @@
 										</div>
 									</form>
 									<div class="text-center mt-4">
-										<h5 class="text-muted py-2"><b>Sign in with</b></h5>
+										<h5 class="text-muted py-2"><b>Đăng nhập với</b></h5>
 										<div class="row">
 											<div class="col-12">
 												 <button type="button" class="btn btn-facebook waves-effect font-14 waves-light mt-3">
@@ -94,9 +94,9 @@
 						<div class="row mt-3">
 							<div class="col-12 text-center">
 								<p class="text-white-50">
-									Already have account?
+									Bạn đã có tài khoản?
 									<a href="<c:url value='/login' />" class="text-white ml-1">
-										<b>Sign In</b>
+										<b>Đăng nhập</b>
 									</a>
 								</p>
 							</div>
