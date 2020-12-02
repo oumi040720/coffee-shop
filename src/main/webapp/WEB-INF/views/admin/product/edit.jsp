@@ -151,17 +151,17 @@
     					} else {
     						$('#categoryCode').addClass('parsley-error');
     						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
-    						
+    						checkCategoryCode = false;
     					}
     					
     					if(productName.trim().length > 0){
     						$('#warningProductName').text('');
     						$('#productName').removeClass('parsley-error');
-    						
+    						checkProductName = true;
     					} else {
     						$('#productName').addClass('parsley-error');
     						$('#warningProductName').text('Không được bỏ trống TÊN SẢN PHẨM!');
-    						
+    						checkProductName = false;
     					}
     					
     					
@@ -172,33 +172,32 @@
     					} else {
     						$('#photo').addClass('parsley-error');
     						$('#warningPhoto').text('Không được bỏ trống HÌNH ẢNH!');
+    						checkPhoto = false;
     						
     					}
+    					
     					var pattern = new RegExp('^[0-9]*$');
     					if(price.trim().length > 0 && price.match(pattern)){
     						$('#warningPrice').text('');
     						$('#price').removeClass('parsley-error');
     						checkPrice = true;
-    					}
-    					else if(price.trim().length > 0){
+    					} else if(price.trim().length > 0){
     						$('#price').addClass('parsley-error');
     						$('#warningPrice').text('GIÁ SẢN PHẨM là số!');
-    						
-    					}
-    					else {
+    						checkPrice = false;
+    					} else {
     						$('#price').addClass('parsley-error');
     						$('#warningPrice').text('Không được bỏ trống GIÁ SẢN PHẨM!');
-    						
+    						checkPrice = false;
     					}
     					
-    					if (checkproductName && checkCategoryCode && checkPhoto && checkPrice) {
+    					if (checkProductName && checkCategoryCode && checkPhoto && checkPrice) {
     						return true;
     					} else {
     						return false;
-    						}
+    					}
         			}
         			catch (err) {
-						// TODO: handle exception
 						return false;
 					}
         		}

@@ -214,7 +214,7 @@ public class OrderService implements IOrderService {
 		UserEntity user = userRepository.findOneByUsername(username);
 		CustomersEntity customer = cusctomersRepository.findOneByUser(user);
 		
-		List<OrderEntity> list  = orderRepository.findAllByFlagDeleteIsAndCustomer(flagDelete, customer, PageRequest.of(page, limit))
+		List<OrderEntity> list  = orderRepository.findAllByFlagDeleteIsAndCustomer(flagDelete, customer, PageRequest.of(page, limit, Sort.by(Direction.DESC,"orderDate")))
 													.getContent();
 		List<OrderDTO> result = new ArrayList<>();
 		

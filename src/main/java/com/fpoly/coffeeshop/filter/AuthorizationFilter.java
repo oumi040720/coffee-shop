@@ -40,8 +40,9 @@ public class AuthorizationFilter implements Filter {
 					filterChain.doFilter(servletRequest, servletResponse);
 				} else if (user.getRoleCode().equals("cashier")) {
 					if (url.startsWith("/CoffeeShop/admin/role") || url.startsWith("/CoffeeShop/admin/staff") 
-							|| url.startsWith("/CoffeeShop/admin/role") || url.startsWith("/CoffeeShop/admin/dashboard") 
-							|| url.startsWith("/CoffeeShop/admin/user") || url.startsWith("/CoffeeShop/admin/customer") ) {
+							|| url.startsWith("/CoffeeShop/admin/category") || url.startsWith("/CoffeeShop/admin/dashboard") 
+							|| url.startsWith("/CoffeeShop/admin/product") || url.startsWith("/CoffeeShop/admin/customer")
+							|| url.startsWith("/CoffeeShop/admin/coupon")) {
 						response.sendRedirect(request.getContextPath() + "/403");
 					} else {
 						filterChain.doFilter(servletRequest, servletResponse);

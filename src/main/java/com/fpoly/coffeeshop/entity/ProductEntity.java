@@ -1,19 +1,13 @@
 package com.fpoly.coffeeshop.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "products")
@@ -31,7 +25,7 @@ public class ProductEntity {
 	private String photo;
 
 	@Column(name = "price")
-	private Double price;
+	private Long price;
 
 	@Column(name = "flag_delete")
 	private Boolean flagDelete;
@@ -39,10 +33,6 @@ public class ProductEntity {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private CategoryEntity category;
-
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private List<PriceHistoriesEntity> priceHistories;
 
 	public Integer getId() {
 		return id;
@@ -68,11 +58,11 @@ public class ProductEntity {
 		this.photo = photo;
 	}
 
-	public Double getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
@@ -90,14 +80,6 @@ public class ProductEntity {
 
 	public void setCategory(CategoryEntity category) {
 		this.category = category;
-	}
-
-	public List<PriceHistoriesEntity> getPriceHistories() {
-		return priceHistories;
-	}
-
-	public void setPriceHistories(List<PriceHistoriesEntity> priceHistories) {
-		this.priceHistories = priceHistories;
 	}
 
 }

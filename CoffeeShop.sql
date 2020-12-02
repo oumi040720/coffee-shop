@@ -324,9 +324,7 @@ values	(N'User Customer', 'user_customer@gmail.com', N'Cao Đẳng FPT Polytechn
 go
 
 insert into coupons (coupon_code, discount, min_total_bill, max_discount, start_time, end_time, type, flag_delete)
-values	('FREESHIP', '100%', '300000', '100%', '2020-01-01', '2050-12-31', N'Miễn Phí Vận Chuyển', 0),
-		('FS001', '20000', '250000', '100%', '2020-01-01', '2050-12-31', N'Miễn Phí Vận Chuyển', 0),
-		('GIAM10', '10000', '100000', '10000', '2020-12-20', '2020-12-31', N'Giảm Giá Trực Tiếp', 0),
+values	('GIAM10', '10000', '100000', '10000', '2020-12-20', '2020-12-31', N'Giảm Giá Trực Tiếp', 0),
 		('CHI2020', '10%', '150000', '50000', '2020-12-20', '2020-12-31', N'Giảm Giá Theo Phần Trăm', 0)
 
 insert into categories (category_code, category_name, flag_delete)
@@ -338,11 +336,6 @@ values	('ca-phe', N'Cà Phê', 0),
 		('banh', N'Bánh', 0)
 go
 
-/*
-% = (( cuoi - dau ) / dau ) * 100
-*/
-
----- Compare order rate current month with last month
 create proc sp_orderDetailStatistic (@year int, @month int)
 as
 	select (select COUNT(*) from orders where MONTH(orders.order_date) = @month and YEAR(orders.order_date) = @year) as 'ORDERS',
@@ -351,7 +344,7 @@ as
 			SUM(od.quantity) as 'QUANTITY'
 	from orders o join order_details od
 	on o.id = od.order_id
-	where MONTH(o.order_date) = @month and YEAR(o.order_date) = @year
+	where MONTH(o.order_date) = @month and YEAR(o.order_date) = @year and (o.status = 4 or o.status = 14)
 go
 
 create proc sp_getTop4BestSeller 
@@ -361,8 +354,69 @@ as
 				 p.photo,
 			     p.price,
 			     SUM(od.quantity)
-	from products p join order_details od
-	on p.id = od.product_id
+	from products p 
+	join order_details od on p.id = od.product_id
+	join orders o on od.order_id = o.id
+	where o.status = 4 or o.status = 14
 	group by p.id, p.photo, p.product_name, p.price
 	order by SUM(od.quantity) DESC
+go
+
+create proc sp_getSalesRateEveryMotnhInYear (@year int)
+as
+	select MONTH(o.order_date) as 'MONTH',  
+		(( SUM(od.quantity * od.price) /( select SUM(order_details.quantity * order_details.price) 
+										  from orders join order_details on orders.id = order_details.order_id
+										  where YEAR(order_date) = @year
+										  group by YEAR(order_date)) ) * 100 ) as 'PERCENT'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where YEAR(o.order_date) = @year and (o.status = 4 or o.status = 14)
+	group by MONTH(o.order_date)
+go
+
+create proc sp_getSalesRateEveryDayInMonthOfYear (@year int, @month int)
+as
+	select DAY(o.order_date) as 'MONTH', 
+		(( SUM(od.quantity * od.price) / ( select SUM(order_details.quantity * order_details.price) 
+										   from orders join order_details on orders.id = order_details.order_id
+										   where YEAR(order_date) = @year and MONTH(order_date) = @month
+										   group by MONTH(order_date)) ) * 100 ) as 'PERCENT'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where YEAR(o.order_date) = @year and MONTH(o.order_date) = @month and (o.status = 4 or o.status = 14)
+	group by DAY(o.order_date)
+go
+
+create proc sp_getSalesEveryYear
+as
+	select YEAR(o.order_date) as 'YEAR', 
+		   SUM(od.quantity * od.price) as 'TOTAL PRICE', 
+		   SUM(od.quantity) as 'QUANTITY'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where o.status = 4 or o.status = 14
+	group by YEAR(o.order_date)
+go
+
+create proc sp_getSalesEveryMonthByYear (@year int)
+as
+	select MONTH(o.order_date) as 'MONTH', 
+		   SUM(od.quantity * od.price) as 'TOTAL PRICE', 
+		   SUM(od.quantity) as 'QUANTITY'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where YEAR(o.order_date) = @year and (o.status = 4 or o.status = 14)
+	group by MONTH(o.order_date)
+go
+
+create proc sp_getSalesEveryDayByYearAndMonth (@year int, @month int)
+as
+	select DAY(o.order_date) as 'DAY', 
+		   SUM(od.quantity * od.price) as 'TOTAL PRICE', 
+		   SUM(od.quantity) as 'QUANTITY'
+	from orders o join order_details od
+	on o.id = od.order_id
+	where YEAR(o.order_date) = @year and MONTH(o.order_date) = @month and (o.status = 4 or o.status = 14)
+	group by DAY(o.order_date)
 go

@@ -208,7 +208,9 @@
 												<c:if test="${order.status == 2}"> Đang chế biến</c:if>
 												<c:if test="${order.status == 3}">Đang giao hàng</c:if>
 												<c:if test="${order.status == 4}">Giao hàng hoàn thành</c:if>
+												
 												<c:if test="${order.status == -1}">Đã hủy đơn hàng</c:if>
+												
 												<c:if test="${order.status == 10}">Đã đặt hàng/Đã hoàn thành</c:if>
 												<c:if test="${order.status == 11}">Tiếp nhận đơn hàng</c:if>
 												<c:if test="${order.status == 12}">Đang chế biến</c:if>
