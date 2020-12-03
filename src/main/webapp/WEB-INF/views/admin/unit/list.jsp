@@ -105,8 +105,8 @@
         				<div class="col-lg-12">
         					<div class="card-box">
         						<div>
-        							<button id="showForm" class="btn btn-success">Thêm</button>
         							<c:if test="${!isBin}">
+        								<button id="showForm" class="btn btn-success">Thêm</button>
 		        						<a href="<c:url value='/admin/unit/bin/list' />" class="btn btn-warning">Thùng rác</a>
 	        						</c:if>
 	      							<c:if test="${isBin}">
@@ -183,7 +183,7 @@
 	        							<table class="table table-bordered dt-responsive nowrap" 
 	        								   style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 	        								<thead>
-	        									<tr>
+	        									<tr class="thead-dark">
 	        										<th>Tên đơn vị</th>
 	        										<th>#</th>
 	        									</tr>

@@ -8,7 +8,7 @@ public class ProductDTO {
 
 	private String photo;
 
-	private Double price;
+	private Long price;
 
 	private String categoryCode;
 
@@ -38,11 +38,11 @@ public class ProductDTO {
 		this.photo = photo;
 	}
 
-	public Double getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 

@@ -1,7 +1,6 @@
 package com.fpoly.coffeeshop.controller.admin;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.CustomersDTO;
 import com.fpoly.coffeeshop.dto.OrderDTO;
-import com.fpoly.coffeeshop.dto.OrderDetailDTO;
-import com.fpoly.coffeeshop.dto.OrderLogDTO;
 import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
-import com.fpoly.coffeeshop.service.IOrderLogService;
 import com.fpoly.coffeeshop.service.IOrderService;
-import com.fpoly.coffeeshop.service.impl.CouponService;
-import com.fpoly.coffeeshop.util.URLUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/order")
@@ -34,8 +29,6 @@ public class AdminOrderController extends Thread {
 	private IOrderService orderService;
 	
 	@Autowired ICustomersService customersService;
-	
-	@Autowired IOrderLogService orderLogService;
 	
 	@Autowired IOrderDetailService orderDetailService;
 
@@ -131,14 +124,9 @@ public class AdminOrderController extends Thread {
 
 	@RequestMapping(value = "/save")
 	public String save(Model model, @ModelAttribute OrderDTO orderDTO) {
-		
 		String message = "";
 		String alert = "danger";
 
-		Boolean logResult = false;
-		
-		OrderLogDTO orderLogDTO = new OrderLogDTO();
-		
 		String code = RandomStringUtils.randomAlphanumeric(6);
 		Date date =new Date(System.currentTimeMillis());
 		orderDTO.setFlagDelete(false);
@@ -146,15 +134,9 @@ public class AdminOrderController extends Thread {
 		orderDTO.setStatus(1);
 		orderDTO.setOrderDate(date);
 		if (orderDTO.getId() == null) {
+			boolean result = orderService.insert(orderDTO,"");
 			
-			Boolean result = orderService.insert(orderDTO,"");
-			orderLogDTO.setOrderID(orderDTO.getId());
-			orderLogDTO.setCreatedBy("admin");
-			orderLogDTO.setCreatedDate(new Date(System.currentTimeMillis()));
-			
-			logResult = orderLogService.insert(orderLogDTO);
-
-			if (result != null) {
+			if (result) {
 				message = "message_order_insert_success";
 				alert = "success";
 			} else {
@@ -164,6 +146,7 @@ public class AdminOrderController extends Thread {
 		}
 		model.addAttribute("orderCode", code);
 		model.addAttribute("datetime", date);
+		
 		return "redirect:/admin/orderdetail/editDetail?orderCode="+ code;
 	}
 
@@ -172,30 +155,9 @@ public class AdminOrderController extends Thread {
 		String message = "";
 		String alert = "danger";
 		
-		OrderLogDTO log = new OrderLogDTO();
-		
 		OrderDTO order = orderService.findOne(orderCode);		
-		log.setOrderID(order.getId());
-		log.setCreatedBy("admin");
-		log.setCreatedDate(new Date(System.currentTimeMillis()));
-		log.setModifiedBy("admin");
-		log.setModifiedDate(new Date(System.currentTimeMillis()));
-		log.setOldCustomerID(order.getFullname());
-		log.setOldFlagDelete(order.getFlagDelete());		
-		log.setOldOrderCode(order.getOrderCode());
-		log.setOldOrderDate(order.getOrderDate());		
-		log.setOldStatus(order.getStatus());
 		order.setFlagDelete(true);
 		Boolean result = orderService.update(order);
-		List<OrderDetailDTO> orderDTO = orderDetailService.findAllByOrderCode(orderCode);
-		for (OrderDetailDTO orderDetailDTO : orderDTO) {
-			System.out.println(orderDTO);
-			log.setOrderDetailID(orderDetailDTO.getId());
-			log.setOldProductID(orderDetailDTO.getProduct());
-			log.setOldQuantity(orderDetailDTO.getQuantity());					
-			orderLogService.insert(log);
-		}
-			
 		if (result) {
 			message = "message_orderdetail_delete_success";
 			alert = "success";
