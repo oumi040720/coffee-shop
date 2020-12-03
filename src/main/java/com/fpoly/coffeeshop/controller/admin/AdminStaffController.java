@@ -19,6 +19,7 @@ import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.service.IRoleService;
 import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
+import com.fpoly.coffeeshop.util.DecryptionUtil;
 import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
@@ -165,7 +166,7 @@ public class AdminStaffController {
 			if (p.trim().length() > 0) {
 				userDTO.setPassword(p);
 			} else {
-				userDTO.setPassword(userService.getP(staff.getUsername()));
+				userDTO.setPassword(DecryptionUtil.decryption(userService.getP(staff.getUsername())));
 			}
 			
 			StaffDTO tempt = staffService.findOne(staff.getId());

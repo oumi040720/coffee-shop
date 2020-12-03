@@ -34,15 +34,15 @@ public class AuthorizationFilter implements Filter {
 		
 		UserDTO user = (UserDTO) httpSession.getAttribute("USER");
 		
-		if (url.startsWith("/CoffeeShop/admin")) {
+		if (url.startsWith("/admin")) {
 			if (user != null) {
 				if (user.getRoleCode().equals("admin")) {
 					filterChain.doFilter(servletRequest, servletResponse);
 				} else if (user.getRoleCode().equals("cashier")) {
-					if (url.startsWith("/CoffeeShop/admin/role") || url.startsWith("/CoffeeShop/admin/staff") 
-							|| url.startsWith("/CoffeeShop/admin/category") || url.startsWith("/CoffeeShop/admin/dashboard") 
-							|| url.startsWith("/CoffeeShop/admin/product") || url.startsWith("/CoffeeShop/admin/customer")
-							|| url.startsWith("/CoffeeShop/admin/coupon")) {
+					if (url.startsWith("/admin/role") || url.startsWith("/admin/staff") 
+							|| url.startsWith("/admin/category") || url.startsWith("/admin/dashboard") 
+							|| url.startsWith("/admin/product") || url.startsWith("/admin/customer")
+							|| url.startsWith("/admin/coupon")) {
 						response.sendRedirect(request.getContextPath() + "/403");
 					} else {
 						filterChain.doFilter(servletRequest, servletResponse);
@@ -53,7 +53,7 @@ public class AuthorizationFilter implements Filter {
 			} else {
 				response.sendRedirect(request.getContextPath() + "/403");
 			}
-		} else if (url.startsWith("/CoffeeShop/login")) {
+		} else if (url.startsWith("/login")) {
 			if (user != null) {
 				if (user.getRoleCode().equals("admin") || user.getRoleCode().equals("cashier")) {
 					response.sendRedirect(request.getContextPath() + "/admin/dashboard");
@@ -65,9 +65,9 @@ public class AuthorizationFilter implements Filter {
 			} else {
 				filterChain.doFilter(servletRequest, servletResponse);
 			}
-		} else if (url.startsWith("/CoffeeShop/checkout") || url.startsWith("/CoffeeShop/order") 
-						|| url.startsWith("/CoffeeShop/account") || url.startsWith("/CoffeeShop/order_list")
-						|| url.startsWith("/CoffeeShop/order_detail") || url.startsWith("/CoffeeShop/order_result")) {
+		} else if (url.startsWith("/checkout") || url.startsWith("/order") 
+						|| url.startsWith("/account") || url.startsWith("/order_list")
+						|| url.startsWith("/order_detail") || url.startsWith("/order_result")) {
 			if (user != null) {
 				if (user.getRoleCode().equals("user")) {
 					filterChain.doFilter(servletRequest, servletResponse);

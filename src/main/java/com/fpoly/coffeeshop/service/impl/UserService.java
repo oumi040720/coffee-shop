@@ -151,7 +151,9 @@ public class UserService implements IUserService {
 	
 	@Override
 	public String getP(String username) {
-		return userRepository.findOneByUsername(username).getPassword();
+		String p = userRepository.findOneByUsername(username).getPassword();
+		
+		return p;
 	}
 	
 	@Override

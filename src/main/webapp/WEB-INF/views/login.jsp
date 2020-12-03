@@ -53,14 +53,14 @@
 												<small id="warningPassword" class="text-danger"></small>
 											</span>
 										</div>
-										<div class="form-group mb-3">
+										<!-- <div class="form-group mb-3">
 											 <div class="custom-control custom-checkbox">
 											 	 <input type="checkbox" class="custom-control-input" name="isRemember" id="checkbox-signin" >
 											 	 <label class="custom-control-label" for="checkbox-signin">
 											 	 	Ghi nhớ mật khẩu
 											 	 </label>
 											 </div>
-										</div>
+										</div> -->
 										<div class="form-group text-center">
 											<button class="btn btn-success btn-block waves-effect waves-light" type="submit"> Đăng Nhập </button>
 										</div>

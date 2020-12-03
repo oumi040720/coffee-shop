@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Coffee Shop | 403 </title>
+		<title>Coffee Shop | 500 </title>
 		
 		<%@ include file="/WEB-INF/views/admin/common/css.jsp" %>
 	</head>
