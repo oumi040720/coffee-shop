@@ -45,6 +45,7 @@ com\fpoly\coffeeshop\util\EncrpytionUtil.class
 com\fpoly\coffeeshop\api\LoginAPI.class
 com\fpoly\coffeeshop\entity\CouponEntity.class
 com\fpoly\coffeeshop\api\RoleAPI.class
+com\fpoly\coffeeshop\paypal\PaypalConfig.class
 com\fpoly\coffeeshop\service\ICategoryService.class
 com\fpoly\coffeeshop\dto\StaffDTO.class
 com\fpoly\coffeeshop\controller\admin\AdminCouponController.class
@@ -68,7 +69,6 @@ com\fpoly\coffeeshop\service\impl\StaffLogService.class
 com\fpoly\coffeeshop\dto\PriceHistoriesDTO.class
 com\fpoly\coffeeshop\controller\user\UserOrderController$1.class
 com\fpoly\coffeeshop\entity\UserEntity.class
-com\fpoly\coffeeshop\util\DomainURLUntil.class
 com\fpoly\coffeeshop\controller\admin\AdminProductController.class
 com\fpoly\coffeeshop\dto\InputDetailDTO.class
 com\fpoly\coffeeshop\entity\InputEntity.class
@@ -84,11 +84,13 @@ com\fpoly\coffeeshop\converter\CustomersConveter.class
 com\fpoly\coffeeshop\service\impl\StaffService.class
 com\fpoly\coffeeshop\api\UnitsAPI.class
 com\fpoly\coffeeshop\service\IUserService.class
+com\fpoly\coffeeshop\util\URLUtil.class
 com\fpoly\coffeeshop\repository\IInputDetailRepository.class
 com\fpoly\coffeeshop\service\impl\ProductService.class
 com\fpoly\coffeeshop\api\OrderLogAPI.class
 com\fpoly\coffeeshop\controller\admin\AdminOrderController.class
 com\fpoly\coffeeshop\repository\ICouponRepository.class
+com\fpoly\coffeeshop\util\EmailUtil.class
 com\fpoly\coffeeshop\repository\IOrderDetailRepository.class
 com\fpoly\coffeeshop\service\IStaffLogService.class
 com\fpoly\coffeeshop\service\IPriceHistoriesService.class
@@ -113,6 +115,7 @@ com\fpoly\coffeeshop\dto\ItemDTO.class
 com\fpoly\coffeeshop\repository\ICustomersRepository.class
 com\fpoly\coffeeshop\controller\admin\AdminInputController.class
 com\fpoly\coffeeshop\controller\LoginController.class
+com\fpoly\coffeeshop\paypal\PaypalService.class
 com\fpoly\coffeeshop\repository\IRoleRepository.class
 com\fpoly\coffeeshop\entity\UnitEntity.class
 com\fpoly\coffeeshop\api\UserAPI.class

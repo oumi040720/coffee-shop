@@ -33,6 +33,7 @@ D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\i
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\api\OrderDetailAPI.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\entity\UnitEntity.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\entity\OrderLogEntity.java
+D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\paypal\PaypalConfig.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\controller\admin\AdminUserController.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\impl\StaffService.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\controller\admin\AdminRoleController.java
@@ -62,7 +63,6 @@ D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\I
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\converter\CategoryConveter.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\impl\CustomersService.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\IStaffLogService.java
-D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\util\DomainURLUntil.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\controller\admin\AdminOrderController.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\dto\CouponDTO.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\util\DomainUtil.java
@@ -76,6 +76,7 @@ D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\I
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\api\LoginAPI.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\dto\InputDTO.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\impl\OrderDetailService.java
+D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\paypal\PaypalService.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\impl\OrderLogService.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\controller\admin\AdminCustomersController.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\IRoleService.java
@@ -141,7 +142,9 @@ D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\controlle
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\repository\ICategoryRepository.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\converter\CustomersConveter.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\IInputService.java
+D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\util\EmailUtil.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\entity\UserEntity.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\service\impl\StaffLogService.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\entity\ProductEntity.java
 D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\repository\IOrderDetailRepository.java
+D:\Foder\SpringBoot JPA\coffee-shop\src\main\java\com\fpoly\coffeeshop\util\URLUtil.java
