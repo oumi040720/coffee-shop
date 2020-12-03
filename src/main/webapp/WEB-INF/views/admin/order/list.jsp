@@ -156,7 +156,7 @@
 												<a href="#myModal-${order.id}" class="btn btn-outline-danger" data-toggle="modal">
 	        													<i class=" mdi mdi-window-close"></i>
 	        												</a>
-												<c:if test="${order.status != -1 && order.status != 4}">
+												<c:if test="${order.status != -1 && order.status != 4 && order.status != 14}">
         										<a href="#" class="btn btn-outline-info" data-id="${order.id}">
         													<i class="fas fa-truck"></i>
         												</a>
