@@ -67,10 +67,16 @@
         										Mã thể loại <span class="text-danger"> (*) </span>
         									</label>
         									<div class="col-lg-10">
-        										<form:input path="categoryCode" cssClass="form-control" />
-        										<ul class="parsley-errors-list filled">
-        											<li id="warningCategoryCode" class="parsley-required"></li>
-        										</ul>
+        										<c:if test="${check}">
+        											<span class="form-control">${category.categoryCode}</span>
+        											<form:hidden path="categoryCode" />
+        										</c:if>
+        										<c:if test="${!check}">
+        											<form:input path="categoryCode" cssClass="form-control" onfocusout="getCategory()" />
+        											<ul class="parsley-errors-list filled">
+	        											<li id="warningCategoryCode" class="parsley-required"></li>
+	        										</ul>
+        										</c:if>
         									</div>
         								</div>
         								<div class="form-group row">
@@ -100,13 +106,45 @@
         	<input id='flag' type="hidden" value='' >
         
         	<%@ include file="/WEB-INF/views/admin/common/js.jsp" %>
+        	
+        	<c:if test="${check}">
+        		<script type="text/javascript">
+	        		$(document).ready(function() {
+	        			$('#flag').val('true');
+	        		})
+        		</script>
+        	</c:if>
+        	
+        	<c:if test="${!check}">
+        		<script type="text/javascript">
+	        		var getCategory =  function() {
+		        		var url = '${domain}' + '/category/category_code/' + $('#categoryCode').val();
+		
+		        		$.ajax({
+							 url: url,
+							 type : "get",
+							 success: function(result) {
+								 if (!result) {
+									 $('#flag').val('true');
+									 $('#warningCategoryCode').text('');
+									 $('#categoryCode').removeClass('parsley-error');
+								 } else {
+									 $('#flag').val('false');
+									 $('#categoryCode').addClass('parsley-error');
+									 $('#warningCategoryCode').text('MÃ DANH MỤC đã tồn tại!');
+								 }
+							 }
+						});
+		        	}
+        		</script>
+        	</c:if>
+        	
         	<script type="text/javascript">
-	        	
-					
-				
         		var checkValidated = function() {
         			var categoryName = $('#categoryName').val();
         			var categoryCode = $('#categoryCode').val();
+        			
+        			var flag = $('#flag').val();
         			
         			var checkcategoryName = false;
         			var checkcategoryCode = false;
@@ -114,10 +152,11 @@
 					if (categoryName.trim().length > 0) {
 						$('#warningCategoryName').text('');
 						$('#categoryName').removeClass('parsley-error');
-						checkCategoryName = true;
+						checkcategoryName = true;
 					} else {
 						$('#categoryName').addClass('parsley-error');
 						$('#warningCategoryName').text('Không được bỏ trống TÊN THỂ LOẠI!');
+						checkcategoryName = false;
 					}
 					
 					if (categoryCode.trim().length > 0) {
@@ -127,8 +166,21 @@
 					} else {
 						$('#categoryCode').addClass('parsley-error');
 						$('#warningCategoryCode').text('Không được bỏ trống MÃ THỂ LOẠI!');
+						checkcategoryCode = false;
 					}
 
+					if (checkcategoryCode) {
+						if (flag === 'true') {
+							$('#warningCategoryCode').text('');
+							$('#categoryCode').removeClass('parsley-error');
+							checkcategoryCode = true;
+						} else {
+							$('#warningCategoryCode').text('MÃ DANH MỤC đã tồn tại!');
+							$('#categoryCode').removeClass('parsley-error');
+							checkcategoryCode = false;
+						}
+					}
+					
 					if (checkcategoryName && checkcategoryCode) {
 						return true;
 					} else {

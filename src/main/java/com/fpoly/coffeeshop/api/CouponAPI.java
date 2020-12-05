@@ -88,7 +88,6 @@ public class CouponAPI {
 		return couponService.delete(id);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@GetMapping(value = "/api/coupon/{datenow}/{flagDelete}")
 	public List<CouponDTO> findAllDate(@PathVariable("datenow") String datenow, @PathVariable("flagDelete") Boolean flagDelete) {
 		return couponService.findAllDate(new Date(System.currentTimeMillis()), flagDelete);

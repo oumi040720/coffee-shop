@@ -284,7 +284,6 @@
         		<script type="text/javascript">
 	        		var getUser =  function() {
 	            		var url = '${domain}' + '/user/username/' + $('#username').val();
-						console.log(url);
 						
 	            		$.ajax({
 	    					 url: url,

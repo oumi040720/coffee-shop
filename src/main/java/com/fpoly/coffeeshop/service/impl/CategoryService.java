@@ -46,14 +46,20 @@ public class CategoryService implements ICategoryService {
 
 	@Override
 	public CategoryDTO findOne(Integer id) {
-
-		return categoryConveter.convertToDTO(categoryRepository.getOne(id));
+		try {
+			return categoryConveter.convertToDTO(categoryRepository.getOne(id));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
 	public CategoryDTO findOne(String categoryCode) {
-
-		return categoryConveter.convertToDTO(categoryRepository.findOneByCategoryCode(categoryCode));
+		try {
+			return categoryConveter.convertToDTO(categoryRepository.findOneByCategoryCode(categoryCode));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override

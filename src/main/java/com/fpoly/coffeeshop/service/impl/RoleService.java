@@ -47,12 +47,20 @@ public class RoleService implements IRoleService {
 	
 	@Override
 	public RoleDTO findOne(Integer id) {
-		return roleConveter.convertToDTO(roleRepository.getOne(id));
+		try {
+			return roleConveter.convertToDTO(roleRepository.getOne(id));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
 	public RoleDTO findOne(String roleCode) {
-		return roleConveter.convertToDTO(roleRepository.findOneByRoleCode(roleCode));
+		try {
+			return roleConveter.convertToDTO(roleRepository.findOneByRoleCode(roleCode));
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
