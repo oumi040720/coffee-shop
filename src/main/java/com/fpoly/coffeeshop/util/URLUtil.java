@@ -1,18 +1,16 @@
 package com.fpoly.coffeeshop.util;
 
-import java.util.ResourceBundle;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class URLUtil {
 
-	public static String getDomainURLUntil() {
-		ResourceBundle resourceBundle = ResourceBundle.getBundle("url");
-		
-		String result = resourceBundle.getString("domain.url");
-		
-		return result;
-	}
+//	public static String getDomainURLUntil() {
+//		ResourceBundle resourceBundle = ResourceBundle.getBundle("url");
+//		
+//		String result = resourceBundle.getString("domain.url");
+//		
+//		return result;
+//	}
 
 	public static String getBaseURL(HttpServletRequest request) {
 	    String scheme = request.getScheme();

@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpoly.coffeeshop.dto.CustomersDTO;
 import com.fpoly.coffeeshop.dto.OrderDTO;
 import com.fpoly.coffeeshop.service.ICustomersService;
-import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderService;
-import com.fpoly.coffeeshop.util.DomainUtil;
 import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
@@ -28,23 +26,17 @@ public class AdminOrderController extends Thread {
 	@Autowired
 	private IOrderService orderService;
 	
-	@Autowired ICustomersService customersService;
-	
-	@Autowired IOrderDetailService orderDetailService;
-
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
-	
-	private String getDomainURLUntil() {
-		return URLUtil.getDomainURLUntil();
-	}
+	@Autowired 
+	private ICustomersService customersService;
 	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 
+		String domainURL = URLUtil.getBaseURL(request) + "/admin";
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		int page = Integer.parseInt(request.getParameter("page"));
 		int limit = 10;
 		boolean flagDelete = false;
@@ -60,8 +52,8 @@ public class AdminOrderController extends Thread {
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages", orderService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("orders", orderService.findAllByFlagDelete(flagDelete, page-1, limit));
-		request.setAttribute("domain", getDomain());
-		request.setAttribute("domainURL", getDomainURLUntil());
+		request.setAttribute("domain", domain);
+		request.setAttribute("domainURL", domainURL);
 		return "admin/order/list";
 	}
 	
@@ -124,8 +116,8 @@ public class AdminOrderController extends Thread {
 
 	@RequestMapping(value = "/save")
 	public String save(Model model, @ModelAttribute OrderDTO orderDTO) {
-		String message = "";
-		String alert = "danger";
+//		String message = "";
+//		String alert = "danger";
 
 		String code = RandomStringUtils.randomAlphanumeric(6);
 		Date date =new Date(System.currentTimeMillis());
@@ -134,15 +126,7 @@ public class AdminOrderController extends Thread {
 		orderDTO.setStatus(1);
 		orderDTO.setOrderDate(date);
 		if (orderDTO.getId() == null) {
-			boolean result = orderService.insert(orderDTO,"");
-			
-			if (result) {
-				message = "message_order_insert_success";
-				alert = "success";
-			} else {
-				message = "message_order_insert_fail";
-				alert = "danger";
-			}
+			orderService.insert(orderDTO,"");
 		}
 		model.addAttribute("orderCode", code);
 		model.addAttribute("datetime", date);

@@ -4,30 +4,23 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.UserDTO;
-import com.fpoly.coffeeshop.service.IRoleService;
 import com.fpoly.coffeeshop.service.IUserService;
-import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/user")
 public class AdminUserController {
 
-	@Autowired
-	private IRoleService roleService;
+//	@Autowired
+//	private IRoleService roleService;
 	
 	@Autowired
 	private IUserService userService;
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
@@ -51,25 +44,25 @@ public class AdminUserController {
 		return "admin/user/list";
 	}
 	
-	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
-		model.addAttribute("roles", roleService.findAll());
-		model.addAttribute("check", false);
-		model.addAttribute("domain", getDomain());
-		model.addAttribute("user", new UserDTO());
-		
-		return "admin/user/edit";
-	}
-	
-	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("username") String username) {
-		model.addAttribute("roles", roleService.findAll());
-		model.addAttribute("check", true);
-		model.addAttribute("domain", getDomain());
-		model.addAttribute("user", userService.findOne(username));
-		
-		return "admin/user/edit";
-	}
+//	@RequestMapping(value = "/add")
+//	public String showAddPage(Model model) {
+//		model.addAttribute("roles", roleService.findAll());
+//		model.addAttribute("check", false);
+//		model.addAttribute("domain", getDomain());
+//		model.addAttribute("user", new UserDTO());
+//		
+//		return "admin/user/edit";
+//	}
+//	
+//	@RequestMapping(value = "/edit")
+//	public String showUpdatePage(Model model, @RequestParam("username") String username) {
+//		model.addAttribute("roles", roleService.findAll());
+//		model.addAttribute("check", true);
+//		model.addAttribute("domain", getDomain());
+//		model.addAttribute("user", userService.findOne(username));
+//		
+//		return "admin/user/edit";
+//	}
 	
 	@RequestMapping(value = "/save")
 	public String save(@ModelAttribute UserDTO userDTO) {

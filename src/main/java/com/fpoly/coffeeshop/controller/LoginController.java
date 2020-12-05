@@ -17,8 +17,8 @@ import com.fpoly.coffeeshop.dto.UserDTO;
 import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
-import com.fpoly.coffeeshop.util.DomainUtil;
 import com.fpoly.coffeeshop.util.EmailUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 public class LoginController {
@@ -34,10 +34,6 @@ public class LoginController {
 
 	@Autowired
 	private JavaMailSender mailSender;
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	@RequestMapping(value = "/login")
 	public String showLoginPage(HttpServletRequest request) {
@@ -85,7 +81,9 @@ public class LoginController {
 	
 	@RequestMapping(value = "/registration")
 	public String showSignUpPage(HttpServletRequest request) {
-		request.setAttribute("domain", getDomain());
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
+		request.setAttribute("domain", domain);
 		return "register";
 	}
 	

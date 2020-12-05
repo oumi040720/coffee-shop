@@ -26,7 +26,6 @@ import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IOrderDetailService;
 import com.fpoly.coffeeshop.service.IOrderService;
 import com.fpoly.coffeeshop.util.CategoryUtil;
-import com.fpoly.coffeeshop.util.DomainUtil;
 import com.fpoly.coffeeshop.util.URLUtil;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -36,7 +35,6 @@ import com.paypal.base.rest.PayPalRESTException;
 public class UserOrderController {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
-	
 	
 	@Autowired
 	private IOrderService orderService;
@@ -49,10 +47,6 @@ public class UserOrderController {
 	
 	@Autowired
 	private PaypalService paypalService;
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	 private boolean order(String username, OrderDTO orderDTO, String orderCode, Long totalPrice, String couponCode, List<ItemDTO> itemDTOs) {
 		 boolean isCreatedOrder = orderService.insert(orderDTO, username);
@@ -102,7 +96,9 @@ public class UserOrderController {
 	public String showCartPage(HttpServletRequest request) {
 		CategoryUtil.setCategory(request, categoryService);
 		
-		request.setAttribute("domain", getDomain());
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
+		request.setAttribute("domain", domain);
 		
 		return "user/cart";
 	}
@@ -215,7 +211,9 @@ public class UserOrderController {
 	public String showCheckoutPage(HttpServletRequest request) {
 		CategoryUtil.setCategory(request, categoryService);
 		
-		request.setAttribute("domain", getDomain());
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
+		request.setAttribute("domain", domain);
 		
 		return "user/checkout";
 	}

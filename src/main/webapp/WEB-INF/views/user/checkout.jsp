@@ -248,6 +248,8 @@
 				}
        			
        			if (checkFullname && checkAddress && checkPhone && checkEmail) {
+       				localStorage.removeItem("items");
+       				
        				return true;
        			} else {
 	       			return false;

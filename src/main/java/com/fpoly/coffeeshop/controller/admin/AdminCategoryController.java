@@ -11,15 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.CategoryDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/category")
 public class AdminCategoryController {
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
-
+	
 	@Autowired
 	private ICategoryService categoryService;
 
@@ -56,18 +53,23 @@ public class AdminCategoryController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
+	public String showAddPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", false);
 		model.addAttribute("category", new CategoryDTO());
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
+		
 		return "admin/category/edit";
 	}
 
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("category_code") String categoryCode) {
+	public String showUpdatePage(Model model, @RequestParam("category_code") String categoryCode, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", true);
 		model.addAttribute("category", categoryService.findOne(categoryCode));
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 
 		return "admin/category/edit";
 	}

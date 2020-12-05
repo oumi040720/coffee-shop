@@ -147,7 +147,7 @@
 	        $(document).ready(function() {
 	        	var message = '${message}';
 	        	
-	        	if (message.trim().length != 0) {
+	        	if (message.trim().length > 0) {
 		        	localStorage.removeItem("items");
 	        	}
 	        	

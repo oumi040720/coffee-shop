@@ -20,7 +20,7 @@ import com.fpoly.coffeeshop.service.IRoleService;
 import com.fpoly.coffeeshop.service.IStaffService;
 import com.fpoly.coffeeshop.service.IUserService;
 import com.fpoly.coffeeshop.util.DecryptionUtil;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/staff")
@@ -35,10 +35,6 @@ public class AdminStaffController {
 	@Autowired
 	private IStaffService staffService;
 
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
-	
 	private List<RoleDTO> getRoles() {
 		RoleDTO role = new RoleDTO();
 		
@@ -107,9 +103,10 @@ public class AdminStaffController {
 	}
 	
 	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
+	public String showAddPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
 		
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		model.addAttribute("roles", getRoles());
 		model.addAttribute("check", false);
 		model.addAttribute("staff", new StaffDTO());

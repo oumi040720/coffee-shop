@@ -8,17 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.fpoly.coffeeshop.dto.UnitDTO;
 import com.fpoly.coffeeshop.service.IUnitService;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/unit")
 public class AdminUnitsController {
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	@Autowired
 	private IUnitService unitService;
@@ -29,6 +26,8 @@ public class AdminUnitsController {
 		String alert = request.getParameter("alert");
 		
 		String id = request.getParameter("unit_id");
+		
+		String domain = URLUtil.getBaseURL(request) + "/api";
 		
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
@@ -43,7 +42,7 @@ public class AdminUnitsController {
 			request.setAttribute("unit", new UnitDTO());
 		}
 		
-		request.setAttribute("domain", getDomain());
+		request.setAttribute("domain", domain);
 		
 		request.setAttribute("isBin", false);
 		request.setAttribute("units", unitService.findAllbyFlagDelete(false));
@@ -56,12 +55,14 @@ public class AdminUnitsController {
 		String message = request.getParameter("message");
 		String alert = request.getParameter("alert");
 		
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		if (message != null && alert != null) {
 			request.setAttribute("message", message.replaceAll("_", "."));
 			request.setAttribute("alert", alert);
 		}
 		
-		request.setAttribute("domain", getDomain());
+		request.setAttribute("domain", domain);
 		
 		request.setAttribute("isBin", true);
 		request.setAttribute("units", unitService.findAllbyFlagDelete(true));
@@ -70,19 +71,23 @@ public class AdminUnitsController {
 	}
 	
 	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
+	public String showAddPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", false);
 		model.addAttribute("unit", new UnitDTO());
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		
 		return "admin/unit/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("unit_id") Long id) {
+	public String showUpdatePage(Model model, @RequestParam("unit_id") Long id, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", true);
 		model.addAttribute("unit", unitService.findOne(id));
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		
 		return "admin/unit/edit";
 	}

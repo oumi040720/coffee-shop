@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpoly.coffeeshop.dto.IngredientsDTO;
 import com.fpoly.coffeeshop.service.IIngredientService;
 import com.fpoly.coffeeshop.service.IUnitService;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/ingredient")
 public class AdminIngredientController {
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
+	
 	@Autowired
 	private IIngredientService ingredientService;
 	
@@ -75,21 +73,25 @@ public class AdminIngredientController {
 	}
 	
 	@RequestMapping(value = "/add")
-	public String showPage(Model model) {
+	public String showPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", false);
 		model.addAttribute("ingredient", new IngredientsDTO());
 		model.addAttribute("units", unitService.findAll());
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		
 		return "admin/ingredient/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("id") Integer id) {
+	public String showUpdatePage(Model model, @RequestParam("id") Integer id, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", true);
 		model.addAttribute("ingredient", ingredientService.findOne(id));
 		model.addAttribute("units", unitService.findAll());
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		
 		return "admin/ingredient/edit";
 	}

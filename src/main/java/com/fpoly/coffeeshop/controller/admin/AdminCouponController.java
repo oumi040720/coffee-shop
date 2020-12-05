@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.CouponDTO;
 import com.fpoly.coffeeshop.service.ICouponService;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/coupon")
@@ -20,10 +20,6 @@ public class AdminCouponController {
 
 	@Autowired
 	private ICouponService couponService;
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request) {
@@ -74,18 +70,22 @@ public class AdminCouponController {
 	}
 
 	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
+	public String showAddPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", false);
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		model.addAttribute("coupon", new CouponDTO());
 		
 		return "admin/coupon/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("id") Long id) {
+	public String showUpdatePage(Model model, @RequestParam("id") Long id, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", true);
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		model.addAttribute("coupon", couponService.findOne(id));
 		
 		return "admin/coupon/edit";

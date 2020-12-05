@@ -10,17 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fpoly.coffeeshop.service.IOrderService;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 public class AdminDashBoardController {
 
 	@Autowired
 	private IOrderService orderService;
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	private Long checkNumberIsNull(Long number) {
 		if (number == null) {
@@ -43,6 +39,8 @@ public class AdminDashBoardController {
 		int currentMonth = currentdate.getMonthValue();
 		int lastMonth = currentMonth - 1;
 		int lastYear = currentYear;
+		
+		String domain = URLUtil.getBaseURL(request) + "/api";
 		
 		if (currentMonth == 1) {
 			lastMonth = 12;
@@ -77,7 +75,7 @@ public class AdminDashBoardController {
 		request.setAttribute("grownRateAveragePrice", grownRateAveragePrice);
 		request.setAttribute("grownRateQuantity", grownRateQuantity);
 		
-		request.setAttribute("domain", getDomain());
+		request.setAttribute("domain", domain);
 		
 		return "admin/dashboard";
 	}

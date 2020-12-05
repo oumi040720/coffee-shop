@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.CustomersDTO;
-import com.fpoly.coffeeshop.dto.StaffDTO;
 import com.fpoly.coffeeshop.service.ICustomersService;
 import com.fpoly.coffeeshop.service.IUserService;
 

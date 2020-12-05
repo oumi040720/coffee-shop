@@ -11,15 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.coffeeshop.dto.RoleDTO;
 import com.fpoly.coffeeshop.service.IRoleService;
-import com.fpoly.coffeeshop.util.DomainUtil;
+import com.fpoly.coffeeshop.util.URLUtil;
 
 @Controller
 @RequestMapping(value = "/admin/role")
 public class AdminRoleController {
-	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
 	
 	@Autowired
 	private IRoleService roleService;
@@ -57,19 +53,23 @@ public class AdminRoleController {
 	}
 	
 	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
+	public String showAddPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", false);
 		model.addAttribute("role", new RoleDTO());
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		
 		return "admin/role/edit";
 	}
 	
 	@RequestMapping(value = "/edit")
-	public String showUpdatePage(Model model, @RequestParam("role_code") String roleCode) {
+	public String showUpdatePage(Model model, @RequestParam("role_code") String roleCode, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		model.addAttribute("check", true);
 		model.addAttribute("role", roleService.findOne(roleCode));
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		
 		return "admin/role/edit";
 	}

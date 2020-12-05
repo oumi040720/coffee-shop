@@ -17,7 +17,6 @@ import com.fpoly.coffeeshop.dto.ProductDTO;
 import com.fpoly.coffeeshop.service.ICategoryService;
 import com.fpoly.coffeeshop.service.IProductService;
 import com.fpoly.coffeeshop.util.URLUtil;
-import com.fpoly.coffeeshop.util.DomainUtil;
 
 @Controller
 @RequestMapping(value = "/admin/product")
@@ -29,14 +28,6 @@ public class AdminProductController {
 	@Autowired
 	private ICategoryService categoryService;
 	
-	private String getDomain() {
-		return DomainUtil.getDoamin();
-	}
-	
-	private String getDomainURLUntil() {
-		return URLUtil.getDomainURLUntil();
-	}
-
 	@RequestMapping(value = "/list")
 	public String showListPage(HttpServletRequest request, Model model) {
 		String message = request.getParameter("message");
@@ -57,7 +48,6 @@ public class AdminProductController {
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
-		request.setAttribute("domainURL", getDomainURLUntil());
 		
 		return "admin/product/list";
 	}
@@ -83,13 +73,14 @@ public class AdminProductController {
 		request.setAttribute("limit", limit);
 		request.setAttribute("totalPages",productService.getTotalPages(flagDelete, page, limit));
 		request.setAttribute("product", productService.findAllByFlagDeleteIs(flagDelete, page - 1, limit));
-		request.setAttribute("domainURL", getDomainURLUntil());
 		
 		return "admin/product/list";
 	}
 	
 	@RequestMapping(value = "/add")
-	public String showAddPage(Model model) {
+	public String showAddPage(Model model, HttpServletRequest request) {
+		String domain = URLUtil.getBaseURL(request) + "/api";
+		
 		List<CategoryDTO> category = categoryService.findAll();
 		for (int i = 0; i < category.size(); i++) {
 			if (category.get(i).getCategoryCode().equals("product")) {
@@ -97,7 +88,7 @@ public class AdminProductController {
 			}
 		}
 		
-		model.addAttribute("domain", getDomain());
+		model.addAttribute("domain", domain);
 		model.addAttribute("category", category);
 		model.addAttribute("check", false);
 		model.addAttribute("product", new ProductDTO());
