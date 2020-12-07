@@ -1,4 +1,4 @@
-package com.fpoly.coffeeshop.paypal;
+package com.fpoly.coffeeshop;
 
 import java.util.HashMap;
 import java.util.Map;
